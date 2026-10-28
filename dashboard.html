@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ESPOL Materiales - Dashboard</title>
+  <title>ESPOL Materiales - Plataforma</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -56,10 +56,40 @@
       font-weight: 500;
     }
 
+    /* SELECTOR COMPRAR / VENDER */
+    .mode-switch {
+      display: flex;
+      background: #f1f5f9;
+      padding: 4px;
+      border-radius: 12px;
+      gap: 4px;
+    }
+
+    .mode-btn {
+      border: none;
+      background: none;
+      padding: 8px 16px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .mode-btn.active {
+      background: #ffffff;
+      color: #002855;
+      box-shadow: 0 2px 6px rgba(0, 40, 85, 0.08);
+    }
+
     .search-box {
       flex: 1;
-      max-width: 520px;
-      margin: 0 40px;
+      max-width: 440px;
+      margin: 0 24px;
       position: relative;
       display: flex;
       align-items: center;
@@ -109,11 +139,6 @@
       height: 36px;
       border-radius: 50%;
       position: relative;
-      transition: background-color 0.2s;
-    }
-
-    .icon-btn:hover {
-      background-color: #f1f5f9;
     }
 
     .notification-dot {
@@ -213,10 +238,6 @@
       color: #cbd5e1;
     }
 
-    .menu-item.active svg {
-      color: #ffffff;
-    }
-
     .menu-item-left {
       display: flex;
       align-items: center;
@@ -240,7 +261,7 @@
       line-height: 1.2;
     }
 
-    /* CONTENIDO PRINCIPAL */
+    /* CONTENIDO */
     .main-content {
       flex: 1;
       padding: 30px 42px;
@@ -411,7 +432,7 @@
       color: #94a3b8;
     }
 
-    /* GRID DE PRODUCTOS */
+    /* GRID PRODUCTOS */
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -436,8 +457,8 @@
     .product-img-wrapper {
       position: relative;
       width: 100%;
-      height: 165px;
-      background-color: #f1f5f9;
+      height: 175px;
+      background-color: #e2e8f0;
     }
 
     .product-img-wrapper img {
@@ -514,6 +535,11 @@
       color: #b45309;
     }
 
+    .badge-status.sold {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
     .product-faculty {
       font-size: 11.5px;
       color: #64748b;
@@ -572,12 +598,40 @@
     }
 
     .btn-contact:hover {
-      background-color: #002855;
+      background-color: #10b981;
       color: #ffffff;
-      border-color: #002855;
+      border-color: #10b981;
     }
 
-    /* MODAL DE PUBLICAR MATERIAL */
+    /* VISTA DE VENDEDOR (MIS PUBLICACIONES) */
+    .seller-dashboard-header {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      padding: 16px 20px;
+      border-radius: 12px;
+    }
+
+    .stat-card span {
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .stat-card h3 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #002855;
+      margin-top: 4px;
+    }
+
+    /* MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -670,25 +724,34 @@
       <span class="brand-sub">Materiales</span>
     </a>
 
+    <!-- SWITCH COMPRADOR / VENDEDOR -->
+    <div class="mode-switch">
+      <button class="mode-btn active" id="modeBuyBtn" onclick="setAppMode('buyer')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        Comprar
+      </button>
+      <button class="mode-btn" id="modeSellBtn" onclick="setAppMode('seller')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+          <line x1="7" y1="7" x2="7.01" y2="7"></line>
+        </svg>
+        Vender (Mis Artículos)
+      </button>
+    </div>
+
     <div class="search-box">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-      <input type="text" id="searchInput" placeholder="¿Qué material necesitas?">
+      <input type="text" id="searchInput" placeholder="¿Qué material buscas para tu materia?">
     </div>
 
     <div class="nav-right">
-      <button class="icon-btn" title="Mensajes" onclick="alert('Bandeja de mensajes entre politécnicos.')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-        </svg>
-      </button>
-      <button class="icon-btn" title="Favoritos">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-        </svg>
-      </button>
       <button class="icon-btn" title="Notificaciones">
         <span class="notification-dot"></span>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -696,7 +759,7 @@
           <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
         </svg>
       </button>
-      <div class="user-profile" onclick="window.location.href='index.html'">
+      <div class="user-profile" onclick="window.location.href='index.html'" title="Cerrar sesión">
         <div class="user-avatar">D</div>
         <div class="user-name">
           Diego
@@ -714,7 +777,7 @@
     <!-- SIDEBAR -->
     <aside class="sidebar">
       <div>
-        <div class="sidebar-section-title">Explorar</div>
+        <div class="sidebar-section-title">Navegación</div>
         <div class="menu-item active" onclick="filterByFaculty('Todas', this)">
           <div class="menu-item-left">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -732,160 +795,45 @@
       <div>
         <div class="sidebar-section-title">Facultades</div>
         <nav style="display:flex; flex-direction:column; gap:4px;">
-          <!-- FIEC (Microchip) -->
           <div class="menu-item" onclick="filterByFaculty('FIEC', this)">
             <div class="menu-item-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
-                <line x1="9" y1="9" x2="15" y2="9"></line>
-                <line x1="9" y1="15" x2="15" y2="15"></line>
-                <line x1="9" y1="1" x2="9" y2="4"></line>
-                <line x1="15" y1="1" x2="15" y2="4"></line>
-                <line x1="9" y1="20" x2="9" y2="23"></line>
-                <line x1="15" y1="20" x2="15" y2="23"></line>
-                <line x1="20" y1="9" x2="23" y2="9"></line>
-                <line x1="20" y1="15" x2="23" y2="15"></line>
-                <line x1="1" y1="9" x2="4" y2="9"></line>
-                <line x1="1" y1="15" x2="4" y2="15"></line>
-              </svg>
-              <div class="faculty-info">
-                <span class="faculty-abbr">FIEC</span>
-                <span class="faculty-full">Electricidad y Computación</span>
-              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+              <div class="faculty-info"><span class="faculty-abbr">FIEC</span><span class="faculty-full">Electricidad y Computación</span></div>
             </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
-
-          <!-- FIMCP (Engranaje) -->
           <div class="menu-item" onclick="filterByFaculty('FIMCP', this)">
             <div class="menu-item-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-              </svg>
-              <div class="faculty-info">
-                <span class="faculty-abbr">FIMCP</span>
-                <span class="faculty-full">Mecánica y Producción</span>
-              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle></svg>
+              <div class="faculty-info"><span class="faculty-abbr">FIMCP</span><span class="faculty-full">Mecánica y Producción</span></div>
             </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
-
-          <!-- FADCOM (Pincel) -->
           <div class="menu-item" onclick="filterByFaculty('FADCOM', this)">
             <div class="menu-item-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="m14 12-8.5 8.5a2.12 2.12 0 1 1-3-3L11 9"></path>
-                <path d="M18 10l-4-4"></path>
-                <path d="m15 4 2-2a2.82 2.82 0 0 1 4 4l-2 2"></path>
-              </svg>
-              <div class="faculty-info">
-                <span class="faculty-abbr">FADCOM</span>
-                <span class="faculty-full">Arte, Diseño y Comunicación</span>
-              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m14 12-8.5 8.5a2.12 2.12 0 1 1-3-3L11 9"></path></svg>
+              <div class="faculty-info"><span class="faculty-abbr">FADCOM</span><span class="faculty-full">Arte y Diseño</span></div>
             </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
-
-          <!-- FICT (Montaña / Tierra) -->
-          <div class="menu-item" onclick="filterByFaculty('FICT', this)">
-            <div class="menu-item-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
-              </svg>
-              <div class="faculty-info">
-                <span class="faculty-abbr">FICT</span>
-                <span class="faculty-full">Ciencias de la Tierra</span>
-              </div>
-            </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
-
-          <!-- FIMCM (Olas de Mar) -->
-          <div class="menu-item" onclick="filterByFaculty('FIMCM', this)">
-            <div class="menu-item-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path>
-                <path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path>
-                <path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path>
-              </svg>
-              <div class="faculty-info">
-                <span class="faculty-abbr">FIMCM</span>
-                <span class="faculty-full">Marítima y Ciencias del Mar</span>
-              </div>
-            </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
-
-          <!-- FCNM (Átomo) -->
           <div class="menu-item" onclick="filterByFaculty('FCNM', this)">
             <div class="menu-item-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="1"></circle>
-                <path d="M20.2 20.2c2.4-2.4 2.4-6.3 0-8.7L12 3.3 3.8 11.5c-2.4 2.4-2.4 6.3 0 8.7s6.3 2.4 8.7 0l7.7-7.7"></path>
-              </svg>
-              <div class="faculty-info">
-                <span class="faculty-abbr">FCNM</span>
-                <span class="faculty-full">Ciencias Naturales y Matemáticas</span>
-              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"></circle></svg>
+              <div class="faculty-info"><span class="faculty-abbr">FCNM</span><span class="faculty-full">Ciencias Naturales y Matemáticas</span></div>
             </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
-
-          <!-- FCSH (Personas) -->
-          <div class="menu-item" onclick="filterByFaculty('FCSH', this)">
+          <div class="menu-item" onclick="filterByFaculty('FICT', this)">
             <div class="menu-item-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-              </svg>
-              <div class="faculty-info">
-                <span class="faculty-abbr">FCSH</span>
-                <span class="faculty-full">Ciencias Sociales y Humanísticas</span>
-              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg>
+              <div class="faculty-info"><span class="faculty-abbr">FICT</span><span class="faculty-full">Ciencias de la Tierra</span></div>
             </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
-
-          <!-- FCV (Hoja) -->
-          <div class="menu-item" onclick="filterByFaculty('FCV', this)">
-            <div class="menu-item-left">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
-                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
-              </svg>
-              <div class="faculty-info">
-                <span class="faculty-abbr">FCV</span>
-                <span class="faculty-full">Ciencias de la Vida</span>
-              </div>
-            </div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
         </nav>
       </div>
 
       <div style="margin-top:auto; padding-top:16px; border-top:1px solid #f1f5f9;">
-        <div class="menu-item" onclick="alert('Aquí verás tus artículos publicados.')">
+        <div class="menu-item" onclick="setAppMode('seller')">
           <div class="menu-item-left">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-              <line x1="7" y1="8" x2="17" y2="8"></line>
-              <line x1="7" y1="12" x2="17" y2="12"></line>
-            </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="7" y1="8" x2="17" y2="8"></line></svg>
             <span>Mis publicaciones</span>
           </div>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </div>
-        <div class="menu-item" onclick="alert('Aquí verás tus materiales guardados como favoritos.')">
-          <div class="menu-item-left">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-            </svg>
-            <span>Guardados</span>
-          </div>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </div>
       </div>
     </aside>
@@ -896,8 +844,8 @@
       <!-- ENCABEZADO -->
       <div class="header-row">
         <div class="user-greeting">
-          <h1>Hola, Diego</h1>
-          <p>Lo que necesitas, entre estudiantes.</p>
+          <h1 id="viewGreeting">Hola, Diego</h1>
+          <p id="viewDescription">Lo que necesitas para tus proyectos, directo de otros politécnicos.</p>
         </div>
         <button class="btn-publish" id="openModalBtn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -908,68 +856,81 @@
         </button>
       </div>
 
-      <!-- BANNER DE RECICLAJE -->
-      <div class="eco-banner">
+      <!-- SECCIÓN EXCLUSIVA MODO VENDEDOR -->
+      <div id="sellerStatsArea" style="display: none;">
+        <div class="seller-dashboard-header">
+          <div class="stat-card">
+            <span>Publicaciones activas</span>
+            <h3 id="statActive">1</h3>
+          </div>
+          <div class="stat-card">
+            <span>Interesados / Clics</span>
+            <h3>14</h3>
+          </div>
+          <div class="stat-card">
+            <span>Ventas completadas</span>
+            <h3 id="statSold">0</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- BANNER AMARILLO (Solo en Modo Comprador) -->
+      <div class="eco-banner" id="ecoBanner">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6zm6 4h-2v-2h2v2zm0-4h-2V7h2v6z"/>
         </svg>
         <div>
           <h4>Dale otro proyecto a tus materiales</h4>
-          <p>Compra, vende y reutiliza dentro de ESPOL.</p>
+          <p>Reutiliza, ahorra dinero y apoya a la comunidad politécnica.</p>
         </div>
       </div>
 
-      <!-- PESTAÑAS -->
-      <div class="tabs-row">
-        <button class="tab-btn active" onclick="setTab(this, 'General')">General</button>
-        <button class="tab-btn" onclick="setTab(this, 'Por facultad')">Por facultad</button>
-        <button class="tab-btn" onclick="setTab(this, 'Por carrera')">Por carrera</button>
+      <!-- FILTROS COMPRADOR -->
+      <div id="buyerFiltersArea">
+        <div class="tabs-row">
+          <button class="tab-btn active">General</button>
+          <button class="tab-btn">Por facultad</button>
+          <button class="tab-btn">Por carrera</button>
+        </div>
+
+        <div class="filters-row">
+          <select class="filter-select" id="facultySelect" onchange="applyFilters()">
+            <option value="Todas">Facultad: Todas</option>
+            <option value="FIEC">FIEC</option>
+            <option value="FIMCP">FIMCP</option>
+            <option value="FADCOM">FADCOM</option>
+            <option value="FCNM">FCNM</option>
+            <option value="FICT">FICT</option>
+          </select>
+          <select class="filter-select" id="statusSelect" onchange="applyFilters()">
+            <option value="Todos">Estado: Todos</option>
+            <option value="Buen estado">Buen estado</option>
+            <option value="Poco uso">Poco uso</option>
+          </select>
+          <select class="filter-select" id="priceSelect" onchange="applyFilters()">
+            <option value="Todos">Precio: Todos</option>
+            <option value="low">Hasta $10</option>
+            <option value="mid">$11 - $20</option>
+            <option value="high">Más de $20</option>
+          </select>
+        </div>
+
+        <div class="chips-row">
+          <span class="chip" onclick="filterByChip(this, 'Mecánica')">Mecánica</span>
+          <span class="chip" onclick="filterByChip(this, 'Mecatrónica')">Mecatrónica</span>
+          <span class="chip" onclick="filterByChip(this, 'Electrónica')">Electrónica</span>
+          <span class="chip" onclick="filterByChip(this, 'Cálculo')">Cálculo</span>
+        </div>
       </div>
 
-      <!-- FILTROS DESPLEGABLES -->
-      <div class="filters-row">
-        <select class="filter-select" id="facultySelect" onchange="applyFilters()">
-          <option value="Todas">Facultad: Todas</option>
-          <option value="FIEC">FIEC</option>
-          <option value="FIMCP">FIMCP</option>
-          <option value="FADCOM">FADCOM</option>
-          <option value="FICT">FICT</option>
-          <option value="FIMCM">FIMCM</option>
-          <option value="FCNM">FCNM</option>
-          <option value="FCSH">FCSH</option>
-          <option value="FCV">FCV</option>
-        </select>
-        <select class="filter-select" id="statusSelect" onchange="applyFilters()">
-          <option value="Todos">Estado: Todos</option>
-          <option value="Buen estado">Buen estado</option>
-          <option value="Poco uso">Poco uso</option>
-        </select>
-        <select class="filter-select" id="priceSelect" onchange="applyFilters()">
-          <option value="Todos">Precio: Todos</option>
-          <option value="low">Hasta $10</option>
-          <option value="mid">$11 - $20</option>
-          <option value="high">Más de $20</option>
-        </select>
-      </div>
-
-      <!-- TAG CHIPS -->
-      <div class="chips-row">
-        <span class="chip" onclick="filterByChip(this, 'Mecánica')">Mecánica</span>
-        <span class="chip" onclick="filterByChip(this, 'Mecatrónica')">Mecatrónica</span>
-        <span class="chip" onclick="filterByChip(this, 'Electrónica')">Electrónica y Automatización</span>
-        <span class="chip" onclick="filterByChip(this, 'Diseño')">Diseño Gráfico</span>
-      </div>
-
-      <!-- SECCIÓN CATÁLOGO -->
+      <!-- TÍTULO DE SECCIÓN -->
       <div class="section-subtitle">
-        <h2>Materiales disponibles</h2>
-        <span>Publicaciones de ejemplo</span>
+        <h2 id="sectionTitle">Materiales disponibles</h2>
+        <span id="sectionCounter">Cargando...</span>
       </div>
 
-      <!-- GRID CONTENEDOR -->
-      <div class="products-grid" id="productsGrid">
-        <!-- Render dinámico desde JavaScript -->
-      </div>
+      <!-- GRID PRINCIPAL -->
+      <div class="products-grid" id="productsGrid"></div>
     </main>
   </div>
 
@@ -978,33 +939,30 @@
     <div class="modal-card">
       <div class="modal-header">
         <h3>Publicar nuevo material</h3>
-        <button class="btn-close-modal" id="closeModalBtn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
+        <button class="btn-close-modal" id="closeModalBtn">✕</button>
       </div>
       <form class="modal-form" id="publishForm">
         <div class="form-group">
           <label>Nombre del material u objeto</label>
-          <input type="text" id="itemName" placeholder="Ej. Protoboard, Escalímetro..." required>
+          <input type="text" id="itemName" placeholder="Ej. Escalímetro Staedtler, Calibrador pie de rey..." required>
         </div>
         <div class="form-group">
           <label>Precio ($ USD)</label>
-          <input type="number" id="itemPrice" placeholder="Ej. 15" min="1" required>
+          <input type="number" id="itemPrice" placeholder="Ej. 12" min="1" required>
+        </div>
+        <div class="form-group">
+          <label>Tu número de WhatsApp (para que te contacten)</label>
+          <input type="tel" id="itemPhone" placeholder="Ej. 0991234567" required>
         </div>
         <div class="form-group">
           <label>Facultad y Carrera</label>
           <select id="itemFaculty" required>
             <option value="FIEC · Electricidad">FIEC · Electricidad</option>
-            <option value="FIEC · Electrónica y Automatización">FIEC · Electrónica y Automatización</option>
+            <option value="FIEC · Computación">FIEC · Computación</option>
             <option value="FIMCP · Mecatrónica">FIMCP · Mecatrónica</option>
             <option value="FIMCP · Mecánica">FIMCP · Mecánica</option>
             <option value="FADCOM · Diseño Gráfico">FADCOM · Diseño Gráfico</option>
-            <option value="FCNM · Matemática">FCNM · Matemática</option>
-            <option value="FICT · Minas">FICT · Minas</option>
-            <option value="FCSH · Economía">FCSH · Economía</option>
+            <option value="FCNM · Matemáticas">FCNM · Matemáticas</option>
           </select>
         </div>
         <div class="form-group">
@@ -1015,8 +973,8 @@
           </select>
         </div>
         <div class="form-group">
-          <label>URL de imagen (opcional)</label>
-          <input type="url" id="itemImg" placeholder="https://ejemplo.com/foto.jpg">
+          <label>Enlace de Foto (opcional)</label>
+          <input type="url" id="itemImg" placeholder="https://...">
         </div>
         <button type="submit" class="btn-submit-modal">Publicar ahora</button>
       </form>
@@ -1024,101 +982,175 @@
   </div>
 
   <script>
-    // LISTA DE PRODUCTOS
+    // BASE DE DATOS LOCAL CON FOTOS ESTUDIANTILES
+    let currentMode = 'buyer'; // 'buyer' o 'seller'
+    let currentFaculty = "Todas";
+    let activeChip = null;
+
     let materials = [
       {
         id: 1,
-        title: "Multímetro digital",
-        price: 18,
+        title: "Multímetro digital con puntas",
+        price: 15,
         status: "Buen estado",
         faculty: "FIEC · Electricidad",
         facultyCode: "FIEC",
-        seller: "Ana M.",
+        seller: "Ana Martínez",
         sellerInitial: "A",
-        image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=60"
+        phone: "593987654321",
+        isMyPost: false,
+        image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=600&auto=format&fit=crop&q=80"
       },
       {
         id: 2,
-        title: "Cautín con soporte",
+        title: "Cautín tipo lápiz con soporte",
         price: 8,
         status: "Buen estado",
         faculty: "FIMCP · Mecatrónica",
         facultyCode: "FIMCP",
         seller: "Luis R.",
         sellerInitial: "L",
-        image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=500&auto=format&fit=crop&q=60"
+        phone: "593987654322",
+        isMyPost: false,
+        image: "https://images.unsplash.com/photo-1597733336794-12d05021d510?w=600&auto=format&fit=crop&q=80"
       },
       {
         id: 3,
-        title: "Dinamómetro",
-        price: 15,
+        title: "Calculadora Casio fx-991LA Plus",
+        price: 18,
         status: "Poco uso",
-        faculty: "FIMCP · Mecánica",
-        facultyCode: "FIMCP",
-        seller: "Mateo C.",
-        sellerInitial: "M",
-        image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=500&auto=format&fit=crop&q=60"
+        faculty: "FCNM · Matemáticas",
+        facultyCode: "FCNM",
+        seller: "Diego",
+        sellerInitial: "D",
+        phone: "593987654320",
+        isMyPost: true, // Publicación propia de Diego
+        image: "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=600&auto=format&fit=crop&q=80"
       },
       {
         id: 4,
-        title: "Kit de electrónica",
-        price: 22,
+        title: "Kit Protoboard + Cables Jumpers",
+        price: 12,
         status: "Buen estado",
-        faculty: "FIEC · Electrónica y Automatización",
+        faculty: "FIEC · Computación",
         facultyCode: "FIEC",
-        seller: "Sofía P.",
-        sellerInitial: "S",
-        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&auto=format&fit=crop&q=60"
+        seller: "Carlos T.",
+        sellerInitial: "C",
+        phone: "593987654323",
+        isMyPost: false,
+        image: "https://images.unsplash.com/photo-1553406830-ef2513450d76?w=600&auto=format&fit=crop&q=80"
       },
       {
         id: 5,
-        title: "Set de dibujo técnico",
-        price: 10,
+        title: "Escalímetro metálico + Juego de escuadras",
+        price: 9,
         status: "Buen estado",
         faculty: "FADCOM · Diseño Gráfico",
         facultyCode: "FADCOM",
         seller: "Daniela V.",
         sellerInitial: "D",
-        image: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=500&auto=format&fit=crop&q=60"
-      },
-      {
-        id: 6,
-        title: "Calculadora científica",
-        price: 12,
-        status: "Poco uso",
-        faculty: "FCNM · Matemática",
-        facultyCode: "FCNM",
-        seller: "Carlos T.",
-        sellerInitial: "C",
-        image: "https://images.unsplash.com/photo-1594980596870-8aa52a78d8cd?w=500&auto=format&fit=crop&q=60"
+        phone: "593987654324",
+        isMyPost: false,
+        image: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=600&auto=format&fit=crop&q=80"
       }
     ];
 
-    let currentFaculty = "Todas";
-    let activeChip = null;
+    // CONTROL DE MODO: COMPRADOR VS VENDEDOR
+    function setAppMode(mode) {
+      currentMode = mode;
+      const buyBtn = document.getElementById('modeBuyBtn');
+      const sellBtn = document.getElementById('modeSellBtn');
+      const banner = document.getElementById('ecoBanner');
+      const filters = document.getElementById('buyerFiltersArea');
+      const sellerStats = document.getElementById('sellerStatsArea');
+      const greeting = document.getElementById('viewGreeting');
+      const desc = document.getElementById('viewDescription');
+
+      if (mode === 'buyer') {
+        buyBtn.classList.add('active');
+        sellBtn.classList.remove('active');
+        banner.style.display = 'flex';
+        filters.style.display = 'block';
+        sellerStats.style.display = 'none';
+        greeting.innerText = 'Hola, Diego';
+        desc.innerText = 'Lo que necesitas para tus proyectos, directo de otros politécnicos.';
+        document.getElementById('sectionTitle').innerText = 'Materiales disponibles';
+      } else {
+        sellBtn.classList.add('active');
+        buyBtn.classList.remove('active');
+        banner.style.display = 'none';
+        filters.style.display = 'none';
+        sellerStats.style.display = 'block';
+        greeting.innerText = 'Panel de Ventas';
+        desc.innerText = 'Gestiona tus artículos publicados, revisa consultas y marca tus ventas.';
+        document.getElementById('sectionTitle').innerText = 'Mis Publicaciones activas';
+        updateSellerStats();
+      }
+      applyFilters();
+    }
+
+    function updateSellerStats() {
+      const myItems = materials.filter(m => m.isMyPost);
+      document.getElementById('statActive').innerText = myItems.filter(m => m.status !== 'Vendido').length;
+      document.getElementById('statSold').innerText = myItems.filter(m => m.status === 'Vendido').length;
+    }
 
     // RENDERIZADO
     function renderProducts(list) {
       const container = document.getElementById('productsGrid');
       container.innerHTML = '';
 
+      document.getElementById('sectionCounter').innerText = `${list.length} artículo(s)`;
+
       if (list.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px 0;">No se encontraron materiales que coincidan con la búsqueda.</p>`;
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px 0;">No hay artículos en esta sección.</p>`;
         return;
       }
 
       list.forEach(item => {
-        const statusClass = item.status === "Poco uso" ? "badge-status warning" : "badge-status";
+        let statusClass = "badge-status";
+        if (item.status === "Poco uso") statusClass = "badge-status warning";
+        if (item.status === "Vendido") statusClass = "badge-status sold";
+
         const card = document.createElement('article');
         card.className = "product-card";
+
+        // VISTA PARA COMPRADOR VS VENDEDOR
+        let footerHtml = '';
+        if (currentMode === 'buyer') {
+          footerHtml = `
+            <div class="seller-info">
+              <div class="seller-avatar">${item.sellerInitial}</div>
+              <span class="seller-name">${item.seller}</span>
+            </div>
+            <button class="btn-contact" onclick="contactSeller('${item.seller}', '${item.title}', '${item.phone}')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
+              </svg>
+              Contactar
+            </button>
+          `;
+        } else {
+          // Si estoy en modo vendedor
+          footerHtml = `
+            <span style="font-size: 11px; color: #64748b;">Publicado por ti</span>
+            <div style="display:flex; gap:6px;">
+              <button class="btn-contact" onclick="markAsSold(${item.id})">
+                ${item.status === 'Vendido' ? 'Reactivar' : 'Marcar Vendido'}
+              </button>
+            </div>
+          `;
+        }
+
         card.innerHTML = `
           <div class="product-img-wrapper">
-            <img src="${item.image}" alt="${item.title}">
+            <img src="${item.image}" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600'">
+            ${currentMode === 'buyer' ? `
             <button class="btn-fav" onclick="toggleFav(this)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
               </svg>
-            </button>
+            </button>` : ''}
           </div>
           <div class="product-info">
             <h3 class="product-title">${item.title}</h3>
@@ -1130,16 +1162,7 @@
               <span>${item.faculty}</span>
             </div>
             <div class="card-footer">
-              <div class="seller-info">
-                <div class="seller-avatar">${item.sellerInitial}</div>
-                <span class="seller-name">${item.sellerInternal || item.seller}</span>
-              </div>
-              <button class="btn-contact" onclick="contactSeller('${item.seller}', '${item.title}')">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                </svg>
-                Contactar
-              </button>
+              ${footerHtml}
             </div>
           </div>
         `;
@@ -1147,27 +1170,49 @@
       });
     }
 
-    // ACCIONES
     function toggleFav(btn) {
       btn.classList.toggle('active');
     }
 
-    function contactSeller(seller, title) {
-      alert(`Iniciando chat con ${seller} sobre "${title}".`);
+    // ACCIÓN CONTACTAR VENDEDOR POR WHATSAPP
+    function contactSeller(seller, title, phone) {
+      const msg = encodeURIComponent(`Hola ${seller}, vi tu publicación de "${title}" en ESPOL Materiales. ¿Aún lo tienes disponible?`);
+      window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
     }
 
-    // FILTROS
+    // MARCAR VENDIDO
+    function markAsSold(id) {
+      const item = materials.find(m => m.id === id);
+      if (item) {
+        item.status = item.status === 'Vendido' ? 'Buen estado' : 'Vendido';
+        updateSellerStats();
+        applyFilters();
+      }
+    }
+
+    // FILTRADO
     function applyFilters() {
       const search = document.getElementById('searchInput').value.toLowerCase();
-      const facSelect = document.getElementById('facultySelect').value;
-      const statusSelect = document.getElementById('statusSelect').value;
-      const priceSelect = document.getElementById('priceSelect').value;
+      
+      let pool = materials;
+      if (currentMode === 'seller') {
+        pool = materials.filter(m => m.isMyPost);
+      }
 
-      const filtered = materials.filter(item => {
+      const facSelect = document.getElementById('facultySelect') ? document.getElementById('facultySelect').value : "Todas";
+      const statusSelect = document.getElementById('statusSelect') ? document.getElementById('statusSelect').value : "Todos";
+      const priceSelect = document.getElementById('priceSelect') ? document.getElementById('priceSelect').value : "Todos";
+
+      const filtered = pool.filter(item => {
         const matchesSearch = item.title.toLowerCase().includes(search) || item.faculty.toLowerCase().includes(search);
+        
+        if (currentMode === 'seller') {
+          return matchesSearch;
+        }
+
         const matchesFac = facSelect === "Todas" ? (currentFaculty === "Todas" || item.facultyCode === currentFaculty) : item.facultyCode === facSelect;
         const matchesStatus = statusSelect === "Todos" || item.status === statusSelect;
-        
+
         let matchesPrice = true;
         if (priceSelect === "low") matchesPrice = item.price <= 10;
         if (priceSelect === "mid") matchesPrice = item.price > 10 && item.price <= 20;
@@ -1190,7 +1235,9 @@
       currentFaculty = faculty;
       document.querySelectorAll('.sidebar .menu-item').forEach(m => m.classList.remove('active'));
       el.classList.add('active');
-      document.getElementById('facultySelect').value = faculty;
+      if (document.getElementById('facultySelect')) {
+        document.getElementById('facultySelect').value = faculty;
+      }
       applyFilters();
     }
 
@@ -1206,12 +1253,7 @@
       applyFilters();
     }
 
-    function setTab(btn, tabName) {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    }
-
-    // MODAL DE PUBLICACIÓN
+    // MODAL
     const modal = document.getElementById('publishModal');
     const openModalBtn = document.getElementById('openModalBtn');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -1227,6 +1269,7 @@
       e.preventDefault();
       const title = document.getElementById('itemName').value;
       const price = parseFloat(document.getElementById('itemPrice').value);
+      const phone = document.getElementById('itemPhone').value;
       const faculty = document.getElementById('itemFaculty').value;
       const status = document.getElementById('itemStatus').value;
       const customImg = document.getElementById('itemImg').value;
@@ -1241,18 +1284,22 @@
         facultyCode: facultyCode,
         seller: "Diego",
         sellerInitial: "D",
-        image: customImg || "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=60"
+        phone: phone || "593987654320",
+        isMyPost: true,
+        image: customImg || "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600"
       };
 
       materials.unshift(newItem);
       modal.classList.remove('open');
       publishForm.reset();
-      applyFilters();
-      alert('¡Tu material ha sido publicado exitosamente en ESPOL Materiales!');
+      
+      // Pasar a modo vendedor para ver lo recién publicado
+      setAppMode('seller');
+      alert('¡Listo! Tu publicación ya está visible para otros estudiantes.');
     });
 
-    // Iniciar
-    renderProducts(materials);
+    // Iniciar en modo comprador
+    setAppMode('buyer');
   </script>
 </body>
 </html>
