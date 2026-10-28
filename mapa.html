@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESPOL Materiales - Mapa del Campus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet CSS (Mapa interactivo) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    /* BARRA FLOTANTE DE REGRESO Y TÍTULO */
+    .top-panel {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-back {
+      background: #ffffff;
+      color: #002855;
+      padding: 10px 18px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13.5px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s;
+    }
+    .btn-back:hover {
+      background: #002855;
+      color: #ffffff;
+    }
+
+    .badge-info {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      border: 1px solid #e2e8f0;
+    }
+
+    /* PINES ANIMADOS CON FOTO DEL PRODUCTO */
+    .custom-marker {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      animation: floatPin 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatPin {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-8px); }
+    }
+
+    .marker-card {
+      background: #ffffff;
+      border: 2.5px solid #002855;
+      border-radius: 12px;
+      padding: 3px;
+      box-shadow: 0 8px 18px rgba(0, 40, 85, 0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .marker-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 9px;
+      object-fit: cover;
+    }
+
+    .marker-price {
+      background: #002855;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 6px;
+      margin-top: -6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .marker-arrow {
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 7px solid #002855;
+    }
+
+    /* POPUP DE LEAFLET PERSONALIZADO */
+    .leaflet-popup-content-wrapper {
+      border-radius: 14px;
+      padding: 4px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    .popup-box {
+      width: 220px;
+      padding: 6px;
+    }
+    .popup-box img {
+      width: 100%;
+      height: 110px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-bottom: 8px;
+    }
+    .popup-box h4 {
+      font-size: 14px;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    .popup-box .spot {
+      font-size: 11.5px;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+    .popup-box .price {
+      font-size: 15px;
+      font-weight: 800;
+      color: #002855;
+      margin-bottom: 8px;
+    }
+    .popup-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: #10b981;
+      color: white;
+      text-decoration: none;
+      padding: 7px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-panel">
+    <a href="dashboard.html" class="btn-back">
+      ← Volver al Catálogo
+    </a>
+    <div class="badge-info">
+      📍 Entregas en vivo dentro del Campus ESPOL
+    </div>
+  </div>
+
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    // COORDENADAS CAMPUS GUSTAVO GALINDO (ESPOL La Prosperina)
+    const espolCoords = [-2.1465, -79.9660];
+
+    // Inicializar mapa
+    const map = L.map('map').setView(espolCoords, 16);
+
+    // Capa visual estilizada tipo Google / OpenStreetMap
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap',
+      maxZoom: 19
+    }).addTo(map);
+
+    // PUNTOS Y PRODUCTOS EN EL CAMPUS
+    const itemsOnCampus = [
+      {
+        title: "Multímetro digital",
+        price: "$18",
+        spot: "Entrega: Bloque FIEC (Laboratorios)",
+        seller: "Ana M.",
+        phone: "593987654321",
+        coords: [-2.1450, -79.9675],
+        img: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=400"
+      },
+      {
+        title: "Cautín con soporte",
+        price: "$8",
+        spot: "Entrega: Talleres FIMCP",
+        seller: "Luis R.",
+        phone: "593987654322",
+        coords: [-2.1482, -79.9650],
+        img: "https://images.unsplash.com/photo-1597733336794-12d05021d510?w=400"
+      },
+      {
+        title: "Calculadora Casio fx-991LA",
+        price: "$18",
+        spot: "Entrega: Biblioteca Central / FCNM",
+        seller: "Diego",
+        phone: "593987654320",
+        coords: [-2.1462, -79.9645],
+        img: "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=400"
+      },
+      {
+        title: "Set de dibujo técnico",
+        price: "$10",
+        spot: "Entrega: Comedor FADCOM",
+        seller: "Daniela V.",
+        phone: "593987654324",
+        coords: [-2.1438, -79.9632],
+        img: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=400"
+      }
+    ];
+
+    // GENERAR LOS MARCADORES FLOTANTES CON FOTO
+    itemsOnCampus.forEach(item => {
+      const customIcon = L.divIcon({
+        className: 'custom-pin-wrapper',
+        html: `
+          <div class="custom-marker">
+            <div class="marker-card">
+              <img src="${item.img}" class="marker-thumb" />
+              <span class="marker-price">${item.price}</span>
+            </div>
+            <div class="marker-arrow"></div>
+          </div>
+        `,
+        iconSize: [50, 60],
+        iconAnchor: [25, 60]
+      });
+
+      const popupContent = `
+        <div class="popup-box">
+          <img src="${item.img}" alt="${item.title}">
+          <h4>${item.title}</h4>
+          <div class="spot">📍 ${item.spot}</div>
+          <div class="price">${item.price}</div>
+          <a href="https://wa.me/${item.phone}?text=Hola%20${item.seller},%20vi%20tu%20${item.title}%20en%20el%20mapa%20de%20ESPOL" target="_blank" class="popup-btn">
+            Contactar por WhatsApp
+          </a>
+        </div>
+      `;
+
+      L.marker(item.coords, { icon: customIcon })
+        .addTo(map)
+        .bindPopup(popupContent);
+    });
+  </script>
+</body>
+</html>
