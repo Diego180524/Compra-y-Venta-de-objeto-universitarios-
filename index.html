@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ESPOL Materiales - Iniciar Sesión</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -17,122 +17,47 @@
 
     body {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background-color: #f8fafc;
-      color: #1e293b;
-    }
-
-    /* Barra superior institucional */
-    header {
-      background: #ffffff;
-      padding: 14px 40px;
-      display: flex;
-      align-items: center;
-      border-bottom: 3px solid #eab308;
-    }
-
-    .brand {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      text-decoration: none;
-    }
-
-    .brand-logo {
-      font-size: 26px;
-      font-weight: 800;
-      color: #002855;
-      letter-spacing: -0.5px;
-    }
-
-    .brand-sub {
-      font-size: 16px;
-      font-weight: 500;
-      color: #64748b;
-    }
-
-    /* Contenedor principal con fondo a la izquierda y login a la derecha */
-    .main-container {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 1.25fr 1fr;
-      min-height: calc(100vh - 65px);
-    }
-
-    /* Lado Izquierdo: Foto con texto */
-    .hero-side {
-      position: relative;
+      width: 100%;
+      /* Usamos la imagen completa de fondo */
       background-image: url('FONDO INICIAL.jpeg');
       background-size: cover;
-      background-position: center;
+      background-position: left center;
+      background-repeat: no-repeat;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      padding: 60px 50px;
-    }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.1) 100%);
-      pointer-events: none;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 520px;
-    }
-
-    .hero-content h1 {
-      font-size: 40px;
-      line-height: 1.15;
-      font-weight: 800;
-      color: #0b2545;
-      margin-bottom: 12px;
-    }
-
-    .hero-content p {
-      font-size: 18px;
-      color: #334155;
-      font-weight: 500;
-    }
-
-    /* Lado Derecho: Tarjeta de Login */
-    .login-side {
-      display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 40px 30px;
-      background-color: #f8fafc;
+      align-items: flex-end; /* Alinea la tarjeta de login a la derecha */
+      padding: 40px 6% 20px 40px;
+      position: relative;
     }
 
+    /* Tarjeta de Login a la derecha */
     .login-card {
       background: #ffffff;
       width: 100%;
-      max-width: 440px;
-      padding: 40px;
-      border-radius: 18px;
-      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
-      border: 1px solid #e2e8f0;
+      max-width: 420px;
+      padding: 36px 32px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.04);
+      border: 1px solid #edf2f7;
+      margin-top: 20px;
     }
 
     .login-card h2 {
       font-size: 26px;
       font-weight: 700;
-      color: #0f172a;
+      color: #0b1f3a;
       margin-bottom: 6px;
     }
 
     .login-card .subtitle {
-      font-size: 14px;
+      font-size: 13.5px;
       color: #64748b;
-      margin-bottom: 28px;
+      margin-bottom: 26px;
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .form-group label {
@@ -140,7 +65,7 @@
       font-size: 13px;
       font-weight: 600;
       color: #334155;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
 
     .input-wrapper {
@@ -152,8 +77,8 @@
     .input-wrapper svg.icon-left {
       position: absolute;
       left: 14px;
-      width: 18px;
-      height: 18px;
+      width: 17px;
+      height: 17px;
       fill: none;
       stroke: #94a3b8;
       stroke-width: 2;
@@ -161,23 +86,23 @@
 
     .input-wrapper input {
       width: 100%;
-      padding: 12px 14px 12px 42px;
+      padding: 11px 14px 11px 40px;
       border: 1px solid #cbd5e1;
-      border-radius: 10px;
+      border-radius: 8px;
       font-size: 14px;
       color: #0f172a;
       outline: none;
-      transition: all 0.2s ease;
+      transition: border-color 0.2s;
     }
 
     .input-wrapper input:focus {
       border-color: #002855;
-      box-shadow: 0 0 0 3px rgba(0, 40, 85, 0.12);
+      box-shadow: 0 0 0 3px rgba(0, 40, 85, 0.1);
     }
 
     .password-toggle {
       position: absolute;
-      right: 14px;
+      right: 12px;
       background: none;
       border: none;
       cursor: pointer;
@@ -189,7 +114,7 @@
     .forgot-link {
       display: flex;
       justify-content: flex-end;
-      margin-top: 8px;
+      margin-top: 7px;
     }
 
     .forgot-link a {
@@ -201,29 +126,25 @@
 
     .btn-submit {
       width: 100%;
-      margin-top: 24px;
+      margin-top: 22px;
       background-color: #002855;
       color: #ffffff;
-      padding: 13px;
+      padding: 12px;
       border: none;
-      border-radius: 10px;
-      font-size: 15px;
+      border-radius: 8px;
+      font-size: 14.5px;
       font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.2s ease, transform 0.1s ease;
+      transition: background-color 0.2s;
     }
 
     .btn-submit:hover {
-      background-color: #001f42;
-    }
-
-    .btn-submit:active {
-      transform: scale(0.99);
+      background-color: #001a38;
     }
 
     .signup-row {
       text-align: center;
-      margin-top: 22px;
+      margin-top: 18px;
       font-size: 13px;
       color: #64748b;
     }
@@ -239,127 +160,98 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      margin-top: 30px;
-      padding-top: 18px;
+      gap: 7px;
+      margin-top: 26px;
+      padding-top: 16px;
       border-top: 1px solid #f1f5f9;
       color: #64748b;
-      font-size: 13px;
+      font-size: 12.5px;
     }
 
     .community-badge svg {
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
       color: #10b981;
     }
 
     .academic-footer {
-      text-align: right;
-      padding: 12px 30px;
+      align-self: flex-end;
       font-size: 11px;
-      color: #94a3b8;
-      background-color: #f8fafc;
+      color: #64748b;
+      margin-top: auto;
+      padding-top: 20px;
     }
 
-    @media (max-width: 900px) {
-      .main-container {
-        grid-template-columns: 1fr;
+    @media (max-width: 820px) {
+      body {
+        align-items: center;
+        padding: 30px 20px;
+        background-position: center;
       }
-      .hero-side {
-        min-height: 240px;
-        padding: 40px 24px;
-      }
-      .hero-content h1 {
-        font-size: 28px;
-      }
-      .login-side {
-        padding: 30px 16px;
+      .academic-footer {
+        align-self: center;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Barra superior -->
-  <header>
-    <a href="#" class="brand">
-      <span class="brand-logo">espol</span>
-      <span class="brand-sub">Materiales</span>
-    </a>
-  </header>
+  <!-- Tarjeta a la derecha -->
+  <main class="login-card">
+    <h2>Bienvenido</h2>
+    <p class="subtitle">Encuentra lo que necesitas para tu próximo proyecto.</p>
 
-  <!-- Cuerpo: Izquierda Foto + Derecha Formulario -->
-  <main class="main-container">
-    
-    <!-- Hero Izquierdo -->
-    <section class="hero-side">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h1>Tus materiales pueden tener otro proyecto.</h1>
-        <p>Compra y vende entre estudiantes.</p>
+    <form onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
+      <div class="form-group">
+        <label for="email">Correo institucional</label>
+        <div class="input-wrapper">
+          <svg class="icon-left" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </svg>
+          <input type="email" id="email" placeholder="usuario@espol.edu.ec" required />
+        </div>
       </div>
-    </section>
 
-    <!-- Login Derecho -->
-    <section class="login-side">
-      <div class="login-card">
-        <h2>Bienvenido</h2>
-        <p class="subtitle">Encuentra lo que necesitas para tu próximo proyecto.</p>
-
-        <form onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
-          <div class="form-group">
-            <label for="email">Correo institucional</label>
-            <div class="input-wrapper">
-              <svg class="icon-left" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-              </svg>
-              <input type="email" id="email" placeholder="usuario@espol.edu.ec" required />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="password">Contraseña</label>
-            <div class="input-wrapper">
-              <svg class="icon-left" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg>
-              <input type="password" id="password" placeholder="••••••••••••" required />
-              <button type="button" class="password-toggle" id="togglePassword">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                  <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-              </button>
-            </div>
-            <div class="forgot-link">
-              <a href="#">¿Olvidaste tu contraseña?</a>
-            </div>
-          </div>
-
-          <button type="submit" class="btn-submit">Iniciar sesión</button>
-
-          <div class="signup-row">
-            ¿Primera vez aquí? <a href="#">Crear cuenta</a>
-          </div>
-
-          <div class="community-badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-              <path d="m9 12 2 2 4-4"></path>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <div class="input-wrapper">
+          <svg class="icon-left" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <input type="password" id="password" placeholder="••••••••••••" required />
+          <button type="button" class="password-toggle" id="togglePassword">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
             </svg>
-            <span>Conecta con tu comunidad universitaria.</span>
-          </div>
-        </form>
+          </button>
+        </div>
+        <div class="forgot-link">
+          <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
       </div>
-    </section>
 
+      <button type="submit" class="btn-submit">Iniciar sesión</button>
+
+      <div class="signup-row">
+        ¿Primera vez aquí? <a href="#">Crear cuenta</a>
+      </div>
+
+      <div class="community-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <path d="m9 12 2 2 4-4"></path>
+        </svg>
+        <span>Conecta con tu comunidad universitaria.</span>
+      </div>
+    </form>
   </main>
 
-  <footer class="academic-footer">
+  <div class="academic-footer">
     Prototipo académico
-  </footer>
+  </div>
 
   <script>
     const toggleBtn = document.getElementById('togglePassword');
