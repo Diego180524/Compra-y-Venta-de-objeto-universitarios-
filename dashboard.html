@@ -56,7 +56,6 @@
       font-weight: 500;
     }
 
-    /* SELECTOR COMPRAR / VENDER */
     .mode-switch {
       display: flex;
       background: #f1f5f9;
@@ -265,7 +264,7 @@
       line-height: 1.2;
     }
 
-    /* CONTENIDO PRINCIPAL */
+    /* MAIN CONTENT */
     .main-content {
       flex: 1;
       padding: 30px 42px;
@@ -342,7 +341,7 @@
       margin-top: 2px;
     }
 
-    /* PESTAÑAS Y FILTROS */
+    /* FILTROS */
     .tabs-row {
       display: flex;
       gap: 24px;
@@ -450,12 +449,20 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      cursor: pointer;
+      position: relative;
     }
 
     .product-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Estado atenuado si está vendido */
+    .product-card.card-sold {
+      opacity: 0.82;
+      border-color: #fecaca;
     }
 
     .product-img-wrapper {
@@ -487,6 +494,7 @@
       color: #64748b;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       transition: all 0.15s;
+      z-index: 5;
     }
 
     .btn-fav.active {
@@ -525,13 +533,17 @@
       color: #002855;
     }
 
+    /* BADGES DE ESTADO CON X ROJA MINIMALISTA */
     .badge-status {
       font-size: 11px;
       font-weight: 600;
-      padding: 2px 8px;
+      padding: 2.5px 8.5px;
       border-radius: 999px;
       background-color: #dcfce7;
       color: #15803d;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
     .badge-status.warning {
@@ -540,8 +552,16 @@
     }
 
     .badge-status.sold {
-      background-color: #fee2e2;
-      color: #991b1b;
+      background-color: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fee2e2;
+      font-weight: 700;
+    }
+
+    .badge-status.sold svg {
+      stroke: #dc2626;
+      width: 11px;
+      height: 11px;
     }
 
     .product-faculty {
@@ -599,12 +619,20 @@
       gap: 5px;
       cursor: pointer;
       transition: all 0.15s;
+      z-index: 5;
     }
 
     .btn-contact:hover {
       background-color: #10b981;
       color: #ffffff;
       border-color: #10b981;
+    }
+
+    .btn-contact.sold-btn {
+      background-color: #f1f5f9;
+      color: #94a3b8;
+      cursor: not-allowed;
+      border-color: #e2e8f0;
     }
 
     /* MODO VENDEDOR STATS */
@@ -635,7 +663,7 @@
       margin-top: 4px;
     }
 
-    /* BOTÓN FLOTANTE DEL MAPA */
+    /* BOTÓN FLOTANTE MAPA */
     .floating-map-btn {
       position: fixed;
       bottom: 25px;
@@ -675,16 +703,17 @@
       100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
-    /* MODAL */
+    /* MODALES */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background-color: rgba(15, 23, 42, 0.5);
+      background-color: rgba(15, 23, 42, 0.55);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 200;
       padding: 20px;
+      backdrop-filter: blur(4px);
     }
 
     .modal-overlay.open {
@@ -695,16 +724,18 @@
       background: #ffffff;
       border-radius: 16px;
       width: 100%;
-      max-width: 480px;
-      padding: 28px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      max-width: 500px;
+      padding: 26px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     .modal-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .modal-header h3 {
@@ -714,11 +745,67 @@
     }
 
     .btn-close-modal {
-      background: none;
+      background: #f1f5f9;
       border: none;
-      font-size: 18px;
-      color: #94a3b8;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      font-size: 15px;
+      color: #64748b;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-close-modal:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    /* MODAL DE DETALLE ESPECÍFICO */
+    .detail-img-box {
+      width: 100%;
+      height: 230px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      background: #e2e8f0;
+    }
+    .detail-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .detail-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #edf2f7;
+      margin-bottom: 16px;
+    }
+    .detail-meta-item label {
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .detail-meta-item span {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .detail-description {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #475569;
+      margin-bottom: 20px;
+      background: #ffffff;
+      padding: 10px 0;
     }
 
     .modal-form .form-group {
@@ -1070,6 +1157,7 @@
             <option value="Todos">Estado: Todos</option>
             <option value="Buen estado">Buen estado</option>
             <option value="Poco uso">Poco uso</option>
+            <option value="Vendido">✕ Vendido</option>
           </select>
           <select class="filter-select" id="priceSelect" onchange="applyFilters()">
             <option value="Todos">Precio</option>
@@ -1090,7 +1178,7 @@
       <!-- TÍTULO DE SECCIÓN -->
       <div class="section-subtitle">
         <h2 id="sectionTitle">Materiales disponibles</h2>
-        <span id="sectionCounter">Publicaciones de ejemplo</span>
+        <span id="sectionCounter">Publicaciones activas</span>
       </div>
 
       <!-- GRID PRODUCTOS -->
@@ -1109,7 +1197,49 @@
     <span>¡Encuéntrame aquí!</span>
   </a>
 
-  <!-- MODAL PUBLICAR MATERIAL -->
+  <!-- MODAL 1: DETALLE DEL MATERIAL CON FECHA Y HORA -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalDetailTitle">Detalle del Material</h3>
+        <button class="btn-close-modal" onclick="closeDetailModal()">✕</button>
+      </div>
+
+      <div class="detail-img-box">
+        <img id="modalDetailImg" src="" alt="Material">
+      </div>
+
+      <div class="detail-meta-grid">
+        <div class="detail-meta-item">
+          <label>Precio</label>
+          <span id="modalDetailPrice" style="color: #002855; font-size: 16px;">$0</span>
+        </div>
+        <div class="detail-meta-item">
+          <label>Estado</label>
+          <span id="modalDetailStatus">Buen estado</span>
+        </div>
+        <div class="detail-meta-item">
+          <label>Publicado el</label>
+          <span id="modalDetailDate">Hoy, 10:30 AM</span>
+        </div>
+        <div class="detail-meta-item">
+          <label>Ubicación / Carrera</label>
+          <span id="modalDetailFaculty">FIEC</span>
+        </div>
+      </div>
+
+      <div class="detail-description">
+        <label style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; display: block; margin-bottom: 4px;">Información del vendedor</label>
+        <p id="modalDetailDesc">Material original probado y funcional para clases de laboratorio o prácticas dentro de ESPOL.</p>
+      </div>
+
+      <div id="modalDetailAction">
+        <!-- El botón de WhatsApp o estado se insertará con JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: PUBLICAR MATERIAL -->
   <div class="modal-overlay" id="publishModal">
     <div class="modal-card">
       <div class="modal-header">
@@ -1150,6 +1280,7 @@
           <select id="itemStatus" required>
             <option value="Buen estado">Buen estado</option>
             <option value="Poco uso">Poco uso</option>
+            <option value="Vendido">Vendido</option>
           </select>
         </div>
         <div class="form-group">
@@ -1166,13 +1297,15 @@
     let currentFaculty = "Todas";
     let activeChip = null;
 
-    // ARTÍCULOS BASE CON FOTOS REALISTAS
+    // ARTÍCULOS BASE: La segunda tarjeta (Cautín) ya viene como "Vendido"
     let materials = [
       {
         id: 1,
         title: "Multímetro digital",
         price: 18,
         status: "Buen estado",
+        date: "28 Oct 2026, 09:15 AM",
+        desc: "Multímetro digital con puntas de prueba originales. Ideal para materias de circuitos en FIEC.",
         faculty: "FIEC · Electricidad",
         facultyCode: "FIEC",
         seller: "Ana M.",
@@ -1185,7 +1318,9 @@
         id: 2,
         title: "Cautín con soporte",
         price: 8,
-        status: "Buen estado",
+        status: "Vendido", // MARCADO COMO VENDIDO
+        date: "27 Oct 2026, 03:45 PM",
+        desc: "Cautín tipo lápiz 60W con base y esponja limpiadora. Ya ha sido entregado en talleres.",
         faculty: "FIMCP · Mecatrónica",
         facultyCode: "FIMCP",
         seller: "Luis R.",
@@ -1199,6 +1334,8 @@
         title: "Dinamómetro",
         price: 15,
         status: "Poco uso",
+        date: "26 Oct 2026, 11:20 AM",
+        desc: "Dinamómetro de resorte calibrado a 5N. Usado únicamente en dos prácticas de física mecánica.",
         faculty: "FIMCP · Mecánica",
         facultyCode: "FIMCP",
         seller: "Mateo C.",
@@ -1212,6 +1349,8 @@
         title: "Kit de electrónica",
         price: 22,
         status: "Buen estado",
+        date: "25 Oct 2026, 02:10 PM",
+        desc: "Protoboard grande, cables jumper macho-hembra, resistencias y varios LEDs surtidos.",
         faculty: "FIEC · Electrónica y Automatización",
         facultyCode: "FIEC",
         seller: "Sofía P.",
@@ -1225,6 +1364,8 @@
         title: "Set de dibujo técnico",
         price: 10,
         status: "Buen estado",
+        date: "24 Oct 2026, 04:00 PM",
+        desc: "Compás de precisión, juego de escuadras de 45 y 60 grados y regla metálica de 30cm.",
         faculty: "FADCOM · Diseño Gráfico",
         facultyCode: "FADCOM",
         seller: "Daniela V.",
@@ -1238,6 +1379,8 @@
         title: "Calculadora científica",
         price: 12,
         status: "Poco uso",
+        date: "23 Oct 2026, 08:30 AM",
+        desc: "Calculadora con display natural de 2 líneas. Perfecta para cálculo y álgebra lineal.",
         faculty: "FCNM · Matemática",
         facultyCode: "FCNM",
         seller: "Carlos T.",
@@ -1251,6 +1394,8 @@
         title: "Calculadora Casio fx-991LA Plus",
         price: 18,
         status: "Poco uso",
+        date: "28 Oct 2026, 01:00 PM",
+        desc: "Versión original en español, incluye tapa rígida. Estado 10/10.",
         faculty: "FCNM · Matemática",
         facultyCode: "FCNM",
         seller: "Diego",
@@ -1281,7 +1426,6 @@
         greeting.innerText = 'Hola, Diego';
         desc.innerText = 'Lo que necesitas, entre estudiantes.';
         document.getElementById('sectionTitle').innerText = 'Materiales disponibles';
-        document.getElementById('sectionCounter').innerText = 'Publicaciones de ejemplo';
       } else {
         sellBtn.classList.add('active');
         buyBtn.classList.remove('active');
@@ -1302,23 +1446,44 @@
       document.getElementById('statSold').innerText = myItems.filter(m => m.status === 'Vendido').length;
     }
 
-    // RENDERIZAR
+    // RENDERIZAR ARTÍCULOS
     function renderProducts(list) {
       const container = document.getElementById('productsGrid');
       container.innerHTML = '';
 
       if (list.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px 0;">No hay artículos en esta sección.</p>`;
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px 0;">No hay artículos en esta categoría.</p>`;
         return;
       }
 
       list.forEach(item => {
-        let statusClass = "badge-status";
-        if (item.status === "Poco uso") statusClass = "badge-status warning";
-        if (item.status === "Vendido") statusClass = "badge-status sold";
+        const isSold = item.status === "Vendido";
+        
+        let statusBadge = `<span class="badge-status">Buen estado</span>`;
+        if (item.status === "Poco uso") {
+          statusBadge = `<span class="badge-status warning">Poco uso</span>`;
+        } else if (isSold) {
+          // X MINIMALISTA ROJA
+          statusBadge = `
+            <span class="badge-status sold">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+              Vendido
+            </span>`;
+        }
 
         const card = document.createElement('article');
-        card.className = "product-card";
+        card.className = `product-card ${isSold ? 'card-sold' : ''}`;
+        
+        // Al tocar la tarjeta se abre el detalle
+        card.onclick = (e) => {
+          // Evitar que abra si se hace clic en favoritos o contactar
+          if (!e.target.closest('.btn-fav') && !e.target.closest('.btn-contact')) {
+            openDetailModal(item);
+          }
+        };
 
         let footerHtml = '';
         if (currentMode === 'buyer') {
@@ -1327,18 +1492,22 @@
               <div class="seller-avatar">${item.sellerInitial}</div>
               <span class="seller-name">${item.seller}</span>
             </div>
-            <button class="btn-contact" onclick="contactSeller('${item.seller}', '${item.title}', '${item.phone}')">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-              Contactar
-            </button>
+            ${isSold ? `
+              <button class="btn-contact sold-btn" disabled>Agotado</button>
+            ` : `
+              <button class="btn-contact" onclick="contactSeller('${item.seller}', '${item.title}', '${item.phone}')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                Contactar
+              </button>
+            `}
           `;
         } else {
           footerHtml = `
             <span style="font-size: 11px; color: #64748b;">Publicado por ti</span>
             <button class="btn-contact" onclick="markAsSold(${item.id})">
-              ${item.status === 'Vendido' ? 'Reactivar' : 'Marcar Vendido'}
+              ${isSold ? 'Reactivar' : 'Marcar Vendido'}
             </button>
           `;
         }
@@ -1357,7 +1526,7 @@
             <h3 class="product-title">${item.title}</h3>
             <div class="product-price-row">
               <span class="product-price">$${item.price}</span>
-              <span class="${statusClass}">${item.status}</span>
+              ${statusBadge}
             </div>
             <div class="product-faculty">
               <span>${item.faculty}</span>
@@ -1369,6 +1538,41 @@
         `;
         container.appendChild(card);
       });
+    }
+
+    // MODAL DE DETALLE COMPLETO
+    function openDetailModal(item) {
+      document.getElementById('modalDetailTitle').innerText = item.title;
+      document.getElementById('modalDetailImg').src = item.image;
+      document.getElementById('modalDetailPrice').innerText = `$${item.price}`;
+      document.getElementById('modalDetailDate').innerText = item.date;
+      document.getElementById('modalDetailFaculty').innerText = item.faculty;
+      document.getElementById('modalDetailDesc').innerText = item.desc;
+
+      const statusEl = document.getElementById('modalDetailStatus');
+      const actionBox = document.getElementById('modalDetailAction');
+
+      if (item.status === 'Vendido') {
+        statusEl.innerHTML = `<span style="color: #dc2626; font-weight:700;">✕ Vendido</span>`;
+        actionBox.innerHTML = `
+          <button style="width:100%; background:#f1f5f9; color:#94a3b8; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:not-allowed;" disabled>
+            Este material ya no está disponible
+          </button>
+        `;
+      } else {
+        statusEl.innerHTML = `<span style="color: #15803d; font-weight:700;">${item.status}</span>`;
+        actionBox.innerHTML = `
+          <button class="btn-submit-modal" style="background:#10b981;" onclick="contactSeller('${item.seller}', '${item.title}', '${item.phone}')">
+            Contactar a ${item.seller} por WhatsApp
+          </button>
+        `;
+      }
+
+      document.getElementById('detailModal').classList.add('open');
+    }
+
+    function closeDetailModal() {
+      document.getElementById('detailModal').classList.remove('open');
     }
 
     function toggleFav(btn) {
@@ -1389,10 +1593,9 @@
       }
     }
 
-    // FILTRADO DINÁMICO
+    // FILTRADO
     function applyFilters() {
       const search = document.getElementById('searchInput').value.toLowerCase();
-      
       let pool = materials;
       if (currentMode === 'seller') {
         pool = materials.filter(m => m.isMyPost);
@@ -1404,10 +1607,7 @@
 
       const filtered = pool.filter(item => {
         const matchesSearch = item.title.toLowerCase().includes(search) || item.faculty.toLowerCase().includes(search);
-        
-        if (currentMode === 'seller') {
-          return matchesSearch;
-        }
+        if (currentMode === 'seller') return matchesSearch;
 
         const matchesFac = facSelect === "Todas" ? (currentFaculty === "Todas" || item.facultyCode === currentFaculty) : item.facultyCode === facSelect;
         const matchesStatus = statusSelect === "Todos" || item.status === statusSelect;
@@ -1452,16 +1652,19 @@
       applyFilters();
     }
 
-    // MODAL PUBLICAR
-    const modal = document.getElementById('publishModal');
+    // MODAL DE PUBLICACIÓN
+    const publishModal = document.getElementById('publishModal');
     const openModalBtn = document.getElementById('openModalBtn');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const publishForm = document.getElementById('publishForm');
 
-    openModalBtn.addEventListener('click', () => modal.classList.add('open'));
-    closeModalBtn.addEventListener('click', () => modal.classList.remove('open'));
-    modal.addEventListener('click', (e) => {
-      if(e.target === modal) modal.classList.remove('open');
+    openModalBtn.addEventListener('click', () => publishModal.classList.add('open'));
+    closeModalBtn.addEventListener('click', () => publishModal.classList.remove('open'));
+    
+    // Cerrar modales al hacer clic fuera del recuadro
+    window.addEventListener('click', (e) => {
+      if (e.target === publishModal) publishModal.classList.remove('open');
+      if (e.target === document.getElementById('detailModal')) closeDetailModal();
     });
 
     publishForm.addEventListener('submit', (e) => {
@@ -1474,11 +1677,17 @@
       const customImg = document.getElementById('itemImg').value;
       const facultyCode = faculty.split(' · ')[0];
 
+      // Formato fecha y hora actual
+      const now = new Date();
+      const dateFormatted = `${now.getDate()} ${now.toLocaleString('es-ES', { month: 'short' })} ${now.getFullYear()}, ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+
       const newItem = {
         id: Date.now(),
         title: title,
         price: price,
         status: status,
+        date: dateFormatted,
+        desc: `Material publicado por un estudiante para entregas dentro del campus.`,
         faculty: faculty,
         facultyCode: facultyCode,
         seller: "Diego",
@@ -1489,14 +1698,13 @@
       };
 
       materials.unshift(newItem);
-      modal.classList.remove('open');
+      publishModal.classList.remove('open');
       publishForm.reset();
       
       setAppMode('seller');
-      alert('¡Listo! Tu material ha sido publicado en ESPOL Materiales.');
+      alert('¡Listo! Tu material ha sido publicado.');
     });
 
-    // Iniciar
     setAppMode('buyer');
   </script>
 </body>
