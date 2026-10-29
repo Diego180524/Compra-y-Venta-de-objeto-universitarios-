@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Leaflet CSS (Mapa interactivo) -->
+  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <style>
@@ -16,7 +16,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     }
 
     body, html {
@@ -32,7 +32,7 @@
       z-index: 1;
     }
 
-    /* BARRA FLOTANTE DE REGRESO Y TÍTULO */
+    /* BARRA SUPERIOR */
     .top-panel {
       position: absolute;
       top: 20px;
@@ -41,6 +41,7 @@
       display: flex;
       gap: 12px;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     .btn-back {
@@ -51,11 +52,11 @@
       text-decoration: none;
       font-weight: 700;
       font-size: 13.5px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
       display: flex;
       align-items: center;
       gap: 6px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
       transition: all 0.2s;
     }
     .btn-back:hover {
@@ -71,17 +72,17 @@
       font-size: 13px;
       font-weight: 600;
       color: #334155;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+      border: 1px solid #cbd5e1;
     }
 
-    /* PINES ANIMADOS CON FOTO DEL PRODUCTO */
+    /* PINES ANIMADOS FLOTANTES CON IMAGEN */
     .custom-marker {
       display: flex;
       flex-direction: column;
       align-items: center;
       cursor: pointer;
-      animation: floatPin 2.5s ease-in-out infinite alternate;
+      animation: floatPin 2.4s ease-in-out infinite alternate;
     }
 
     @keyframes floatPin {
@@ -94,7 +95,7 @@
       border: 2.5px solid #002855;
       border-radius: 12px;
       padding: 3px;
-      box-shadow: 0 8px 18px rgba(0, 40, 85, 0.25);
+      box-shadow: 0 8px 18px rgba(0, 40, 85, 0.28);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -113,10 +114,10 @@
       color: #ffffff;
       font-size: 11px;
       font-weight: 800;
-      padding: 1px 6px;
+      padding: 2px 7px;
       border-radius: 6px;
       margin-top: -6px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.25);
     }
 
     .marker-arrow {
@@ -127,11 +128,11 @@
       border-top: 7px solid #002855;
     }
 
-    /* POPUP DE LEAFLET PERSONALIZADO */
+    /* POPUP DE LEAFLET */
     .leaflet-popup-content-wrapper {
       border-radius: 14px;
       padding: 4px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
     .popup-box {
       width: 220px;
@@ -167,10 +168,13 @@
       background: #10b981;
       color: white;
       text-decoration: none;
-      padding: 7px;
+      padding: 8px;
       border-radius: 6px;
       font-size: 12px;
       font-weight: 700;
+    }
+    .popup-btn:hover {
+      background: #059669;
     }
   </style>
 </head>
@@ -191,16 +195,19 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
+    // TU TOKEN DE CARTO
+    const cartoToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfMHM1dGY2OHoiLCJqdGkiOiJmM2E4NGNkZDk3NmIyYjI0OWZlMGYzYjY1ZDk0N2VjMyJ9.2n6BfveBwSKW47cLf4qnzE01tp1dh_K_ZuV0tpBh0Hg';
+
     // COORDENADAS CAMPUS GUSTAVO GALINDO (ESPOL La Prosperina)
     const espolCoords = [-2.1465, -79.9660];
 
-    // Inicializar mapa
+    // Inicializar mapa centrado en el campus
     const map = L.map('map').setView(espolCoords, 16);
 
-    // Capa visual estilizada tipo Google / OpenStreetMap
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap',
-      maxZoom: 19
+    // CARTO Voyager con tu Token Oficial (limpio, nítido y sin marcas de agua)
+    L.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?api_key=${cartoToken}`, {
+      maxZoom: 19,
+      attribution: '&copy; CARTO &copy; OpenStreetMap'
     }).addTo(map);
 
     // PUNTOS Y PRODUCTOS EN EL CAMPUS
@@ -243,14 +250,14 @@
       }
     ];
 
-    // GENERAR LOS MARCADORES FLOTANTES CON FOTO
+    // GENERAR MARCADORES
     itemsOnCampus.forEach(item => {
       const customIcon = L.divIcon({
         className: 'custom-pin-wrapper',
         html: `
           <div class="custom-marker">
             <div class="marker-card">
-              <img src="${item.img}" class="marker-thumb" />
+              <img src="${item.img}" class="marker-thumb" alt="${item.title}" />
               <span class="marker-price">${item.price}</span>
             </div>
             <div class="marker-arrow"></div>
@@ -266,7 +273,7 @@
           <h4>${item.title}</h4>
           <div class="spot">📍 ${item.spot}</div>
           <div class="price">${item.price}</div>
-          <a href="https://wa.me/${item.phone}?text=Hola%20${item.seller},%20vi%20tu%20${item.title}%20en%20el%20mapa%20de%20ESPOL" target="_blank" class="popup-btn">
+          <a href="https://wa.me/${item.phone}?text=Hola%20${encodeURIComponent(item.seller)},%20vi%20tu%20${encodeURIComponent(item.title)}%20en%20el%20mapa%20de%20ESPOL" target="_blank" class="popup-btn">
             Contactar por WhatsApp
           </a>
         </div>
