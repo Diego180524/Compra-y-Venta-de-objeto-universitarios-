@@ -23,11 +23,11 @@
       flex-direction: column;
     }
 
-    /* NAVBAR */
+    /* NAVBAR SUPERIOR */
     .navbar {
       background: #ffffff;
       border-bottom: 1px solid #edf2f7;
-      padding: 12px 36px;
+      padding: 12px 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -44,7 +44,7 @@
     }
 
     .brand-logo {
-      font-size: 24px;
+      font-size: 23px;
       font-weight: 800;
       color: #002855;
       letter-spacing: -0.5px;
@@ -55,16 +55,14 @@
     }
 
     .brand-sub {
-      font-size: 13.5px;
+      font-size: 13px;
       color: #64748b;
       font-weight: 600;
       background: #f1f5f9;
       padding: 2px 8px;
       border-radius: 6px;
-      margin-left: 4px;
     }
 
-    /* SELECTOR SUPERIOR: COMPRAR / VENDER / VENDIDOS */
     .mode-switch {
       display: flex;
       background: #f1f5f9;
@@ -76,7 +74,7 @@
     .mode-btn {
       border: none;
       background: none;
-      padding: 8px 14px;
+      padding: 7px 14px;
       border-radius: 9px;
       font-size: 13px;
       font-weight: 600;
@@ -86,10 +84,6 @@
       align-items: center;
       gap: 6px;
       transition: all 0.2s;
-    }
-
-    .mode-btn:hover {
-      color: #002855;
     }
 
     .mode-btn.active {
@@ -102,69 +96,10 @@
       color: #dc2626;
     }
 
-    .search-box {
-      flex: 1;
-      max-width: 440px;
-      margin: 0 24px;
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .search-box svg {
-      position: absolute;
-      left: 14px;
-      width: 17px;
-      height: 17px;
-      color: #64748b;
-    }
-
-    .search-box input {
-      width: 100%;
-      background: #f1f5f9;
-      border: 1px solid transparent;
-      border-radius: 999px;
-      padding: 9px 16px 9px 40px;
-      font-size: 13.5px;
-      color: #0f172a;
-      outline: none;
-      transition: all 0.2s;
-    }
-
-    .search-box input:focus {
-      background: #ffffff;
-      border-color: #cbd5e1;
-      box-shadow: 0 0 0 3px rgba(0, 40, 85, 0.08);
-    }
-
     .nav-right {
       display: flex;
       align-items: center;
       gap: 16px;
-    }
-
-    .icon-btn {
-      background: none;
-      border: none;
-      color: #475569;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      position: relative;
-    }
-
-    .notification-dot {
-      position: absolute;
-      top: 6px;
-      right: 7px;
-      width: 7px;
-      height: 7px;
-      background-color: #eab308;
-      border-radius: 50%;
     }
 
     .user-profile {
@@ -172,16 +107,15 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      padding-left: 8px;
     }
 
     .user-avatar {
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background-color: #002855;
       color: #ffffff;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -189,12 +123,9 @@
     }
 
     .user-name {
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 600;
       color: #0f172a;
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
 
     /* LAYOUT */
@@ -204,17 +135,17 @@
       width: 100%;
     }
 
-    /* SIDEBAR CON UNIVERSIDADES DE GUAYAQUIL */
+    /* SIDEBAR UNIVERSIDADES */
     .sidebar {
-      width: 300px;
+      width: 280px;
       background: #ffffff;
       border-right: 1px solid #edf2f7;
       padding: 20px 14px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
       flex-shrink: 0;
-      max-height: calc(100vh - 61px);
+      max-height: calc(100vh - 58px);
       overflow-y: auto;
     }
 
@@ -225,13 +156,13 @@
       letter-spacing: 0.6px;
       text-transform: uppercase;
       padding: 0 8px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .uni-list {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
     }
 
     .uni-card {
@@ -239,12 +170,12 @@
       align-items: center;
       justify-content: space-between;
       padding: 8px 10px;
-      border-radius: 12px;
+      border-radius: 10px;
       border: 1px solid transparent;
       color: #334155;
       text-decoration: none;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.15s;
     }
 
     .uni-card:hover {
@@ -264,38 +195,23 @@
     .uni-card-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       min-width: 0;
     }
 
     .uni-logo-box {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 12px;
+      font-size: 11px;
       flex-shrink: 0;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
-      border: 1px solid rgba(0,0,0,0.06);
+      background: #e0f2fe;
+      color: #0284c7;
     }
-
-    .uni-logo-espol { background: #e0f2fe; color: #0284c7; }
-    .uni-logo-ug { background: #dbeafe; color: #1d4ed8; }
-    .uni-logo-ucsg { background: #fee2e2; color: #b91c1c; }
-    .uni-logo-ups { background: #fef3c7; color: #b45309; }
-    .uni-logo-ecotec { background: #ccfbf1; color: #0f766e; }
-    .uni-logo-uees { background: #ffe4e6; color: #be123c; }
-    .uni-logo-uartes { background: #ede9fe; color: #6d28d9; }
-    .uni-logo-ucg { background: #ffedd5; color: #c2410c; }
-    .uni-logo-ulvr { background: #f1f5f9; color: #334155; }
-    .uni-logo-uide { background: #e0e7ff; color: #4338ca; }
-    .uni-logo-umet { background: #fae8ff; color: #a21caf; }
-    .uni-logo-upacifico { background: #e0f2fe; color: #0369a1; }
-    .uni-logo-ube { background: #fef08a; color: #854d0e; }
-    .uni-logo-itb { background: #f3e8ff; color: #7e22ce; }
 
     .uni-meta {
       display: flex;
@@ -305,13 +221,13 @@
 
     .uni-abbr {
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12.5px;
       line-height: 1.2;
       color: #0f172a;
     }
 
     .uni-full {
-      font-size: 10.5px;
+      font-size: 10px;
       color: #64748b;
       line-height: 1.2;
       white-space: nowrap;
@@ -319,225 +235,258 @@
       text-overflow: ellipsis;
     }
 
-    .uni-arrow {
-      color: #94a3b8;
-      flex-shrink: 0;
-    }
-
-    .menu-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 9px 12px;
-      border-radius: 10px;
-      color: #334155;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .menu-item:hover {
-      background-color: #f8fafc;
-      color: #002855;
-    }
-
-    .menu-item.active {
-      background-color: #002855;
-      color: #ffffff;
-    }
-
-    .menu-item.active svg {
-      color: #ffffff;
-    }
-
-    .menu-item-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    /* MAIN CONTENT */
+    /* CONTENIDO PRINCIPAL */
     .main-content {
       flex: 1;
-      padding: 28px 40px;
+      padding: 24px 36px;
+      max-width: 1360px;
     }
 
     .header-row {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .user-greeting h1 {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 800;
       color: #0b1f3a;
       letter-spacing: -0.5px;
     }
 
     .user-greeting p {
-      font-size: 14px;
+      font-size: 13.5px;
       color: #64748b;
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
     .btn-publish {
       background-color: #002855;
       color: #ffffff;
-      padding: 11px 20px;
-      border-radius: 9px;
+      padding: 10px 18px;
+      border-radius: 8px;
       border: none;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       cursor: pointer;
-      transition: background-color 0.2s, transform 0.1s;
+      transition: background-color 0.2s;
     }
 
     .btn-publish:hover {
       background-color: #001a38;
-      transform: translateY(-1px);
     }
 
-    .eco-banner {
-      background-color: #fef9c3;
-      border: 1px solid #fef08a;
+    /* BARRA DE BÚSQUEDA NUEVA */
+    .main-search-bar {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
       border-radius: 12px;
-      padding: 14px 20px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 24px;
+      gap: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      margin-bottom: 14px;
     }
 
-    .eco-banner svg {
-      width: 28px;
-      height: 28px;
-      color: #854d0e;
+    .main-search-bar svg.icon-search {
+      width: 18px;
+      height: 18px;
+      color: #64748b;
       flex-shrink: 0;
     }
 
-    .eco-banner h4 {
-      font-size: 14px;
-      font-weight: 700;
-      color: #713f12;
+    .main-search-bar input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 13.5px;
+      color: #0f172a;
     }
 
-    .eco-banner p {
-      font-size: 12px;
-      color: #854d0e;
-      margin-top: 2px;
+    .main-search-bar .clear-search-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 2px 6px;
     }
 
-    /* PESTAÑAS Y FILTROS */
-    .tabs-row {
+    .main-search-bar .clear-search-btn:hover {
+      color: #475569;
+    }
+
+    /* BÚSQUEDAS RÁPIDAS (HASHTAGS) */
+    .quick-searches-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #64748b;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .hashtags-row {
       display: flex;
-      gap: 24px;
-      border-bottom: 1px solid #e2e8f0;
+      flex-wrap: wrap;
+      gap: 7px;
       margin-bottom: 18px;
     }
 
-    .tab-btn {
-      background: none;
-      border: none;
-      padding: 8px 4px 12px;
-      font-size: 13.5px;
+    .hashtag-pill {
+      background: #f0f7ff;
+      border: 1px solid #dbeafe;
+      color: #0284c7;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
       font-weight: 600;
-      color: #64748b;
-      cursor: pointer;
-      position: relative;
-      transition: color 0.15s;
-    }
-
-    .tab-btn:hover {
-      color: #002855;
-    }
-
-    .tab-btn.active {
-      color: #002855;
-    }
-
-    .tab-btn.active::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      right: 0;
-      height: 2.5px;
-      background-color: #002855;
-      border-radius: 2px;
-    }
-
-    .filters-row {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-    }
-
-    .filter-select {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-size: 12.5px;
-      color: #334155;
-      outline: none;
-      cursor: pointer;
-    }
-
-    .chips-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-
-    .chip {
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      padding: 5px 14px;
-      border-radius: 999px;
-      font-size: 12px;
-      color: #475569;
       cursor: pointer;
       transition: all 0.15s;
     }
 
-    .chip:hover, .chip.active {
+    .hashtag-pill:hover, .hashtag-pill.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+    }
+
+    /* SELECCIÓN UNIVERSIDAD Y BOTÓN BUSCAR */
+    .filter-action-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .uni-picker-box label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0b1f3a;
+      margin-bottom: 6px;
+    }
+
+    .uni-picker-select-wrapper {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      padding: 7px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 230px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .uni-picker-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #e0f2fe;
+      color: #0284c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .uni-picker-select-wrapper select {
+      border: none;
+      outline: none;
+      background: none;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .btn-search-primary {
+      background-color: #002855;
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-search-primary:hover {
+      background-color: #001a38;
+    }
+
+    /* PESTAÑAS DE CATEGORÍAS */
+    .categories-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 14px;
+      margin-bottom: 22px;
+      overflow-x: auto;
+    }
+
+    .category-pills-left {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .cat-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .cat-btn.active {
       background: #002855;
       color: #ffffff;
       border-color: #002855;
     }
 
-    .section-subtitle {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .section-subtitle h2 {
-      font-size: 18px;
-      font-weight: 700;
-      color: #0f172a;
-    }
-
-    .section-subtitle span {
+    .sort-dropdown {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 6px 10px;
       font-size: 12px;
-      color: #94a3b8;
+      font-weight: 600;
+      color: #475569;
+      outline: none;
+      cursor: pointer;
+      white-space: nowrap;
     }
 
     /* GRID PRODUCTOS */
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 22px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
     }
 
     .product-card {
@@ -560,8 +509,8 @@
     .product-img-wrapper {
       position: relative;
       width: 100%;
-      height: 175px;
-      background-color: #e2e8f0;
+      height: 165px;
+      background-color: #f1f5f9;
       overflow: hidden;
     }
 
@@ -569,96 +518,57 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: filter 0.2s;
-    }
-
-    .product-card.card-sold .product-img-wrapper img {
-      filter: grayscale(45%) opacity(0.85);
-    }
-
-    .sold-overlay-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: rgba(220, 38, 38, 0.92);
-      color: #ffffff;
-      padding: 5px 11px;
-      border-radius: 8px;
-      font-size: 11.5px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 10px rgba(220, 38, 38, 0.35);
-      z-index: 4;
-    }
-
-    .sold-big-x {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(15, 23, 42, 0.25);
-      z-index: 3;
-      pointer-events: none;
-    }
-
-    .sold-big-x svg {
-      width: 72px;
-      height: 72px;
-      color: #ef4444;
-      stroke-width: 2.5;
-      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
     }
 
     .btn-fav {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 9px;
+      right: 9px;
       background: rgba(255, 255, 255, 0.9);
       border: none;
       border-radius: 50%;
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       color: #64748b;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      transition: all 0.15s;
       z-index: 5;
-    }
-
-    .btn-fav.active {
-      color: #ef4444;
-      background: #ffffff;
     }
 
     .btn-fav.active svg {
       fill: #ef4444;
+      stroke: #ef4444;
     }
 
     .product-info {
-      padding: 14px 16px;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
       flex: 1;
     }
 
     .product-title {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
       color: #0f172a;
       margin-bottom: 6px;
+      line-height: 1.3;
     }
 
     .product-price-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .price-and-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
     }
 
     .product-price {
@@ -668,15 +578,12 @@
     }
 
     .badge-status {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
-      padding: 2.5px 8.5px;
-      border-radius: 999px;
+      padding: 2px 7px;
+      border-radius: 6px;
       background-color: #dcfce7;
       color: #15803d;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
     }
 
     .badge-status.warning {
@@ -685,162 +592,60 @@
     }
 
     .badge-status.sold {
-      background-color: #fef2f2;
+      background-color: #fee2e2;
       color: #dc2626;
-      border: 1px solid #fee2e2;
-      font-weight: 700;
     }
 
-    .product-uni-badge {
-      font-size: 11px;
-      font-weight: 700;
-      color: #0284c7;
-      background: #f0f9ff;
-      border: 1px solid #e0f2fe;
-      padding: 2px 7px;
-      border-radius: 5px;
-      display: inline-block;
-      margin-bottom: 6px;
-      width: fit-content;
-    }
-
-    .product-faculty {
-      font-size: 11.5px;
-      color: #64748b;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 14px;
-    }
-
-    .card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: auto;
-      padding-top: 12px;
-      border-top: 1px solid #f1f5f9;
-    }
-
-    .seller-info {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .seller-avatar {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background-color: #e2e8f0;
-      color: #475569;
-      font-size: 10.5px;
-      font-weight: 700;
+    .btn-cart-action {
+      background: #f0f7ff;
+      border: 1px solid #dbeafe;
+      border-radius: 7px;
+      width: 28px;
+      height: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .seller-name {
-      font-size: 11.5px;
-      color: #475569;
-    }
-
-    .btn-contact {
-      background: none;
-      border: 1px solid #cbd5e1;
-      padding: 5px 11px;
-      border-radius: 6px;
-      font-size: 11.5px;
-      font-weight: 600;
-      color: #334155;
-      display: flex;
-      align-items: center;
-      gap: 5px;
       cursor: pointer;
+      color: #0284c7;
       transition: all 0.15s;
-      z-index: 5;
     }
 
-    .btn-contact:hover {
-      background-color: #10b981;
+    .btn-cart-action:hover {
+      background: #0284c7;
       color: #ffffff;
-      border-color: #10b981;
     }
 
-    .btn-contact.sold-btn {
-      background-color: #f1f5f9;
-      color: #94a3b8;
-      cursor: not-allowed;
-      border-color: #e2e8f0;
-    }
-
-    /* MODO VENDEDOR STATS */
-    .seller-dashboard-header {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .stat-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      padding: 16px 20px;
-      border-radius: 12px;
-    }
-
-    .stat-card span {
-      font-size: 12px;
+    .product-uni-tag {
+      font-size: 11px;
+      font-weight: 700;
       color: #64748b;
-      font-weight: 600;
+      margin-bottom: 2px;
     }
 
-    .stat-card h3 {
-      font-size: 24px;
-      font-weight: 800;
-      color: #002855;
-      margin-top: 4px;
-    }
-
-    /* BOTÓN FLOTANTE MAPA */
-    .floating-map-btn {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: linear-gradient(135deg, #002855 0%, #0284c7 100%);
-      color: #ffffff;
-      padding: 12px 22px;
-      border-radius: 50px;
+    .product-campus-spot {
+      font-size: 11px;
+      color: #94a3b8;
       display: flex;
       align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 13.5px;
-      box-shadow: 0 10px 25px rgba(0, 40, 85, 0.35);
-      z-index: 150;
-      transition: transform 0.2s, box-shadow 0.2s;
+      gap: 4px;
+      margin-bottom: 8px;
     }
 
-    .floating-map-btn:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 14px 28px rgba(0, 40, 85, 0.45);
+    .product-tags-footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: auto;
+      padding-top: 6px;
     }
 
-    .radar-pulse {
-      width: 10px;
-      height: 10px;
-      background: #22c55e;
-      border-radius: 50%;
-      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    .product-tag-pill {
+      font-size: 10.5px;
+      color: #0284c7;
+      background: #f0f7ff;
+      padding: 1.5px 6px;
+      border-radius: 4px;
+      font-weight: 600;
     }
 
     /* MODALES */
@@ -864,8 +669,8 @@
       background: #ffffff;
       border-radius: 16px;
       width: 100%;
-      max-width: 500px;
-      padding: 26px;
+      max-width: 480px;
+      padding: 24px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.18);
       max-height: 90vh;
       overflow-y: auto;
@@ -875,116 +680,51 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 18px;
-    }
-
-    .modal-header h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: #0f172a;
+      margin-bottom: 16px;
     }
 
     .btn-close-modal {
       background: #f1f5f9;
       border: none;
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      font-size: 15px;
+      font-size: 14px;
       color: #64748b;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .btn-close-modal:hover {
-      background: #e2e8f0;
-      color: #0f172a;
-    }
-
-    .detail-img-box {
-      width: 100%;
-      height: 230px;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      background: #e2e8f0;
-    }
-
-    .detail-img-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .detail-meta-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      background: #f8fafc;
-      padding: 12px 14px;
-      border-radius: 10px;
-      border: 1px solid #edf2f7;
-      margin-bottom: 16px;
-    }
-
-    .detail-meta-item label {
-      font-size: 11px;
-      color: #64748b;
-      font-weight: 600;
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .detail-meta-item span {
-      font-size: 13px;
-      font-weight: 700;
-      color: #0f172a;
-    }
-
-    .detail-description {
-      font-size: 13px;
-      line-height: 1.5;
-      color: #475569;
-      margin-bottom: 20px;
     }
 
     .modal-form .form-group {
-      margin-bottom: 14px;
+      margin-bottom: 13px;
     }
 
     .modal-form label {
       display: block;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       color: #334155;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .modal-form input, .modal-form select {
       width: 100%;
-      padding: 9px 12px;
+      padding: 8px 12px;
       border: 1px solid #cbd5e1;
-      border-radius: 8px;
+      border-radius: 7px;
       font-size: 13px;
       outline: none;
-    }
-
-    .modal-form input:focus, .modal-form select:focus {
-      border-color: #002855;
     }
 
     .btn-submit-modal {
       width: 100%;
       background-color: #002855;
       color: #ffffff;
-      padding: 12px;
-      border-radius: 8px;
+      padding: 11px;
+      border-radius: 7px;
       border: none;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
-      margin-top: 10px;
+      margin-top: 8px;
       cursor: pointer;
     }
   </style>
@@ -998,10 +738,10 @@
       <span class="brand-sub">Guayaquil</span>
     </a>
 
-    <!-- SELECTOR: COMPRAR / VENDER / VENDIDOS -->
+    <!-- MODO SWITCH -->
     <div class="mode-switch">
       <button class="mode-btn active" id="modeBuyBtn" onclick="setAppMode('buyer')">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="9" cy="21" r="1"></circle>
           <circle cx="20" cy="21" r="1"></circle>
           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -1010,15 +750,15 @@
       </button>
 
       <button class="mode-btn" id="modeSellBtn" onclick="setAppMode('seller')">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
           <line x1="7" y1="7" x2="7.01" y2="7"></line>
         </svg>
-        Vender (Mis Artículos)
+        Vender
       </button>
 
       <button class="mode-btn btn-sold-tab" id="modeSoldBtn" onclick="setAppMode('sold')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
@@ -1026,17 +766,8 @@
       </button>
     </div>
 
-    <div class="search-box">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
-      <input type="text" id="searchInput" placeholder="¿Qué material o libro buscas?">
-    </div>
-
     <div class="nav-right">
       <button class="icon-btn" title="Notificaciones">
-        <span class="notification-dot"></span>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
           <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
@@ -1044,402 +775,196 @@
       </button>
       <div class="user-profile" onclick="window.location.href='index.html'" title="Cerrar sesión">
         <div class="user-avatar">D</div>
-        <div class="user-name">
-          Diego
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </div>
+        <div class="user-name">Diego</div>
       </div>
     </div>
   </nav>
 
-  <!-- APP LAYOUT -->
+  <!-- LAYOUT -->
   <div class="app-layout">
     
-    <!-- SIDEBAR CON UNIVERSIDADES DE GUAYAQUIL -->
+    <!-- SIDEBAR UNIVERSIDADES -->
     <aside class="sidebar">
       <div>
         <div class="sidebar-section-title">UNIVERSIDADES</div>
         <div class="uni-list" id="uniList">
-          <!-- ESPOL -->
-          <div class="uni-card active" onclick="filterByUniversity('ESPOL', this)">
+          <div class="uni-card active" onclick="selectUniversity('ESPOL', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-espol">ESP</div>
+              <div class="uni-logo-box">ESP</div>
               <div class="uni-meta">
                 <span class="uni-abbr">ESPOL</span>
                 <span class="uni-full">Escuela Superior Politécnica del Litoral</span>
               </div>
             </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
 
-          <!-- UG -->
-          <div class="uni-card" onclick="filterByUniversity('UG', this)">
+          <div class="uni-card" onclick="selectUniversity('UG', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ug">UG</div>
+              <div class="uni-logo-box">UG</div>
               <div class="uni-meta">
                 <span class="uni-abbr">UG</span>
                 <span class="uni-full">Universidad de Guayaquil</span>
               </div>
             </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
 
-          <!-- UCSG -->
-          <div class="uni-card" onclick="filterByUniversity('UCSG', this)">
+          <div class="uni-card" onclick="selectUniversity('UCSG', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ucsg">UC</div>
+              <div class="uni-logo-box">UC</div>
               <div class="uni-meta">
                 <span class="uni-abbr">U. Católica</span>
-                <span class="uni-full">Universidad Católica de Santiago de Guayaquil</span>
+                <span class="uni-full">Univ. Católica Santiago de Guayaquil</span>
               </div>
             </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
 
-          <!-- UPS -->
-          <div class="uni-card" onclick="filterByUniversity('UPS', this)">
+          <div class="uni-card" onclick="selectUniversity('UPS', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ups">UPS</div>
+              <div class="uni-logo-box">UPS</div>
               <div class="uni-meta">
                 <span class="uni-abbr">Salesiana</span>
                 <span class="uni-full">Universidad Politécnica Salesiana</span>
               </div>
             </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
 
-          <!-- ECOTEC -->
-          <div class="uni-card" onclick="filterByUniversity('ECOTEC', this)">
+          <div class="uni-card" onclick="selectUniversity('ECOTEC', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ecotec">ECO</div>
+              <div class="uni-logo-box">ECO</div>
               <div class="uni-meta">
                 <span class="uni-abbr">ECOTEC</span>
                 <span class="uni-full">Universidad Ecotec</span>
               </div>
             </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
 
-          <!-- UEES -->
-          <div class="uni-card" onclick="filterByUniversity('UEES', this)">
+          <div class="uni-card" onclick="selectUniversity('UEES', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-uees">UEES</div>
+              <div class="uni-logo-box">UEES</div>
               <div class="uni-meta">
                 <span class="uni-abbr">UEES</span>
                 <span class="uni-full">Universidad Espíritu Santo</span>
               </div>
             </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
 
-          <!-- UARTES -->
-          <div class="uni-card" onclick="filterByUniversity('UARTES', this)">
+          <div class="uni-card" onclick="selectUniversity('UARTES', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-uartes">UART</div>
+              <div class="uni-logo-box">UART</div>
               <div class="uni-meta">
                 <span class="uni-abbr">UArtes</span>
                 <span class="uni-full">Universidad de las Artes</span>
               </div>
             </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
 
-          <!-- CASA GRANDE -->
-          <div class="uni-card" onclick="filterByUniversity('UCG', this)">
+          <div class="uni-card" onclick="selectUniversity('Todas', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ucg">UCG</div>
+              <div class="uni-logo-box">GYE</div>
               <div class="uni-meta">
-                <span class="uni-abbr">Casa Grande</span>
-                <span class="uni-full">Universidad Casa Grande</span>
+                <span class="uni-abbr">Todas</span>
+                <span class="uni-full">Todas las universidades</span>
               </div>
             </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
-
-          <!-- ULVR -->
-          <div class="uni-card" onclick="filterByUniversity('ULVR', this)">
-            <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ulvr">ULVR</div>
-              <div class="uni-meta">
-                <span class="uni-abbr">ULVR</span>
-                <span class="uni-full">U. Laica Vicente Rocafuerte</span>
-              </div>
-            </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
-
-          <!-- UIDE -->
-          <div class="uni-card" onclick="filterByUniversity('UIDE', this)">
-            <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-uide">UIDE</div>
-              <div class="uni-meta">
-                <span class="uni-abbr">UIDE</span>
-                <span class="uni-full">U. Internacional del Ecuador</span>
-              </div>
-            </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
-
-          <!-- UMET -->
-          <div class="uni-card" onclick="filterByUniversity('UMET', this)">
-            <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-umet">UMET</div>
-              <div class="uni-meta">
-                <span class="uni-abbr">Metropolitana</span>
-                <span class="uni-full">Universidad Metropolitana</span>
-              </div>
-            </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
-
-          <!-- UPACIFICO -->
-          <div class="uni-card" onclick="filterByUniversity('UPACIFICO', this)">
-            <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-upacifico">UPAC</div>
-              <div class="uni-meta">
-                <span class="uni-abbr">Del Pacífico</span>
-                <span class="uni-full">Universidad Del Pacífico</span>
-              </div>
-            </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
-
-          <!-- UBE -->
-          <div class="uni-card" onclick="filterByUniversity('UBE', this)">
-            <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ube">UBE</div>
-              <div class="uni-meta">
-                <span class="uni-abbr">Bolivariana</span>
-                <span class="uni-full">Universidad Bolivariana del Ecuador</span>
-              </div>
-            </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
-
-          <!-- ITB -->
-          <div class="uni-card" onclick="filterByUniversity('ITB', this)">
-            <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-itb">ITB</div>
-              <div class="uni-meta">
-                <span class="uni-abbr">ITB</span>
-                <span class="uni-full">Instituto Superior Universitario Bolivariano</span>
-              </div>
-            </div>
-            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
-        </div>
-      </div>
-
-      <!-- SECCIÓN EXPLORAR -->
-      <div style="margin-top: 10px; padding-top: 16px; border-top: 1px solid #f1f5f9;">
-        <div class="sidebar-section-title">EXPLORAR</div>
-        <div class="menu-item active" id="menuAllUnis" onclick="filterByUniversity('Todas', this)">
-          <div class="menu-item-left">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="7" height="7"></rect>
-              <rect x="14" y="3" width="7" height="7"></rect>
-              <rect x="14" y="14" width="7" height="7"></rect>
-              <rect x="3" y="14" width="7" height="7"></rect>
-            </svg>
-            <span>General</span>
-          </div>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </div>
-
-        <div class="menu-item" onclick="setAppMode('buyer')">
-          <div class="menu-item-left">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <path d="M16 10a4 4 0 0 1-8 0"></path>
-            </svg>
-            <span>Mis compras</span>
-          </div>
-        </div>
-
-        <div class="menu-item" onclick="setAppMode('seller')">
-          <div class="menu-item-left">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-              <line x1="7" y1="7" x2="7.01" y2="7"></line>
-            </svg>
-            <span>Mis ventas</span>
-          </div>
-        </div>
-
-        <div class="menu-item" onclick="alert('Aquí verás tus materiales guardados como favoritos.')">
-          <div class="menu-item-left">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-            </svg>
-            <span>Favoritos</span>
           </div>
         </div>
       </div>
     </aside>
 
-    <!-- ÁREA PRINCIPAL -->
+    <!-- MAIN CONTENT -->
     <main class="main-content">
       
       <!-- ENCABEZADO -->
       <div class="header-row">
         <div class="user-greeting">
-          <h1 id="viewGreeting">Hola, Diego</h1>
-          <p id="viewDescription">Encuentra y vende materiales entre estudiantes de Guayaquil.</p>
+          <h1>Hola, Diego</h1>
+          <p>Encuentra materiales entre estudiantes de diferentes universidades en Guayaquil.</p>
         </div>
         <button class="btn-publish" id="openModalBtn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          Publicar material
+          + Publicar material
         </button>
       </div>
 
-      <!-- SECCIÓN MODO VENDEDOR (ESTADÍSTICAS) -->
-      <div id="sellerStatsArea" style="display: none;">
-        <div class="seller-dashboard-header">
-          <div class="stat-card">
-            <span>Publicaciones activas</span>
-            <h3 id="statActive">1</h3>
-          </div>
-          <div class="stat-card">
-            <span>Interesados / Clics</span>
-            <h3>14</h3>
-          </div>
-          <div class="stat-card">
-            <span>Ventas completadas</span>
-            <h3 id="statSold">0</h3>
-          </div>
-        </div>
-      </div>
-
-      <!-- BANNER AMARILLO -->
-      <div class="eco-banner" id="ecoBanner">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6zm6 4h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+      <!-- BARRA DE BÚSQUEDA ANCHA -->
+      <div class="main-search-bar">
+        <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <div>
-          <h4>Dale otro ciclo a tus libros y herramientas universitarias</h4>
-          <p>Compra, vende e intercambia entre los campus de Guayaquil y Samborondón.</p>
-        </div>
+        <input type="text" id="searchInput" placeholder="¿Qué material necesitas? Prueba con #electricidad, multimetro, #laboratorio...">
+        <button class="clear-search-btn" onclick="clearSearch()" title="Limpiar búsqueda">✕</button>
       </div>
 
-      <!-- FILTROS Y PESTAÑAS (GENERAL / POR FACULTAD / POR CARRERA) -->
-      <div id="buyerFiltersArea">
-        <div class="tabs-row">
-          <button class="tab-btn active" id="tabGeneral" onclick="switchNavTab('general', this)">General</button>
-          <button class="tab-btn" id="tabFaculty" onclick="switchNavTab('faculty', this)">Por facultad</button>
-          <button class="tab-btn" id="tabCareer" onclick="switchNavTab('career', this)">Por carrera</button>
-        </div>
-
-        <div class="filters-row" id="filtersRow">
-          <select class="filter-select" id="uniSelect" onchange="onUniSelectChange()">
-            <option value="Todas">Universidad: Todas</option>
-            <option value="ESPOL" selected>ESPOL</option>
-            <option value="UG">Universidad de Guayaquil (UG)</option>
-            <option value="UCSG">U. Católica (UCSG)</option>
-            <option value="UPS">Salesiana (UPS)</option>
-            <option value="ECOTEC">ECOTEC</option>
-            <option value="UEES">UEES</option>
-            <option value="UARTES">UArtes</option>
-            <option value="UCG">Casa Grande</option>
-            <option value="ULVR">ULVR</option>
-            <option value="UIDE">UIDE</option>
-            <option value="UMET">Metropolitana</option>
-            <option value="UPACIFICO">Del Pacífico</option>
-            <option value="UBE">Bolivariana (UBE)</option>
-            <option value="ITB">ITB</option>
-          </select>
-          <select class="filter-select" id="statusSelect" onchange="applyFilters()">
-            <option value="Todos">Estado: Todos</option>
-            <option value="Buen estado">Buen estado</option>
-            <option value="Poco uso">Poco uso</option>
-            <option value="Vendido">✕ Vendido</option>
-          </select>
-          <select class="filter-select" id="priceSelect" onchange="applyFilters()">
-            <option value="Todos">Precio</option>
-            <option value="low">Hasta $10</option>
-            <option value="mid">$11 - $20</option>
-            <option value="high">Más de $20</option>
-          </select>
-        </div>
-
-        <div class="chips-row" id="chipsRow">
-          <span class="chip" onclick="filterByChip(this, 'Ingeniería')">Ingeniería</span>
-          <span class="chip" onclick="filterByChip(this, 'Medicina')">Medicina</span>
-          <span class="chip" onclick="filterByChip(this, 'Derecho')">Derecho</span>
-          <span class="chip" onclick="filterByChip(this, 'Administración')">Administración</span>
-          <span class="chip" onclick="filterByChip(this, 'Diseño')">Diseño & Arte</span>
-          <span class="chip" onclick="filterByChip(this, 'Arquitectura')">Arquitectura</span>
-        </div>
+      <!-- BÚSQUEDAS RÁPIDAS (HASHTAGS) -->
+      <div class="quick-searches-title">BÚSQUEDAS RÁPIDAS</div>
+      <div class="hashtags-row" id="hashtagsContainer">
+        <span class="hashtag-pill" onclick="toggleHashtag('#electricidad', this)">#electricidad</span>
+        <span class="hashtag-pill" onclick="toggleHashtag('#electrónica', this)">#electrónica</span>
+        <span class="hashtag-pill" onclick="toggleHashtag('#instrumentos', this)">#instrumentos</span>
+        <span class="hashtag-pill" onclick="toggleHashtag('#laboratorio', this)">#laboratorio</span>
+        <span class="hashtag-pill" onclick="toggleHashtag('#mecánica', this)">#mecánica</span>
+        <span class="hashtag-pill" onclick="toggleHashtag('#mecatrónica', this)">#mecatrónica</span>
+        <span class="hashtag-pill" onclick="toggleHashtag('#circuitos', this)">#circuitos</span>
+        <span class="hashtag-pill" onclick="toggleHashtag('#proyectos', this)">#proyectos</span>
+        <span class="hashtag-pill" onclick="toggleHashtag('#componentes', this)">#componentes</span>
+        <span class="hashtag-pill" onclick="toggleHashtag('#diseño', this)">#diseño</span>
+        <span class="hashtag-pill" onclick="toggleHashtag('#programación', this)">#programación</span>
+        <span class="hashtag-pill" onclick="toggleHashtag('#libros', this)">#libros</span>
       </div>
 
-      <!-- TÍTULO DE SECCIÓN -->
-      <div class="section-subtitle">
-        <h2 id="sectionTitle">Materiales disponibles en ESPOL</h2>
-        <span id="sectionCounter">Publicaciones verificadas</span>
+      <!-- SELECTOR DE UNIVERSIDAD Y BOTÓN BUSCAR -->
+      <div class="filter-action-row">
+        <div class="uni-picker-box">
+          <label>Universidad</label>
+          <div class="uni-picker-select-wrapper">
+            <div class="uni-picker-icon" id="uniBadgeIcon">ESP</div>
+            <select id="mainUniSelect" onchange="onSelectChange(this.value)">
+              <option value="ESPOL" selected>ESPOL</option>
+              <option value="UG">Universidad de Guayaquil</option>
+              <option value="UCSG">U. Católica</option>
+              <option value="UPS">Salesiana</option>
+              <option value="ECOTEC">ECOTEC</option>
+              <option value="UEES">UEES</option>
+              <option value="UARTES">UArtes</option>
+              <option value="Todas">Todas las Universidades</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn-search-primary" onclick="applyFilters()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          Buscar
+        </button>
       </div>
 
-      <!-- GRID PRODUCTOS -->
+      <!-- PESTAÑAS DE CATEGORÍAS CON CONTADORES -->
+      <div class="categories-bar">
+        <div class="category-pills-left">
+          <button class="cat-btn active" onclick="filterByCategory('Todos', this)">⚙ Todos (<span id="countTodos">8</span>)</button>
+          <button class="cat-btn" onclick="filterByCategory('Herramientas', this)">🛠 Herramientas (<span id="countHerramientas">2</span>)</button>
+          <button class="cat-btn" onclick="filterByCategory('Instrumentos', this)">🧭 Instrumentos (<span id="countInstrumentos">2</span>)</button>
+          <button class="cat-btn" onclick="filterByCategory('Componentes', this)">🏠 Componentes (<span id="countComponentes">2</span>)</button>
+          <button class="cat-btn" onclick="filterByCategory('Materiales', this)">📄 Materiales (<span id="countMateriales">1</span>)</button>
+          <button class="cat-btn" onclick="filterByCategory('Kits', this)">📦 Kits (<span id="countKits">1</span>)</button>
+          <button class="cat-btn" onclick="filterByCategory('Libros', this)">📖 Libros (<span id="countLibros">1</span>)</button>
+        </div>
+
+        <select class="sort-dropdown" onchange="sortProducts(this.value)">
+          <option value="recent">↑↓ Más recientes</option>
+          <option value="priceLow">Precio: menor a mayor</option>
+          <option value="priceHigh">Precio: mayor a menor</option>
+        </select>
+      </div>
+
+      <!-- GRID DE PRODUCTOS -->
       <div class="products-grid" id="productsGrid"></div>
     </main>
   </div>
 
-  <!-- BOTÓN FLOTANTE DEL MAPA INTERACTIVO -->
-  <a href="mapa.html" class="floating-map-btn" title="Ver en el mapa de campus">
-    <div class="radar-pulse"></div>
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
-      <line x1="8" y1="2" x2="8" y2="18"></line>
-      <line x1="16" y1="6" x2="16" y2="22"></line>
-    </svg>
-    <span>Mapa de entregas</span>
-  </a>
-
-  <!-- MODAL 1: DETALLE DEL MATERIAL CON FECHA, HORA Y DESCRIPCIÓN -->
-  <div class="modal-overlay" id="detailModal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 id="modalDetailTitle">Detalle del Material</h3>
-        <button class="btn-close-modal" onclick="closeDetailModal()">✕</button>
-      </div>
-
-      <div class="detail-img-box">
-        <img id="modalDetailImg" src="" alt="Material">
-      </div>
-
-      <div class="detail-meta-grid">
-        <div class="detail-meta-item">
-          <label>Precio</label>
-          <span id="modalDetailPrice" style="color: #002855; font-size: 16px;">$0</span>
-        </div>
-        <div class="detail-meta-item">
-          <label>Estado</label>
-          <span id="modalDetailStatus">Buen estado</span>
-        </div>
-        <div class="detail-meta-item">
-          <label>Universidad</label>
-          <span id="modalDetailUni">ESPOL</span>
-        </div>
-        <div class="detail-meta-item">
-          <label>Publicado el</label>
-          <span id="modalDetailDate">Hoy</span>
-        </div>
-      </div>
-
-      <div class="detail-description">
-        <label style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; display: block; margin-bottom: 4px;">Carrera / Facultad y detalles</label>
-        <p id="modalDetailDesc">Material verificado por un estudiante para entregas en campus.</p>
-      </div>
-
-      <div id="modalDetailAction"></div>
-    </div>
-  </div>
-
-  <!-- MODAL 2: PUBLICAR MATERIAL -->
+  <!-- MODAL DE PUBLICACIÓN -->
   <div class="modal-overlay" id="publishModal">
     <div class="modal-card">
       <div class="modal-header">
@@ -1448,47 +973,43 @@
       </div>
       <form class="modal-form" id="publishForm">
         <div class="form-group">
-          <label>Nombre del material, libro o equipo</label>
-          <input type="text" id="itemName" placeholder="Ej. Estetoscopio Littmann, Calculadora Casio, Escalímetro..." required>
+          <label>Nombre del material u objeto</label>
+          <input type="text" id="itemName" placeholder="Ej. Multímetro digital, Cautín, Osciloscopio..." required>
         </div>
         <div class="form-group">
           <label>Precio ($ USD)</label>
-          <input type="number" id="itemPrice" placeholder="Ej. 15" min="1" required>
+          <input type="number" id="itemPrice" placeholder="Ej. 18" min="1" required>
         </div>
         <div class="form-group">
-          <label>Universidad en Guayaquil</label>
+          <label>Categoría</label>
+          <select id="itemCategory" required>
+            <option value="Herramientas">Herramientas</option>
+            <option value="Instrumentos">Instrumentos</option>
+            <option value="Componentes">Componentes</option>
+            <option value="Materiales">Materiales</option>
+            <option value="Kits">Kits</option>
+            <option value="Libros">Libros</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Universidad</label>
           <select id="itemUni" required>
-            <option value="ESPOL">ESPOL (La Prosperina)</option>
-            <option value="UG">Universidad de Guayaquil (UG)</option>
-            <option value="UCSG">Universidad Católica (UCSG)</option>
-            <option value="UPS">Universidad Politécnica Salesiana (UPS)</option>
-            <option value="ECOTEC">Universidad ECOTEC</option>
-            <option value="UEES">Universidad Espíritu Santo (UEES)</option>
-            <option value="UARTES">Universidad de las Artes (UArtes)</option>
-            <option value="UCG">Universidad Casa Grande</option>
-            <option value="ULVR">U. Laica Vicente Rocafuerte (ULVR)</option>
-            <option value="UIDE">UIDE Guayaquil</option>
-            <option value="UMET">Universidad Metropolitana (UMET)</option>
-            <option value="UPACIFICO">Universidad Del Pacífico</option>
-            <option value="UBE">Universidad Bolivariana del Ecuador (UBE)</option>
-            <option value="ITB">Instituto Superior Universitario Bolivariano (ITB)</option>
+            <option value="ESPOL">ESPOL</option>
+            <option value="UG">Universidad de Guayaquil</option>
+            <option value="UCSG">U. Católica</option>
+            <option value="UPS">Salesiana</option>
+            <option value="ECOTEC">ECOTEC</option>
+            <option value="UEES">UEES</option>
+            <option value="UARTES">UArtes</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Facultad y Carrera</label>
-          <input type="text" id="itemFaculty" placeholder="Ej. FIMCP · Mecatrónica / Ciencias Médicas" required>
+          <label>Lugar de entrega en Campus</label>
+          <input type="text" id="itemSpot" placeholder="Ej. Campus ESPOL (Bloque FIEC)" required>
         </div>
         <div class="form-group">
-          <label>Número de WhatsApp (para contacto)</label>
-          <input type="tel" id="itemPhone" placeholder="Ej. 593991234567" required>
-        </div>
-        <div class="form-group">
-          <label>Estado del producto</label>
-          <select id="itemStatus" required>
-            <option value="Buen estado">Buen estado</option>
-            <option value="Poco uso">Poco uso</option>
-            <option value="Vendido">Vendido</option>
-          </select>
+          <label>Hashtags (separados por espacio)</label>
+          <input type="text" id="itemHashtags" placeholder="#electricidad #instrumentos">
         </div>
         <div class="form-group">
           <label>Enlace de Foto (URL)</label>
@@ -1500,242 +1021,102 @@
   </div>
 
   <script>
-    let currentMode = 'buyer'; // 'buyer', 'seller', o 'sold'
-    let currentUni = "ESPOL";   // Universidad seleccionada por defecto
-    let activeChip = null;
+    let currentMode = 'buyer';
+    let currentUni = 'ESPOL';
+    let currentCategory = 'Todos';
+    let activeHashtag = null;
 
-    // BASE DE DATOS INICIAL MULTI-UNIVERSIDADES DE GUAYAQUIL
+    // ARTÍCULOS EXACTOS DE LA IMAGEN
     let materials = [
       {
         id: 1,
-        title: "Multímetro digital Uni-T",
+        title: "Multímetro digital",
         price: 18,
         status: "Buen estado",
         uni: "ESPOL",
-        date: "28 Oct 2026, 09:15 AM",
-        desc: "Multímetro digital con puntas originales. Entrega en laboratorios de FIEC.",
-        faculty: "FIEC · Electricidad",
-        seller: "Ana M.",
-        sellerInitial: "A",
-        phone: "593987654321",
-        isMyPost: false,
+        spot: "Campus ESPOL",
+        category: "Instrumentos",
+        tags: ["#electricidad", "#instrumentos"],
         image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=600&auto=format&fit=crop&q=80"
       },
       {
         id: 2,
-        title: "Cautín con soporte 60W",
+        title: "Cautín con soporte",
         price: 8,
-        status: "Vendido", // MARCADO COMO VENDIDO
+        status: "Poco uso",
         uni: "ESPOL",
-        date: "27 Oct 2026, 03:45 PM",
-        desc: "Cautín tipo lápiz con base y esponja. Entregado en talleres de FIMCP.",
-        faculty: "FIMCP · Mecatrónica",
-        seller: "Luis R.",
-        sellerInitial: "L",
-        phone: "593987654322",
-        isMyPost: false,
+        spot: "Campus ESPOL",
+        category: "Herramientas",
+        tags: ["#electricidad", "#herramientas"],
         image: "https://images.unsplash.com/photo-1597733336794-12d05021d510?w=600&auto=format&fit=crop&q=80"
       },
       {
         id: 3,
-        title: "Estetoscopio Littmann Classic III",
-        price: 45,
-        status: "Poco uso",
-        uni: "UG",
-        date: "28 Oct 2026, 11:30 AM",
-        desc: "En caja original, campana doble de acero inoxidable. Entrega en Facultad de Ciencias Médicas UG.",
-        faculty: "Medicina · Ciencias Médicas",
-        seller: "Carlos B.",
-        sellerInitial: "C",
-        phone: "593987654330",
-        isMyPost: false,
-        image: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=600&auto=format&fit=crop&q=80"
+        title: "Osciloscopio RIGOL DS1052E",
+        price: 250,
+        status: "Buen estado",
+        uni: "ESPOL",
+        spot: "Campus ESPOL",
+        category: "Instrumentos",
+        tags: ["#electricidad", "#instrumentos"],
+        image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&auto=format&fit=crop&q=80"
       },
       {
         id: 4,
-        title: "Código Orgánico Integral Penal (COIP)",
-        price: 14,
+        title: "Protoboard + cables",
+        price: 5,
         status: "Buen estado",
-        uni: "UCSG",
-        date: "27 Oct 2026, 04:20 PM",
-        desc: "Edición actualizada con notas de jurisprudencia. Entrega en campus central UCSG.",
-        faculty: "Jurisprudencia · Derecho",
-        seller: "María J.",
-        sellerInitial: "M",
-        phone: "593987654331",
-        isMyPost: false,
-        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&auto=format&fit=crop&q=80"
-      },
-      {
-        id: 5,
-        title: "Set de dibujo técnico y rotuladores",
-        price: 15,
-        status: "Buen estado",
-        uni: "UEES",
-        date: "26 Oct 2026, 01:15 PM",
-        desc: "Marcadores de punta fina graduados y escuadras profesionales. Entrega en Samborondón.",
-        faculty: "Arquitectura y Diseño",
-        seller: "Paula V.",
-        sellerInitial: "P",
-        phone: "593987654332",
-        isMyPost: false,
-        image: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=600&auto=format&fit=crop&q=80"
-      },
-      {
-        id: 6,
-        title: "Kit Arduino Mega + Sensores",
-        price: 25,
-        status: "Poco uso",
-        uni: "UPS",
-        date: "28 Oct 2026, 08:45 AM",
-        desc: "Placa Arduino Mega, cables jumper, display LCD y kit de 16 sensores para mecatrónica.",
-        faculty: "Ingeniería · Electrónica",
-        seller: "Jorge T.",
-        sellerInitial: "J",
-        phone: "593987654333",
-        isMyPost: false,
+        uni: "ESPOL",
+        spot: "Campus ESPOL",
+        category: "Componentes",
+        tags: ["#electricidad", "#proyectos"],
         image: "https://images.unsplash.com/photo-1553406830-ef2513450d76?w=600&auto=format&fit=crop&q=80"
       },
       {
-        id: 7,
-        title: "Calculadora Casio fx-991LA Plus",
-        price: 18,
+        id: 5,
+        title: "Arduino Uno",
+        price: 12,
         status: "Poco uso",
         uni: "ESPOL",
-        date: "28 Oct 2026, 01:00 PM",
-        desc: "Versión en español con tapa rígida. Estado 10/10.",
-        faculty: "FCNM · Matemática",
-        seller: "Diego",
-        sellerInitial: "D",
-        phone: "593987654320",
-        isMyPost: true,
-        image: "https://images.unsplash.com/photo-1594980596870-8aa52a78d8cd?w=600&auto=format&fit=crop&q=80"
+        spot: "Campus ESPOL",
+        category: "Componentes",
+        tags: ["#programación", "#electrónica"],
+        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop&q=80"
+      },
+      {
+        id: 6,
+        title: "Fuente de poder 0-30V",
+        price: 85,
+        status: "Buen estado",
+        uni: "ESPOL",
+        spot: "Campus ESPOL",
+        category: "Herramientas",
+        tags: ["#laboratorio", "#electricidad"],
+        image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=600&auto=format&fit=crop&q=80"
+      },
+      {
+        id: 7,
+        title: "Juego de cables y caimanes",
+        price: 4,
+        status: "Buen estado",
+        uni: "ESPOL",
+        spot: "Campus ESPOL",
+        category: "Materiales",
+        tags: ["#circuitos", "#componentes"],
+        image: "https://images.unsplash.com/photo-1597733336794-12d05021d510?w=600&auto=format&fit=crop&q=80"
+      },
+      {
+        id: 8,
+        title: "Libro: Circuitos Eléctricos (Nilsson)",
+        price: 25,
+        status: "Buen estado",
+        uni: "ESPOL",
+        spot: "Campus ESPOL",
+        category: "Libros",
+        tags: ["#libros", "#electricidad"],
+        image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80"
       }
     ];
-
-    // SELECTOR SUPERIOR: COMPRAR / VENDER / VENDIDOS
-    function setAppMode(mode) {
-      currentMode = mode;
-      const buyBtn = document.getElementById('modeBuyBtn');
-      const sellBtn = document.getElementById('modeSellBtn');
-      const soldBtn = document.getElementById('modeSoldBtn');
-      const banner = document.getElementById('ecoBanner');
-      const filters = document.getElementById('buyerFiltersArea');
-      const sellerStats = document.getElementById('sellerStatsArea');
-      const greeting = document.getElementById('viewGreeting');
-      const desc = document.getElementById('viewDescription');
-
-      buyBtn.classList.remove('active');
-      sellBtn.classList.remove('active');
-      soldBtn.classList.remove('active');
-
-      if (mode === 'buyer') {
-        buyBtn.classList.add('active');
-        banner.style.display = 'flex';
-        filters.style.display = 'block';
-        sellerStats.style.display = 'none';
-        greeting.innerText = 'Hola, Diego';
-        desc.innerText = 'Encuentra y vende materiales entre estudiantes de Guayaquil.';
-        document.getElementById('sectionTitle').innerText = currentUni === 'Todas' ? 'Todos los materiales en Guayaquil' : `Materiales disponibles en ${currentUni}`;
-        document.getElementById('sectionCounter').innerText = 'Publicaciones verificadas';
-        if (document.getElementById('statusSelect')) document.getElementById('statusSelect').value = "Todos";
-      } else if (mode === 'seller') {
-        sellBtn.classList.add('active');
-        banner.style.display = 'none';
-        filters.style.display = 'none';
-        sellerStats.style.display = 'block';
-        greeting.innerText = 'Panel de Ventas';
-        desc.innerText = 'Gestiona tus artículos publicados, revisa consultas y marca tus ventas.';
-        document.getElementById('sectionTitle').innerText = 'Mis Publicaciones activas';
-        document.getElementById('sectionCounter').innerText = 'Tus artículos';
-        updateSellerStats();
-      } else if (mode === 'sold') {
-        soldBtn.classList.add('active');
-        banner.style.display = 'none';
-        filters.style.display = 'block';
-        sellerStats.style.display = 'none';
-        greeting.innerText = 'Artículos Vendidos';
-        desc.innerText = 'Historial de materiales que ya fueron adquiridos en universidades de Guayaquil.';
-        document.getElementById('sectionTitle').innerText = 'Materiales entregados';
-        document.getElementById('sectionCounter').innerText = 'Vendidos con éxito';
-        if (document.getElementById('statusSelect')) document.getElementById('statusSelect').value = "Vendido";
-      }
-
-      applyFilters();
-    }
-
-    // FILTRO DESDE EL SIDEBAR DE UNIVERSIDADES
-    function filterByUniversity(uniCode, element) {
-      currentUni = uniCode;
-      
-      // Actualizar selector desplegable
-      const uniSelect = document.getElementById('uniSelect');
-      if (uniSelect) uniSelect.value = uniCode;
-
-      // Actualizar clases activas en sidebar
-      document.querySelectorAll('.uni-card').forEach(c => c.classList.remove('active'));
-      document.getElementById('menuAllUnis').classList.remove('active');
-
-      if (uniCode === 'Todas') {
-        document.getElementById('menuAllUnis').classList.add('active');
-        document.getElementById('sectionTitle').innerText = 'Todos los materiales en Guayaquil';
-      } else {
-        if (element) element.classList.add('active');
-        document.getElementById('sectionTitle').innerText = `Materiales disponibles en ${uniCode}`;
-      }
-
-      applyFilters();
-    }
-
-    function onUniSelectChange() {
-      const selected = document.getElementById('uniSelect').value;
-      currentUni = selected;
-
-      document.querySelectorAll('.uni-card').forEach(card => {
-        card.classList.remove('active');
-        if (card.innerText.includes(selected)) {
-          card.classList.add('active');
-        }
-      });
-
-      if (selected === 'Todas') {
-        document.getElementById('menuAllUnis').classList.add('active');
-        document.getElementById('sectionTitle').innerText = 'Todos los materiales en Guayaquil';
-      } else {
-        document.getElementById('menuAllUnis').classList.remove('active');
-        document.getElementById('sectionTitle').innerText = `Materiales disponibles en ${selected}`;
-      }
-
-      applyFilters();
-    }
-
-    // PESTAÑAS
-    function switchNavTab(tabType, btn) {
-      document.querySelectorAll('.tabs-row .tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      if (tabType === 'general') {
-        activeChip = null;
-        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      } else if (tabType === 'faculty') {
-        const input = document.getElementById('searchInput');
-        if (input) {
-          input.placeholder = 'Busca por facultad (ej: Medicina, FIEC, Arte)...';
-          input.focus();
-        }
-      } else if (tabType === 'career') {
-        const chipsRow = document.getElementById('chipsRow');
-        if (chipsRow) chipsRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-
-      applyFilters();
-    }
-
-    function updateSellerStats() {
-      const myItems = materials.filter(m => m.isMyPost);
-      document.getElementById('statActive').innerText = myItems.filter(m => m.status !== 'Vendido').length;
-      document.getElementById('statSold').innerText = myItems.filter(m => m.status === 'Vendido').length;
-    }
 
     // RENDERIZAR ARTÍCULOS
     function renderProducts(list) {
@@ -1743,89 +1124,47 @@
       container.innerHTML = '';
 
       if (list.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px 0;">No se encontraron artículos en esta universidad o categoría.</p>`;
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px 0;">No se encontraron materiales con estos criterios.</p>`;
         return;
       }
 
       list.forEach(item => {
-        const isSold = item.status === "Vendido";
+        let statusClass = "badge-status";
+        if (item.status === "Poco uso") statusClass = "badge-status warning";
+        if (item.status === "Vendido") statusClass = "badge-status sold";
 
-        let statusBadge = `<span class="badge-status">Buen estado</span>`;
-        if (item.status === "Poco uso") {
-          statusBadge = `<span class="badge-status warning">Poco uso</span>`;
-        } else if (isSold) {
-          statusBadge = `<span class="badge-status sold">✕ Vendido</span>`;
-        }
+        const tagsHtml = item.tags.map(t => `<span class="product-tag-pill" onclick="searchByTag('${t}')">${t}</span>`).join('');
 
         const card = document.createElement('article');
-        card.className = `product-card ${isSold ? 'card-sold' : ''}`;
-
-        card.onclick = (e) => {
-          if (!e.target.closest('.btn-fav') && !e.target.closest('.btn-contact')) {
-            openDetailModal(item);
-          }
-        };
-
-        let footerHtml = '';
-        if (currentMode === 'buyer' || currentMode === 'sold') {
-          footerHtml = `
-            <div class="seller-info">
-              <div class="seller-avatar">${item.sellerInitial}</div>
-              <span class="seller-name">${item.seller}</span>
-            </div>
-            ${isSold ? `
-              <button class="btn-contact sold-btn" disabled>Agotado</button>
-            ` : `
-              <button class="btn-contact" onclick="contactSeller('${item.seller}', '${item.title}', '${item.phone}')">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                </svg>
-                Contactar
-              </button>
-            `}
-          `;
-        } else {
-          footerHtml = `
-            <span style="font-size: 11px; color: #64748b;">Publicado por ti</span>
-            <button class="btn-contact" onclick="markAsSold(${item.id})">
-              ${isSold ? 'Reactivar' : 'Marcar Vendido'}
-            </button>
-          `;
-        }
-
+        card.className = "product-card";
         card.innerHTML = `
           <div class="product-img-wrapper">
-            <img src="${item.image}" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600'">
-            
-            ${isSold ? `
-              <div class="sold-overlay-badge">✕ VENDIDO</div>
-              <div class="sold-big-x">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </div>
-            ` : ''}
-
-            ${currentMode !== 'seller' ? `
-            <button class="btn-fav" onclick="toggleFav(this)" title="Guardar en favoritos">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <img src="${item.image}" alt="${item.title}">
+            <button class="btn-fav" onclick="toggleFav(this)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
               </svg>
-            </button>` : ''}
+            </button>
           </div>
           <div class="product-info">
-            <div class="product-uni-badge">📍 ${item.uni}</div>
             <h3 class="product-title">${item.title}</h3>
             <div class="product-price-row">
-              <span class="product-price">$${item.price}</span>
-              ${statusBadge}
+              <div class="price-and-status">
+                <span class="product-price">$${item.price}</span>
+                <span class="${statusClass}">${item.status}</span>
+              </div>
+              <button class="btn-cart-action" title="Contactar / Agregar">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+              </button>
             </div>
-            <div class="product-faculty">
-              <span>${item.faculty}</span>
-            </div>
-            <div class="card-footer">
-              ${footerHtml}
+            <div class="product-uni-tag">${item.uni}</div>
+            <div class="product-campus-spot">📍 ${item.spot}</div>
+            <div class="product-tags-footer">
+              ${tagsHtml}
             </div>
           </div>
         `;
@@ -1833,120 +1172,113 @@
       });
     }
 
-    // MODAL DETALLE
-    function openDetailModal(item) {
-      document.getElementById('modalDetailTitle').innerText = item.title;
-      document.getElementById('modalDetailImg').src = item.image;
-      document.getElementById('modalDetailPrice').innerText = `$${item.price}`;
-      document.getElementById('modalDetailUni').innerText = item.uni;
-      document.getElementById('modalDetailDate').innerText = item.date;
-      document.getElementById('modalDetailDesc').innerText = `${item.faculty} · ${item.desc}`;
+    // FILTRO DINÁMICO
+    function applyFilters() {
+      const search = document.getElementById('searchInput').value.toLowerCase().trim();
 
-      const statusEl = document.getElementById('modalDetailStatus');
-      const actionBox = document.getElementById('modalDetailAction');
+      const filtered = materials.filter(item => {
+        // Filtro de texto o hashtag en el input
+        const matchesSearch = search === "" || 
+                              item.title.toLowerCase().includes(search) || 
+                              item.tags.some(t => t.toLowerCase().includes(search));
 
-      if (item.status === 'Vendido') {
-        statusEl.innerHTML = `<span style="color: #dc2626; font-weight:700;">✕ Vendido</span>`;
-        actionBox.innerHTML = `
-          <button style="width:100%; background:#f1f5f9; color:#94a3b8; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:not-allowed;" disabled>
-            ✕ Este artículo ya fue entregado
-          </button>
-        `;
-      } else {
-        statusEl.innerHTML = `<span style="color: #15803d; font-weight:700;">${item.status}</span>`;
-        actionBox.innerHTML = `
-          <button class="btn-submit-modal" style="background:#10b981;" onclick="contactSeller('${item.seller}', '${item.title}', '${item.phone}')">
-            Contactar a ${item.seller} por WhatsApp
-          </button>
-        `;
-      }
+        // Filtro de universidad
+        const matchesUni = (currentUni === "Todas") || (item.uni === currentUni);
 
-      document.getElementById('detailModal').classList.add('open');
+        // Filtro de categoría
+        const matchesCat = (currentCategory === "Todos") || (item.category === currentCategory);
+
+        // Filtro de hashtag activo
+        const matchesHash = !activeHashtag || item.tags.includes(activeHashtag);
+
+        return matchesSearch && matchesUni && matchesCat && matchesHash;
+      });
+
+      renderProducts(filtered);
     }
 
-    function closeDetailModal() {
-      document.getElementById('detailModal').classList.remove('open');
+    // TOGGLE HASHTAGS RÁPIDOS
+    function toggleHashtag(tag, el) {
+      if (activeHashtag === tag) {
+        activeHashtag = null;
+        el.classList.remove('active');
+      } else {
+        document.querySelectorAll('.hashtag-pill').forEach(p => p.classList.remove('active'));
+        activeHashtag = tag;
+        el.classList.add('active');
+      }
+      applyFilters();
+    }
+
+    function searchByTag(tag) {
+      const input = document.getElementById('searchInput');
+      input.value = tag;
+      applyFilters();
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = "";
+      activeHashtag = null;
+      document.querySelectorAll('.hashtag-pill').forEach(p => p.classList.remove('active'));
+      applyFilters();
+    }
+
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+    // SELECCIÓN DE UNIVERSIDAD
+    function selectUniversity(uniCode, element) {
+      currentUni = uniCode;
+      document.getElementById('mainUniSelect').value = uniCode;
+      document.getElementById('uniBadgeIcon').innerText = uniCode.substring(0, 3).toUpperCase();
+
+      document.querySelectorAll('.uni-card').forEach(c => c.classList.remove('active'));
+      if (element) element.classList.add('active');
+
+      applyFilters();
+    }
+
+    function onSelectChange(uniCode) {
+      currentUni = uniCode;
+      document.getElementById('uniBadgeIcon').innerText = uniCode.substring(0, 3).toUpperCase();
+
+      document.querySelectorAll('.uni-card').forEach(c => {
+        c.classList.remove('active');
+        if (c.innerText.includes(uniCode)) c.classList.add('active');
+      });
+
+      applyFilters();
+    }
+
+    // PESTAÑAS DE CATEGORÍAS
+    function filterByCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    }
+
+    // ORDENAR
+    function sortProducts(criteria) {
+      if (criteria === 'priceLow') {
+        materials.sort((a, b) => a.price - b.price);
+      } else if (criteria === 'priceHigh') {
+        materials.sort((a, b) => b.price - a.price);
+      } else {
+        materials.sort((a, b) => a.id - b.id);
+      }
+      applyFilters();
     }
 
     function toggleFav(btn) {
       btn.classList.toggle('active');
     }
 
-    function contactSeller(seller, title, phone) {
-      const msg = encodeURIComponent(`Hola ${seller}, vi tu material "${title}" publicado en CampusMarket. ¿Sigue disponible?`);
-      window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
-    }
-
-    function markAsSold(id) {
-      const item = materials.find(m => m.id === id);
-      if (item) {
-        item.status = item.status === 'Vendido' ? 'Buen estado' : 'Vendido';
-        updateSellerStats();
-        applyFilters();
-      }
-    }
-
-    // FILTRADO DINÁMICO MULTI-CRITERIO
-    function applyFilters() {
-      const search = document.getElementById('searchInput').value.toLowerCase();
-      let pool = materials;
-
-      if (currentMode === 'seller') {
-        pool = materials.filter(m => m.isMyPost);
-      } else if (currentMode === 'sold') {
-        pool = materials.filter(m => m.status === 'Vendido');
-      }
-
-      const statusSelect = document.getElementById('statusSelect') ? document.getElementById('statusSelect').value : "Todos";
-      const priceSelect = document.getElementById('priceSelect') ? document.getElementById('priceSelect').value : "Todos";
-
-      const filtered = pool.filter(item => {
-        const matchesSearch = item.title.toLowerCase().includes(search) || 
-                              item.faculty.toLowerCase().includes(search) || 
-                              item.uni.toLowerCase().includes(search);
-
-        if (currentMode === 'seller') return matchesSearch;
-
-        // Filtro por universidad seleccionada
-        const matchesUni = (currentUni === "Todas") || (item.uni === currentUni);
-
-        // Filtro por estado
-        let matchesStatus = true;
-        if (currentMode !== 'sold') {
-          matchesStatus = statusSelect === "Todos" || item.status === statusSelect;
-        }
-
-        // Filtro por precio
-        let matchesPrice = true;
-        if (priceSelect === "low") matchesPrice = item.price <= 10;
-        if (priceSelect === "mid") matchesPrice = item.price > 10 && item.price <= 20;
-        if (priceSelect === "high") matchesPrice = item.price > 20;
-
-        // Filtro por etiqueta rápida
-        let matchesChip = true;
-        if (activeChip) {
-          matchesChip = item.title.toLowerCase().includes(activeChip.toLowerCase()) || 
-                        item.faculty.toLowerCase().includes(activeChip.toLowerCase());
-        }
-
-        return matchesSearch && matchesUni && matchesStatus && matchesPrice && matchesChip;
-      });
-
-      renderProducts(filtered);
-    }
-
-    document.getElementById('searchInput').addEventListener('input', applyFilters);
-
-    function filterByChip(el, term) {
-      if (activeChip === term) {
-        activeChip = null;
-        el.classList.remove('active');
-      } else {
-        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-        activeChip = term;
-        el.classList.add('active');
-      }
-      applyFilters();
+    function setAppMode(mode) {
+      currentMode = mode;
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      if (mode === 'buyer') document.getElementById('modeBuyBtn').classList.add('active');
+      if (mode === 'seller') document.getElementById('modeSellBtn').classList.add('active');
+      if (mode === 'sold') document.getElementById('modeSoldBtn').classList.add('active');
     }
 
     // MODAL DE PUBLICACIÓN
@@ -1957,52 +1289,43 @@
 
     openModalBtn.addEventListener('click', () => publishModal.classList.add('open'));
     closeModalBtn.addEventListener('click', () => publishModal.classList.remove('open'));
-
     window.addEventListener('click', (e) => {
       if (e.target === publishModal) publishModal.classList.remove('open');
-      if (e.target === document.getElementById('detailModal')) closeDetailModal();
     });
 
     publishForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const title = document.getElementById('itemName').value;
       const price = parseFloat(document.getElementById('itemPrice').value);
+      const category = document.getElementById('itemCategory').value;
       const uni = document.getElementById('itemUni').value;
-      const faculty = document.getElementById('itemFaculty').value;
-      const phone = document.getElementById('itemPhone').value;
-      const status = document.getElementById('itemStatus').value;
+      const spot = document.getElementById('itemSpot').value;
+      const tagsStr = document.getElementById('itemHashtags').value;
       const customImg = document.getElementById('itemImg').value;
 
-      const now = new Date();
-      const dateFormatted = `${now.getDate()} ${now.toLocaleString('es-ES', { month: 'short' })} ${now.getFullYear()}, ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+      const tagsArray = tagsStr ? tagsStr.split(' ').filter(t => t.startsWith('#')) : ["#materiales"];
 
       const newItem = {
         id: Date.now(),
         title: title,
         price: price,
-        status: status,
+        status: "Buen estado",
         uni: uni,
-        date: dateFormatted,
-        desc: `Material verificado por un estudiante para entregas en campus.`,
-        faculty: faculty,
-        seller: "Diego",
-        sellerInitial: "D",
-        phone: phone || "593987654320",
-        isMyPost: true,
+        spot: spot || "Campus Principal",
+        category: category,
+        tags: tagsArray,
         image: customImg || "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600"
       };
 
       materials.unshift(newItem);
       publishModal.classList.remove('open');
       publishForm.reset();
-
-      // Cambiar a la universidad donde publicó para verlo inmediatamente
-      filterByUniversity(uni, null);
-      alert(`¡Listo! Tu material ha sido publicado en CampusMarket para ${uni}.`);
+      applyFilters();
+      alert('¡Listo! Tu material ha sido publicado.');
     });
 
-    // Iniciar mostrando ESPOL
-    filterByUniversity('ESPOL', document.querySelector('.uni-card'));
+    // Iniciar
+    applyFilters();
   </script>
 </body>
 </html>
