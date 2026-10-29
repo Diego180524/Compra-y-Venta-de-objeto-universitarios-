@@ -16,7 +16,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     }
 
     body, html {
@@ -32,7 +32,6 @@
       z-index: 1;
     }
 
-    /* BARRA SUPERIOR */
     .top-panel {
       position: absolute;
       top: 20px;
@@ -52,13 +51,14 @@
       text-decoration: none;
       font-weight: 700;
       font-size: 13.5px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
       display: flex;
       align-items: center;
       gap: 6px;
       border: 1px solid #cbd5e1;
       transition: all 0.2s;
     }
+
     .btn-back:hover {
       background: #002855;
       color: #ffffff;
@@ -76,7 +76,7 @@
       border: 1px solid #cbd5e1;
     }
 
-    /* PINES ANIMADOS FLOTANTES CON IMAGEN */
+    /* PINES ANIMADOS FLOTANTES */
     .custom-marker {
       display: flex;
       flex-direction: column;
@@ -128,16 +128,17 @@
       border-top: 7px solid #002855;
     }
 
-    /* POPUP DE LEAFLET */
     .leaflet-popup-content-wrapper {
       border-radius: 14px;
       padding: 4px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
+
     .popup-box {
       width: 220px;
       padding: 6px;
     }
+
     .popup-box img {
       width: 100%;
       height: 110px;
@@ -145,22 +146,26 @@
       object-fit: cover;
       margin-bottom: 8px;
     }
+
     .popup-box h4 {
       font-size: 14px;
       color: #0f172a;
       margin-bottom: 4px;
     }
+
     .popup-box .spot {
       font-size: 11.5px;
       color: #64748b;
       margin-bottom: 8px;
     }
+
     .popup-box .price {
       font-size: 15px;
       font-weight: 800;
       color: #002855;
       margin-bottom: 8px;
     }
+
     .popup-btn {
       display: block;
       width: 100%;
@@ -173,6 +178,7 @@
       font-size: 12px;
       font-weight: 700;
     }
+
     .popup-btn:hover {
       background: #059669;
     }
@@ -195,22 +201,18 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
-    // TU TOKEN DE CARTO
-    const cartoToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfMHM1dGY2OHoiLCJqdGkiOiJmM2E4NGNkZDk3NmIyYjI0OWZlMGYzYjY1ZDk0N2VjMyJ9.2n6BfveBwSKW47cLf4qnzE01tp1dh_K_ZuV0tpBh0Hg';
-
-    // COORDENADAS CAMPUS GUSTAVO GALINDO (ESPOL La Prosperina)
+    // Coordenadas ESPOL Prosperina
     const espolCoords = [-2.1465, -79.9660];
 
-    // Inicializar mapa centrado en el campus
     const map = L.map('map').setView(espolCoords, 16);
 
-    // CARTO Voyager con tu Token Oficial (limpio, nítido y sin marcas de agua)
-    L.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?api_key=${cartoToken}`, {
-      maxZoom: 19,
-      attribution: '&copy; CARTO &copy; OpenStreetMap'
+    // Servidor limpio libre de marcas de agua (Esri Gray Canvas / Topo)
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 18,
+      attribution: 'Tiles &copy; Esri'
     }).addTo(map);
 
-    // PUNTOS Y PRODUCTOS EN EL CAMPUS
+    // Artículos en campus
     const itemsOnCampus = [
       {
         title: "Multímetro digital",
@@ -250,7 +252,6 @@
       }
     ];
 
-    // GENERAR MARCADORES
     itemsOnCampus.forEach(item => {
       const customIcon = L.divIcon({
         className: 'custom-pin-wrapper',
