@@ -56,6 +56,7 @@
       font-weight: 500;
     }
 
+    /* SELECTOR SUPERIOR: COMPRAR / VENDER / VENDIDOS */
     .mode-switch {
       display: flex;
       background: #f1f5f9;
@@ -67,7 +68,7 @@
     .mode-btn {
       border: none;
       background: none;
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 9px;
       font-size: 13px;
       font-weight: 600;
@@ -79,10 +80,18 @@
       transition: all 0.2s;
     }
 
+    .mode-btn:hover {
+      color: #002855;
+    }
+
     .mode-btn.active {
       background: #ffffff;
       color: #002855;
       box-shadow: 0 2px 6px rgba(0, 40, 85, 0.08);
+    }
+
+    .mode-btn.btn-sold-tab.active {
+      color: #dc2626;
     }
 
     .search-box {
@@ -310,7 +319,6 @@
       transform: translateY(-1px);
     }
 
-    /* BANNER AMARILLO */
     .eco-banner {
       background-color: #fef9c3;
       border: 1px solid #fef08a;
@@ -341,7 +349,7 @@
       margin-top: 2px;
     }
 
-    /* FILTROS */
+    /* PESTAÑAS (GENERAL, POR FACULTAD, POR CARRERA) */
     .tabs-row {
       display: flex;
       gap: 24px;
@@ -358,6 +366,11 @@
       color: #64748b;
       cursor: pointer;
       position: relative;
+      transition: color 0.15s;
+    }
+
+    .tab-btn:hover {
+      color: #002855;
     }
 
     .tab-btn.active {
@@ -449,7 +462,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
       position: relative;
     }
@@ -459,23 +472,60 @@
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     }
 
-    /* Estado atenuado si está vendido */
-    .product-card.card-sold {
-      opacity: 0.82;
-      border-color: #fecaca;
-    }
-
     .product-img-wrapper {
       position: relative;
       width: 100%;
       height: 175px;
       background-color: #e2e8f0;
+      overflow: hidden;
     }
 
     .product-img-wrapper img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: filter 0.2s;
+    }
+
+    /* OVERLAY CON X GRANDE PARA VENDIDOS */
+    .product-card.card-sold .product-img-wrapper img {
+      filter: grayscale(45%) opacity(0.85);
+    }
+
+    .sold-overlay-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(220, 38, 38, 0.92);
+      color: #ffffff;
+      padding: 5px 11px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 10px rgba(220, 38, 38, 0.35);
+      z-index: 4;
+    }
+
+    .sold-big-x {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.25);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .sold-big-x svg {
+      width: 72px;
+      height: 72px;
+      color: #ef4444;
+      stroke-width: 2.5;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
     }
 
     .btn-fav {
@@ -533,7 +583,6 @@
       color: #002855;
     }
 
-    /* BADGES DE ESTADO CON X ROJA MINIMALISTA */
     .badge-status {
       font-size: 11px;
       font-weight: 600;
@@ -556,12 +605,6 @@
       color: #dc2626;
       border: 1px solid #fee2e2;
       font-weight: 700;
-    }
-
-    .badge-status.sold svg {
-      stroke: #dc2626;
-      width: 11px;
-      height: 11px;
     }
 
     .product-faculty {
@@ -757,12 +800,12 @@
       align-items: center;
       justify-content: center;
     }
+
     .btn-close-modal:hover {
       background: #e2e8f0;
       color: #0f172a;
     }
 
-    /* MODAL DE DETALLE ESPECÍFICO */
     .detail-img-box {
       width: 100%;
       height: 230px;
@@ -771,11 +814,13 @@
       margin-bottom: 16px;
       background: #e2e8f0;
     }
+
     .detail-img-box img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
+
     .detail-meta-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -786,6 +831,7 @@
       border: 1px solid #edf2f7;
       margin-bottom: 16px;
     }
+
     .detail-meta-item label {
       font-size: 11px;
       color: #64748b;
@@ -793,6 +839,7 @@
       display: block;
       margin-bottom: 2px;
     }
+
     .detail-meta-item span {
       font-size: 13px;
       font-weight: 700;
@@ -804,8 +851,6 @@
       line-height: 1.5;
       color: #475569;
       margin-bottom: 20px;
-      background: #ffffff;
-      padding: 10px 0;
     }
 
     .modal-form .form-group {
@@ -856,7 +901,7 @@
       <span class="brand-sub">Materiales</span>
     </a>
 
-    <!-- SWITCH COMPRADOR / VENDEDOR -->
+    <!-- SELECTOR: COMPRAR / VENDER / VENDIDOS -->
     <div class="mode-switch">
       <button class="mode-btn active" id="modeBuyBtn" onclick="setAppMode('buyer')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -866,12 +911,21 @@
         </svg>
         Comprar
       </button>
+
       <button class="mode-btn" id="modeSellBtn" onclick="setAppMode('seller')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
           <line x1="7" y1="7" x2="7.01" y2="7"></line>
         </svg>
         Vender (Mis Artículos)
+      </button>
+
+      <button class="mode-btn btn-sold-tab" id="modeSoldBtn" onclick="setAppMode('sold')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+        Vendidos
       </button>
     </div>
 
@@ -906,7 +960,7 @@
   <!-- APP LAYOUT -->
   <div class="app-layout">
     
-    <!-- SIDEBAR COMPLETO CON LAS 8 FACULTADES -->
+    <!-- SIDEBAR FACULTADES -->
     <aside class="sidebar">
       <div>
         <div class="sidebar-section-title">Explorar</div>
@@ -1133,15 +1187,15 @@
         </div>
       </div>
 
-      <!-- FILTROS MODO COMPRADOR -->
+      <!-- FILTROS Y PESTAÑAS (GENERAL / POR FACULTAD / POR CARRERA) -->
       <div id="buyerFiltersArea">
         <div class="tabs-row">
-          <button class="tab-btn active">General</button>
-          <button class="tab-btn">Por facultad</button>
-          <button class="tab-btn">Por carrera</button>
+          <button class="tab-btn active" id="tabGeneral" onclick="switchNavTab('general', this)">General</button>
+          <button class="tab-btn" id="tabFaculty" onclick="switchNavTab('faculty', this)">Por facultad</button>
+          <button class="tab-btn" id="tabCareer" onclick="switchNavTab('career', this)">Por carrera</button>
         </div>
 
-        <div class="filters-row">
+        <div class="filters-row" id="filtersRow">
           <select class="filter-select" id="facultySelect" onchange="applyFilters()">
             <option value="Todas">Facultad: Todas</option>
             <option value="FIEC">FIEC</option>
@@ -1167,7 +1221,7 @@
           </select>
         </div>
 
-        <div class="chips-row">
+        <div class="chips-row" id="chipsRow">
           <span class="chip" onclick="filterByChip(this, 'Mecánica')">Mecánica</span>
           <span class="chip" onclick="filterByChip(this, 'Mecatrónica')">Mecatrónica</span>
           <span class="chip" onclick="filterByChip(this, 'Electrónica')">Electrónica y Automatización</span>
@@ -1197,7 +1251,7 @@
     <span>¡Encuéntrame aquí!</span>
   </a>
 
-  <!-- MODAL 1: DETALLE DEL MATERIAL CON FECHA Y HORA -->
+  <!-- MODAL 1: DETALLE DEL MATERIAL CON FECHA, HORA Y DESCRIPCIÓN -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal-card">
       <div class="modal-header">
@@ -1220,7 +1274,7 @@
         </div>
         <div class="detail-meta-item">
           <label>Publicado el</label>
-          <span id="modalDetailDate">Hoy, 10:30 AM</span>
+          <span id="modalDetailDate">Hoy</span>
         </div>
         <div class="detail-meta-item">
           <label>Ubicación / Carrera</label>
@@ -1230,12 +1284,10 @@
 
       <div class="detail-description">
         <label style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; display: block; margin-bottom: 4px;">Información del vendedor</label>
-        <p id="modalDetailDesc">Material original probado y funcional para clases de laboratorio o prácticas dentro de ESPOL.</p>
+        <p id="modalDetailDesc">Material probado y funcional para entregas dentro de ESPOL.</p>
       </div>
 
-      <div id="modalDetailAction">
-        <!-- El botón de WhatsApp o estado se insertará con JS -->
-      </div>
+      <div id="modalDetailAction"></div>
     </div>
   </div>
 
@@ -1293,11 +1345,11 @@
   </div>
 
   <script>
-    let currentMode = 'buyer'; // 'buyer' o 'seller'
+    let currentMode = 'buyer'; // 'buyer', 'seller', o 'sold'
     let currentFaculty = "Todas";
     let activeChip = null;
 
-    // ARTÍCULOS BASE: La segunda tarjeta (Cautín) ya viene como "Vendido"
+    // ARTÍCULOS BASE: La segunda tarjeta (Cautín) viene con estado "Vendido"
     let materials = [
       {
         id: 1,
@@ -1305,7 +1357,7 @@
         price: 18,
         status: "Buen estado",
         date: "28 Oct 2026, 09:15 AM",
-        desc: "Multímetro digital con puntas de prueba originales. Ideal para materias de circuitos en FIEC.",
+        desc: "Multímetro digital con puntas de prueba originales. Ideal para laboratorios de FIEC.",
         faculty: "FIEC · Electricidad",
         facultyCode: "FIEC",
         seller: "Ana M.",
@@ -1320,7 +1372,7 @@
         price: 8,
         status: "Vendido", // MARCADO COMO VENDIDO
         date: "27 Oct 2026, 03:45 PM",
-        desc: "Cautín tipo lápiz 60W con base y esponja limpiadora. Ya ha sido entregado en talleres.",
+        desc: "Cautín de 60W con base y esponja limpiadora. Ya entregado satisfactoriamente.",
         faculty: "FIMCP · Mecatrónica",
         facultyCode: "FIMCP",
         seller: "Luis R.",
@@ -1335,7 +1387,7 @@
         price: 15,
         status: "Poco uso",
         date: "26 Oct 2026, 11:20 AM",
-        desc: "Dinamómetro de resorte calibrado a 5N. Usado únicamente en dos prácticas de física mecánica.",
+        desc: "Dinamómetro calibrado a 5N. Usado solo en prácticas de física mecánica.",
         faculty: "FIMCP · Mecánica",
         facultyCode: "FIMCP",
         seller: "Mateo C.",
@@ -1365,7 +1417,7 @@
         price: 10,
         status: "Buen estado",
         date: "24 Oct 2026, 04:00 PM",
-        desc: "Compás de precisión, juego de escuadras de 45 y 60 grados y regla metálica de 30cm.",
+        desc: "Compás de precisión, juego de escuadras de 45 y 60 grados y regla de 30cm.",
         faculty: "FADCOM · Diseño Gráfico",
         facultyCode: "FADCOM",
         seller: "Daniela V.",
@@ -1395,7 +1447,7 @@
         price: 18,
         status: "Poco uso",
         date: "28 Oct 2026, 01:00 PM",
-        desc: "Versión original en español, incluye tapa rígida. Estado 10/10.",
+        desc: "Versión en español con tapa rígida. Estado 10/10.",
         faculty: "FCNM · Matemática",
         facultyCode: "FCNM",
         seller: "Diego",
@@ -1406,37 +1458,79 @@
       }
     ];
 
-    // MODO COMPRADOR VS VENDEDOR
+    // SELECTOR SUPERIOR: COMPRAR / VENDER / VENDIDOS
     function setAppMode(mode) {
       currentMode = mode;
       const buyBtn = document.getElementById('modeBuyBtn');
       const sellBtn = document.getElementById('modeSellBtn');
+      const soldBtn = document.getElementById('modeSoldBtn');
       const banner = document.getElementById('ecoBanner');
       const filters = document.getElementById('buyerFiltersArea');
       const sellerStats = document.getElementById('sellerStatsArea');
       const greeting = document.getElementById('viewGreeting');
       const desc = document.getElementById('viewDescription');
 
+      buyBtn.classList.remove('active');
+      sellBtn.classList.remove('active');
+      soldBtn.classList.remove('active');
+
       if (mode === 'buyer') {
         buyBtn.classList.add('active');
-        sellBtn.classList.remove('active');
         banner.style.display = 'flex';
         filters.style.display = 'block';
         sellerStats.style.display = 'none';
         greeting.innerText = 'Hola, Diego';
         desc.innerText = 'Lo que necesitas, entre estudiantes.';
         document.getElementById('sectionTitle').innerText = 'Materiales disponibles';
-      } else {
+        document.getElementById('sectionCounter').innerText = 'Publicaciones activas';
+        if (document.getElementById('statusSelect')) document.getElementById('statusSelect').value = "Todos";
+      } else if (mode === 'seller') {
         sellBtn.classList.add('active');
-        buyBtn.classList.remove('active');
         banner.style.display = 'none';
         filters.style.display = 'none';
         sellerStats.style.display = 'block';
         greeting.innerText = 'Panel de Ventas';
         desc.innerText = 'Gestiona tus artículos publicados, revisa consultas y marca tus ventas.';
         document.getElementById('sectionTitle').innerText = 'Mis Publicaciones activas';
+        document.getElementById('sectionCounter').innerText = 'Tus artículos';
         updateSellerStats();
+      } else if (mode === 'sold') {
+        soldBtn.classList.add('active');
+        banner.style.display = 'none';
+        filters.style.display = 'block';
+        sellerStats.style.display = 'none';
+        greeting.innerText = 'Artículos Vendidos';
+        desc.innerText = 'Historial de materiales que ya fueron adquiridos en el campus.';
+        document.getElementById('sectionTitle').innerText = 'Materiales entregados';
+        document.getElementById('sectionCounter').innerText = 'Vendidos con éxito';
+        if (document.getElementById('statusSelect')) document.getElementById('statusSelect').value = "Vendido";
       }
+
+      applyFilters();
+    }
+
+    // PESTAÑAS: GENERAL / POR FACULTAD / POR CARRERA
+    function switchNavTab(tabType, btn) {
+      document.querySelectorAll('.tabs-row .tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const facSelect = document.getElementById('facultySelect');
+      const chipsRow = document.getElementById('chipsRow');
+
+      if (tabType === 'general') {
+        currentFaculty = "Todas";
+        activeChip = null;
+        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        if (facSelect) facSelect.value = "Todas";
+        document.querySelectorAll('.sidebar .menu-item').forEach(m => m.classList.remove('active'));
+        const firstMenu = document.querySelector('.sidebar .menu-item');
+        if (firstMenu) firstMenu.classList.add('active');
+      } else if (tabType === 'faculty') {
+        if (facSelect) facSelect.focus();
+      } else if (tabType === 'career') {
+        if (chipsRow) chipsRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
       applyFilters();
     }
 
@@ -1452,41 +1546,32 @@
       container.innerHTML = '';
 
       if (list.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px 0;">No hay artículos en esta categoría.</p>`;
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 40px 0;">No se encontraron artículos en esta categoría.</p>`;
         return;
       }
 
       list.forEach(item => {
         const isSold = item.status === "Vendido";
-        
+
         let statusBadge = `<span class="badge-status">Buen estado</span>`;
         if (item.status === "Poco uso") {
           statusBadge = `<span class="badge-status warning">Poco uso</span>`;
         } else if (isSold) {
-          // X MINIMALISTA ROJA
-          statusBadge = `
-            <span class="badge-status sold">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-              Vendido
-            </span>`;
+          statusBadge = `<span class="badge-status sold">✕ Vendido</span>`;
         }
 
         const card = document.createElement('article');
         card.className = `product-card ${isSold ? 'card-sold' : ''}`;
-        
-        // Al tocar la tarjeta se abre el detalle
+
+        // Al hacer clic en la tarjeta se abre el detalle
         card.onclick = (e) => {
-          // Evitar que abra si se hace clic en favoritos o contactar
           if (!e.target.closest('.btn-fav') && !e.target.closest('.btn-contact')) {
             openDetailModal(item);
           }
         };
 
         let footerHtml = '';
-        if (currentMode === 'buyer') {
+        if (currentMode === 'buyer' || currentMode === 'sold') {
           footerHtml = `
             <div class="seller-info">
               <div class="seller-avatar">${item.sellerInitial}</div>
@@ -1515,8 +1600,20 @@
         card.innerHTML = `
           <div class="product-img-wrapper">
             <img src="${item.image}" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600'">
-            ${currentMode === 'buyer' ? `
-            <button class="btn-fav" onclick="toggleFav(this)">
+            
+            ${isSold ? `
+              <!-- BADGE Y X GRANDE ROJA -->
+              <div class="sold-overlay-badge">✕ VENDIDO</div>
+              <div class="sold-big-x">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </div>
+            ` : ''}
+
+            ${currentMode !== 'seller' ? `
+            <button class="btn-fav" onclick="toggleFav(this)" title="Guardar en favoritos">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
               </svg>
@@ -1540,7 +1637,7 @@
       });
     }
 
-    // MODAL DE DETALLE COMPLETO
+    // MODAL DETALLE
     function openDetailModal(item) {
       document.getElementById('modalDetailTitle').innerText = item.title;
       document.getElementById('modalDetailImg').src = item.image;
@@ -1556,7 +1653,7 @@
         statusEl.innerHTML = `<span style="color: #dc2626; font-weight:700;">✕ Vendido</span>`;
         actionBox.innerHTML = `
           <button style="width:100%; background:#f1f5f9; color:#94a3b8; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:not-allowed;" disabled>
-            Este material ya no está disponible
+            ✕ Este artículo ya fue vendido
           </button>
         `;
       } else {
@@ -1593,12 +1690,15 @@
       }
     }
 
-    // FILTRADO
+    // FILTRADO DINÁMICO
     function applyFilters() {
       const search = document.getElementById('searchInput').value.toLowerCase();
       let pool = materials;
+
       if (currentMode === 'seller') {
         pool = materials.filter(m => m.isMyPost);
+      } else if (currentMode === 'sold') {
+        pool = materials.filter(m => m.status === 'Vendido');
       }
 
       const facSelect = document.getElementById('facultySelect') ? document.getElementById('facultySelect').value : "Todas";
@@ -1610,7 +1710,11 @@
         if (currentMode === 'seller') return matchesSearch;
 
         const matchesFac = facSelect === "Todas" ? (currentFaculty === "Todas" || item.facultyCode === currentFaculty) : item.facultyCode === facSelect;
-        const matchesStatus = statusSelect === "Todos" || item.status === statusSelect;
+        
+        let matchesStatus = true;
+        if (currentMode !== 'sold') {
+          matchesStatus = statusSelect === "Todos" || item.status === statusSelect;
+        }
 
         let matchesPrice = true;
         if (priceSelect === "low") matchesPrice = item.price <= 10;
@@ -1660,8 +1764,7 @@
 
     openModalBtn.addEventListener('click', () => publishModal.classList.add('open'));
     closeModalBtn.addEventListener('click', () => publishModal.classList.remove('open'));
-    
-    // Cerrar modales al hacer clic fuera del recuadro
+
     window.addEventListener('click', (e) => {
       if (e.target === publishModal) publishModal.classList.remove('open');
       if (e.target === document.getElementById('detailModal')) closeDetailModal();
@@ -1677,7 +1780,6 @@
       const customImg = document.getElementById('itemImg').value;
       const facultyCode = faculty.split(' · ')[0];
 
-      // Formato fecha y hora actual
       const now = new Date();
       const dateFormatted = `${now.getDate()} ${now.toLocaleString('es-ES', { month: 'short' })} ${now.getFullYear()}, ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
 
@@ -1687,7 +1789,7 @@
         price: price,
         status: status,
         date: dateFormatted,
-        desc: `Material publicado por un estudiante para entregas dentro del campus.`,
+        desc: `Material verificado por un politécnico para entrega en campus.`,
         faculty: faculty,
         facultyCode: facultyCode,
         seller: "Diego",
@@ -1700,11 +1802,12 @@
       materials.unshift(newItem);
       publishModal.classList.remove('open');
       publishForm.reset();
-      
+
       setAppMode('seller');
       alert('¡Listo! Tu material ha sido publicado.');
     });
 
+    // Iniciar en modo Comprar
     setAppMode('buyer');
   </script>
 </body>
