@@ -275,27 +275,19 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 12px;
       flex-shrink: 0;
       box-shadow: 0 2px 5px rgba(0,0,0,0.04);
       border: 1px solid rgba(0,0,0,0.06);
+      background: #ffffff;
+      overflow: hidden;
+      padding: 4px;
     }
 
-    .uni-logo-espol { background: #e0f2fe; color: #0284c7; }
-    .uni-logo-ug { background: #dbeafe; color: #1d4ed8; }
-    .uni-logo-ucsg { background: #fee2e2; color: #b91c1c; }
-    .uni-logo-ups { background: #fef3c7; color: #b45309; }
-    .uni-logo-ecotec { background: #ccfbf1; color: #0f766e; }
-    .uni-logo-uees { background: #ffe4e6; color: #be123c; }
-    .uni-logo-uartes { background: #ede9fe; color: #6d28d9; }
-    .uni-logo-ucg { background: #ffedd5; color: #c2410c; }
-    .uni-logo-ulvr { background: #f1f5f9; color: #334155; }
-    .uni-logo-uide { background: #e0e7ff; color: #4338ca; }
-    .uni-logo-umet { background: #fae8ff; color: #a21caf; }
-    .uni-logo-upacifico { background: #e0f2fe; color: #0369a1; }
-    .uni-logo-ube { background: #fef08a; color: #854d0e; }
-    .uni-logo-itb { background: #f3e8ff; color: #7e22ce; }
+    .uni-logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
 
     .uni-meta {
       display: flex;
@@ -1168,7 +1160,9 @@
         <div class="uni-list" id="uniList">
           <div class="uni-card active" onclick="filterByUniversity('ESPOL', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-espol">ESP</div>
+              <div class="uni-logo-box">
+                <img src="ESPOL.png" alt="ESPOL" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">ESPOL</span>
                 <span class="uni-full">Escuela Superior Politécnica del Litoral</span>
@@ -1179,7 +1173,9 @@
 
           <div class="uni-card" onclick="filterByUniversity('UG', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ug">UG</div>
+              <div class="uni-logo-box">
+                <img src="UG.png" alt="UG" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">UG</span>
                 <span class="uni-full">Universidad de Guayaquil</span>
@@ -1190,7 +1186,9 @@
 
           <div class="uni-card" onclick="filterByUniversity('UCSG', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ucsg">UC</div>
+              <div class="uni-logo-box">
+                <img src="CATOLICA.png" alt="UCSG" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">U. Católica</span>
                 <span class="uni-full">Universidad Católica de Santiago de Guayaquil</span>
@@ -1201,7 +1199,9 @@
 
           <div class="uni-card" onclick="filterByUniversity('UPS', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ups">UPS</div>
+              <div class="uni-logo-box">
+                <img src="SALESIANA.png" alt="UPS" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">Salesiana</span>
                 <span class="uni-full">Universidad Politécnica Salesiana</span>
@@ -1212,7 +1212,9 @@
 
           <div class="uni-card" onclick="filterByUniversity('ECOTEC', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ecotec">ECO</div>
+              <div class="uni-logo-box">
+                <img src="ECOTEC.png" alt="ECOTEC" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">ECOTEC</span>
                 <span class="uni-full">Universidad Ecotec</span>
@@ -1223,7 +1225,9 @@
 
           <div class="uni-card" onclick="filterByUniversity('UEES', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-uees">UEES</div>
+              <div class="uni-logo-box">
+                <img src="ESPIRITU SANTO.png" alt="UEES" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">UEES</span>
                 <span class="uni-full">Universidad Espíritu Santo</span>
@@ -1234,7 +1238,9 @@
 
           <div class="uni-card" onclick="filterByUniversity('UARTES', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-uartes">UART</div>
+              <div class="uni-logo-box">
+                <img src="UARTES.png" alt="UARTES" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">UArtes</span>
                 <span class="uni-full">Universidad de las Artes</span>
@@ -1243,10 +1249,11 @@
             <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
 
-          <!-- UNIVERSIDADES AÑADIDAS -->
           <div class="uni-card" onclick="filterByUniversity('UCG', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ucg">UCG</div>
+              <div class="uni-logo-box">
+                <img src="CASA GRANDE.png" alt="UCG" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">Casa Grande</span>
                 <span class="uni-full">Universidad Casa Grande</span>
@@ -1257,7 +1264,9 @@
 
           <div class="uni-card" onclick="filterByUniversity('ULVR', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ulvr">ULVR</div>
+              <div class="uni-logo-box">
+                <img src="LAICA.png" alt="ULVR" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">ULVR</span>
                 <span class="uni-full">U. Laica Vicente Rocafuerte</span>
@@ -1268,7 +1277,9 @@
 
           <div class="uni-card" onclick="filterByUniversity('UIDE', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-uide">UIDE</div>
+              <div class="uni-logo-box">
+                <img src="UIDE.png" alt="UIDE" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">UIDE</span>
                 <span class="uni-full">UIDE Guayaquil</span>
@@ -1279,7 +1290,9 @@
 
           <div class="uni-card" onclick="filterByUniversity('UMET', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-umet">UMET</div>
+              <div class="uni-logo-box">
+                <img src="UMET.png" alt="UMET" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">UMET</span>
                 <span class="uni-full">Universidad Metropolitana</span>
@@ -1290,7 +1303,9 @@
 
           <div class="uni-card" onclick="filterByUniversity('UPACIFICO', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-upacifico">UPAC</div>
+              <div class="uni-logo-box">
+                <img src="PACIFICO.png" alt="Universidad Del Pacífico" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">Del Pacífico</span>
                 <span class="uni-full">Universidad Del Pacífico</span>
@@ -1301,7 +1316,9 @@
 
           <div class="uni-card" onclick="filterByUniversity('UBE', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-ube">UBE</div>
+              <div class="uni-logo-box">
+                <img src="UBE.png" alt="UBE" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">UBE</span>
                 <span class="uni-full">Universidad Bolivariana del Ecuador</span>
@@ -1312,7 +1329,9 @@
 
           <div class="uni-card" onclick="filterByUniversity('ITB', this)">
             <div class="uni-card-left">
-              <div class="uni-logo-box uni-logo-itb">ITB</div>
+              <div class="uni-logo-box">
+                <img src="ITB.png" alt="ITB" />
+              </div>
               <div class="uni-meta">
                 <span class="uni-abbr">ITB</span>
                 <span class="uni-full">Instituto Bolivariano</span>
