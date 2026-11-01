@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ESPOL Materiales</title>
+  <title>CampusMarket - Iniciar Sesión</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      /* Fondo elegante que combina azul ESPOL con toques cálidos */
+      /* Fondo elegante que combina azul con toques cálidos */
       background: radial-gradient(circle at 85% 15%, #fef3c7 0%, transparent 40%),
                   radial-gradient(circle at 10% 90%, #e0f2fe 0%, transparent 35%),
                   linear-gradient(135deg, #0b1f3a 0%, #002855 50%, #0f172a 100%);
@@ -55,6 +55,48 @@
       object-fit: cover;
       object-position: left center;
       z-index: 1;
+    }
+
+    /* LOGOTIPO NUEVO FLOTANTE (ESTILO CARRITO + LIBRO) */
+    .brand-top-left {
+      position: absolute;
+      top: 30px;
+      left: 36px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 16px 8px 12px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      backdrop-filter: blur(4px);
+    }
+    
+    .brand-text-container {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .brand-logo-text {
+      font-size: 26px;
+      font-weight: 800;
+      color: #002855;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+    
+    .brand-logo-text span {
+      color: #0284c7;
+    }
+    
+    .brand-subtitle {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #64748b;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
     /* Tarjeta de login flotante a la derecha */
@@ -234,13 +276,40 @@
         transform: none;
         margin: auto;
       }
+      .brand-top-left {
+        top: 16px;
+        left: 16px;
+      }
     }
   </style>
 </head>
 <body>
 
   <div class="viewport-canvas">
-    <img src="FONDO INICIAL.jpeg" alt="Fondo ESPOL Materiales" class="bg-full">
+    <img src="FONDO INICIAL.jpeg" alt="Fondo CampusMarket" class="bg-full">
+
+    <!-- LOGO AÑADIDO EXACTAMENTE COMO EL DISEÑO SOLICITADO -->
+    <a href="#" class="brand-top-left">
+      <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Líneas de velocidad traseras -->
+        <path d="M 5 58 L 22 58 M 12 68 L 30 68 M 18 78 L 26 78" stroke="#002855" stroke-width="4.5" stroke-linecap="round"/>
+        <!-- Estructura del carrito -->
+        <path d="M 23 38 L 32 38 L 44 80 L 85 80 L 96 42 L 35 42" fill="none" stroke="#0284c7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Ruedas -->
+        <circle cx="50" cy="92" r="6.5" fill="#002855"/>
+        <circle cx="78" cy="92" r="6.5" fill="#002855"/>
+        <!-- Libro abierto interior -->
+        <path d="M 46 42 L 43 27 Q 56 22 64 29 Q 73 22 86 27 L 83 42" fill="none" stroke="#002855" stroke-width="4.5" stroke-linejoin="round"/>
+        <line x1="64" y1="29" x2="64" y2="45" stroke="#002855" stroke-width="4.5"/>
+        <!-- Birrete universitario superior -->
+        <polygon points="64,8 41,16 64,24 87,16" fill="#0284c7"/>
+        <path d="M 48,19 V 27 L 64,32 L 80,27 V 19" fill="none" stroke="#0284c7" stroke-width="4" stroke-linejoin="round"/>
+      </svg>
+      <div class="brand-text-container">
+        <span class="brand-logo-text">Campus<span>Market</span></span>
+        <span class="brand-subtitle">Compra y vende en tu universidad</span>
+      </div>
+    </a>
 
     <div class="login-container">
       <main class="login-card">
@@ -282,7 +351,7 @@
           <button type="submit" class="btn-submit">Iniciar sesión</button>
 
           <div class="signup-row">
-            ¿Primera vez aquí? <a href="#">Crear cuenta</a>
+            ¿Primera vez aquí? <a href="registro.html">Crear cuenta</a>
           </div>
 
           <div class="community-badge">
