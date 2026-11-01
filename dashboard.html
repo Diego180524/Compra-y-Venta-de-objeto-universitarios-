@@ -42,7 +42,6 @@
       gap: 12px;
     }
 
-    /* BOTÓN DE 3 LÍNEAS (HAMBURGUESA) */
     .btn-toggle-sidebar {
       background: none;
       border: none;
@@ -93,7 +92,7 @@
       margin-left: 4px;
     }
 
-    /* SELECTOR SUPERIOR: COMPRAR / VENDER / VENDIDOS */
+    /* SELECTOR SUPERIOR */
     .mode-switch {
       display: flex;
       background: #f1f5f9;
@@ -170,6 +169,12 @@
       display: flex;
       align-items: center;
       gap: 16px;
+      position: relative;
+    }
+
+    /* BOTÓN NOTIFICACIONES Y DROPDOWN */
+    .notif-container {
+      position: relative;
     }
 
     .icon-btn {
@@ -184,16 +189,83 @@
       height: 36px;
       border-radius: 50%;
       position: relative;
+      transition: background-color 0.15s;
+    }
+
+    .icon-btn:hover {
+      background-color: #f1f5f9;
     }
 
     .notification-dot {
       position: absolute;
       top: 6px;
       right: 7px;
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       background-color: #eab308;
       border-radius: 50%;
+      border: 1.5px solid #ffffff;
+    }
+
+    .dropdown-popover {
+      position: absolute;
+      top: 48px;
+      right: 0;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      box-shadow: 0 15px 35px rgba(0, 40, 85, 0.15);
+      width: 310px;
+      display: none;
+      flex-direction: column;
+      z-index: 120;
+      overflow: hidden;
+    }
+
+    .dropdown-popover.open {
+      display: flex;
+    }
+
+    .dropdown-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 13px;
+      font-weight: 700;
+      color: #002855;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dropdown-list {
+      display: flex;
+      flex-direction: column;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+
+    .dropdown-item {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f8fafc;
+      cursor: pointer;
+      font-size: 12px;
+      color: #334155;
+      transition: background-color 0.15s;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f0f7ff;
+    }
+
+    .dropdown-item .notif-time {
+      font-size: 10.5px;
+      color: #94a3b8;
+      margin-top: 3px;
+    }
+
+    /* PERFIL Y MENÚ USUARIO */
+    .user-container {
+      position: relative;
     }
 
     .user-profile {
@@ -201,7 +273,14 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      padding-left: 8px;
+      padding: 4px 8px;
+      border-radius: 10px;
+      transition: background-color 0.15s;
+      user-select: none;
+    }
+
+    .user-profile:hover {
+      background-color: #f1f5f9;
     }
 
     .user-avatar {
@@ -223,7 +302,34 @@
       color: #0f172a;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
+    }
+
+    .user-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.15s;
+    }
+
+    .user-menu-item:hover {
+      background-color: #f0f7ff;
+      color: #002855;
+    }
+
+    .user-menu-item.danger {
+      color: #dc2626;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .user-menu-item.danger:hover {
+      background-color: #fef2f2;
     }
 
     /* LAYOUT */
@@ -233,10 +339,10 @@
       width: 100%;
     }
 
-    /* SIDEBAR CON FONDO CELESTE CLARO Y COLAPSO SUAVE */
+    /* SIDEBAR CON FONDO CELESTE CLARO */
     .sidebar {
       width: 300px;
-      background: #f0f7ff; /* Celeste claro */
+      background: #f0f7ff;
       border-right: 1px solid #dbeafe;
       padding: 20px 14px;
       display: flex;
@@ -444,7 +550,7 @@
       transform: translateY(-1px);
     }
 
-    /* BARRA DE BÚSQUEDA ANCHA Y HASHTAGS */
+    /* BARRA DE BÚSQUEDA Y HASHTAGS */
     .main-search-bar {
       background: #ffffff;
       border: 1px solid #cbd5e1;
@@ -596,7 +702,7 @@
       margin-top: 2px;
     }
 
-    /* PESTAÑAS Y FILTROS ORIGINALES */
+    /* FILTROS */
     .tabs-row {
       display: flex;
       gap: 24px;
@@ -946,7 +1052,7 @@
       margin-top: 4px;
     }
 
-    /* BOTÓN FLOTANTE MAPA ORIGINAL */
+    /* BOTÓN FLOTANTE MAPA */
     .floating-map-btn {
       position: fixed;
       bottom: 25px;
@@ -986,7 +1092,7 @@
       100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
-    /* MODALES ORIGINALES */
+    /* MODAL BASE */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -1005,13 +1111,19 @@
 
     .modal-card {
       background: #ffffff;
-      border-radius: 16px;
+      border-radius: 20px;
       width: 100%;
       max-width: 500px;
       padding: 26px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.18);
-      max-height: 90vh;
+      max-height: 92vh;
       overflow-y: auto;
+    }
+
+    /* MODAL ANCHO PARA PUBLICAR */
+    .modal-card.wide-publish-modal {
+      max-width: 780px;
+      padding: 28px 32px;
     }
 
     .modal-header {
@@ -1022,16 +1134,16 @@
     }
 
     .modal-header h3 {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 19px;
+      font-weight: 800;
       color: #0f172a;
     }
 
     .btn-close-modal {
       background: #f1f5f9;
       border: none;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       font-size: 15px;
       color: #64748b;
@@ -1039,6 +1151,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: background-color 0.15s;
     }
 
     .btn-close-modal:hover {
@@ -1046,6 +1159,221 @@
       color: #0f172a;
     }
 
+    /* GRILLA A 2 COLUMNAS PARA EL FORMULARIO ANCHO */
+    .publish-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-full-row {
+      grid-column: 1 / -1;
+    }
+
+    .modal-form .form-group {
+      margin-bottom: 14px;
+    }
+
+    .modal-form label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 5px;
+    }
+
+    .modal-form input, .modal-form select, .modal-form textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .modal-form textarea {
+      resize: vertical;
+      min-height: 65px;
+    }
+
+    .modal-form input:focus, .modal-form select:focus, .modal-form textarea:focus {
+      border-color: #002855;
+      box-shadow: 0 0 0 3px rgba(0, 40, 85, 0.08);
+    }
+
+    /* RECUADRO SUBIDOR DE FOTO */
+    .photo-upload-box {
+      border: 2px dashed #93c5fd;
+      background: #f8fafc;
+      border-radius: 12px;
+      height: 145px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+
+    .photo-upload-box:hover {
+      background: #f0f7ff;
+      border-color: #0284c7;
+    }
+
+    .photo-upload-box input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .upload-icon-circle {
+      width: 44px;
+      height: 44px;
+      background: #e0f2fe;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0284c7;
+    }
+
+    .upload-preview-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    /* TASADOR INTELIGENTE DE PRECIO */
+    .smart-pricing-card {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .smart-pricing-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #15803d;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 6px;
+    }
+
+    .quick-price-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .price-choice-btn {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid #86efac;
+      padding: 6px 8px;
+      border-radius: 7px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #166534;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.15s;
+    }
+
+    .price-choice-btn span.tag {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #15803d;
+      opacity: 0.85;
+    }
+
+    .price-choice-btn:hover {
+      background: #15803d;
+      color: #ffffff;
+      border-color: #15803d;
+    }
+
+    .price-choice-btn:hover span.tag {
+      color: #dcfce7;
+    }
+
+    .btn-submit-modal {
+      width: 100%;
+      background-color: #002855;
+      color: #ffffff;
+      padding: 13px;
+      border-radius: 9px;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 14px;
+      cursor: pointer;
+      transition: background-color 0.15s;
+    }
+
+    .btn-submit-modal:hover {
+      background-color: #001a38;
+    }
+
+    /* MODAL DE PERFIL */
+    .profile-card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e2e8f0;
+      margin-bottom: 18px;
+    }
+
+    .profile-avatar-big {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #002855;
+      color: white;
+      font-size: 24px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-field-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 12px;
+    }
+
+    .profile-field-item label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .profile-field-item .val {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    /* MODAL DETALLE ORIGINAL */
     .detail-img-box {
       width: 100%;
       height: 230px;
@@ -1092,44 +1420,6 @@
       color: #475569;
       margin-bottom: 20px;
     }
-
-    .modal-form .form-group {
-      margin-bottom: 14px;
-    }
-
-    .modal-form label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: #334155;
-      margin-bottom: 5px;
-    }
-
-    .modal-form input, .modal-form select {
-      width: 100%;
-      padding: 9px 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 13px;
-      outline: none;
-    }
-
-    .modal-form input:focus, .modal-form select:focus {
-      border-color: #002855;
-    }
-
-    .btn-submit-modal {
-      width: 100%;
-      background-color: #002855;
-      color: #ffffff;
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      font-size: 14px;
-      font-weight: 600;
-      margin-top: 10px;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
@@ -1137,7 +1427,7 @@
   <!-- NAVBAR -->
   <nav class="navbar">
     <div class="nav-left-group">
-      <!-- BOTÓN DE 3 LÍNEAS PARA ESCONDER / MOSTRAR SIDEBAR -->
+      <!-- BOTÓN 3 LÍNEAS -->
       <button class="btn-toggle-sidebar" id="toggleSidebarBtn" title="Ocultar / Mostrar Universidades" onclick="toggleSidebar()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
           <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -1189,20 +1479,66 @@
     </div>
 
     <div class="nav-right">
-      <button class="icon-btn" title="Notificaciones">
-        <span class="notification-dot"></span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-        </svg>
-      </button>
-      <div class="user-profile" onclick="window.location.href='index.html'" title="Cerrar sesión">
-        <div class="user-avatar">D</div>
-        <div class="user-name">
-          Diego
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="6 9 12 15 18 9"></polyline>
+      <!-- CAMPANITA NOTIFICACIONES FUNCIONAL -->
+      <div class="notif-container">
+        <button class="icon-btn" id="notifBellBtn" title="Notificaciones" onclick="toggleNotifDropdown(event)">
+          <span class="notification-dot" id="notifDot"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
           </svg>
+        </button>
+
+        <div class="dropdown-popover" id="notifDropdown">
+          <div class="dropdown-header">
+            <span>Notificaciones</span>
+            <span style="font-size: 11px; color:#0284c7; cursor:pointer;" onclick="clearNotifBadge()">Marcar leídas</span>
+          </div>
+          <div class="dropdown-list">
+            <div class="dropdown-item">
+              <strong>💬 Carlos de UG preguntó:</strong> "¿El precio del multímetro es negociable?"
+              <div class="notif-time">Hace 15 minutos</div>
+            </div>
+            <div class="dropdown-item">
+              <strong>📦 Nueva publicación en ESPOL:</strong> Calculadora Casio fx-991 subida en FCNM.
+              <div class="notif-time">Hace 1 hora</div>
+            </div>
+            <div class="dropdown-item">
+              <strong>✅ Venta verificada:</strong> Cautín 60W marcado como vendido exitosamente.
+              <div class="notif-time">Ayer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PERFIL DE USUARIO Y MENÚ AJUSTES / CERRAR SESIÓN -->
+      <div class="user-container">
+        <div class="user-profile" id="userProfileBtn" onclick="toggleUserDropdown(event)" title="Opciones de cuenta">
+          <div class="user-avatar">D</div>
+          <div class="user-name">
+            Diego
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
+
+        <div class="dropdown-popover" id="userDropdown" style="width: 220px;">
+          <div class="user-menu-item" onclick="openProfileModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Mi Perfil y Ajustes</span>
+          </div>
+          <div class="user-menu-item danger" onclick="window.location.href='index.html'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>Cerrar sesión</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1211,7 +1547,7 @@
   <!-- APP LAYOUT -->
   <div class="app-layout">
     
-    <!-- SIDEBAR CON COLOR CELESTE CLARO Y COLAPSIBLE -->
+    <!-- SIDEBAR CON FONDO CELESTE -->
     <aside class="sidebar" id="mainSidebar">
       <div>
         <div class="sidebar-section-title">UNIVERSIDADES</div>
@@ -1466,7 +1802,7 @@
         </button>
       </div>
 
-      <!-- BARRA DE BÚSQUEDA ANCHA Y HASHTAGS -->
+      <!-- BARRA DE BÚSQUEDA Y HASHTAGS -->
       <div id="searchAndHashtagsArea">
         <div class="main-search-bar">
           <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1523,7 +1859,7 @@
         </div>
       </div>
 
-      <!-- FILTROS ORIGINALES -->
+      <!-- FILTROS -->
       <div id="buyerFiltersArea">
         <div class="tabs-row">
           <button class="tab-btn active" id="tabGeneral" onclick="switchNavTab('general', this)">General</button>
@@ -1573,7 +1909,7 @@
         </div>
       </div>
 
-      <!-- PESTAÑAS DE CATEGORÍAS CON CONTADORES -->
+      <!-- PESTAÑAS DE CATEGORÍAS -->
       <div class="categories-bar">
         <div class="category-pills-left">
           <button class="cat-btn active" onclick="filterByCategory('Todos', this)">⚙ Todos (<span id="countTodos">8</span>)</button>
@@ -1603,7 +1939,7 @@
     </main>
   </div>
 
-  <!-- BOTÓN FLOTANTE DEL MAPA INTERACTIVO -->
+  <!-- BOTÓN FLOTANTE MAPA -->
   <a href="mapa.html" class="floating-map-btn" title="Ver en el mapa de campus">
     <div class="radar-pulse"></div>
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1654,94 +1990,300 @@
     </div>
   </div>
 
-  <!-- MODAL 2: PUBLICAR MATERIAL -->
+  <!-- MODAL 2: PUBLICAR MATERIAL (NUEVO DISEÑO ANCHO, DESCRIPCIÓN, CÁMARA Y TASADOR INTELIGENTE) -->
   <div class="modal-overlay" id="publishModal">
-    <div class="modal-card">
+    <div class="modal-card wide-publish-modal">
       <div class="modal-header">
         <h3>Publicar nuevo material</h3>
         <button class="btn-close-modal" id="closeModalBtn">✕</button>
       </div>
       <form class="modal-form" id="publishForm">
-        <div class="form-group">
-          <label>Nombre del material, libro o equipo</label>
-          <input type="text" id="itemName" placeholder="Ej. Estetoscopio Littmann, Calculadora Casio, Escalímetro..." required>
+        <div class="publish-form-grid">
+          
+          <!-- COLUMNA IZQUIERDA -->
+          <div>
+            <div class="form-group">
+              <label>Nombre del material, libro o equipo</label>
+              <input type="text" id="itemName" placeholder="Ej. Multímetro digital, Cautín, Casio fx-991..." required>
+            </div>
+
+            <div class="form-group">
+              <label>Categoría</label>
+              <select id="itemCategory" required>
+                <option value="Herramientas">Herramientas</option>
+                <option value="Instrumentos">Instrumentos</option>
+                <option value="Componentes">Componentes</option>
+                <option value="Materiales">Materiales</option>
+                <option value="Kits">Kits</option>
+                <option value="Libros">Libros</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Universidad en Guayaquil</label>
+              <select id="itemUni" required>
+                <option value="ESPOL">ESPOL (La Prosperina)</option>
+                <option value="UG">Universidad de Guayaquil (UG)</option>
+                <option value="UCSG">Universidad Católica (UCSG)</option>
+                <option value="UPS">Universidad Politécnica Salesiana (UPS)</option>
+                <option value="ECOTEC">Universidad ECOTEC</option>
+                <option value="UEES">Universidad Espíritu Santo (UEES)</option>
+                <option value="UARTES">Universidad de las Artes (UArtes)</option>
+                <option value="UCG">Universidad Casa Grande</option>
+                <option value="ULVR">U. Laica Vicente Rocafuerte (ULVR)</option>
+                <option value="UIDE">UIDE Guayaquil</option>
+                <option value="UMET">Universidad Metropolitana (UMET)</option>
+                <option value="UPACIFICO">Universidad Del Pacífico</option>
+                <option value="UBE">Universidad Bolivariana del Ecuador (UBE)</option>
+                <option value="ITB">Instituto Superior Universitario Bolivariano (ITB)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Facultad y Carrera</label>
+              <input type="text" id="itemFaculty" placeholder="Ej. FIEC · Electricidad / Ciencias Médicas" required>
+            </div>
+
+            <div class="form-group">
+              <label>Número de WhatsApp (para contacto)</label>
+              <input type="tel" id="itemPhone" placeholder="Ej. 593987654320" required>
+            </div>
+          </div>
+
+          <!-- COLUMNA DERECHA -->
+          <div>
+            <!-- FOTO DEL PRODUCTO -->
+            <div class="form-group">
+              <label>Foto del producto (Sube tu archivo)</label>
+              <div class="photo-upload-box" id="photoDropArea">
+                <input type="file" id="filePhotoInput" accept="image/*" onchange="previewUploadedImage(event)">
+                <img id="uploadPreviewImage" class="upload-preview-img" alt="Vista previa">
+                <div class="upload-icon-circle" id="uploadPlaceholderIcon">
+                  <!-- ÍCONO DE CÁMARA -->
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                </div>
+                <span id="uploadHintText" style="font-size:12px; font-weight:700; color:#0284c7;">Toca para subir foto</span>
+                <span id="uploadSubText" style="font-size:10px; color:#94a3b8;">PNG o JPG desde tu dispositivo</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Estado del producto</label>
+              <select id="itemStatus" onchange="recalculateSmartPricing()" required>
+                <option value="Como nuevo">Como nuevo (Abierto sin uso)</option>
+                <option value="Poco uso" selected>Poco uso (1 semestre, bien cuidado)</option>
+                <option value="Buen estado">Buen estado (Funcional con detalles)</option>
+                <option value="Desgaste funcional">Uso frecuente / Desgaste</option>
+              </select>
+            </div>
+
+            <!-- TASADOR INTELIGENTE DE PRECIO -->
+            <div class="form-group">
+              <label>Precio original de tienda ($ USD) <span style="color:#0284c7; font-weight:700;">(Para autocalcular)</span></label>
+              <input type="number" id="originalPriceInput" placeholder="¿Cuánto te costó nuevo? Ej. 25" min="1" step="0.5" oninput="recalculateSmartPricing()">
+              
+              <!-- RECUADRO CON CÁLCULO INTELIGENTE -->
+              <div class="smart-pricing-card" id="smartPricingCard">
+                <div class="smart-pricing-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                  <span>Precios justos sugeridos por UniLoop:</span>
+                </div>
+                <div class="quick-price-chips" id="priceChipsContainer">
+                  <!-- Generados dinámicamente -->
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Tu precio de venta final ($ USD)</label>
+              <input type="number" id="itemPrice" placeholder="Ej. 15" min="1" step="0.5" required>
+            </div>
+          </div>
+
+          <!-- FILA COMPLETA: DESCRIPCIÓN Y HASHTAGS -->
+          <div class="form-full-row">
+            <div class="form-group">
+              <label>Descripción detallada del material</label>
+              <textarea id="itemDesc" placeholder="Describe qué incluye, estado de funcionamiento, si viene con caja o accesorios y puntos de entrega preferidos dentro del campus..." required></textarea>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>Hashtags de búsqueda (separados por espacio)</label>
+              <input type="text" id="itemHashtags" placeholder="#electricidad #laboratorio #ingenieria">
+            </div>
+          </div>
+
         </div>
-        <div class="form-group">
-          <label>Precio ($ USD)</label>
-          <input type="number" id="itemPrice" placeholder="Ej. 15" min="1" required>
-        </div>
-        <div class="form-group">
-          <label>Categoría</label>
-          <select id="itemCategory" required>
-            <option value="Herramientas">Herramientas</option>
-            <option value="Instrumentos">Instrumentos</option>
-            <option value="Componentes">Componentes</option>
-            <option value="Materiales">Materiales</option>
-            <option value="Kits">Kits</option>
-            <option value="Libros">Libros</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Universidad en Guayaquil</label>
-          <select id="itemUni" required>
-            <option value="ESPOL">ESPOL (La Prosperina)</option>
-            <option value="UG">Universidad de Guayaquil (UG)</option>
-            <option value="UCSG">Universidad Católica (UCSG)</option>
-            <option value="UPS">Universidad Politécnica Salesiana (UPS)</option>
-            <option value="ECOTEC">Universidad ECOTEC</option>
-            <option value="UEES">Universidad Espíritu Santo (UEES)</option>
-            <option value="UARTES">Universidad de las Artes (UArtes)</option>
-            <option value="UCG">Universidad Casa Grande</option>
-            <option value="ULVR">U. Laica Vicente Rocafuerte (ULVR)</option>
-            <option value="UIDE">UIDE Guayaquil</option>
-            <option value="UMET">Universidad Metropolitana (UMET)</option>
-            <option value="UPACIFICO">Universidad Del Pacífico</option>
-            <option value="UBE">Universidad Bolivariana del Ecuador (UBE)</option>
-            <option value="ITB">Instituto Superior Universitario Bolivariano (ITB)</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Facultad y Carrera</label>
-          <input type="text" id="itemFaculty" placeholder="Ej. FIMCP · Mecatrónica / Ciencias Médicas" required>
-        </div>
-        <div class="form-group">
-          <label>Número de WhatsApp (para contacto)</label>
-          <input type="tel" id="itemPhone" placeholder="Ej. 593991234567" required>
-        </div>
-        <div class="form-group">
-          <label>Hashtags (separados por espacio)</label>
-          <input type="text" id="itemHashtags" placeholder="#electricidad #instrumentos">
-        </div>
-        <div class="form-group">
-          <label>Estado del producto</label>
-          <select id="itemStatus" required>
-            <option value="Buen estado">Buen estado</option>
-            <option value="Poco uso">Poco uso</option>
-            <option value="Vendido">Vendido</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Enlace de Foto (URL)</label>
-          <input type="url" id="itemImg" placeholder="https://images.unsplash.com/...">
-        </div>
-        <button type="submit" class="btn-submit-modal">Publicar ahora</button>
+
+        <button type="submit" class="btn-submit-modal">Publicar material en UniLoop</button>
       </form>
     </div>
   </div>
 
+  <!-- MODAL 3: PERFIL DE USUARIO / AJUSTES (NUEVA INTERFAZ) -->
+  <div class="modal-overlay" id="profileModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Mi Perfil y Ajustes</h3>
+        <button class="btn-close-modal" onclick="closeProfileModal()">✕</button>
+      </div>
+      
+      <div class="profile-card-header">
+        <div class="profile-avatar-big">D</div>
+        <div>
+          <h4 style="font-size: 16px; color:#002855; font-weight:800;">Diego Yulán</h4>
+          <span style="font-size: 12px; color:#64748b;">Estudiante verificado en ESPOL</span>
+        </div>
+      </div>
+
+      <div class="profile-field-item">
+        <label>Nombre de usuario</label>
+        <span class="val">Diego</span>
+      </div>
+
+      <div class="profile-field-item">
+        <label>Correo universitario</label>
+        <span class="val">usuario@espol.edu.ec</span>
+      </div>
+
+      <div class="profile-field-item">
+        <label>Número de WhatsApp para ventas</label>
+        <span class="val">+593 98 765 4320</span>
+      </div>
+
+      <div class="profile-field-item">
+        <label>Contraseña</label>
+        <span class="val">•••••••••••• (Protegida)</span>
+      </div>
+
+      <button class="btn-submit-modal" style="background:#0284c7; margin-top: 15px;" onclick="alert('Configuración guardada correctamente.'); closeProfileModal();">
+        Guardar cambios
+      </button>
+    </div>
+  </div>
+
   <script>
-    let currentMode = 'buyer'; // 'buyer', 'seller', o 'sold'
+    let currentMode = 'buyer';
     let currentUni = "ESPOL";   
     let activeChip = null;
     let currentCategory = 'Todos';
     let activeHashtag = null;
+    let uploadedImageUrl = null;
 
-    // TOGGLE SIDEBAR (ESCONDER / DESPLEGAR)
+    // TOGGLE SIDEBAR
     function toggleSidebar() {
       const sidebar = document.getElementById('mainSidebar');
       sidebar.classList.toggle('collapsed');
     }
 
+    // CAMPANITA NOTIFICACIONES
+    function toggleNotifDropdown(e) {
+      e.stopPropagation();
+      document.getElementById('userDropdown').classList.remove('open');
+      const dropdown = document.getElementById('notifDropdown');
+      dropdown.classList.toggle('open');
+    }
+
+    function clearNotifBadge() {
+      const dot = document.getElementById('notifDot');
+      if (dot) dot.style.display = 'none';
+      alert('Todas las notificaciones marcadas como leídas.');
+    }
+
+    // MENÚ USUARIO
+    function toggleUserDropdown(e) {
+      e.stopPropagation();
+      document.getElementById('notifDropdown').classList.remove('open');
+      const dropdown = document.getElementById('userDropdown');
+      dropdown.classList.toggle('open');
+    }
+
+    // MODAL DE PERFIL
+    function openProfileModal() {
+      document.getElementById('userDropdown').classList.remove('open');
+      document.getElementById('profileModal').classList.add('open');
+    }
+
+    function closeProfileModal() {
+      document.getElementById('profileModal').classList.remove('open');
+    }
+
+    // CERRAR DROPDOWNS AL HACER CLIC AFUERA
+    window.addEventListener('click', (e) => {
+      if (!e.target.closest('.notif-container')) {
+        document.getElementById('notifDropdown').classList.remove('open');
+      }
+      if (!e.target.closest('.user-container')) {
+        document.getElementById('userDropdown').classList.remove('open');
+      }
+    });
+
+    // SUBIDOR DE FOTO CON VISTA PREVIA
+    function previewUploadedImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedImageUrl = e.target.result;
+          const preview = document.getElementById('uploadPreviewImage');
+          preview.src = uploadedImageUrl;
+          preview.style.display = 'block';
+          document.getElementById('uploadPlaceholderIcon').style.display = 'none';
+          document.getElementById('uploadHintText').style.display = 'none';
+          document.getElementById('uploadSubText').style.display = 'none';
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // TASADOR INTELIGENTE DE PRECIOS
+    function recalculateSmartPricing() {
+      const origPrice = parseFloat(document.getElementById('originalPriceInput').value);
+      const status = document.getElementById('itemStatus').value;
+      const card = document.getElementById('smartPricingCard');
+      const container = document.getElementById('priceChipsContainer');
+
+      if (!origPrice || origPrice <= 0) {
+        card.style.display = 'none';
+        return;
+      }
+
+      // Factores de cálculo según desgaste
+      let baseFactor = 0.65; // Poco uso por defecto
+      if (status === "Como nuevo") baseFactor = 0.78;
+      if (status === "Buen estado") baseFactor = 0.50;
+      if (status === "Desgaste funcional") baseFactor = 0.35;
+
+      const fastPrice = Math.max(1, Math.round(origPrice * (baseFactor - 0.12)));
+      const fairPrice = Math.max(1, Math.round(origPrice * baseFactor));
+      const highPrice = Math.max(1, Math.round(origPrice * (baseFactor + 0.10)));
+
+      container.innerHTML = `
+        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${fastPrice})">
+          $${fastPrice}
+          <span class="tag">Venta rápida</span>
+        </button>
+        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${fairPrice})" style="border-width: 2px;">
+          $${fairPrice}
+          <span class="tag">Precio justo ⭐</span>
+        </button>
+        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${highPrice})">
+          $${highPrice}
+          <span class="tag">Recuperar más</span>
+        </button>
+      `;
+
+      card.style.display = 'block';
+    }
+
+    function setCalculatedPrice(val) {
+      document.getElementById('itemPrice').value = val;
+    }
+
+    // BASE DE DATOS INICIAL
     let materials = [
       {
         id: 1,
@@ -1934,7 +2476,7 @@
       applyFilters();
     }
 
-    // SELECTOR SUPERIOR: COMPRAR / VENDER / VENDIDOS
+    // SELECTOR SUPERIOR
     function setAppMode(mode) {
       currentMode = mode;
       const buyBtn = document.getElementById('modeBuyBtn');
@@ -2088,6 +2630,8 @@
         let statusBadge = `<span class="badge-status">Buen estado</span>`;
         if (item.status === "Poco uso") {
           statusBadge = `<span class="badge-status warning">Poco uso</span>`;
+        } else if (item.status === "Como nuevo") {
+          statusBadge = `<span class="badge-status" style="background:#e0f2fe; color:#0284c7;">Como nuevo</span>`;
         } else if (isSold) {
           statusBadge = `<span class="badge-status sold">✕ Vendido</span>`;
         }
@@ -2220,7 +2764,7 @@
       }
     }
 
-    // FILTRADO DINÁMICO MULTI-CRITERIO
+    // FILTRADO DINÁMICO
     function applyFilters() {
       const search = document.getElementById('mainSearchInput').value.toLowerCase().trim();
       let pool = materials;
@@ -2281,6 +2825,7 @@
     window.addEventListener('click', (e) => {
       if (e.target === publishModal) publishModal.classList.remove('open');
       if (e.target === document.getElementById('detailModal')) closeDetailModal();
+      if (e.target === document.getElementById('profileModal')) closeProfileModal();
     });
 
     publishForm.addEventListener('submit', (e) => {
@@ -2292,8 +2837,8 @@
       const faculty = document.getElementById('itemFaculty').value;
       const phone = document.getElementById('itemPhone').value;
       const status = document.getElementById('itemStatus').value;
+      const desc = document.getElementById('itemDesc').value;
       const tagsStr = document.getElementById('itemHashtags').value;
-      const customImg = document.getElementById('itemImg').value;
 
       const tagsArray = tagsStr ? tagsStr.split(' ').filter(t => t.startsWith('#')) : ["#materiales"];
       const now = new Date();
@@ -2306,7 +2851,7 @@
         status: status,
         uni: uni,
         date: dateFormatted,
-        desc: `Material verificado por un estudiante para entregas en campus.`,
+        desc: desc || `Material verificado por un estudiante para entregas en campus.`,
         faculty: faculty,
         category: category,
         tags: tagsArray,
@@ -2314,12 +2859,20 @@
         sellerInitial: "D",
         phone: phone || "593987654320",
         isMyPost: true,
-        image: customImg || "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600"
+        image: uploadedImageUrl || "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600"
       };
 
       materials.unshift(newItem);
       publishModal.classList.remove('open');
       publishForm.reset();
+      
+      // Reset vista previa foto
+      uploadedImageUrl = null;
+      document.getElementById('uploadPreviewImage').style.display = 'none';
+      document.getElementById('uploadPlaceholderIcon').style.display = 'flex';
+      document.getElementById('uploadHintText').style.display = 'inline';
+      document.getElementById('uploadSubText').style.display = 'inline';
+      document.getElementById('smartPricingCard').style.display = 'none';
 
       filterByUniversity(uni, null);
       alert(`¡Listo! Tu material ha sido publicado en UniLoop para ${uni}.`);
