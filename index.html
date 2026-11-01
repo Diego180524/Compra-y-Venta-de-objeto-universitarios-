@@ -19,7 +19,6 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      /* Fondo elegante que combina azul con toques cálidos */
       background: radial-gradient(circle at 85% 15%, #fef3c7 0%, transparent 40%),
                   radial-gradient(circle at 10% 90%, #e0f2fe 0%, transparent 35%),
                   linear-gradient(135deg, #0b1f3a 0%, #002855 50%, #0f172a 100%);
@@ -29,7 +28,6 @@
       padding: 24px;
     }
 
-    /* Contenedor tipo tarjeta marco */
     .viewport-canvas {
       position: relative;
       width: 100%;
@@ -45,7 +43,6 @@
       align-items: center;
     }
 
-    /* Imagen con bordes redondeados y ajuste natural sin deformar */
     .bg-full {
       position: absolute;
       top: 0;
@@ -57,21 +54,31 @@
       z-index: 1;
     }
 
-    /* LOGOTIPO NUEVO FLOTANTE (ESTILO CARRITO + LIBRO) */
-    .brand-top-left {
+    .login-wrapper {
       position: absolute;
-      top: 30px;
-      left: 36px;
-      z-index: 20;
+      top: 50%;
+      right: 36px;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 360px;
+      max-width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* LOGOTIPO REPOSICIONADO SOBRE LA TARJETA */
+    .brand-top-center {
       display: flex;
       align-items: center;
       gap: 12px;
       text-decoration: none;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 8px 16px 8px 12px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      backdrop-filter: blur(4px);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 20px 10px 16px;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      backdrop-filter: blur(8px);
+      margin-bottom: 24px; /* Espacio entre el logo y la tarjeta de login */
     }
     
     .brand-text-container {
@@ -99,17 +106,6 @@
       text-transform: uppercase;
     }
 
-    /* Tarjeta de login flotante a la derecha */
-    .login-container {
-      position: absolute;
-      top: 50%;
-      right: 36px;
-      transform: translateY(-50%);
-      z-index: 10;
-      width: 360px;
-      max-width: 90%;
-    }
-
     .login-card {
       background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(12px);
@@ -117,6 +113,7 @@
       border-radius: 20px;
       box-shadow: 0 20px 40px rgba(0, 40, 85, 0.18), 0 4px 12px rgba(0, 0, 0, 0.05);
       border: 1px solid rgba(226, 232, 240, 0.9);
+      width: 100%;
     }
 
     .login-card h2 {
@@ -269,16 +266,12 @@
         height: 100vh;
         border-radius: 0;
       }
-      .login-container {
+      .login-wrapper {
         position: relative;
         top: auto;
         right: auto;
         transform: none;
         margin: auto;
-      }
-      .brand-top-left {
-        top: 16px;
-        left: 16px;
       }
     }
   </style>
@@ -288,30 +281,31 @@
   <div class="viewport-canvas">
     <img src="FONDO INICIAL.jpeg" alt="Fondo CampusMarket" class="bg-full">
 
-    <!-- LOGO AÑADIDO EXACTAMENTE COMO EL DISEÑO SOLICITADO -->
-    <a href="#" class="brand-top-left">
-      <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Líneas de velocidad traseras -->
-        <path d="M 5 58 L 22 58 M 12 68 L 30 68 M 18 78 L 26 78" stroke="#002855" stroke-width="4.5" stroke-linecap="round"/>
-        <!-- Estructura del carrito -->
-        <path d="M 23 38 L 32 38 L 44 80 L 85 80 L 96 42 L 35 42" fill="none" stroke="#0284c7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Ruedas -->
-        <circle cx="50" cy="92" r="6.5" fill="#002855"/>
-        <circle cx="78" cy="92" r="6.5" fill="#002855"/>
-        <!-- Libro abierto interior -->
-        <path d="M 46 42 L 43 27 Q 56 22 64 29 Q 73 22 86 27 L 83 42" fill="none" stroke="#002855" stroke-width="4.5" stroke-linejoin="round"/>
-        <line x1="64" y1="29" x2="64" y2="45" stroke="#002855" stroke-width="4.5"/>
-        <!-- Birrete universitario superior -->
-        <polygon points="64,8 41,16 64,24 87,16" fill="#0284c7"/>
-        <path d="M 48,19 V 27 L 64,32 L 80,27 V 19" fill="none" stroke="#0284c7" stroke-width="4" stroke-linejoin="round"/>
-      </svg>
-      <div class="brand-text-container">
-        <span class="brand-logo-text">Campus<span>Market</span></span>
-        <span class="brand-subtitle">Compra y vende en tu universidad</span>
-      </div>
-    </a>
+    <div class="login-wrapper">
+      
+      <!-- LOGO MOVIDO ARRIBA DE "BIENVENIDO" -->
+      <a href="#" class="brand-top-center">
+        <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Líneas de velocidad traseras -->
+          <path d="M 5 58 L 22 58 M 12 68 L 30 68 M 18 78 L 26 78" stroke="#002855" stroke-width="4.5" stroke-linecap="round"/>
+          <!-- Estructura del carrito -->
+          <path d="M 23 38 L 32 38 L 44 80 L 85 80 L 96 42 L 35 42" fill="none" stroke="#0284c7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Ruedas -->
+          <circle cx="50" cy="92" r="6.5" fill="#002855"/>
+          <circle cx="78" cy="92" r="6.5" fill="#002855"/>
+          <!-- Libro abierto interior -->
+          <path d="M 46 42 L 43 27 Q 56 22 64 29 Q 73 22 86 27 L 83 42" fill="none" stroke="#002855" stroke-width="4.5" stroke-linejoin="round"/>
+          <line x1="64" y1="29" x2="64" y2="45" stroke="#002855" stroke-width="4.5"/>
+          <!-- Birrete universitario superior -->
+          <polygon points="64,8 41,16 64,24 87,16" fill="#0284c7"/>
+          <path d="M 48,19 V 27 L 64,32 L 80,27 V 19" fill="none" stroke="#0284c7" stroke-width="4" stroke-linejoin="round"/>
+        </svg>
+        <div class="brand-text-container">
+          <span class="brand-logo-text">Campus<span>Market</span></span>
+          <span class="brand-subtitle">Compra y vende en tu universidad</span>
+        </div>
+      </a>
 
-    <div class="login-container">
       <main class="login-card">
         <h2>Bienvenido</h2>
         <p class="subtitle">Encuentra lo que necesitas para tu próximo proyecto.</p>
