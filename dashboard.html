@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CampusMarket - Dashboard Universitario</title>
+  <title>UniLoop - Dashboard Universitario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -404,8 +404,6 @@
       transform: translateY(-1px);
     }
 
-    /* ---- NUEVOS ELEMENTOS AÑADIDOS ---- */
-    
     /* BARRA DE BÚSQUEDA ANCHA Y HASHTAGS */
     .main-search-bar {
       background: #ffffff;
@@ -527,8 +525,6 @@
       outline: none;
       cursor: pointer;
     }
-
-    /* ---- FIN NUEVOS ELEMENTOS ---- */
 
     .eco-banner {
       background-color: #fef9c3;
@@ -781,11 +777,10 @@
       margin-bottom: 6px;
     }
 
-    /* MODIFICACIÓN DE LA FILA DE PRECIO CON CARRITO (IMG 8) */
     .product-price-row {
       display: flex;
       align-items: center;
-      justify-content: space-between; /* Espacio para el carrito a la derecha */
+      justify-content: space-between;
       margin-bottom: 10px;
     }
 
@@ -882,16 +877,6 @@
       padding: 2px 8px;
       border-radius: 4px;
       font-weight: 600;
-    }
-
-    .card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: auto;
-      padding-top: 12px;
-      border-top: 1px solid #f1f5f9;
-      display: none; /* Ocultamos el viejo footer para dar prioridad al nuevo diseño de etiquetas */
     }
 
     /* MODO VENDEDOR STATS */
@@ -1113,7 +1098,7 @@
   <!-- NAVBAR -->
   <nav class="navbar">
     <a href="#" class="nav-left">
-      <span class="brand-logo">Campus<span>Market</span></span>
+      <span class="brand-logo">Uni<span>Loop</span></span>
       <span class="brand-sub">Guayaquil</span>
     </a>
 
@@ -1257,6 +1242,84 @@
             </div>
             <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
+
+          <!-- UNIVERSIDADES AÑADIDAS -->
+          <div class="uni-card" onclick="filterByUniversity('UCG', this)">
+            <div class="uni-card-left">
+              <div class="uni-logo-box uni-logo-ucg">UCG</div>
+              <div class="uni-meta">
+                <span class="uni-abbr">Casa Grande</span>
+                <span class="uni-full">Universidad Casa Grande</span>
+              </div>
+            </div>
+            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="uni-card" onclick="filterByUniversity('ULVR', this)">
+            <div class="uni-card-left">
+              <div class="uni-logo-box uni-logo-ulvr">ULVR</div>
+              <div class="uni-meta">
+                <span class="uni-abbr">ULVR</span>
+                <span class="uni-full">U. Laica Vicente Rocafuerte</span>
+              </div>
+            </div>
+            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="uni-card" onclick="filterByUniversity('UIDE', this)">
+            <div class="uni-card-left">
+              <div class="uni-logo-box uni-logo-uide">UIDE</div>
+              <div class="uni-meta">
+                <span class="uni-abbr">UIDE</span>
+                <span class="uni-full">UIDE Guayaquil</span>
+              </div>
+            </div>
+            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="uni-card" onclick="filterByUniversity('UMET', this)">
+            <div class="uni-card-left">
+              <div class="uni-logo-box uni-logo-umet">UMET</div>
+              <div class="uni-meta">
+                <span class="uni-abbr">UMET</span>
+                <span class="uni-full">Universidad Metropolitana</span>
+              </div>
+            </div>
+            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="uni-card" onclick="filterByUniversity('UPACIFICO', this)">
+            <div class="uni-card-left">
+              <div class="uni-logo-box uni-logo-upacifico">UPAC</div>
+              <div class="uni-meta">
+                <span class="uni-abbr">Del Pacífico</span>
+                <span class="uni-full">Universidad Del Pacífico</span>
+              </div>
+            </div>
+            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="uni-card" onclick="filterByUniversity('UBE', this)">
+            <div class="uni-card-left">
+              <div class="uni-logo-box uni-logo-ube">UBE</div>
+              <div class="uni-meta">
+                <span class="uni-abbr">UBE</span>
+                <span class="uni-full">Universidad Bolivariana del Ecuador</span>
+              </div>
+            </div>
+            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="uni-card" onclick="filterByUniversity('ITB', this)">
+            <div class="uni-card-left">
+              <div class="uni-logo-box uni-logo-itb">ITB</div>
+              <div class="uni-meta">
+                <span class="uni-abbr">ITB</span>
+                <span class="uni-full">Instituto Bolivariano</span>
+              </div>
+            </div>
+            <svg class="uni-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
         </div>
       </div>
 
@@ -1326,7 +1389,7 @@
         </button>
       </div>
 
-      <!-- NUEVO: BARRA DE BÚSQUEDA ANCHA Y HASHTAGS -->
+      <!-- BARRA DE BÚSQUEDA ANCHA Y HASHTAGS -->
       <div id="searchAndHashtagsArea">
         <div class="main-search-bar">
           <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1433,7 +1496,7 @@
         </div>
       </div>
 
-      <!-- NUEVO: PESTAÑAS DE CATEGORÍAS CON CONTADORES -->
+      <!-- PESTAÑAS DE CATEGORÍAS CON CONTADORES -->
       <div class="categories-bar">
         <div class="category-pills-left">
           <button class="cat-btn active" onclick="filterByCategory('Todos', this)">⚙ Todos (<span id="countTodos">8</span>)</button>
@@ -1463,7 +1526,7 @@
     </main>
   </div>
 
-  <!-- BOTÓN FLOTANTE DEL MAPA INTERACTIVO (ORIGINAL) -->
+  <!-- BOTÓN FLOTANTE DEL MAPA INTERACTIVO -->
   <a href="mapa.html" class="floating-map-btn" title="Ver en el mapa de campus">
     <div class="radar-pulse"></div>
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1474,7 +1537,7 @@
     <span>Mapa de entregas</span>
   </a>
 
-  <!-- MODAL 1: DETALLE DEL MATERIAL (ORIGINAL) -->
+  <!-- MODAL 1: DETALLE DEL MATERIAL -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal-card">
       <div class="modal-header">
@@ -1514,7 +1577,7 @@
     </div>
   </div>
 
-  <!-- MODAL 2: PUBLICAR MATERIAL (ORIGINAL) -->
+  <!-- MODAL 2: PUBLICAR MATERIAL -->
   <div class="modal-overlay" id="publishModal">
     <div class="modal-card">
       <div class="modal-header">
@@ -1596,7 +1659,6 @@
     let currentCategory = 'Todos';
     let activeHashtag = null;
 
-    // BASE DE DATOS INICIAL ACTUALIZADA CON CATEGORÍAS Y HASHTAGS
     let materials = [
       {
         id: 1,
@@ -1958,7 +2020,6 @@
           }
         };
 
-        // NUEVO: Implementación del botón de carrito alineado a la derecha (IMG 8) y tags inferiores
         card.innerHTML = `
           <div class="product-img-wrapper">
             <img src="${item.image}" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600'">
@@ -2063,7 +2124,7 @@
     }
 
     function contactSeller(seller, title, phone) {
-      const msg = encodeURIComponent(`Hola ${seller}, vi tu material "${title}" publicado en CampusMarket. ¿Sigue disponible?`);
+      const msg = encodeURIComponent(`Hola ${seller}, vi tu material "${title}" publicado en UniLoop. ¿Sigue disponible?`);
       window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
     }
 
@@ -2099,7 +2160,6 @@
 
         if (currentMode === 'seller') return matchesSearch;
 
-        // Filtros
         const matchesUni = (currentUni === "Todas") || (item.uni === currentUni);
         const matchesCat = (currentCategory === "Todos") || (item.category === currentCategory);
         let matchesStatus = true;
@@ -2126,7 +2186,7 @@
       renderProducts(filtered);
     }
 
-    // MODAL DE PUBLICACIÓN ORIGINAL MANTENIDA
+    // MODAL DE PUBLICACIÓN
     const publishModal = document.getElementById('publishModal');
     const openModalBtn = document.getElementById('openModalBtn');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -2179,7 +2239,7 @@
       publishForm.reset();
 
       filterByUniversity(uni, null);
-      alert(`¡Listo! Tu material ha sido publicado en CampusMarket para ${uni}.`);
+      alert(`¡Listo! Tu material ha sido publicado en UniLoop para ${uni}.`);
     });
 
     // Iniciar mostrando ESPOL
@@ -2187,4 +2247,3 @@
   </script>
 </body>
 </html>
-
