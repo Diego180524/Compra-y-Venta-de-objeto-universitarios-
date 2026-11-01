@@ -1990,7 +1990,7 @@
     </div>
   </div>
 
-  <!-- MODAL 2: PUBLICAR MATERIAL (NUEVO DISEÑO ANCHO, DESCRIPCIÓN, CÁMARA Y TASADOR INTELIGENTE) -->
+  <!-- MODAL 2: PUBLICAR MATERIAL -->
   <div class="modal-overlay" id="publishModal">
     <div class="modal-card wide-publish-modal">
       <div class="modal-header">
@@ -2059,7 +2059,6 @@
                 <input type="file" id="filePhotoInput" accept="image/*" onchange="previewUploadedImage(event)">
                 <img id="uploadPreviewImage" class="upload-preview-img" alt="Vista previa">
                 <div class="upload-icon-circle" id="uploadPlaceholderIcon">
-                  <!-- ÍCONO DE CÁMARA -->
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                     <circle cx="12" cy="13" r="4"></circle>
@@ -2085,15 +2084,12 @@
               <label>Precio original de tienda ($ USD) <span style="color:#0284c7; font-weight:700;">(Para autocalcular)</span></label>
               <input type="number" id="originalPriceInput" placeholder="¿Cuánto te costó nuevo? Ej. 25" min="1" step="0.5" oninput="recalculateSmartPricing()">
               
-              <!-- RECUADRO CON CÁLCULO INTELIGENTE -->
               <div class="smart-pricing-card" id="smartPricingCard">
                 <div class="smart-pricing-title">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
                   <span>Precios justos sugeridos por UniLoop:</span>
                 </div>
-                <div class="quick-price-chips" id="priceChipsContainer">
-                  <!-- Generados dinámicamente -->
-                </div>
+                <div class="quick-price-chips" id="priceChipsContainer"></div>
               </div>
             </div>
 
@@ -2123,7 +2119,7 @@
     </div>
   </div>
 
-  <!-- MODAL 3: PERFIL DE USUARIO / AJUSTES (NUEVA INTERFAZ) -->
+  <!-- MODAL 3: PERFIL DE USUARIO / AJUSTES -->
   <div class="modal-overlay" id="profileModal">
     <div class="modal-card">
       <div class="modal-header">
@@ -2221,22 +2217,44 @@
       }
     });
 
-    // SUBIDOR DE FOTO CON VISTA PREVIA
+    // SUBIDOR DE FOTO OPTIMIZADO (COMPRESIÓN CON CANVAS)
     function previewUploadedImage(event) {
       const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          uploadedImageUrl = e.target.result;
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 800;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > MAX_WIDTH) {
+            height = Math.round((height * MAX_WIDTH) / width);
+            width = MAX_WIDTH;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Comprimido a JPEG ligero de alta velocidad
+          uploadedImageUrl = canvas.toDataURL('image/jpeg', 0.75);
+
           const preview = document.getElementById('uploadPreviewImage');
           preview.src = uploadedImageUrl;
           preview.style.display = 'block';
           document.getElementById('uploadPlaceholderIcon').style.display = 'none';
           document.getElementById('uploadHintText').style.display = 'none';
           document.getElementById('uploadSubText').style.display = 'none';
-        }
-        reader.readAsDataURL(file);
-      }
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
 
     // TASADOR INTELIGENTE DE PRECIOS
@@ -2251,8 +2269,7 @@
         return;
       }
 
-      // Factores de cálculo según desgaste
-      let baseFactor = 0.65; // Poco uso por defecto
+      let baseFactor = 0.65;
       if (status === "Como nuevo") baseFactor = 0.78;
       if (status === "Buen estado") baseFactor = 0.50;
       if (status === "Desgaste funcional") baseFactor = 0.35;
@@ -2813,7 +2830,7 @@
       renderProducts(filtered);
     }
 
-    // MODAL DE PUBLICACIÓN
+    // MODAL DE PUBLICACIÓN (SUBMIT OPTIMIZADO)
     const publishModal = document.getElementById('publishModal');
     const openModalBtn = document.getElementById('openModalBtn');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -2830,6 +2847,7 @@
 
     publishForm.addEventListener('submit', (e) => {
       e.preventDefault();
+
       const title = document.getElementById('itemName').value;
       const price = parseFloat(document.getElementById('itemPrice').value);
       const category = document.getElementById('itemCategory').value;
@@ -2842,7 +2860,7 @@
 
       const tagsArray = tagsStr ? tagsStr.split(' ').filter(t => t.startsWith('#')) : ["#materiales"];
       const now = new Date();
-      const dateFormatted = `${now.getDate()} ${now.toLocaleString('es-ES', { month: 'short' })} ${now.getFullYear()}, ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+      const dateFormatted = `${now.getDate()} ${now.toLocaleString('es-ES', { month: 'short' })} ${now.getFullYear()}`;
 
       const newItem = {
         id: Date.now(),
@@ -2851,7 +2869,7 @@
         status: status,
         uni: uni,
         date: dateFormatted,
-        desc: desc || `Material verificado por un estudiante para entregas en campus.`,
+        desc: desc || 'Material verificado para entrega en campus.',
         faculty: faculty,
         category: category,
         tags: tagsArray,
@@ -2863,10 +2881,11 @@
       };
 
       materials.unshift(newItem);
+
+      // Cierre y reseteo inmediato para máxima fluidez
       publishModal.classList.remove('open');
       publishForm.reset();
-      
-      // Reset vista previa foto
+
       uploadedImageUrl = null;
       document.getElementById('uploadPreviewImage').style.display = 'none';
       document.getElementById('uploadPlaceholderIcon').style.display = 'flex';
@@ -2874,8 +2893,8 @@
       document.getElementById('uploadSubText').style.display = 'inline';
       document.getElementById('smartPricingCard').style.display = 'none';
 
+      // Reflejar cambios en la interfaz
       filterByUniversity(uni, null);
-      alert(`¡Listo! Tu material ha sido publicado en UniLoop para ${uni}.`);
     });
 
     // Iniciar mostrando ESPOL
