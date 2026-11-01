@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CampusMarket - Iniciar Sesión</title>
+  <title>UniLoop - Iniciar Sesión</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,10 +73,11 @@
     .brand-top-center {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 12px;
       text-decoration: none;
       background: rgba(255, 255, 255, 0.95);
-      padding: 10px 20px 10px 16px;
+      padding: 10px 20px;
       border-radius: 14px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.1);
       backdrop-filter: blur(8px);
@@ -265,12 +265,10 @@
       body {
         padding: 0;
       }
-
       .viewport-canvas {
         height: 100vh;
         border-radius: 0;
       }
-
       .login-wrapper {
         position: relative;
         top: auto;
@@ -281,42 +279,16 @@
     }
   </style>
 </head>
-
 <body>
 
   <div class="viewport-canvas">
-    <img src="FONDO INICIAL.jpeg" alt="Fondo CampusMarket" class="bg-full">
+    <img src="FONDO INICIAL.jpeg" alt="Fondo UniLoop" class="bg-full">
 
     <div class="login-wrapper">
 
       <!-- LOGO MOVIDO ARRIBA DE "BIENVENIDO" -->
       <a href="#" class="brand-top-center">
-        <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-          <!-- Líneas de velocidad traseras -->
-          <path d="M 5 58 L 22 58 M 12 68 L 30 68 M 18 78 L 26 78" stroke="#002855" stroke-width="4.5" stroke-linecap="round"/>
-
-          <!-- Estructura del carrito -->
-          <path d="M 23 38 L 32 38 L 44 80 L 85 80 L 96 42 L 35 42" fill="none" stroke="#0284c7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-
-          <!-- Ruedas -->
-          <circle cx="50" cy="92" r="6.5" fill="#002855"/>
-          <circle cx="78" cy="92" r="6.5" fill="#002855"/>
-
-          <!-- Libro abierto interior -->
-          <path d="M 46 42 L 43 27 Q 56 22 64 29 Q 73 22 86 27 L 83 42" fill="none" stroke="#002855" stroke-width="4.5" stroke-linejoin="round"/>
-          <line x1="64" y1="29" x2="64" y2="45" stroke="#002855" stroke-width="4.5"/>
-
-          <!-- Birrete universitario superior -->
-          <polygon points="64,8 41,16 64,24 87,16" fill="#0284c7"/>
-          <path d="M 48,19 V 27 L 64,32 L 80,27 V 19" fill="none" stroke="#0284c7" stroke-width="4" stroke-linejoin="round"/>
-
-        </svg>
-
-        <div class="brand-text-container">
-          <span class="brand-logo-text">Campus<span>Market</span></span>
-          <span class="brand-subtitle">Compra y vende en tu universidad</span>
-        </div>
+        <img src="UNILOOP.jpg" alt="UniLoop" style="height: 55px; border-radius: 8px; object-fit: contain;">
       </a>
 
       <main class="login-card">
@@ -382,7 +354,7 @@
     </div>
 
     <div class="academic-footer">
-      Prototipo académico
+      UniLoop • Prototipo académico
     </div>
   </div>
 
