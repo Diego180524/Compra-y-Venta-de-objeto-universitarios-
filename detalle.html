@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalle del Artículo - UniLoop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; }
+    body { background-color: #f8fafc; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* HEADER SUPERIOR */
+    .top-header-wrapper { background: #ffffff; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
+    .navbar-top { max-width: 1320px; margin: 0 auto; padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .nav-left-group { display: flex; align-items: center; gap: 14px; }
+    .nav-left { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .brand-icon-box { width: 34px; height: 34px; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #0284c7; }
+    .brand-logo { font-size: 23px; font-weight: 800; color: #002855; letter-spacing: -0.5px; }
+    .brand-logo span { color: #0284c7; }
+
+    .btn-back-panel { display: inline-flex; align-items: center; gap: 6px; background: #f1f5f9; border: 1px solid #cbd5e1; color: #002855; padding: 7px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 700; text-decoration: none; transition: all 0.15s; }
+    .btn-back-panel:hover { background: #e0f2fe; border-color: #0284c7; }
+
+    .user-profile-card { display: flex; align-items: center; gap: 10px; }
+    .user-meta-info { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+    .user-display-name { font-size: 13.5px; font-weight: 800; color: #0f172a; }
+    .verified-uni-pill { background: #dcfce7; color: #15803d; border: 1px solid #86efac; font-size: 10.5px; font-weight: 800; padding: 1.5px 7px; border-radius: 999px; }
+    .user-bottom-line { font-size: 11.5px; color: #64748b; font-weight: 600; }
+    .user-avatar-img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #cbd5e1; }
+
+    .sub-navbar { max-width: 1320px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; gap: 28px; }
+    .sub-nav-tab { padding: 12px 2px; font-size: 13.5px; font-weight: 600; color: #64748b; text-decoration: none; position: relative; }
+    .sub-nav-tab.active { color: #002855; font-weight: 700; }
+    .sub-nav-tab.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2.5px; background: #002855; }
+
+    /* CONTENEDOR DE 2 COLUMNAS (DETALLE + SIDEBAR VENDEDOR) */
+    .detail-layout { max-width: 1280px; width: 100%; margin: 28px auto; padding: 0 32px; display: grid; grid-template-columns: 1fr 370px; gap: 28px; align-items: start; }
+
+    /* COLUMNA IZQUIERDA */
+    .badges-top-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .pill-tag { font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; }
+    .pill-tag.navy { background: #002855; color: #ffffff; }
+    .pill-tag.green { background: #dcfce7; color: #15803d; }
+    .pill-tag.light { background: #e0f2fe; color: #0369a1; }
+
+    .detail-main-title { font-size: 30px; font-weight: 800; color: #0f172a; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 16px; }
+
+    .price-banner-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03); }
+    .price-left-group { display: flex; align-items: baseline; gap: 10px; }
+    .big-price { font-size: 34px; font-weight: 800; color: #002855; }
+    .old-price { font-size: 14px; color: #94a3b8; text-decoration: line-through; font-weight: 600; }
+    .discount-badge { background: #15803d; color: #ffffff; font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
+    .negotiable-note { font-size: 12.5px; font-weight: 700; color: #0f766e; display: flex; align-items: center; gap: 5px; }
+
+    /* GALERÍA DE IMÁGENES */
+    .gallery-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 16px; margin-bottom: 24px; }
+    .main-photo-stage { position: relative; width: 100%; height: 390px; border-radius: 12px; overflow: hidden; background: #f1f5f9; margin-bottom: 12px; }
+    .main-photo-stage img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-counter-pill { position: absolute; top: 14px; right: 14px; background: rgba(255, 255, 255, 0.92); color: #0f172a; font-size: 11.5px; font-weight: 700; padding: 5px 12px; border-radius: 999px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+
+    .thumbs-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .thumb-box { position: relative; height: 78px; border-radius: 10px; overflow: hidden; border: 2px solid transparent; cursor: pointer; opacity: 0.75; transition: all 0.15s; }
+    .thumb-box.active, .thumb-box:hover { border-color: #0284c7; opacity: 1; }
+    .thumb-box img { width: 100%; height: 100%; object-fit: cover; }
+    .thumb-label { position: absolute; bottom: 5px; right: 5px; background: rgba(255,255,255,0.9); font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; color: #0f172a; }
+
+    /* SECCIONES INFORMATIVAS */
+    .info-section-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .section-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .section-card-header h3 { font-size: 17.5px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 8px; }
+
+    .specs-3-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+    .spec-mini-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; }
+    .spec-mini-box .lbl { font-size: 10.5px; font-weight: 800; color: #0284c7; text-transform: uppercase; margin-bottom: 4px; }
+    .spec-mini-box .val { font-size: 14.5px; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
+    .spec-mini-box p { font-size: 12px; color: #64748b; line-height: 1.4; }
+
+    .student-desc-box h4 { font-size: 13.5px; font-weight: 800; color: #0f172a; margin-bottom: 8px; }
+    .student-desc-box p { font-size: 13.5px; color: #475569; line-height: 1.6; }
+
+    /* PUNTOS DE ENTREGA Y MAPA */
+    .delivery-spot-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .delivery-spot-item h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 3px; }
+    .delivery-spot-item p { font-size: 12.5px; color: #475569; }
+    .spot-tag { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+    .spot-tag.safe { background: #dcfce7; color: #15803d; }
+    .spot-tag.alt { background: #e0f2fe; color: #0369a1; }
+
+    #detailCampusMap { width: 100%; height: 220px; border-radius: 12px; margin-top: 14px; border: 1px solid #cbd5e1; z-index: 1; }
+
+    /* PROTOCOLO DINÁMICO DE RETIRO SEGURO */
+    .protocol-card { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .protocol-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .protocol-shield { width: 42px; height: 42px; border-radius: 50%; background: #86efac; color: #065f46; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .protocol-rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .rule-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; color: #334155; line-height: 1.45; }
+    .rule-check { color: #059669; font-weight: 800; font-size: 14px; }
+
+    /* COLUMNA DERECHA: TARJETA DEL VENDEDOR (STICKY) */
+    .seller-sticky-sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 16px; }
+    .seller-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 22px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04); }
+    .seller-card-top { display: flex; justify-content: space-between; font-size: 10.5px; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 14px; }
+    .online-status { color: #059669; display: flex; align-items: center; gap: 4px; }
+
+    .seller-profile-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .seller-photo { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; border: 2px solid #0284c7; }
+    .seller-name { font-size: 16px; font-weight: 800; color: #0f172a; }
+    .seller-career { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .seller-rating { font-size: 12px; font-weight: 700; color: #d97706; margin-top: 3px; }
+
+    .seller-audit-box { background: #f8fafc; border-radius: 12px; padding: 12px 14px; font-size: 12px; color: #334155; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .audit-line { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+
+    .btn-action-full { width: 100%; padding: 12px; border-radius: 10px; border: none; font-size: 13.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; transition: all 0.15s; }
+    .btn-navy { background: #002855; color: #ffffff; }
+    .btn-navy:hover { background: #001a38; }
+    .btn-green { background: #047857; color: #ffffff; }
+    .btn-green:hover { background: #065f46; }
+    .btn-soft { background: #e0f2fe; color: #002855; }
+    .btn-soft:hover { background: #bae6fd; }
+
+    /* TASA DE ENTREGA EXITOSA */
+    .delivery-rate-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px 20px; }
+    .rate-bar-bg { width: 100%; height: 7px; background: #e2e8f0; border-radius: 999px; margin: 10px 0; overflow: hidden; }
+    .rate-bar-fill { width: 100%; height: 100%; background: #059669; }
+
+    /* CUADRO INTERCAMBIO DIRECTO / CANJE */
+    .exchange-offer-card { background: linear-gradient(135deg, #002855 0%, #0369a1 100%); color: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 10px 24px rgba(0, 40, 85, 0.18); }
+    .exchange-offer-card h4 { font-size: 14.5px; font-weight: 800; display: flex; align-items: center; gap: 7px; margin-bottom: 8px; }
+    .exchange-offer-card p { font-size: 12.5px; color: #e0f2fe; line-height: 1.5; margin-bottom: 14px; }
+    .btn-propose-swap { background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.35); color: #ffffff; padding: 8px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-propose-swap:hover { background: #ffffff; color: #002855; }
+
+    /* SECCIÓN ARTÍCULOS RELACIONADOS */
+    .related-section { max-width: 1280px; margin: 20px auto 50px; padding: 32px 32px 0; border-top: 1px solid #e2e8f0; }
+    .related-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+    .related-pills { display: flex; gap: 8px; }
+    .rel-pill { background: #f1f5f9; border: none; padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 700; color: #475569; cursor: pointer; }
+    .rel-pill.active { background: #002855; color: #ffffff; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .rel-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; cursor: pointer; transition: transform 0.2s; }
+    .rel-card:hover { transform: translateY(-3px); }
+    .rel-card img { width: 100%; height: 165px; object-fit: cover; }
+    .rel-card-body { padding: 14px; }
+
+    /* FOOTER INSTITUCIONAL 2026 */
+    .site-footer { background: #ffffff; border-top: 1px solid #e2e8f0; margin-top: auto; }
+    .footer-top-strip { background: #f0f7ff; border-bottom: 1px solid #dbeafe; padding: 12px 32px; font-size: 12px; color: #002855; font-weight: 600; display: flex; justify-content: center; flex-wrap: wrap; gap: 18px; }
+    .footer-main-grid { max-width: 1280px; margin: 0 auto; padding: 40px 32px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; }
+    .footer-col h4 { font-size: 14px; font-weight: 800; color: #0f172a; margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; font-size: 13px; color: #475569; }
+    .footer-col ul li a { color: #475569; text-decoration: none; }
+    .footer-col ul li a:hover { color: #0284c7; }
+    .footer-bottom-bar { max-width: 1280px; margin: 0 auto; padding: 18px 32px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 12px; color: #64748b; }
+
+    /* MODAL INTERACTIVO PARA OFERTA / CANJE */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55); display: none; align-items: center; justify-content: center; z-index: 250; padding: 20px; }
+    .modal-overlay.open { display: flex; }
+    .modal-box { background: #ffffff; border-radius: 18px; width: 100%; max-width: 440px; padding: 24px; }
+    .modal-box input { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 9px; margin: 10px 0 14px; font-size: 13.5px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="top-header-wrapper">
+    <div class="navbar-top">
+      <div class="nav-left-group">
+        <a href="dashboard.html" class="nav-left">
+          <div class="brand-icon-box">🎓</div>
+          <span class="brand-logo">Uni<span>Loop</span></span>
+        </a>
+        <a href="dashboard.html" class="btn-back-panel">← Volver a Explorar</a>
+      </div>
+
+      <div class="user-profile-card">
+        <div class="user-meta-info">
+          <div><span class="user-display-name">Diego Y.</span> <span class="verified-uni-pill">✓ ESPOL</span></div>
+          <div class="user-bottom-line">Saldo: <strong style="color:#059669;">$48.50</strong> · Estudiante</div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80" alt="Diego Y." class="user-avatar-img">
+      </div>
+    </div>
+
+    <nav class="sub-navbar">
+      <a href="dashboard.html" class="sub-nav-tab active">Explorar Artículos</a>
+      <a href="dashboard.html" class="sub-nav-tab">Mis Publicaciones</a>
+      <a href="dashboard.html" class="sub-nav-tab">Mis Compras</a>
+      <a href="dashboard.html" class="sub-nav-tab">Mensajes / Chats</a>
+      <a href="mapa.html" class="sub-nav-tab">Puntos de Entrega</a>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL DE 2 COLUMNAS -->
+  <main class="detail-layout">
+
+    <!-- COLUMNA IZQUIERDA -->
+    <div>
+      <div class="badges-top-row">
+        <span class="pill-tag navy" id="detUniBadge">● ESPOL · CAMPUS PROSPERINA</span>
+        <span class="pill-tag green" id="detStatusBadge">✓ Como nuevo</span>
+        <span class="pill-tag light">⇄ Acepta Canje</span>
+      </div>
+
+      <h1 class="detail-main-title" id="detTitle">Cargando artículo...</h1>
+
+      <!-- BANNER DE PRECIO -->
+      <div class="price-banner-card">
+        <div class="price-left-group">
+          <span class="big-price" id="detPrice">$125</span>
+          <span style="font-weight:700; color:#64748b;">USD</span>
+          <span class="old-price" id="detOldPrice">$210 nuevo</span>
+          <span class="discount-badge" id="detDiscount">Ahorras 40%</span>
+        </div>
+        <div class="negotiable-note">🏷️ Precio negociable / Abierto a ofertas</div>
+      </div>
+
+      <!-- GALERÍA DE FOTOS -->
+      <div class="gallery-card">
+        <div class="main-photo-stage">
+          <img id="detMainImg" src="" alt="Producto">
+          <span class="photo-counter-pill">4 vistas disponibles</span>
+        </div>
+        <div class="thumbs-row" id="detThumbsRow"></div>
+      </div>
+
+      <!-- ESTADO FÍSICO Y FUNCIONAL DETALLADO -->
+      <section class="info-section-card">
+        <div class="section-card-header">
+          <h3>📋 Estado Físico y Funcional Detallado</h3>
+          <span style="font-size:11.5px; color:#64748b;" id="detReviewedBy">Revisado por estudiante</span>
+        </div>
+
+        <div class="specs-3-grid" id="detSpecsGrid"></div>
+
+        <div class="student-desc-box">
+          <h4>Descripción del Estudiante:</h4>
+          <p id="detDescription"></p>
+        </div>
+      </section>
+
+      <!-- PUNTOS DE ENTREGA Y PROCEDENCIA -->
+      <section class="info-section-card">
+        <div class="section-card-header">
+          <h3>🛡️ Puntos de Entrega y Procedencia del Artículo</h3>
+          <span class="pill-tag light" id="detZoneBadge">Zona Campus Guayaquil</span>
+        </div>
+        <p style="font-size:12.5px; color:#64748b; margin-bottom:14px;">Transacción protegida dentro de perímetros universitarios vigilados.</p>
+
+        <div id="detDeliverySpots"></div>
+        <div id="detailCampusMap"></div>
+      </section>
+
+      <!-- PROTOCOLO DINÁMICO SEGÚN CATEGORÍA DEL PRODUCTO -->
+      <section class="protocol-card">
+        <div class="protocol-header">
+          <div class="protocol-shield">🛡️</div>
+          <div>
+            <h3 style="font-size:17px; font-weight:800; color:#0f172a;">Protocolo de Negociación y Retiro Seguro</h3>
+            <p style="font-size:12px; color:#475569;" id="protocolSubtitle">4 reglas clave adaptadas a esta categoría</p>
+          </div>
+        </div>
+
+        <div class="protocol-rules-grid" id="protocolRulesGrid"></div>
+      </section>
+    </div>
+
+    <!-- COLUMNA DERECHA: VENDEDOR VERIFICADO + CANJE -->
+    <aside class="seller-sticky-sidebar">
+      <div class="seller-card">
+        <div class="seller-card-top">
+          <span>VENDEDOR VERIFICADO</span>
+          <span class="online-status">● En línea ahora</span>
+        </div>
+
+        <div class="seller-profile-row">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" alt="Vendedor" class="seller-photo">
+          <div>
+            <div class="seller-name" id="detSellerName">Carlos Proaño</div>
+            <div class="seller-career" id="detSellerCareer">Ingeniería Mecánica · 7mo Sem.</div>
+            <div class="seller-rating" id="detSellerRating">★ 4.9 (19 ventas en campus)</div>
+          </div>
+        </div>
+
+        <div class="seller-audit-box">
+          <div class="audit-line" id="detSellerEmail">✉️ Correo institucional verificado</div>
+          <div class="audit-line" id="detSellerAudit">🛡️ Matrícula activa auditada · 2026</div>
+          <div class="audit-line">⏱️ Tiempo de respuesta: <strong>&lt; 15 minutos</strong></div>
+        </div>
+
+        <button class="btn-action-full btn-navy" id="btnChatWhatsApp">💬 Iniciar Chat / Negociar</button>
+        <button class="btn-action-full btn-green" onclick="openActionModal('offer')">💲 Hacer una Oferta de Compra ($)</button>
+        <button class="btn-action-full btn-soft" onclick="openActionModal('spot')">📍 Proponer Punto de Entrega</button>
+
+        <div style="text-align:center; font-size:11px; color:#64748b; margin-top:8px;">
+          🔒 Pagos protegidos por el Código de Honor Universitario
+        </div>
+      </div>
+
+      <!-- TASA DE ENTREGA -->
+      <div class="delivery-rate-card">
+        <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700;">
+          <span>Tasa de entrega exitosa</span>
+          <span style="color:#059669;" id="detSuccessRate">100% (19/19)</span>
+        </div>
+        <div class="rate-bar-bg"><div class="rate-bar-fill"></div></div>
+        <div style="display:flex; justify-content:space-between; font-size:11.5px; color:#64748b;">
+          <span>Libros canjeados: <strong>8</strong></span>
+          <span id="detItemsSoldCount">Artículos vendidos: <strong>11</strong></span>
+        </div>
+      </div>
+
+      <!-- CUADRO INTERCAMBIO DIRECTO DISPONIBLE -->
+      <div class="exchange-offer-card">
+        <h4>⇄ Intercambio Directo Disponible</h4>
+        <p id="detExchangeText">¿Tienes un material equivalente para canjear? Propón un intercambio directo y ahorra hasta $50 del valor total.</p>
+        <button class="btn-propose-swap" onclick="openActionModal('swap')">Proponer Intercambio →</button>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ARTÍCULOS RELACIONADOS RECOMENDADOS -->
+  <section class="related-section">
+    <div class="related-header">
+      <div>
+        <span style="font-size:11px; font-weight:800; color:#0284c7; text-transform:uppercase;">ECONOMÍA CIRCULAR UNIVERSITARIA</span>
+        <h2 style="font-size:22px; font-weight:800; color:#0f172a;">Artículos Relacionados en Universidades de Guayaquil</h2>
+      </div>
+
+      <div class="related-pills">
+        <button class="rel-pill active" onclick="filterRelated('Todos', this)">Todos</button>
+        <button class="rel-pill" onclick="filterRelated('ESPOL', this)">ESPOL</button>
+        <button class="rel-pill" onclick="filterRelated('UCSG', this)">UCSG</button>
+        <button class="rel-pill" onclick="filterRelated('UEES', this)">UEES</button>
+        <button class="rel-pill" onclick="filterRelated('UG', this)">UG</button>
+      </div>
+    </div>
+
+    <div class="related-grid" id="relatedProductsGrid"></div>
+  </section>
+
+  <!-- FOOTER INSTITUCIONAL 2026 -->
+  <footer class="site-footer">
+    <div class="footer-top-strip">
+      <span>🛡️ <strong>Programa Campus Seguro Guayaquil</strong></span>
+      <span>• ESPOL Prosperina (Biblioteca Central / FIMCP)</span>
+      <span>• UCSG Malecón del Salado (Plaza Calderón)</span>
+      <span>• UEES Samborondón (Edificio E)</span>
+      <span>• UG Ciudadela Universitaria</span>
+    </div>
+
+    <div class="footer-main-grid">
+      <div class="footer-col">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <span style="font-size:20px;">🎓</span>
+          <strong style="font-size:20px; color:#002855;">UniLoop</strong>
+        </div>
+        <p style="font-size:13px; color:#475569; line-height:1.6; margin-bottom:14px;">
+          La red oficial de intercambio y comercio circular universitario para Guayaquil y Samborondón. Reutiliza libros, tecnología y equipo con verificación institucional.
+        </p>
+        <span class="pill-tag light">🎓 Comunidad Activa Guayaquil 2026</span>
+      </div>
+
+      <div class="footer-col">
+        <h4>Campuses Conectados</h4>
+        <ul>
+          <li><a href="dashboard.html">ESPOL - Campus Gustavo Galindo</a></li>
+          <li><a href="dashboard.html">Universidad de Guayaquil (UG)</a></li>
+          <li><a href="dashboard.html">Universidad Católica (UCSG)</a></li>
+          <li><a href="dashboard.html">Universidad Espíritu Santo (UEES)</a></li>
+          <li><a href="dashboard.html">Universidad Casa Grande &amp; ECOTEC</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Soporte Estudiantil</h4>
+        <ul>
+          <li><a href="mapa.html">Mapa de Puntos de Entrega Seguros</a></li>
+          <li><a href="#" onclick="alert('Soporte UniLoop Guayaquil: soporte@uniloop.ec')">Centro de Ayuda y Disputas</a></li>
+          <li><a href="#" onclick="alert('Validación automática con dominio institucional .edu.ec')">Validación de Correo Universitario</a></li>
+          <li><a href="#" onclick="alert('Canal de reportes 24/7 activo.')">Reportar Usuario o Publicación</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Garantía y Legal 2026</h4>
+        <ul>
+          <li><a href="#" onclick="alert('Código de Convivencia Estudiantil UniLoop 2026')">Términos de Convivencia Estudiantil</a></li>
+          <li><a href="#" onclick="alert('Recomendamos transferencias directas al momento de revisar el artículo.')">Políticas de Transacción Segura</a></li>
+          <li><a href="#" onclick="alert('Tus datos de matrícula están cifrados y protegidos.')">Privacidad y Protección de Datos</a></li>
+          <li><strong>Contacto:</strong> hola@uniloop.ec · Guayaquil</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <span>© 2026 UniLoop Ecuador. Diseñado por y para estudiantes universitarios de Guayaquil.</span>
+      <span>🔒 Entrega Presencial Auditada &nbsp;&nbsp; ✉️ Dominios .edu.ec Verificados</span>
+    </div>
+  </footer>
+
+  <!-- MODAL PARA OFERTA / INTERCAMBIO / PUNTO DE ENTREGA -->
+  <div class="modal-overlay" id="actionModal">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <h3 id="actionModalTitle" style="font-size:18px; color:#002855;">Propuesta</h3>
+        <button onclick="closeActionModal()" style="border:none; background:#f1f5f9; width:30px; height:30px; border-radius:50%; cursor:pointer;">✕</button>
+      </div>
+      <p id="actionModalDesc" style="font-size:13px; color:#475569;"></p>
+      <input type="text" id="actionModalInput" placeholder="Escribe tu propuesta...">
+      <button onclick="submitActionModal()" style="width:100%; background:#002855; color:#fff; border:none; padding:12px; border-radius:10px; font-weight:700; cursor:pointer;">Enviar al Vendedor</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // LEER CATÁLOGO DESDE LOCALSTORAGE Y OBTENER ID DE LA URL
+    const allMaterials = JSON.parse(localStorage.getItem('uniloop_materials_v2')) || [];
+    const params = new URLSearchParams(window.location.search);
+    const itemId = parseInt(params.get('id'));
+    const product = allMaterials.find(m => m.id === itemId) || allMaterials[0];
+
+    // COORDENADAS REALES DE CAMPUS EN GUAYAQUIL
+    const campusCoords = {
+      ESPOL: { lat: -2.1446, lng: -79.9675, spot1: "Biblioteca Central ESPOL (Recomendado)", spot2: "Pasillos FIMCP / FIEC" },
+      UG: { lat: -2.1815, lng: -79.8975, spot1: "Plaza Central Ciudadela Universitaria UG", spot2: "Facultad de Ciencias Médicas / Jurisprudencia" },
+      UCSG: { lat: -2.1812, lng: -79.9035, spot1: "Plaza Calderón UCSG (Recomendado)", spot2: "Cafetería Principal Campus" },
+      UEES: { lat: -2.1325, lng: -79.8660, spot1: "Edificio E - Zona Starbucks UEES", spot2: "Biblioteca Central Samborondón" },
+      UPS: { lat: -2.2085, lng: -79.8890, spot1: "Patio Central Campus Centenario UPS", spot2: "Laboratorios de Ingeniería" },
+      ECOTEC: { lat: -2.1150, lng: -79.8620, spot1: "Lobby Principal Campus Samborondón", spot2: "Cafetería Central ECOTEC" }
+    };
+
+    if (product) {
+      const orig = product.originalPrice || Math.round(product.price * 1.7);
+      const savings = Math.max(10, Math.round(((orig - product.price) / orig) * 100));
+
+      document.getElementById('detUniBadge').innerText = `● ${product.uni} · CAMPUS VERIFICADO`;
+      document.getElementById('detStatusBadge').innerText = `✓ ${product.status}`;
+      document.getElementById('detTitle').innerText = product.title;
+      document.getElementById('detPrice').innerText = `$${product.price}`;
+      document.getElementById('detOldPrice').innerText = `$${orig} nuevo`;
+      document.getElementById('detDiscount').innerText = `Ahorras ${savings}%`;
+      document.getElementById('detMainImg').src = product.image;
+      document.getElementById('detDescription').innerText = product.desc;
+      document.getElementById('detReviewedBy').innerText = `Revisado por ${product.seller}`;
+
+      // Miniaturas
+      const labels = ["Vista Principal", "Detalle", "Ángulo 2", "Accesorios"];
+      document.getElementById('detThumbsRow').innerHTML = labels.map((lbl, idx) => `
+        <div class="thumb-box ${idx === 0 ? 'active' : ''}" onclick="selectThumb(this, '${product.image}')">
+          <img src="${product.image}" alt="${lbl}">
+          <span class="thumb-label">${lbl}</span>
+        </div>
+      `).join('');
+
+      // 3 Tarjetas de Estado Físico y Funcional adaptadas
+      document.getElementById('detSpecsGrid').innerHTML = `
+        <div class="spec-mini-box">
+          <div class="lbl">DESGASTE / USO</div>
+          <div class="val">${product.status}</div>
+          <p>Usado únicamente en periodo académico reciente en ${product.uni}.</p>
+        </div>
+        <div class="spec-mini-box">
+          <div class="lbl">VERIFICACIÓN ACADÉMICA</div>
+          <div class="val">100% Funcional</div>
+          <p>Validado para materias de ${product.faculty}.</p>
+        </div>
+        <div class="spec-mini-box">
+          <div class="lbl">QUÉ INCLUYE EL PAQUETE</div>
+          <div class="val">Entrega Completa</div>
+          <p>Incluye accesorios y manuales descritos por el estudiante.</p>
+        </div>
+      `;
+
+      // Vendedor
+      document.getElementById('detSellerName').innerText = product.seller;
+      document.getElementById('detSellerCareer').innerText = `${product.faculty} · ${product.sellerSem || '6to Sem.'}`;
+      document.getElementById('detSellerRating').innerText = `★ ${product.sellerRating || '4.9'} (${product.sellerSales || 14} ventas en campus)`;
+      document.getElementById('detSellerEmail').innerText = `✉️ Correo institucional @${product.uni.toLowerCase()}.edu.ec`;
+      document.getElementById('detSellerAudit').innerText = `🛡️ Matrícula activa auditada · ${product.uni} 2026`;
+      document.getElementById('detSuccessRate').innerText = `100% (${product.sellerSales || 14}/${product.sellerSales || 14})`;
+      document.getElementById('detItemsSoldCount').innerHTML = `Artículos vendidos: <strong>${product.sellerSales || 14}</strong>`;
+
+      // Intercambio directo
+      document.getElementById('detExchangeText').innerHTML = `¿Tienes <strong>${product.exchangeOffer || 'un libro o equipo universitario'}</strong>? ${product.seller} descuenta hasta <strong>$${product.exchangeDiscount || Math.round(product.price * 0.4)}</strong> del valor total.`;
+
+      // Botón WhatsApp
+      document.getElementById('btnChatWhatsApp').onclick = () => {
+        const msg = encodeURIComponent(`Hola ${product.seller}, vi "${product.title}" ($${product.price}) en UniLoop y me interesa coordinar la entrega en ${product.uni}.`);
+        window.open(`https://wa.me/${product.phone}?text=${msg}`, '_blank');
+      };
+
+      // Puntos de entrega + Mapa Leaflet
+      const loc = campusCoords[product.uni] || campusCoords.ESPOL;
+      document.getElementById('detZoneBadge').innerText = `Zona ${product.uni} Guayaquil`;
+      document.getElementById('detDeliverySpots').innerHTML = `
+        <div class="delivery-spot-item">
+          <div>
+            <h4>🏛️ ${loc.spot1}</h4>
+            <p>Lobby principal o mesas de planta baja con cámaras de seguridad. Horario: Lunes a Viernes 09:00 a 17:00.</p>
+          </div>
+          <span class="spot-tag safe">Punto Seguro #1</span>
+        </div>
+        <div class="delivery-spot-item">
+          <div>
+            <h4>🎓 ${loc.spot2}</h4>
+            <p>Área de casilleros o cafetería de facultad. Ideal para estudiantes de ${product.faculty}.</p>
+          </div>
+          <span class="spot-tag alt">Alternativa Campus</span>
+        </div>
+      `;
+
+      const map = L.map('detailCampusMap').setView([loc.lat, loc.lng], 15);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+      L.marker([loc.lat, loc.lng]).addTo(map).bindPopup(`<strong>${loc.spot1}</strong><br>Punto seguro UniLoop`).openPopup();
+
+      // PROTOCOLO DINÁMICO SEGÚN CATEGORÍA DEL PRODUCTO
+      renderDynamicProtocol(product.category);
+    }
+
+    function renderDynamicProtocol(category) {
+      let inspectionRule = "Revisa el estado físico completo del artículo frente al vendedor antes de confirmar.";
+      if (category === "Calculadoras" || category === "Tecnología") {
+        inspectionRule = "Enciende el equipo, prueba pantalla, botones, puertos USB y sensores antes de pagar.";
+      } else if (category === "Textos y Libros") {
+        inspectionRule = "Verifica edición, índice completo y que no falten páginas o capítulos clave.";
+      } else if (category === "Batas y Salud") {
+        inspectionRule = "Comprueba la talla, costuras, limpieza y calibración del instrumento médico en persona.";
+      } else if (category === "Arquitectura" || category === "Herramientas") {
+        inspectionRule = "Prueba la precisión de reglas, puntas o funcionamiento mecánico de cada pieza.";
+      }
+
+      document.getElementById('protocolSubtitle').innerText = `4 reglas clave para compras seguras en ${category}`;
+      document.getElementById('protocolRulesGrid').innerHTML = `
+        <div class="rule-item"><span class="rule-check">✓</span><div><strong>Inspección Presencial:</strong> ${inspectionRule}</div></div>
+        <div class="rule-item"><span class="rule-check">✓</span><div><strong>Pago Directo:</strong> Sugerimos transferencia inmediata (Pichincha/Guayaquil/Produbanco/Deuna!) o saldo UniLoop en el encuentro.</div></div>
+        <div class="rule-item"><span class="rule-check">✓</span><div><strong>Identidad Estudiantil:</strong> Verifica que el carnet universitario o matrícula coincida con el perfil verificado.</div></div>
+        <div class="rule-item"><span class="rule-check">✓</span><div><strong>Sin Anticipos:</strong> Nunca envíes depósitos previos ni señas bancarias sin ver el artículo en el campus.</div></div>
+      `;
+    }
+
+    function selectThumb(el, src) {
+      document.querySelectorAll('.thumb-box').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('detMainImg').src = src;
+    }
+
+    // ARTÍCULOS RELACIONADOS RECOMENDADOS
+    function filterRelated(uniFilter, btn) {
+      if (btn) {
+        document.querySelectorAll('.rel-pill').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+      }
+
+      let pool = allMaterials.filter(m => product && m.id !== product.id && m.status !== 'Vendido');
+      if (uniFilter !== 'Todos') pool = pool.filter(m => m.uni === uniFilter);
+
+      const picks = pool.slice(0, 4);
+      document.getElementById('relatedProductsGrid').innerHTML = picks.map(item => `
+        <div class="rel-card" onclick="window.location.href='detalle.html?id=${item.id}'">
+          <img src="${item.image}" alt="${item.title}">
+          <div class="rel-card-body">
+            <span style="font-size:10.5px; font-weight:700; color:#0284c7;">● ${item.uni} · ${item.category}</span>
+            <h4 style="font-size:14px; font-weight:700; color:#0f172a; margin:4px 0;">${item.title}</h4>
+            <p style="font-size:12px; color:#64748b; margin-bottom:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.desc}</p>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <strong style="font-size:16px; color:#002855;">$${item.price}</strong>
+              <span style="font-size:11px; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:999px; font-weight:700;">${item.status}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+    filterRelated('Todos');
+
+    // MODAL ACCIONES (OFERTA / CANJE / PUNTO)
+    function openActionModal(type) {
+      const title = document.getElementById('actionModalTitle');
+      const desc = document.getElementById('actionModalDesc');
+      const input = document.getElementById('actionModalInput');
+
+      if (type === 'offer') {
+        title.innerText = "💲 Hacer una Oferta de Compra";
+        desc.innerText = `Precio publicado: $${product.price}. Propón tu oferta directa a ${product.seller}:`;
+        input.placeholder = `Ej. $${Math.max(5, product.price - 5)} en efectivo o transferencia hoy`;
+      } else if (type === 'swap') {
+        title.innerText = "⇄ Proponer Intercambio / Canje";
+        desc.innerText = `${product.seller} busca: ${product.exchangeOffer}. ¿Qué material ofreces a cambio?`;
+        input.placeholder = "Ej. Tengo el libro en buen estado + $15 de diferencia";
+      } else {
+        title.innerText = "📍 Proponer Punto de Entrega";
+        desc.innerText = "Sugiere un lugar seguro y horario dentro del campus universitario:";
+        input.placeholder = "Ej. Hoy a las 13:30 frente a la Biblioteca Central";
+      }
+      document.getElementById('actionModal').classList.add('open');
+    }
+
+    function closeActionModal() { document.getElementById('actionModal').classList.remove('open'); }
+    function submitActionModal() {
+      const val = document.getElementById('actionModalInput').value.trim();
+      if (!val) return;
+      closeActionModal();
+      const msg = encodeURIComponent(`Hola ${product.seller}, sobre "${product.title}" en UniLoop: ${val}`);
+      window.open(`https://wa.me/${product.phone}?text=${msg}`, '_blank');
+    }
+  </script>
+</body>
+</html>
