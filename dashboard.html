@@ -23,34 +23,53 @@
       flex-direction: column;
     }
 
-    /* NAVBAR */
-    .navbar {
+    /* HEADER SUPERIOR (ESTILO CAMPUSMARKET) */
+    .top-header-wrapper {
       background: #ffffff;
-      border-bottom: 1px solid #edf2f7;
-      padding: 12px 36px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      border-bottom: 1px solid #e2e8f0;
       position: sticky;
       top: 0;
       z-index: 100;
     }
 
+    .navbar-top {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 12px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
     .nav-left-group {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
+      flex-shrink: 0;
     }
 
     .nav-left {
       display: flex;
-      align-items: baseline;
-      gap: 6px;
+      align-items: center;
+      gap: 8px;
       text-decoration: none;
     }
 
+    .brand-icon-box {
+      width: 34px;
+      height: 34px;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0284c7;
+    }
+
     .brand-logo {
-      font-size: 24px;
+      font-size: 23px;
       font-weight: 800;
       color: #002855;
       letter-spacing: -0.5px;
@@ -60,125 +79,168 @@
       color: #0284c7;
     }
 
-    .brand-sub {
-      font-size: 13px;
-      color: #64748b;
-      font-weight: 600;
-      background: #f1f5f9;
-      padding: 2px 8px;
-      border-radius: 6px;
-      margin-left: 4px;
-    }
-
-    /* SELECTOR SUPERIOR */
-    .mode-switch {
-      display: flex;
-      background: #f1f5f9;
-      padding: 4px;
-      border-radius: 12px;
-      gap: 4px;
-    }
-
-    .mode-btn {
-      border: none;
-      background: none;
-      padding: 8px 16px;
-      border-radius: 9px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #64748b;
-      cursor: pointer;
+    /* SELECTOR DE CAMPUS EN NAVBAR */
+    .nav-campus-pill {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .campus-online-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .nav-campus-pill select {
+      border: none;
+      background: transparent;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #0f172a;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* BUSCADOR SUPERIOR */
+    .top-search-box {
+      flex: 1;
+      max-width: 440px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .top-search-box svg {
+      position: absolute;
+      left: 14px;
+      width: 16px;
+      height: 16px;
+      color: #64748b;
+    }
+
+    .top-search-box input {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 999px;
+      padding: 9px 52px 9px 38px;
+      font-size: 13px;
+      color: #0f172a;
+      outline: none;
       transition: all 0.2s;
     }
 
-    .mode-btn:hover {
-      color: #002855;
-    }
-
-    .mode-btn.active {
+    .top-search-box input:focus {
       background: #ffffff;
-      color: #002855;
-      box-shadow: 0 2px 6px rgba(0, 40, 85, 0.08);
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
     }
 
-    .mode-btn.btn-sold-tab.active {
-      color: #dc2626;
+    .kbd-shortcut {
+      position: absolute;
+      right: 12px;
+      background: #e2e8f0;
+      color: #475569;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 5px;
+      pointer-events: none;
     }
 
+    /* ACCIONES DERECHA NAVBAR */
     .nav-right {
       display: flex;
       align-items: center;
       gap: 14px;
       position: relative;
+      flex-shrink: 0;
     }
 
-    .btn-publish-nav {
+    .btn-vender-nav {
       background-color: #002855;
       color: #ffffff;
-      padding: 9px 16px;
+      padding: 9px 18px;
       border-radius: 999px;
       border: none;
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       cursor: pointer;
-      transition: background-color 0.2s, transform 0.1s;
+      box-shadow: 0 4px 12px rgba(0, 40, 85, 0.18);
+      transition: all 0.2s;
     }
 
-    .btn-publish-nav:hover {
+    .btn-vender-nav:hover {
       background-color: #0284c7;
       transform: translateY(-1px);
     }
 
-    /* BOTÓN NOTIFICACIONES Y DROPDOWN */
+    /* CAMPANITA TIEMPO REAL */
     .notif-container {
       position: relative;
     }
 
     .icon-btn {
-      background: none;
-      border: none;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
       color: #475569;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       position: relative;
-      transition: background-color 0.15s;
+      transition: all 0.15s;
     }
 
     .icon-btn:hover {
-      background-color: #f1f5f9;
+      background-color: #f0f9ff;
+      color: #0284c7;
+      border-color: #bae6fd;
     }
 
-    .notification-dot {
+    .notif-badge-count {
       position: absolute;
-      top: 6px;
-      right: 7px;
-      width: 8px;
-      height: 8px;
-      background-color: #eab308;
-      border-radius: 50%;
-      border: 1.5px solid #ffffff;
+      top: -4px;
+      right: -4px;
+      background-color: #ef4444;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 800;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ffffff;
     }
 
     .dropdown-popover {
       position: absolute;
-      top: 48px;
+      top: 50px;
       right: 0;
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 14px;
       box-shadow: 0 15px 35px rgba(0, 40, 85, 0.15);
-      width: 310px;
+      width: 330px;
       display: none;
       flex-direction: column;
       z-index: 120;
@@ -198,81 +260,142 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: #f8fafc;
     }
 
     .dropdown-list {
       display: flex;
       flex-direction: column;
-      max-height: 280px;
+      max-height: 290px;
       overflow-y: auto;
     }
 
     .dropdown-item {
-      padding: 10px 14px;
-      border-bottom: 1px solid #f8fafc;
+      padding: 11px 15px;
+      border-bottom: 1px solid #f1f5f9;
       cursor: pointer;
       font-size: 12px;
       color: #334155;
       transition: background-color 0.15s;
     }
 
+    .dropdown-item.unread {
+      background-color: #f0f9ff;
+    }
+
     .dropdown-item:hover {
-      background-color: #f0f7ff;
+      background-color: #e0f2fe;
     }
 
     .dropdown-item .notif-time {
       font-size: 10.5px;
-      color: #94a3b8;
+      color: #64748b;
       margin-top: 3px;
+      font-weight: 600;
     }
 
-    /* PERFIL Y MENÚ USUARIO */
+    /* PERFIL USUARIO CON SALDO, VERIFICADO Y FOTO */
     .user-container {
       position: relative;
     }
 
-    .user-profile {
+    .user-profile-card {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       cursor: pointer;
       padding: 4px 8px;
-      border-radius: 10px;
+      border-radius: 12px;
       transition: background-color 0.15s;
       user-select: none;
     }
 
-    .user-profile:hover {
+    .user-profile-card:hover {
       background-color: #f1f5f9;
     }
 
-    .user-avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background-color: #002855;
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 700;
+    .user-meta-info {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
     }
 
-    .user-name {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: #0f172a;
+    .user-top-line {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
+    }
+
+    .user-display-name {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .verified-uni-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #86efac;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 1.5px 7px;
+      border-radius: 999px;
+    }
+
+    .user-bottom-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .user-balance-amount {
+      color: #059669;
+      font-weight: 800;
+    }
+
+    .user-role-tag {
+      color: #002855;
+      font-weight: 700;
+    }
+
+    .user-avatar-wrapper {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+    }
+
+    .user-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #cbd5e1;
+    }
+
+    .avatar-status-dot {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      background: #10b981;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
     }
 
     .user-menu-item {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 16px;
+      padding: 11px 16px;
       font-size: 13px;
       font-weight: 600;
       color: #334155;
@@ -295,16 +418,73 @@
       background-color: #fef2f2;
     }
 
-    /* MAIN CONTAINER CENTRADO SIN SIDEBAR */
+    /* SEGUNDA FILA DE NAVEGACIÓN (PESTAÑAS) */
+    .sub-navbar {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      overflow-x: auto;
+    }
+
+    .sub-nav-tab {
+      background: none;
+      border: none;
+      padding: 12px 2px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .sub-nav-tab:hover {
+      color: #002855;
+    }
+
+    .sub-nav-tab.active {
+      color: #002855;
+      font-weight: 700;
+    }
+
+    .sub-nav-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2.5px;
+      background-color: #002855;
+      border-radius: 2px 2px 0 0;
+    }
+
+    .chat-badge-pill {
+      background: #002855;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 1px 7px;
+      border-radius: 999px;
+    }
+
+    /* MAIN CONTAINER */
     .main-content {
-      max-width: 1280px;
+      max-width: 1320px;
       width: 100%;
       margin: 0 auto;
-      padding: 24px 32px 60px;
+      padding: 24px 32px 70px;
       flex: 1;
     }
 
-    /* NUEVO HERO BANNER ESTILO CAMPUSMARKET (AZUL/CELESTE) */
+    /* HERO BANNER AZUL/CELESTE */
     .hero-campus-banner {
       background: linear-gradient(125deg, #002855 0%, #0369a1 55%, #0284c7 100%);
       border-radius: 22px;
@@ -414,7 +594,6 @@
       box-shadow: 0 0 8px #4ade80;
     }
 
-    /* PÍLDORAS DE LAS 14 UNIVERSIDADES CON LOGO EN CÍRCULO */
     .campus-pills-grid {
       display: flex;
       flex-wrap: wrap;
@@ -485,7 +664,7 @@
       color: #0284c7;
     }
 
-    /* NUEVA BARRA DE BÚSQUEDA + FILTROS + RANGO DE PRECIO */
+    /* BARRA DE BÚSQUEDA + FILTROS + RANGO DE PRECIO */
     .advanced-search-panel {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -554,15 +733,8 @@
       outline: none;
       cursor: pointer;
       min-width: 165px;
-      transition: border-color 0.15s;
     }
 
-    .adv-filter-select:focus {
-      border-color: #0284c7;
-      background: #ffffff;
-    }
-
-    /* BARRITA DE RANGO DE PRECIO */
     .price-slider-box {
       display: flex;
       align-items: center;
@@ -680,10 +852,6 @@
       border-radius: 8px;
       font-size: 11.5px;
       font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 10px rgba(220, 38, 38, 0.35);
       z-index: 4;
     }
 
@@ -703,7 +871,6 @@
       height: 72px;
       color: #ef4444;
       stroke-width: 2.5;
-      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
     }
 
     .btn-fav {
@@ -720,14 +887,11 @@
       justify-content: center;
       cursor: pointer;
       color: #64748b;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      transition: all 0.15s;
       z-index: 5;
     }
 
     .btn-fav.active {
       color: #ef4444;
-      background: #ffffff;
     }
 
     .btn-fav.active svg {
@@ -793,9 +957,6 @@
       border-radius: 999px;
       background-color: #dcfce7;
       color: #15803d;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
     }
 
     .badge-status.warning {
@@ -831,9 +992,6 @@
     .product-campus-spot {
       font-size: 11.5px;
       color: #64748b;
-      display: flex;
-      align-items: center;
-      gap: 4px;
       margin-bottom: 8px;
     }
 
@@ -853,6 +1011,84 @@
       padding: 2px 8px;
       border-radius: 4px;
       font-weight: 600;
+    }
+
+    /* VISTA DE MENSAJES / CHATS */
+    .chats-container-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      min-height: 440px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .chat-sidebar-list {
+      border-right: 1px solid #e2e8f0;
+      background: #f8fafc;
+    }
+
+    .chat-thread-item {
+      padding: 14px 16px;
+      border-bottom: 1px solid #e2e8f0;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .chat-thread-item:hover, .chat-thread-item.active {
+      background: #e0f2fe;
+    }
+
+    .chat-window-area {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    .chat-messages-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+      max-height: 300px;
+    }
+
+    .chat-bubble {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      max-width: 75%;
+    }
+
+    .chat-bubble.incoming {
+      background: #f1f5f9;
+      color: #0f172a;
+      align-self: flex-start;
+    }
+
+    .chat-bubble.outgoing {
+      background: #002855;
+      color: #ffffff;
+      align-self: flex-end;
+    }
+
+    .chat-input-bar {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .chat-input-bar input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      outline: none;
     }
 
     /* MODO VENDEDOR STATS */
@@ -905,7 +1141,6 @@
 
     .floating-map-btn:hover {
       transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 14px 28px rgba(0, 40, 85, 0.45);
     }
 
     .radar-pulse {
@@ -913,7 +1148,6 @@
       height: 10px;
       background: #22c55e;
       border-radius: 50%;
-      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
       animation: pulse 1.8s infinite;
     }
 
@@ -978,15 +1212,6 @@
       font-size: 15px;
       color: #64748b;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.15s;
-    }
-
-    .btn-close-modal:hover {
-      background: #e2e8f0;
-      color: #0f172a;
     }
 
     .publish-form-grid {
@@ -1018,17 +1243,6 @@
       border-radius: 9px;
       font-size: 13px;
       outline: none;
-      transition: border-color 0.15s, box-shadow 0.15s;
-    }
-
-    .modal-form textarea {
-      resize: vertical;
-      min-height: 65px;
-    }
-
-    .modal-form input:focus, .modal-form select:focus, .modal-form textarea:focus {
-      border-color: #002855;
-      box-shadow: 0 0 0 3px rgba(0, 40, 85, 0.08);
     }
 
     .photo-upload-box {
@@ -1044,12 +1258,6 @@
       cursor: pointer;
       position: relative;
       overflow: hidden;
-      transition: all 0.2s;
-    }
-
-    .photo-upload-box:hover {
-      background: #f0f7ff;
-      border-color: #0284c7;
     }
 
     .photo-upload-box input[type="file"] {
@@ -1057,8 +1265,6 @@
       inset: 0;
       opacity: 0;
       cursor: pointer;
-      width: 100%;
-      height: 100%;
     }
 
     .upload-icon-circle {
@@ -1103,7 +1309,6 @@
     .quick-price-chips {
       display: flex;
       gap: 6px;
-      flex-wrap: wrap;
     }
 
     .price-choice-btn {
@@ -1119,24 +1324,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: all 0.15s;
-    }
-
-    .price-choice-btn span.tag {
-      font-size: 9.5px;
-      font-weight: 600;
-      color: #15803d;
-      opacity: 0.85;
-    }
-
-    .price-choice-btn:hover {
-      background: #15803d;
-      color: #ffffff;
-      border-color: #15803d;
-    }
-
-    .price-choice-btn:hover span.tag {
-      color: #dcfce7;
     }
 
     .btn-submit-modal {
@@ -1150,11 +1337,6 @@
       font-weight: 700;
       margin-top: 14px;
       cursor: pointer;
-      transition: background-color 0.15s;
-    }
-
-    .btn-submit-modal:hover {
-      background-color: #001a38;
     }
 
     .profile-card-header {
@@ -1164,19 +1346,6 @@
       padding-bottom: 16px;
       border-bottom: 1px solid #e2e8f0;
       margin-bottom: 18px;
-    }
-
-    .profile-avatar-big {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: #002855;
-      color: white;
-      font-size: 24px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .profile-field-item {
@@ -1193,19 +1362,12 @@
       margin-bottom: 3px;
     }
 
-    .profile-field-item .val {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: #0f172a;
-    }
-
     .detail-img-box {
       width: 100%;
       height: 230px;
       border-radius: 12px;
       overflow: hidden;
       margin-bottom: 16px;
-      background: #e2e8f0;
     }
 
     .detail-img-box img {
@@ -1221,149 +1383,162 @@
       background: #f8fafc;
       padding: 12px 14px;
       border-radius: 10px;
-      border: 1px solid #edf2f7;
       margin-bottom: 16px;
-    }
-
-    .detail-meta-item label {
-      font-size: 11px;
-      color: #64748b;
-      font-weight: 600;
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .detail-meta-item span {
-      font-size: 13px;
-      font-weight: 700;
-      color: #0f172a;
-    }
-
-    .detail-description {
-      font-size: 13px;
-      line-height: 1.5;
-      color: #475569;
-      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="nav-left-group">
-      <a href="#" class="nav-left">
-        <span class="brand-logo">Uni<span>Loop</span></span>
-        <span class="brand-sub">Guayaquil</span>
-      </a>
-    </div>
+  <!-- ENCABEZADO SUPERIOR DE 2 NIVELES -->
+  <header class="top-header-wrapper">
+    <!-- NIVEL 1: LOGO + CAMPUS + BUSCADOR + +VENDER + CAMPANITA + PERFIL DIEGO Y. -->
+    <div class="navbar-top">
+      <div class="nav-left-group">
+        <a href="#" class="nav-left" onclick="setAppMode('buyer')">
+          <div class="brand-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+          </div>
+          <span class="brand-logo">Uni<span>Loop</span></span>
+        </a>
 
-    <!-- SELECTOR: COMPRAR / VENDER / VENDIDOS -->
-    <div class="mode-switch">
-      <button class="mode-btn active" id="modeBuyBtn" onclick="setAppMode('buyer')">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="9" cy="21" r="1"></circle>
-          <circle cx="20" cy="21" r="1"></circle>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        <div class="nav-campus-pill" title="Cambia tu universidad verificada">
+          <span class="campus-online-dot"></span>
+          <select id="navCampusSelect" onchange="changeUserCampus(this.value)">
+            <option value="ESPOL" selected>ESPOL Prosperina</option>
+            <option value="UG">UG Ciudadela</option>
+            <option value="UCSG">Católica UCSG</option>
+            <option value="UPS">Salesiana UPS</option>
+            <option value="ECOTEC">ECOTEC Samborondón</option>
+            <option value="UEES">UEES Samborondón</option>
+            <option value="UARTES">UArtes Centro</option>
+            <option value="UCG">Casa Grande</option>
+            <option value="ULVR">Laica ULVR</option>
+            <option value="UIDE">UIDE Guayaquil</option>
+            <option value="UMET">UMET</option>
+            <option value="UPACIFICO">Del Pacífico</option>
+            <option value="UBE">UBE Durán</option>
+            <option value="ITB">ITB Atarazana</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- BUSCADOR SUPERIOR -->
+      <div class="top-search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        Comprar
-      </button>
+        <input type="text" id="topSearchInput" placeholder="Buscar libros de cálculo, batas de lab, calculadoras..." oninput="syncSearch(this.value)">
+        <span class="kbd-shortcut">⌘K</span>
+      </div>
 
-      <button class="mode-btn" id="modeSellBtn" onclick="setAppMode('seller')">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-          <line x1="7" y1="7" x2="7.01" y2="7"></line>
-        </svg>
-        Vender (Mis Artículos)
-      </button>
-
-      <button class="mode-btn btn-sold-tab" id="modeSoldBtn" onclick="setAppMode('sold')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-        Vendidos
-      </button>
-    </div>
-
-    <div class="nav-right">
-      <button class="btn-publish-nav" id="openModalBtn">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-        Publicar material
-      </button>
-
-      <!-- CAMPANITA NOTIFICACIONES -->
-      <div class="notif-container">
-        <button class="icon-btn" id="notifBellBtn" title="Notificaciones" onclick="toggleNotifDropdown(event)">
-          <span class="notification-dot" id="notifDot"></span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      <!-- DERECHA: + VENDER, CAMPANITA REAL-TIME, PERFIL DIEGO Y. -->
+      <div class="nav-right">
+        <button class="btn-vender-nav" id="openModalBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
           </svg>
+          Vender
         </button>
 
-        <div class="dropdown-popover" id="notifDropdown">
-          <div class="dropdown-header">
-            <span>Notificaciones</span>
-            <span style="font-size: 11px; color:#0284c7; cursor:pointer;" onclick="clearNotifBadge()">Marcar leídas</span>
-          </div>
-          <div class="dropdown-list">
-            <div class="dropdown-item">
-              <strong>💬 Carlos de UG preguntó:</strong> "¿El precio del multímetro es negociable?"
-              <div class="notif-time">Hace 15 minutos</div>
+        <!-- CAMPANITA NOTIFICACIONES EN TIEMPO REAL -->
+        <div class="notif-container">
+          <button class="icon-btn" id="notifBellBtn" title="Notificaciones en tiempo real" onclick="toggleNotifDropdown(event)">
+            <span class="notif-badge-count" id="notifCountBadge">3</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </button>
+
+          <div class="dropdown-popover" id="notifDropdown">
+            <div class="dropdown-header">
+              <span>Notificaciones en vivo</span>
+              <span style="font-size: 11px; color:#0284c7; cursor:pointer;" onclick="markAllNotifsRead()">Marcar leídas</span>
             </div>
-            <div class="dropdown-item">
-              <strong>📦 Nueva publicación en ESPOL:</strong> Calculadora Casio fx-991 subida en FCNM.
-              <div class="notif-time">Hace 1 hora</div>
-            </div>
-            <div class="dropdown-item">
-              <strong>✅ Venta verificada:</strong> Cautín 60W marcado como vendido exitosamente.
-              <div class="notif-time">Ayer</div>
+            <div class="dropdown-list" id="notifListContainer">
+              <!-- Se llenan dinámicamente en tiempo real -->
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- PERFIL DE USUARIO -->
-      <div class="user-container">
-        <div class="user-profile" id="userProfileBtn" onclick="toggleUserDropdown(event)" title="Opciones de cuenta">
-          <div class="user-avatar">D</div>
-          <div class="user-name">
-            Diego
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
-        </div>
+        <!-- PERFIL DIEGO Y. + SALDO + VERIFICADO + ESTUDIANTE + FOTO -->
+        <div class="user-container">
+          <div class="user-profile-card" id="userProfileBtn" onclick="toggleUserDropdown(event)" title="Opciones de cuenta y saldo">
+            <div class="user-meta-info">
+              <div class="user-top-line">
+                <span class="user-display-name">Diego Y.</span>
+                <span class="verified-uni-pill" id="userVerifiedBadge">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span id="verifiedUniText">ESPOL</span>
+                </span>
+              </div>
+              <div class="user-bottom-line">
+                <span>Saldo: <span class="user-balance-amount" id="userBalanceText">$48.50</span></span>
+                <span>·</span>
+                <span class="user-role-tag">Estudiante</span>
+              </div>
+            </div>
 
-        <div class="dropdown-popover" id="userDropdown" style="width: 220px;">
-          <div class="user-menu-item" onclick="openProfileModal()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            <span>Mi Perfil y Ajustes</span>
+            <div class="user-avatar-wrapper">
+              <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80" alt="Diego Y." class="user-avatar-img">
+              <span class="avatar-status-dot"></span>
+            </div>
           </div>
-          <div class="user-menu-item danger" onclick="window.location.href='index.html'">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-              <polyline points="16 17 21 12 16 7"></polyline>
-              <line x1="21" y1="12" x2="9" y2="12"></line>
-            </svg>
-            <span>Cerrar sesión</span>
+
+          <!-- MENÚ DESPLEGABLE DE PERFIL -->
+          <div class="dropdown-popover" id="userDropdown" style="width: 245px;">
+            <div class="user-menu-item" onclick="openProfileModal('profile')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span>Configuración de mi perfil</span>
+            </div>
+            <div class="user-menu-item" onclick="openProfileModal('settings')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Ajustes generales y Saldo</span>
+            </div>
+            <div class="user-menu-item danger" onclick="window.location.href='index.html'">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              <span>Cerrar sesión</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </nav>
+
+    <!-- NIVEL 2: PESTAÑAS EXPLORAR, PUBLICACIONES, COMPRAS, CHATS, PUNTOS DE ENTREGA -->
+    <nav class="sub-navbar">
+      <button class="sub-nav-tab active" id="tabExplore" onclick="setAppMode('buyer')">Explorar Artículos</button>
+      <button class="sub-nav-tab" id="tabMyPosts" onclick="setAppMode('seller')">Mis Publicaciones</button>
+      <button class="sub-nav-tab" id="tabMyPurchases" onclick="setAppMode('sold')">Mis Compras</button>
+      <button class="sub-nav-tab" id="tabChats" onclick="setAppMode('chats')">
+        Mensajes / Chats
+        <span class="chat-badge-pill" id="chatUnreadPill">3</span>
+      </button>
+      <a href="mapa.html" class="sub-nav-tab">Puntos de Entrega</a>
+    </nav>
+  </header>
 
   <!-- CONTENIDO PRINCIPAL -->
   <main class="main-content">
 
-    <!-- 1. NUEVO RECUADRO AZUL / CELESTE CON UNIVERSIDADES EN CÍRCULOS -->
+    <!-- HERO BANNER AZUL / CELESTE CON UNIVERSIDADES EN CÍRCULOS -->
     <section class="hero-campus-banner" id="heroCampusBanner">
       <div class="hero-top-badge">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -1404,23 +1579,20 @@
       </div>
 
       <!-- BOTONES CIRCULARES DE UNIVERSIDADES -->
-      <div class="campus-pills-grid" id="campusPillsGrid">
-        <!-- Se generan dinámicamente desde JS para mantener contadores exactos -->
-      </div>
+      <div class="campus-pills-grid" id="campusPillsGrid"></div>
     </section>
 
-    <!-- 2. NUEVA BARRA DE BÚSQUEDA + FILTRO CATEGORÍA + ESTADO + SLIDER PRECIO -->
+    <!-- BARRA DE BÚSQUEDA + FILTRO CATEGORÍA + ESTADO + SLIDER PRECIO -->
     <section class="advanced-search-panel" id="buyerFiltersArea">
       <div class="adv-search-input-box">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input type="text" id="mainSearchInput" placeholder="Buscar libros, tecnología, calculadoras, batas, multímetro..." oninput="applyFilters()">
+        <input type="text" id="mainSearchInput" placeholder="Buscar libros, tecnología, calculadoras, batas, multímetro..." oninput="syncSearch(this.value)">
         <button class="clear-search-btn" onclick="clearSearch()" title="Limpiar">✕</button>
       </div>
 
-      <!-- FILTRO CATEGORÍA DEL PRODUCTO -->
       <select class="adv-filter-select" id="categorySelect" onchange="applyFilters()">
         <option value="Todos">Categoría: Todas</option>
         <option value="Textos y Libros">📖 Textos y Libros</option>
@@ -1431,7 +1603,6 @@
         <option value="Herramientas">🛠 Herramientas y Kits</option>
       </select>
 
-      <!-- FILTRO ESTADO DEL ARTÍCULO -->
       <select class="adv-filter-select" id="statusSelect" onchange="applyFilters()">
         <option value="Todos">Estado: Todos</option>
         <option value="Nuevo / Caja">✨ Nuevo / En caja</option>
@@ -1440,7 +1611,6 @@
         <option value="Vendido">✕ Vendido</option>
       </select>
 
-      <!-- BARRITA RANGO DE PRECIO -->
       <div class="price-slider-box" title="Desliza para ajustar tu presupuesto máximo">
         <span class="price-slider-label">Hasta: <strong id="priceSliderVal">$100</strong></span>
         <input type="range" id="priceRangeSlider" min="5" max="100" step="5" value="100" oninput="updatePriceSlider(this.value)">
@@ -1459,28 +1629,72 @@
           <h3>14</h3>
         </div>
         <div class="stat-card">
-          <span>Ventas completadas</span>
-          <h3 id="statSold">0</h3>
+          <span>Saldo disponible UniLoop</span>
+          <h3 id="statWallet">$48.50</h3>
         </div>
       </div>
     </div>
 
-    <!-- TÍTULO DE SECCIÓN Y ORDENAR -->
-    <div class="section-subtitle">
-      <div class="section-subtitle-left">
-        <h2 id="sectionTitle">Todos los materiales en Guayaquil</h2>
-        <span id="sectionCounter">Publicaciones verificadas</span>
+    <!-- SECCIÓN MODO CHATS / MENSAJES -->
+    <div id="chatsViewArea" style="display: none;">
+      <div class="section-subtitle">
+        <div class="section-subtitle-left">
+          <h2>Mensajes y Coordinación en Campus</h2>
+          <span>Chats directos entre estudiantes verificados</span>
+        </div>
       </div>
 
-      <select class="sort-dropdown" onchange="sortProducts(this.value)">
-        <option value="recent">↑↓ Más recientes</option>
-        <option value="priceLow">Precio: menor a mayor</option>
-        <option value="priceHigh">Precio: mayor a menor</option>
-      </select>
+      <div class="chats-container-box">
+        <div class="chat-sidebar-list">
+          <div class="chat-thread-item active">
+            <div style="font-weight:700; font-size:13.5px; color:#002855;">Carlos B. · UG</div>
+            <div style="font-size:12px; color:#475569; margin-top:2px;">¿El multímetro incluye las puntas?</div>
+            <div style="font-size:10.5px; color:#0284c7; margin-top:4px; font-weight:600;">Hace 5 min</div>
+          </div>
+          <div class="chat-thread-item">
+            <div style="font-weight:700; font-size:13.5px; color:#002855;">Ana M. · ESPOL</div>
+            <div style="font-size:12px; color:#475569; margin-top:2px;">Nos vemos en la biblioteca central a las 2pm</div>
+            <div style="font-size:10.5px; color:#94a3b8; margin-top:4px;">Hace 1 hora</div>
+          </div>
+          <div class="chat-thread-item">
+            <div style="font-weight:700; font-size:13.5px; color:#002855;">Paula V. · UEES</div>
+            <div style="font-size:12px; color:#475569; margin-top:2px;">Gracias por la calculadora, todo 10/10</div>
+            <div style="font-size:10.5px; color:#94a3b8; margin-top:4px;">Ayer</div>
+          </div>
+        </div>
+
+        <div class="chat-window-area">
+          <div class="chat-messages-feed" id="chatMessagesFeed">
+            <div class="chat-bubble incoming">Hola Diego, vi tu publicación en UniLoop. ¿Sigue disponible para entregar hoy en el campus?</div>
+            <div class="chat-bubble outgoing">¡Hola Carlos! Sí, sigue disponible. Podemos vernos frente a la biblioteca o en FIEC.</div>
+            <div class="chat-bubble incoming">¿El precio es negociable o aceptas transferencia / saldo UniLoop?</div>
+          </div>
+
+          <div class="chat-input-bar">
+            <input type="text" id="quickChatInput" placeholder="Escribe un mensaje para coordinar entrega..." onkeypress="if(event.key==='Enter') sendQuickChat()">
+            <button class="btn-vender-nav" style="border-radius:10px;" onclick="sendQuickChat()">Enviar</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- GRID PRODUCTOS -->
-    <div class="products-grid" id="productsGrid"></div>
+    <!-- CATÁLOGO DE PRODUCTOS -->
+    <div id="catalogSectionWrapper">
+      <div class="section-subtitle">
+        <div class="section-subtitle-left">
+          <h2 id="sectionTitle">Todos los materiales en Guayaquil</h2>
+          <span id="sectionCounter">Publicaciones verificadas</span>
+        </div>
+
+        <select class="sort-dropdown" onchange="sortProducts(this.value)">
+          <option value="recent">↑↓ Más recientes</option>
+          <option value="priceLow">Precio: menor a mayor</option>
+          <option value="priceHigh">Precio: mayor a menor</option>
+        </select>
+      </div>
+
+      <div class="products-grid" id="productsGrid"></div>
+    </div>
   </main>
 
   <!-- BOTÓN FLOTANTE MAPA (INTACTO) -->
@@ -1525,7 +1739,7 @@
         </div>
       </div>
 
-      <div class="detail-description">
+      <div style="font-size:13px; color:#475569; margin-bottom:18px;">
         <label style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; display: block; margin-bottom: 4px;">Carrera / Facultad y detalles</label>
         <p id="modalDetailDesc">Material verificado por un estudiante para entregas en campus.</p>
       </div>
@@ -1534,7 +1748,7 @@
     </div>
   </div>
 
-  <!-- MODAL 2: PUBLICAR MATERIAL (CON TASADOR INTELIGENTE INTACTO) -->
+  <!-- MODAL 2: PUBLICAR MATERIAL (TASADOR INTELIGENTE) -->
   <div class="modal-overlay" id="publishModal">
     <div class="modal-card wide-publish-modal">
       <div class="modal-header">
@@ -1543,7 +1757,6 @@
       </div>
       <form class="modal-form" id="publishForm">
         <div class="publish-form-grid">
-          
           <div>
             <div class="form-group">
               <label>Nombre del material, libro o equipo</label>
@@ -1600,7 +1813,7 @@
                 <input type="file" id="filePhotoInput" accept="image/*" onchange="previewUploadedImage(event)">
                 <img id="uploadPreviewImage" class="upload-preview-img" alt="Vista previa">
                 <div class="upload-icon-circle" id="uploadPlaceholderIcon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                     <circle cx="12" cy="13" r="4"></circle>
                   </svg>
@@ -1625,7 +1838,6 @@
               
               <div class="smart-pricing-card" id="smartPricingCard">
                 <div class="smart-pricing-title">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
                   <span>Precios justos sugeridos por UniLoop:</span>
                 </div>
                 <div class="quick-price-chips" id="priceChipsContainer"></div>
@@ -1641,7 +1853,7 @@
           <div class="form-full-row">
             <div class="form-group">
               <label>Descripción detallada del material</label>
-              <textarea id="itemDesc" placeholder="Describe qué incluye, estado de funcionamiento, si viene con caja o accesorios y puntos de entrega preferidos dentro del campus..." required></textarea>
+              <textarea id="itemDesc" placeholder="Describe qué incluye, estado de funcionamiento y puntos de entrega..." required></textarea>
             </div>
 
             <div class="form-group" style="margin-bottom: 0;">
@@ -1649,7 +1861,6 @@
               <input type="text" id="itemHashtags" placeholder="#electricidad #laboratorio #ingenieria">
             </div>
           </div>
-
         </div>
 
         <button type="submit" class="btn-submit-modal">Publicar material en UniLoop</button>
@@ -1657,43 +1868,45 @@
     </div>
   </div>
 
-  <!-- MODAL 3: PERFIL DE USUARIO -->
+  <!-- MODAL 3: PERFIL, AJUSTES Y RECARGA DE SALDO -->
   <div class="modal-overlay" id="profileModal">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>Mi Perfil y Ajustes</h3>
+        <h3 id="profileModalTitle">Configuración de mi perfil</h3>
         <button class="btn-close-modal" onclick="closeProfileModal()">✕</button>
       </div>
       
       <div class="profile-card-header">
-        <div class="profile-avatar-big">D</div>
+        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80" alt="Diego Y." style="width:62px; height:62px; border-radius:50%; object-fit:cover;">
         <div>
-          <h4 style="font-size: 16px; color:#002855; font-weight:800;">Diego Yulán</h4>
-          <span style="font-size: 12px; color:#64748b;">Estudiante verificado en ESPOL</span>
+          <h4 style="font-size: 16px; color:#002855; font-weight:800;">Diego Yulán <span id="modalVerifiedTag" style="font-size:11px; background:#dcfce7; color:#15803d; padding:2px 7px; border-radius:999px;">✓ ESPOL</span></h4>
+          <span style="font-size: 12px; color:#64748b;">Rol: Estudiante verificado</span>
         </div>
       </div>
 
       <div class="profile-field-item">
-        <label>Nombre de usuario</label>
-        <span class="val">Diego</span>
+        <label>Nombre mostrado</label>
+        <span style="font-weight:700; font-size:13.5px;">Diego Y.</span>
       </div>
 
       <div class="profile-field-item">
-        <label>Correo universitario</label>
-        <span class="val">usuario@espol.edu.ec</span>
+        <label>Correo universitario verificado</label>
+        <span id="modalUserEmail" style="font-weight:600; font-size:13.5px;">dyulan@espol.edu.ec</span>
       </div>
 
-      <div class="profile-field-item">
-        <label>Número de WhatsApp para ventas</label>
-        <span class="val">+593 98 765 4320</span>
+      <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:12px 14px; border-radius:12px; margin:14px 0;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <span style="font-size:11px; font-weight:700; color:#15803d; text-transform:uppercase;">Saldo Billetera UniLoop</span>
+            <div style="font-size:20px; font-weight:800; color:#065f46;" id="modalWalletBalance">$48.50</div>
+          </div>
+          <button type="button" onclick="rechargeWallet(10)" style="background:#059669; color:#fff; border:none; padding:8px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">
+            + Recargar $10
+          </button>
+        </div>
       </div>
 
-      <div class="profile-field-item">
-        <label>Contraseña</label>
-        <span class="val">•••••••••••• (Protegida)</span>
-      </div>
-
-      <button class="btn-submit-modal" style="background:#0284c7; margin-top: 15px;" onclick="alert('Configuración guardada correctamente.'); closeProfileModal();">
+      <button class="btn-submit-modal" style="background:#002855;" onclick="alert('Ajustes guardados correctamente.'); closeProfileModal();">
         Guardar cambios
       </button>
     </div>
@@ -1702,10 +1915,121 @@
   <script>
     let currentMode = 'buyer';
     let currentUni = "Todas";   
+    let userVerifiedUni = "ESPOL";
+    let userWalletBalance = 48.50;
     let maxPriceFilter = 100;
     let uploadedImageUrl = null;
 
-    // CATÁLOGO DE LAS 14 UNIVERSIDADES CON SUS LOGOS
+    // NOTIFICACIONES EN TIEMPO REAL
+    let notifications = [
+      { id: 1, text: "💬 <strong>Carlos B. (UG):</strong> ¿El multímetro incluye las puntas?", time: "Hace 5 min", unread: true },
+      { id: 2, text: "📦 <strong>Nueva publicación en ESPOL:</strong> Calculadora Casio fx-991 subida.", time: "Hace 40 min", unread: true },
+      { id: 3, text: "💰 <strong>Saldo acreditado:</strong> +$15.00 por entrega verificada en campus.", time: "Ayer", unread: true }
+    ];
+
+    function renderNotifications() {
+      const list = document.getElementById('notifListContainer');
+      const badge = document.getElementById('notifCountBadge');
+      const unreadCount = notifications.filter(n => n.unread).length;
+
+      if (unreadCount > 0) {
+        badge.style.display = 'flex';
+        badge.innerText = unreadCount;
+      } else {
+        badge.style.display = 'none';
+      }
+
+      list.innerHTML = notifications.map(n => `
+        <div class="dropdown-item ${n.unread ? 'unread' : ''}" onclick="markSingleNotifRead(${n.id})">
+          <div>${n.text}</div>
+          <div class="notif-time">${n.time} ${n.unread ? '· Nuevo' : ''}</div>
+        </div>
+      `).join('');
+    }
+
+    function pushLiveNotification(htmlText) {
+      notifications.unshift({
+        id: Date.now(),
+        text: htmlText,
+        time: "Justo ahora",
+        unread: true
+      });
+      renderNotifications();
+    }
+
+    function markSingleNotifRead(id) {
+      const item = notifications.find(n => n.id === id);
+      if (item) item.unread = false;
+      renderNotifications();
+    }
+
+    function markAllNotifsRead() {
+      notifications.forEach(n => n.unread = false);
+      renderNotifications();
+    }
+
+    // CAMBIAR UNIVERSIDAD VERIFICADA DEL USUARIO EN NAVBAR
+    function changeUserCampus(uniCode) {
+      userVerifiedUni = uniCode;
+      document.getElementById('verifiedUniText').innerText = uniCode;
+      document.getElementById('modalVerifiedTag').innerText = `✓ ${uniCode}`;
+      document.getElementById('modalUserEmail').innerText = `dyulan@${uniCode.toLowerCase()}.edu.ec`;
+      pushLiveNotification(`🎓 <strong>Campus actualizado:</strong> Ahora estás verificado en <strong>${uniCode}</strong>.`);
+    }
+
+    // RECARGAR SALDO
+    function rechargeWallet(amount) {
+      userWalletBalance += amount;
+      const formatted = `$${userWalletBalance.toFixed(2)}`;
+      document.getElementById('userBalanceText').innerText = formatted;
+      document.getElementById('modalWalletBalance').innerText = formatted;
+      if (document.getElementById('statWallet')) document.getElementById('statWallet').innerText = formatted;
+      pushLiveNotification(`💳 <strong>Recarga exitosa:</strong> Se sumaron $${amount.toFixed(2)} a tu saldo UniLoop.`);
+    }
+
+    // ATAJO DE TECLADO CTRL+K / CMD+K PARA BUSCADOR SUPERIOR
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        document.getElementById('topSearchInput').focus();
+      }
+    });
+
+    function syncSearch(val) {
+      document.getElementById('topSearchInput').value = val;
+      document.getElementById('mainSearchInput').value = val;
+      applyFilters();
+    }
+
+    // DROPDOWNS
+    function toggleNotifDropdown(e) {
+      e.stopPropagation();
+      document.getElementById('userDropdown').classList.remove('open');
+      document.getElementById('notifDropdown').classList.toggle('open');
+    }
+
+    function toggleUserDropdown(e) {
+      e.stopPropagation();
+      document.getElementById('notifDropdown').classList.remove('open');
+      document.getElementById('userDropdown').classList.toggle('open');
+    }
+
+    function openProfileModal(tab) {
+      document.getElementById('userDropdown').classList.remove('open');
+      document.getElementById('profileModalTitle').innerText = tab === 'settings' ? 'Ajustes generales y Saldo' : 'Configuración de mi perfil';
+      document.getElementById('profileModal').classList.add('open');
+    }
+
+    function closeProfileModal() {
+      document.getElementById('profileModal').classList.remove('open');
+    }
+
+    window.addEventListener('click', (e) => {
+      if (!e.target.closest('.notif-container')) document.getElementById('notifDropdown').classList.remove('open');
+      if (!e.target.closest('.user-container')) document.getElementById('userDropdown').classList.remove('open');
+    });
+
+    // CATÁLOGO DE UNIVERSIDADES
     const universitiesList = [
       { code: "ESPOL", name: "ESPOL", logo: "ESPOL.png" },
       { code: "UG", name: "UG", logo: "UG.png" },
@@ -1722,39 +2046,6 @@
       { code: "UBE", name: "UBE", logo: "UBE.png" },
       { code: "ITB", name: "ITB", logo: "ITB.png" }
     ];
-
-    // NOTIFICACIONES Y PERFIL
-    function toggleNotifDropdown(e) {
-      e.stopPropagation();
-      document.getElementById('userDropdown').classList.remove('open');
-      document.getElementById('notifDropdown').classList.toggle('open');
-    }
-
-    function clearNotifBadge() {
-      const dot = document.getElementById('notifDot');
-      if (dot) dot.style.display = 'none';
-      alert('Todas las notificaciones marcadas como leídas.');
-    }
-
-    function toggleUserDropdown(e) {
-      e.stopPropagation();
-      document.getElementById('notifDropdown').classList.remove('open');
-      document.getElementById('userDropdown').classList.toggle('open');
-    }
-
-    function openProfileModal() {
-      document.getElementById('userDropdown').classList.remove('open');
-      document.getElementById('profileModal').classList.add('open');
-    }
-
-    function closeProfileModal() {
-      document.getElementById('profileModal').classList.remove('open');
-    }
-
-    window.addEventListener('click', (e) => {
-      if (!e.target.closest('.notif-container')) document.getElementById('notifDropdown').classList.remove('open');
-      if (!e.target.closest('.user-container')) document.getElementById('userDropdown').classList.remove('open');
-    });
 
     // SUBIDOR DE FOTO
     function previewUploadedImage(event) {
@@ -1818,15 +2109,15 @@
       container.innerHTML = `
         <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${fastPrice})">
           $${fastPrice}
-          <span class="tag">Venta rápida</span>
+          <span style="font-size:9.5px;">Venta rápida</span>
         </button>
         <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${fairPrice})" style="border-width: 2px;">
           $${fairPrice}
-          <span class="tag">Precio justo ⭐</span>
+          <span style="font-size:9.5px;">Precio justo ⭐</span>
         </button>
         <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${highPrice})">
           $${highPrice}
-          <span class="tag">Recuperar más</span>
+          <span style="font-size:9.5px;">Recuperar más</span>
         </button>
       `;
 
@@ -1837,7 +2128,7 @@
       document.getElementById('itemPrice').value = val;
     }
 
-    // BASE DE DATOS INICIAL ADAPTADA A LAS NUEVAS CATEGORÍAS Y ESTADOS
+    // BASE DE DATOS INICIAL
     let materials = [
       {
         id: 1,
@@ -1946,7 +2237,7 @@
         faculty: "FCNM · Matemática",
         category: "Calculadoras",
         tags: ["#calculadoras", "#matematicas"],
-        seller: "Diego",
+        seller: "Diego Y.",
         phone: "593987654320",
         isMyPost: true,
         image: "https://images.unsplash.com/photo-1594980596870-8aa52a78d8cd?w=600&auto=format&fit=crop&q=80"
@@ -1969,7 +2260,6 @@
       }
     ];
 
-    // RENDERIZAR PÍLDORAS DE UNIVERSIDADES CON LOGOS EN CÍRCULOS
     function renderCampusPills() {
       const container = document.getElementById('campusPillsGrid');
       const totalItems = materials.length;
@@ -2021,8 +2311,7 @@
     }
 
     function clearSearch() {
-      document.getElementById('mainSearchInput').value = "";
-      applyFilters();
+      syncSearch("");
     }
 
     function sortProducts(criteria) {
@@ -2036,43 +2325,67 @@
       applyFilters();
     }
 
+    function sendQuickChat() {
+      const input = document.getElementById('quickChatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const feed = document.getElementById('chatMessagesFeed');
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble outgoing';
+      bubble.innerText = text;
+      feed.appendChild(bubble);
+      input.value = '';
+      feed.scrollTop = feed.scrollHeight;
+
+      setTimeout(() => {
+        const reply = document.createElement('div');
+        reply.className = 'chat-bubble incoming';
+        reply.innerText = "¡Perfecto! Quedamos entonces en el punto seguro del campus. Avísame cuando estés cerca.";
+        feed.appendChild(reply);
+        feed.scrollTop = feed.scrollHeight;
+        pushLiveNotification("💬 <strong>Carlos B.:</strong> Respondió en el chat de coordinación.");
+      }, 900);
+    }
+
     function setAppMode(mode) {
       currentMode = mode;
-      const buyBtn = document.getElementById('modeBuyBtn');
-      const sellBtn = document.getElementById('modeSellBtn');
-      const soldBtn = document.getElementById('modeSoldBtn');
+      document.querySelectorAll('.sub-nav-tab').forEach(t => t.classList.remove('active'));
+
       const heroBanner = document.getElementById('heroCampusBanner');
       const filters = document.getElementById('buyerFiltersArea');
       const sellerStats = document.getElementById('sellerStatsArea');
+      const chatsView = document.getElementById('chatsViewArea');
+      const catalogWrapper = document.getElementById('catalogSectionWrapper');
 
-      buyBtn.classList.remove('active');
-      sellBtn.classList.remove('active');
-      soldBtn.classList.remove('active');
+      heroBanner.style.display = 'none';
+      filters.style.display = 'none';
+      sellerStats.style.display = 'none';
+      chatsView.style.display = 'none';
+      catalogWrapper.style.display = 'block';
 
       if (mode === 'buyer') {
-        buyBtn.classList.add('active');
+        document.getElementById('tabExplore').classList.add('active');
         heroBanner.style.display = 'block';
         filters.style.display = 'flex';
-        sellerStats.style.display = 'none';
         document.getElementById('sectionTitle').innerText = currentUni === 'Todas' ? 'Todos los materiales en Guayaquil' : `Materiales disponibles en ${currentUni}`;
-        document.getElementById('sectionCounter').innerText = 'Publicaciones verificadas';
         document.getElementById('statusSelect').value = "Todos";
       } else if (mode === 'seller') {
-        sellBtn.classList.add('active');
-        heroBanner.style.display = 'none';
-        filters.style.display = 'none';
+        document.getElementById('tabMyPosts').classList.add('active');
         sellerStats.style.display = 'block';
         document.getElementById('sectionTitle').innerText = 'Mis Publicaciones activas';
-        document.getElementById('sectionCounter').innerText = 'Tus artículos';
         updateSellerStats();
       } else if (mode === 'sold') {
-        soldBtn.classList.add('active');
-        heroBanner.style.display = 'none';
+        document.getElementById('tabMyPurchases').classList.add('active');
         filters.style.display = 'flex';
-        sellerStats.style.display = 'none';
-        document.getElementById('sectionTitle').innerText = 'Materiales entregados con éxito';
-        document.getElementById('sectionCounter').innerText = 'Historial de vendidos';
+        document.getElementById('sectionTitle').innerText = 'Historial de Compras y Entregas';
         document.getElementById('statusSelect').value = "Vendido";
+      } else if (mode === 'chats') {
+        document.getElementById('tabChats').classList.add('active');
+        chatsView.style.display = 'block';
+        catalogWrapper.style.display = 'none';
+        document.getElementById('chatUnreadPill').style.display = 'none';
+        return;
       }
 
       applyFilters();
@@ -2081,7 +2394,7 @@
     function updateSellerStats() {
       const myItems = materials.filter(m => m.isMyPost);
       document.getElementById('statActive').innerText = myItems.filter(m => m.status !== 'Vendido').length;
-      document.getElementById('statSold').innerText = myItems.filter(m => m.status === 'Vendido').length;
+      document.getElementById('statWallet').innerText = `$${userWalletBalance.toFixed(2)}`;
     }
 
     function renderProducts(list) {
@@ -2089,7 +2402,7 @@
       container.innerHTML = '';
 
       if (list.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 50px 0; font-size: 14px;">No se encontraron artículos con esos filtros. Prueba ampliando el rango de precio o seleccionando otra universidad.</p>`;
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 50px 0; font-size: 14px;">No se encontraron artículos con esos filtros.</p>`;
         return;
       }
 
@@ -2097,13 +2410,9 @@
         const isSold = item.status === "Vendido";
 
         let statusBadge = `<span class="badge-status">Buen estado</span>`;
-        if (item.status === "Como nuevo") {
-          statusBadge = `<span class="badge-status warning">Como nuevo</span>`;
-        } else if (item.status === "Nuevo / Caja") {
-          statusBadge = `<span class="badge-status new-box">Nuevo / Caja</span>`;
-        } else if (isSold) {
-          statusBadge = `<span class="badge-status sold">✕ Vendido</span>`;
-        }
+        if (item.status === "Como nuevo") statusBadge = `<span class="badge-status warning">Como nuevo</span>`;
+        else if (item.status === "Nuevo / Caja") statusBadge = `<span class="badge-status new-box">Nuevo / Caja</span>`;
+        else if (isSold) statusBadge = `<span class="badge-status sold">✕ Vendido</span>`;
 
         const tagsHtml = item.tags ? item.tags.map(t => `<span class="product-tag-pill">${t}</span>`).join('') : '';
 
@@ -2119,7 +2428,6 @@
         card.innerHTML = `
           <div class="product-img-wrapper">
             <img src="${item.image}" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600'">
-            
             ${isSold ? `
               <div class="sold-overlay-badge">✕ VENDIDO</div>
               <div class="sold-big-x">
@@ -2129,7 +2437,6 @@
                 </svg>
               </div>
             ` : ''}
-
             ${currentMode !== 'seller' ? `
             <button class="btn-fav" onclick="toggleFav(this)" title="Guardar en favoritos">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2139,7 +2446,6 @@
           </div>
           <div class="product-info">
             <h3 class="product-title">${item.title}</h3>
-            
             <div class="product-price-row">
               <div class="price-and-status">
                 <span class="product-price">$${item.price}</span>
@@ -2159,15 +2465,9 @@
               </button>
               `}
             </div>
-            
             <div class="product-uni-tag">📍 ${item.uni} · ${item.category}</div>
-            <div class="product-campus-spot">
-              <span>${item.faculty}</span>
-            </div>
-            
-            <div class="product-tags-footer">
-              ${tagsHtml}
-            </div>
+            <div class="product-campus-spot"><span>${item.faculty}</span></div>
+            <div class="product-tags-footer">${tagsHtml}</div>
           </div>
         `;
         container.appendChild(card);
@@ -2187,18 +2487,10 @@
 
       if (item.status === 'Vendido') {
         statusEl.innerHTML = `<span style="color: #dc2626; font-weight:700;">✕ Vendido</span>`;
-        actionBox.innerHTML = `
-          <button style="width:100%; background:#f1f5f9; color:#94a3b8; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:not-allowed;" disabled>
-            ✕ Este artículo ya fue entregado
-          </button>
-        `;
+        actionBox.innerHTML = `<button style="width:100%; background:#f1f5f9; color:#94a3b8; border:none; padding:12px; border-radius:8px; font-weight:700;" disabled>✕ Este artículo ya fue entregado</button>`;
       } else {
         statusEl.innerHTML = `<span style="color: #15803d; font-weight:700;">${item.status}</span>`;
-        actionBox.innerHTML = `
-          <button class="btn-submit-modal" style="background:#10b981;" onclick="contactSeller('${item.seller}', '${item.title}', '${item.phone}')">
-            Contactar a ${item.seller} por WhatsApp
-          </button>
-        `;
+        actionBox.innerHTML = `<button class="btn-submit-modal" style="background:#10b981;" onclick="contactSeller('${item.seller}', '${item.title}', '${item.phone}')">Contactar a ${item.seller} por WhatsApp</button>`;
       }
 
       document.getElementById('detailModal').classList.add('open');
@@ -2223,22 +2515,18 @@
         item.status = item.status === 'Vendido' ? 'Buen estado' : 'Vendido';
         updateSellerStats();
         applyFilters();
+        pushLiveNotification(`✅ <strong>Estado actualizado:</strong> "${item.title}" marcado como <strong>${item.status}</strong>.`);
       }
     }
 
-    // APLICAR TODOS LOS FILTROS NUEVOS
     function applyFilters() {
       const search = document.getElementById('mainSearchInput').value.toLowerCase().trim();
       const catSelect = document.getElementById('categorySelect').value;
       const statusSelect = document.getElementById('statusSelect').value;
 
       let pool = materials;
-
-      if (currentMode === 'seller') {
-        pool = materials.filter(m => m.isMyPost);
-      } else if (currentMode === 'sold') {
-        pool = materials.filter(m => m.status === 'Vendido');
-      }
+      if (currentMode === 'seller') pool = materials.filter(m => m.isMyPost);
+      else if (currentMode === 'sold') pool = materials.filter(m => m.status === 'Vendido');
 
       const filtered = pool.filter(item => {
         const matchesSearch = search === "" || 
@@ -2252,12 +2540,8 @@
 
         const matchesUni = (currentUni === "Todas") || (item.uni === currentUni);
         const matchesCat = (catSelect === "Todos") || (item.category === catSelect);
-        
         let matchesStatus = true;
-        if (currentMode !== 'sold') {
-          matchesStatus = (statusSelect === "Todos") || (item.status === statusSelect);
-        }
-
+        if (currentMode !== 'sold') matchesStatus = (statusSelect === "Todos") || (item.status === statusSelect);
         const matchesPrice = (maxPriceFilter >= 100) ? true : (item.price <= maxPriceFilter);
 
         return matchesSearch && matchesUni && matchesCat && matchesStatus && matchesPrice;
@@ -2306,7 +2590,7 @@
         faculty: faculty,
         category: category,
         tags: tagsArray,
-        seller: "Diego",
+        seller: "Diego Y.",
         phone: phone || "593987654320",
         isMyPost: true,
         image: uploadedImageUrl || "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600"
@@ -2324,10 +2608,12 @@
       document.getElementById('uploadSubText').style.display = 'inline';
       document.getElementById('smartPricingCard').style.display = 'none';
 
+      pushLiveNotification(`🚀 <strong>¡Publicado!</strong> Tu artículo "<strong>${title}</strong>" ya está visible en ${uni}.`);
       filterByUniversity(uni);
     });
 
-    // INICIALIZAR VISTA
+    // INICIALIZAR
+    renderNotifications();
     renderCampusPills();
     applyFilters();
   </script>
