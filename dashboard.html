@@ -8,1390 +8,205 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; }
+    body { background-color: #f8fafc; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
 
-    body {
-      background-color: #f8fafc;
-      color: #1e293b;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    /* HEADER SUPERIOR */
+    .top-header-wrapper { background: #ffffff; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
+    .navbar-top { max-width: 1320px; margin: 0 auto; padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .nav-left-group { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+    .nav-left { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .brand-icon-box { width: 34px; height: 34px; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #0284c7; }
+    .brand-logo { font-size: 23px; font-weight: 800; color: #002855; letter-spacing: -0.5px; }
+    .brand-logo span { color: #0284c7; }
 
-    /* HEADER SUPERIOR (ESTILO CAMPUSMARKET) */
-    .top-header-wrapper {
-      background: #ffffff;
-      border-bottom: 1px solid #e2e8f0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+    .nav-campus-pill { display: flex; align-items: center; gap: 7px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 600; color: #334155; }
+    .campus-online-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; flex-shrink: 0; }
+    .nav-campus-pill select { border: none; background: transparent; font-size: 12.5px; font-weight: 700; color: #0f172a; outline: none; cursor: pointer; }
 
-    .navbar-top {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 12px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
+    .top-search-box { flex: 1; max-width: 440px; position: relative; display: flex; align-items: center; }
+    .top-search-box svg { position: absolute; left: 14px; width: 16px; height: 16px; color: #64748b; }
+    .top-search-box input { width: 100%; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 999px; padding: 9px 52px 9px 38px; font-size: 13px; color: #0f172a; outline: none; transition: all 0.2s; }
+    .top-search-box input:focus { background: #ffffff; border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
+    .kbd-shortcut { position: absolute; right: 12px; background: #e2e8f0; color: #475569; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 5px; pointer-events: none; }
 
-    .nav-left-group {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-shrink: 0;
-    }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-    }
-
-    .brand-icon-box {
-      width: 34px;
-      height: 34px;
-      background: #f0f9ff;
-      border: 1px solid #bae6fd;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #0284c7;
-    }
-
-    .brand-logo {
-      font-size: 23px;
-      font-weight: 800;
-      color: #002855;
-      letter-spacing: -0.5px;
-    }
-
-    .brand-logo span {
-      color: #0284c7;
-    }
-
-    /* SELECTOR DE CAMPUS EN NAVBAR */
-    .nav-campus-pill {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: #334155;
-    }
-
-    .campus-online-dot {
-      width: 8px;
-      height: 8px;
-      background: #10b981;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .nav-campus-pill select {
-      border: none;
-      background: transparent;
-      font-size: 12.5px;
-      font-weight: 700;
-      color: #0f172a;
-      outline: none;
-      cursor: pointer;
-    }
-
-    /* BUSCADOR SUPERIOR */
-    .top-search-box {
-      flex: 1;
-      max-width: 440px;
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .top-search-box svg {
-      position: absolute;
-      left: 14px;
-      width: 16px;
-      height: 16px;
-      color: #64748b;
-    }
-
-    .top-search-box input {
-      width: 100%;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 999px;
-      padding: 9px 52px 9px 38px;
-      font-size: 13px;
-      color: #0f172a;
-      outline: none;
-      transition: all 0.2s;
-    }
-
-    .top-search-box input:focus {
-      background: #ffffff;
-      border-color: #0284c7;
-      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
-    }
-
-    .kbd-shortcut {
-      position: absolute;
-      right: 12px;
-      background: #e2e8f0;
-      color: #475569;
-      font-size: 10.5px;
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 5px;
-      pointer-events: none;
-    }
-
-    /* ACCIONES DERECHA NAVBAR */
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .btn-vender-nav {
-      background-color: #002855;
-      color: #ffffff;
-      padding: 9px 18px;
-      border-radius: 999px;
-      border: none;
-      font-size: 13.5px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 40, 85, 0.18);
-      transition: all 0.2s;
-    }
-
-    .btn-vender-nav:hover {
-      background-color: #0284c7;
-      transform: translateY(-1px);
-    }
+    .nav-right { display: flex; align-items: center; gap: 14px; position: relative; flex-shrink: 0; }
+    .btn-vender-nav { background-color: #002855; color: #ffffff; padding: 9px 18px; border-radius: 999px; border: none; font-size: 13.5px; font-weight: 700; display: flex; align-items: center; gap: 7px; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 40, 85, 0.18); transition: all 0.2s; }
+    .btn-vender-nav:hover { background-color: #0284c7; transform: translateY(-1px); }
 
     /* CAMPANITA TIEMPO REAL */
-    .notif-container {
-      position: relative;
-    }
-
-    .icon-btn {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      color: #475569;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      position: relative;
-      transition: all 0.15s;
-    }
-
-    .icon-btn:hover {
-      background-color: #f0f9ff;
-      color: #0284c7;
-      border-color: #bae6fd;
-    }
-
-    .notif-badge-count {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      background-color: #ef4444;
-      color: #ffffff;
-      font-size: 10px;
-      font-weight: 800;
-      min-width: 18px;
-      height: 18px;
-      padding: 0 4px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid #ffffff;
-    }
-
-    .dropdown-popover {
-      position: absolute;
-      top: 50px;
-      right: 0;
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      box-shadow: 0 15px 35px rgba(0, 40, 85, 0.15);
-      width: 330px;
-      display: none;
-      flex-direction: column;
-      z-index: 120;
-      overflow: hidden;
-    }
-
-    .dropdown-popover.open {
-      display: flex;
-    }
-
-    .dropdown-header {
-      padding: 12px 16px;
-      border-bottom: 1px solid #f1f5f9;
-      font-size: 13px;
-      font-weight: 700;
-      color: #002855;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #f8fafc;
-    }
-
-    .dropdown-list {
-      display: flex;
-      flex-direction: column;
-      max-height: 290px;
-      overflow-y: auto;
-    }
-
-    .dropdown-item {
-      padding: 11px 15px;
-      border-bottom: 1px solid #f1f5f9;
-      cursor: pointer;
-      font-size: 12px;
-      color: #334155;
-      transition: background-color 0.15s;
-    }
-
-    .dropdown-item.unread {
-      background-color: #f0f9ff;
-    }
-
-    .dropdown-item:hover {
-      background-color: #e0f2fe;
-    }
-
-    .dropdown-item .notif-time {
-      font-size: 10.5px;
-      color: #64748b;
-      margin-top: 3px;
-      font-weight: 600;
-    }
-
-    /* PERFIL USUARIO CON SALDO, VERIFICADO Y FOTO */
-    .user-container {
-      position: relative;
-    }
-
-    .user-profile-card {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 12px;
-      transition: background-color 0.15s;
-      user-select: none;
-    }
-
-    .user-profile-card:hover {
-      background-color: #f1f5f9;
-    }
-
-    .user-meta-info {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 2px;
-    }
-
-    .user-top-line {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .user-display-name {
-      font-size: 13.5px;
-      font-weight: 800;
-      color: #0f172a;
-    }
-
-    .verified-uni-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      background: #dcfce7;
-      color: #15803d;
-      border: 1px solid #86efac;
-      font-size: 10.5px;
-      font-weight: 800;
-      padding: 1.5px 7px;
-      border-radius: 999px;
-    }
-
-    .user-bottom-line {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11.5px;
-      color: #64748b;
-      font-weight: 600;
-    }
-
-    .user-balance-amount {
-      color: #059669;
-      font-weight: 800;
-    }
-
-    .user-role-tag {
-      color: #002855;
-      font-weight: 700;
-    }
-
-    .user-avatar-wrapper {
-      position: relative;
-      width: 38px;
-      height: 38px;
-      flex-shrink: 0;
-    }
-
-    .user-avatar-img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #cbd5e1;
-    }
-
-    .avatar-status-dot {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 10px;
-      height: 10px;
-      background: #10b981;
-      border: 2px solid #ffffff;
-      border-radius: 50%;
-    }
-
-    .user-menu-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 11px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #334155;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background-color 0.15s;
-    }
-
-    .user-menu-item:hover {
-      background-color: #f0f7ff;
-      color: #002855;
-    }
-
-    .user-menu-item.danger {
-      color: #dc2626;
-      border-top: 1px solid #f1f5f9;
-    }
-
-    .user-menu-item.danger:hover {
-      background-color: #fef2f2;
-    }
-
-    /* SEGUNDA FILA DE NAVEGACIÓN (PESTAÑAS) */
-    .sub-navbar {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 0 32px;
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      overflow-x: auto;
-    }
-
-    .sub-nav-tab {
-      background: none;
-      border: none;
-      padding: 12px 2px;
-      font-size: 13.5px;
-      font-weight: 600;
-      color: #64748b;
-      cursor: pointer;
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      white-space: nowrap;
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-
-    .sub-nav-tab:hover {
-      color: #002855;
-    }
-
-    .sub-nav-tab.active {
-      color: #002855;
-      font-weight: 700;
-    }
-
-    .sub-nav-tab.active::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2.5px;
-      background-color: #002855;
-      border-radius: 2px 2px 0 0;
-    }
-
-    .chat-badge-pill {
-      background: #002855;
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 800;
-      padding: 1px 7px;
-      border-radius: 999px;
-    }
-
-    /* MAIN CONTAINER */
-    .main-content {
-      max-width: 1320px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 24px 32px 70px;
-      flex: 1;
-    }
-
-    /* HERO BANNER AZUL/CELESTE */
-    .hero-campus-banner {
-      background: linear-gradient(125deg, #002855 0%, #0369a1 55%, #0284c7 100%);
-      border-radius: 22px;
-      padding: 32px 36px;
-      color: #ffffff;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 24px;
-      box-shadow: 0 14px 32px rgba(0, 40, 85, 0.16);
-    }
-
-    .hero-campus-banner::after {
-      content: '';
-      position: absolute;
-      right: -40px;
-      bottom: -60px;
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-top-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-size: 11.5px;
-      font-weight: 600;
-      color: #e0f2fe;
-      margin-bottom: 14px;
-    }
-
-    .hero-title {
-      font-size: 32px;
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.6px;
-      max-width: 680px;
-      margin-bottom: 10px;
-    }
-
-    .hero-subtitle {
-      font-size: 14px;
-      color: #bae6fd;
-      max-width: 650px;
-      line-height: 1.5;
-      margin-bottom: 24px;
-    }
-
-    .hero-filter-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 12px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .hero-filter-label {
-      font-size: 11.5px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      color: #e0f2fe;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .hero-uni-select-quick {
-      background: rgba(255, 255, 255, 0.16);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      color: #ffffff;
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      outline: none;
-      cursor: pointer;
-    }
-
-    .hero-uni-select-quick option {
-      background: #002855;
-      color: #ffffff;
-    }
-
-    .hero-live-counter {
-      font-size: 12px;
-      font-weight: 600;
-      color: #bae6fd;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .live-green-dot {
-      width: 8px;
-      height: 8px;
-      background: #4ade80;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #4ade80;
-    }
-
-    .campus-pills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .campus-pill-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      color: #ffffff;
-      padding: 6px 14px 6px 7px;
-      border-radius: 999px;
-      font-size: 12.5px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.18s ease;
-      backdrop-filter: blur(4px);
-    }
-
-    .campus-pill-btn:hover {
-      background: rgba(255, 255, 255, 0.26);
-      transform: translateY(-1px);
-    }
-
-    .campus-pill-btn.active {
-      background: #ffffff;
-      color: #002855;
-      border-color: #ffffff;
-      font-weight: 700;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .campus-circle-logo {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex-shrink: 0;
-      padding: 2px;
-    }
-
-    .campus-circle-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .campus-count-badge {
-      background: rgba(0, 40, 85, 0.28);
-      color: #e0f2fe;
-      font-size: 10.5px;
-      font-weight: 700;
-      padding: 1px 7px;
-      border-radius: 999px;
-    }
-
-    .campus-pill-btn.active .campus-count-badge {
-      background: #e0f2fe;
-      color: #0284c7;
-    }
-
-    /* BARRA DE BÚSQUEDA + FILTROS + RANGO DE PRECIO */
-    .advanced-search-panel {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 16px 20px;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .adv-search-input-box {
-      flex: 1.4;
-      min-width: 240px;
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .adv-search-input-box svg {
-      position: absolute;
-      left: 14px;
-      width: 17px;
-      height: 17px;
-      color: #64748b;
-    }
-
-    .adv-search-input-box input {
-      width: 100%;
-      background: #f8fafc;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      padding: 10px 34px 10px 40px;
-      font-size: 13.5px;
-      color: #0f172a;
-      outline: none;
-      transition: all 0.2s;
-    }
-
-    .adv-search-input-box input:focus {
-      background: #ffffff;
-      border-color: #0284c7;
-      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
-    }
-
-    .clear-search-btn {
-      position: absolute;
-      right: 10px;
-      background: none;
-      border: none;
-      color: #94a3b8;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .adv-filter-select {
-      background: #f8fafc;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #334155;
-      outline: none;
-      cursor: pointer;
-      min-width: 165px;
-    }
-
-    .price-slider-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #f0f9ff;
-      border: 1px solid #bae6fd;
-      padding: 7px 14px;
-      border-radius: 10px;
-      min-width: 230px;
-    }
-
-    .price-slider-label {
-      font-size: 12px;
-      font-weight: 700;
-      color: #0369a1;
-      white-space: nowrap;
-    }
-
-    .price-slider-box input[type="range"] {
-      flex: 1;
-      accent-color: #0284c7;
-      cursor: pointer;
-      height: 5px;
-    }
-
-    /* ENCABEZADO DE RESULTADOS */
-    .section-subtitle {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .section-subtitle-left {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-    }
-
-    .section-subtitle h2 {
-      font-size: 19px;
-      font-weight: 800;
-      color: #0f172a;
-    }
-
-    .section-subtitle span {
-      font-size: 12.5px;
-      color: #64748b;
-    }
-
-    .sort-dropdown {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-radius: 9px;
-      padding: 7px 12px;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: #475569;
-      outline: none;
-      cursor: pointer;
-    }
-
-    /* GRID PRODUCTOS */
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
-      gap: 22px;
-    }
-
-    .product-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .product-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 24px rgba(0, 40, 85, 0.07);
-    }
-
-    .product-img-wrapper {
-      position: relative;
-      width: 100%;
-      height: 180px;
-      background-color: #e2e8f0;
-      overflow: hidden;
-    }
-
-    .product-img-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: filter 0.2s;
-    }
-
-    .product-card.card-sold .product-img-wrapper img {
-      filter: grayscale(45%) opacity(0.85);
-    }
-
-    .sold-overlay-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: rgba(220, 38, 38, 0.92);
-      color: #ffffff;
-      padding: 5px 11px;
-      border-radius: 8px;
-      font-size: 11.5px;
-      font-weight: 800;
-      z-index: 4;
-    }
-
-    .sold-big-x {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(15, 23, 42, 0.25);
-      z-index: 3;
-      pointer-events: none;
-    }
-
-    .sold-big-x svg {
-      width: 72px;
-      height: 72px;
-      color: #ef4444;
-      stroke-width: 2.5;
-    }
-
-    .btn-fav {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(255, 255, 255, 0.92);
-      border: none;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: #64748b;
-      z-index: 5;
-    }
-
-    .btn-fav.active {
-      color: #ef4444;
-    }
-
-    .btn-fav.active svg {
-      fill: #ef4444;
-    }
-
-    .product-info {
-      padding: 15px 16px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .product-title {
-      font-size: 14.5px;
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 6px;
-    }
-
-    .product-price-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-
-    .price-and-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .product-price {
-      font-size: 17px;
-      font-weight: 800;
-      color: #002855;
-    }
-
-    .btn-cart-action {
-      background: #f0f7ff;
-      border: 1px solid #dbeafe;
-      border-radius: 8px;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: #0284c7;
-      transition: all 0.15s;
-    }
-
-    .btn-cart-action:hover {
-      background: #0284c7;
-      color: #ffffff;
-    }
-
-    .badge-status {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 2.5px 8.5px;
-      border-radius: 999px;
-      background-color: #dcfce7;
-      color: #15803d;
-    }
-
-    .badge-status.warning {
-      background-color: #fef3c7;
-      color: #b45309;
-    }
-
-    .badge-status.new-box {
-      background-color: #e0f2fe;
-      color: #0369a1;
-    }
-
-    .badge-status.sold {
-      background-color: #fef2f2;
-      color: #dc2626;
-      border: 1px solid #fee2e2;
-      font-weight: 700;
-    }
-
-    .product-uni-tag {
-      font-size: 11px;
-      font-weight: 700;
-      color: #0284c7;
-      background: #f0f9ff;
-      border: 1px solid #e0f2fe;
-      padding: 2px 8px;
-      border-radius: 5px;
-      display: inline-block;
-      margin-bottom: 6px;
-      width: fit-content;
-    }
-
-    .product-campus-spot {
-      font-size: 11.5px;
-      color: #64748b;
-      margin-bottom: 8px;
-    }
-
-    .product-tags-footer {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: auto;
-      padding-top: 10px;
-      border-top: 1px dashed #e2e8f0;
-    }
-
-    .product-tag-pill {
-      font-size: 11px;
-      color: #64748b;
-      background: #f1f5f9;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-weight: 600;
-    }
-
-    /* VISTA DE MENSAJES / CHATS */
-    .chats-container-box {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      min-height: 440px;
-      overflow: hidden;
-      margin-bottom: 24px;
-    }
-
-    .chat-sidebar-list {
-      border-right: 1px solid #e2e8f0;
-      background: #f8fafc;
-    }
-
-    .chat-thread-item {
-      padding: 14px 16px;
-      border-bottom: 1px solid #e2e8f0;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .chat-thread-item:hover, .chat-thread-item.active {
-      background: #e0f2fe;
-    }
-
-    .chat-window-area {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 20px;
-    }
-
-    .chat-messages-feed {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      overflow-y: auto;
-      max-height: 300px;
-    }
-
-    .chat-bubble {
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 13px;
-      max-width: 75%;
-    }
-
-    .chat-bubble.incoming {
-      background: #f1f5f9;
-      color: #0f172a;
-      align-self: flex-start;
-    }
-
-    .chat-bubble.outgoing {
-      background: #002855;
-      color: #ffffff;
-      align-self: flex-end;
-    }
-
-    .chat-input-bar {
-      display: flex;
-      gap: 10px;
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid #e2e8f0;
-    }
-
-    .chat-input-bar input {
-      flex: 1;
-      padding: 10px 14px;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      outline: none;
-    }
-
-    /* MODO VENDEDOR STATS */
-    .seller-dashboard-header {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .stat-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      padding: 16px 20px;
-      border-radius: 12px;
-    }
-
-    .stat-card span {
-      font-size: 12px;
-      color: #64748b;
-      font-weight: 600;
-    }
-
-    .stat-card h3 {
-      font-size: 24px;
-      font-weight: 800;
-      color: #002855;
-      margin-top: 4px;
-    }
-
-    /* BOTÓN FLOTANTE MAPA (INTACTO) */
-    .floating-map-btn {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: linear-gradient(135deg, #002855 0%, #0284c7 100%);
-      color: #ffffff;
-      padding: 12px 22px;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 13.5px;
-      box-shadow: 0 10px 25px rgba(0, 40, 85, 0.35);
-      z-index: 150;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .floating-map-btn:hover {
-      transform: translateY(-4px) scale(1.03);
-    }
-
-    .radar-pulse {
-      width: 10px;
-      height: 10px;
-      background: #22c55e;
-      border-radius: 50%;
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-    }
+    .notif-container { position: relative; }
+    .icon-btn { background: #f8fafc; border: 1px solid #e2e8f0; color: #475569; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; position: relative; transition: all 0.15s; }
+    .icon-btn:hover { background-color: #f0f9ff; color: #0284c7; border-color: #bae6fd; }
+    .notif-badge-count { position: absolute; top: -4px; right: -4px; background-color: #ef4444; color: #ffffff; font-size: 10px; font-weight: 800; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 999px; display: flex; align-items: center; justify-content: center; border: 2px solid #ffffff; }
+
+    .dropdown-popover { position: absolute; top: 50px; right: 0; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; box-shadow: 0 15px 35px rgba(0, 40, 85, 0.15); width: 330px; display: none; flex-direction: column; z-index: 120; overflow: hidden; }
+    .dropdown-popover.open { display: flex; }
+    .dropdown-header { padding: 12px 16px; border-bottom: 1px solid #f1f5f9; font-size: 13px; font-weight: 700; color: #002855; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; }
+    .dropdown-list { display: flex; flex-direction: column; max-height: 290px; overflow-y: auto; }
+    .dropdown-item { padding: 11px 15px; border-bottom: 1px solid #f1f5f9; cursor: pointer; font-size: 12px; color: #334155; }
+    .dropdown-item.unread { background-color: #f0f9ff; }
+    .dropdown-item:hover { background-color: #e0f2fe; }
+    .dropdown-item .notif-time { font-size: 10.5px; color: #64748b; margin-top: 3px; font-weight: 600; }
+
+    /* PERFIL USUARIO */
+    .user-container { position: relative; }
+    .user-profile-card { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 4px 8px; border-radius: 12px; transition: background-color 0.15s; user-select: none; }
+    .user-profile-card:hover { background-color: #f1f5f9; }
+    .user-meta-info { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+    .user-top-line { display: flex; align-items: center; gap: 6px; }
+    .user-display-name { font-size: 13.5px; font-weight: 800; color: #0f172a; }
+    .verified-uni-pill { display: inline-flex; align-items: center; gap: 3px; background: #dcfce7; color: #15803d; border: 1px solid #86efac; font-size: 10.5px; font-weight: 800; padding: 1.5px 7px; border-radius: 999px; }
+    .user-bottom-line { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: #64748b; font-weight: 600; }
+    .user-balance-amount { color: #059669; font-weight: 800; }
+    .user-role-tag { color: #002855; font-weight: 700; }
+    .user-avatar-wrapper { position: relative; width: 38px; height: 38px; flex-shrink: 0; }
+    .user-avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid #cbd5e1; }
+    .avatar-status-dot { position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; background: #10b981; border: 2px solid #ffffff; border-radius: 50%; }
+    .user-menu-item { display: flex; align-items: center; gap: 10px; padding: 11px 16px; font-size: 13px; font-weight: 600; color: #334155; text-decoration: none; cursor: pointer; }
+    .user-menu-item:hover { background-color: #f0f7ff; color: #002855; }
+    .user-menu-item.danger { color: #dc2626; border-top: 1px solid #f1f5f9; }
+    .user-menu-item.danger:hover { background-color: #fef2f2; }
+
+    /* SUB NAVBAR */
+    .sub-navbar { max-width: 1320px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; gap: 28px; overflow-x: auto; }
+    .sub-nav-tab { background: none; border: none; padding: 12px 2px; font-size: 13.5px; font-weight: 600; color: #64748b; cursor: pointer; position: relative; display: flex; align-items: center; gap: 7px; white-space: nowrap; text-decoration: none; }
+    .sub-nav-tab:hover { color: #002855; }
+    .sub-nav-tab.active { color: #002855; font-weight: 700; }
+    .sub-nav-tab.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2.5px; background-color: #002855; border-radius: 2px 2px 0 0; }
+    .chat-badge-pill { background: #002855; color: #ffffff; font-size: 11px; font-weight: 800; padding: 1px 7px; border-radius: 999px; }
+
+    /* MAIN CONTENT */
+    .main-content { max-width: 1320px; width: 100%; margin: 0 auto; padding: 24px 32px 70px; flex: 1; }
+
+    /* HERO BANNER */
+    .hero-campus-banner { background: linear-gradient(125deg, #002855 0%, #0369a1 55%, #0284c7 100%); border-radius: 22px; padding: 32px 36px; color: #ffffff; position: relative; overflow: hidden; margin-bottom: 24px; box-shadow: 0 14px 32px rgba(0, 40, 85, 0.16); }
+    .hero-top-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.22); padding: 5px 12px; border-radius: 999px; font-size: 11.5px; font-weight: 600; color: #e0f2fe; margin-bottom: 14px; }
+    .hero-title { font-size: 32px; font-weight: 800; line-height: 1.15; letter-spacing: -0.6px; max-width: 680px; margin-bottom: 10px; }
+    .hero-subtitle { font-size: 14px; color: #bae6fd; max-width: 650px; line-height: 1.5; margin-bottom: 24px; }
+    .hero-filter-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.15); }
+    .hero-filter-label { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.7px; color: #e0f2fe; display: flex; align-items: center; gap: 10px; }
+    .hero-uni-select-quick { background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.35); color: #ffffff; padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; outline: none; cursor: pointer; }
+    .hero-uni-select-quick option { background: #002855; color: #ffffff; }
+    .hero-live-counter { font-size: 12px; font-weight: 600; color: #bae6fd; display: flex; align-items: center; gap: 6px; }
+    .live-green-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; box-shadow: 0 0 8px #4ade80; }
+
+    .campus-pills-grid { display: flex; flex-wrap: wrap; gap: 9px; position: relative; z-index: 2; }
+    .campus-pill-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.22); color: #ffffff; padding: 6px 14px 6px 7px; border-radius: 999px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.18s ease; }
+    .campus-pill-btn:hover { background: rgba(255, 255, 255, 0.26); transform: translateY(-1px); }
+    .campus-pill-btn.active { background: #ffffff; color: #002855; border-color: #ffffff; font-weight: 700; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+    .campus-circle-logo { width: 24px; height: 24px; border-radius: 50%; background: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 2px; }
+    .campus-circle-logo img { width: 100%; height: 100%; object-fit: contain; }
+    .campus-count-badge { background: rgba(0, 40, 85, 0.28); color: #e0f2fe; font-size: 10.5px; font-weight: 700; padding: 1px 7px; border-radius: 999px; }
+    .campus-pill-btn.active .campus-count-badge { background: #e0f2fe; color: #0284c7; }
+
+    /* FILTROS AVANZADOS */
+    .advanced-search-panel { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px 20px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03); display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .adv-search-input-box { flex: 1.4; min-width: 240px; position: relative; display: flex; align-items: center; }
+    .adv-search-input-box svg { position: absolute; left: 14px; width: 17px; height: 17px; color: #64748b; }
+    .adv-search-input-box input { width: 100%; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px 34px 10px 40px; font-size: 13.5px; color: #0f172a; outline: none; }
+    .clear-search-btn { position: absolute; right: 10px; background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 14px; }
+    .adv-filter-select { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px 14px; font-size: 13px; font-weight: 600; color: #334155; outline: none; cursor: pointer; min-width: 165px; }
+    .price-slider-box { display: flex; align-items: center; gap: 10px; background: #f0f9ff; border: 1px solid #bae6fd; padding: 7px 14px; border-radius: 10px; min-width: 230px; }
+    .price-slider-label { font-size: 12px; font-weight: 700; color: #0369a1; white-space: nowrap; }
+    .price-slider-box input[type="range"] { flex: 1; accent-color: #0284c7; cursor: pointer; height: 5px; }
+
+    /* RESULTADOS Y GRID */
+    .section-subtitle { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+    .section-subtitle-left { display: flex; align-items: baseline; gap: 10px; }
+    .section-subtitle h2 { font-size: 19px; font-weight: 800; color: #0f172a; }
+    .section-subtitle span { font-size: 12.5px; color: #64748b; }
+    .sort-dropdown { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 9px; padding: 7px 12px; font-size: 12.5px; font-weight: 600; color: #475569; outline: none; cursor: pointer; }
+
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: 22px; }
+    .product-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; position: relative; }
+    .product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0, 40, 85, 0.08); }
+    .product-img-wrapper { position: relative; width: 100%; height: 185px; background-color: #e2e8f0; overflow: hidden; }
+    .product-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .product-card:hover .product-img-wrapper img { transform: scale(1.04); }
+    .product-card.card-sold .product-img-wrapper img { filter: grayscale(50%) opacity(0.85); }
+
+    .sold-overlay-badge { position: absolute; top: 12px; left: 12px; background: rgba(220, 38, 38, 0.92); color: #ffffff; padding: 5px 11px; border-radius: 8px; font-size: 11.5px; font-weight: 800; z-index: 4; }
+    .sold-big-x { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(15, 23, 42, 0.25); z-index: 3; pointer-events: none; }
+    .sold-big-x svg { width: 72px; height: 72px; color: #ef4444; stroke-width: 2.5; }
+    .btn-fav { position: absolute; top: 10px; right: 10px; background: rgba(255, 255, 255, 0.92); border: none; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748b; z-index: 5; }
+    .btn-fav.active { color: #ef4444; }
+    .btn-fav.active svg { fill: #ef4444; }
+
+    .product-info { padding: 15px 16px; display: flex; flex-direction: column; flex: 1; }
+    .product-title { font-size: 14.5px; font-weight: 700; color: #0f172a; margin-bottom: 6px; line-height: 1.3; }
+    .product-price-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .price-and-status { display: flex; align-items: center; gap: 8px; }
+    .product-price { font-size: 17px; font-weight: 800; color: #002855; }
+    .btn-cart-action { background: #f0f7ff; border: 1px solid #dbeafe; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #0284c7; transition: all 0.15s; }
+    .btn-cart-action:hover { background: #0284c7; color: #ffffff; }
+
+    .badge-status { font-size: 11px; font-weight: 600; padding: 2.5px 8.5px; border-radius: 999px; background-color: #dcfce7; color: #15803d; }
+    .badge-status.warning { background-color: #fef3c7; color: #b45309; }
+    .badge-status.new-box { background-color: #e0f2fe; color: #0369a1; }
+    .badge-status.sold { background-color: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; font-weight: 700; }
+
+    .product-uni-tag { font-size: 11px; font-weight: 700; color: #0284c7; background: #f0f9ff; border: 1px solid #e0f2fe; padding: 2px 8px; border-radius: 5px; display: inline-block; margin-bottom: 6px; width: fit-content; }
+    .product-campus-spot { font-size: 11.5px; color: #64748b; margin-bottom: 8px; }
+    .product-tags-footer { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 10px; border-top: 1px dashed #e2e8f0; }
+    .product-tag-pill { font-size: 11px; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+
+    /* CHATS & VENDEDOR */
+    .chats-container-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; display: grid; grid-template-columns: 320px 1fr; min-height: 440px; overflow: hidden; margin-bottom: 24px; }
+    .chat-sidebar-list { border-right: 1px solid #e2e8f0; background: #f8fafc; }
+    .chat-thread-item { padding: 14px 16px; border-bottom: 1px solid #e2e8f0; cursor: pointer; }
+    .chat-thread-item.active { background: #e0f2fe; }
+    .chat-window-area { display: flex; flex-direction: column; justify-content: space-between; padding: 20px; }
+    .chat-messages-feed { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; max-height: 300px; }
+    .chat-bubble { padding: 10px 14px; border-radius: 12px; font-size: 13px; max-width: 75%; }
+    .chat-bubble.incoming { background: #f1f5f9; color: #0f172a; align-self: flex-start; }
+    .chat-bubble.outgoing { background: #002855; color: #ffffff; align-self: flex-end; }
+    .chat-input-bar { display: flex; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #e2e8f0; }
+    .chat-input-bar input { flex: 1; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 10px; outline: none; }
+
+    .seller-dashboard-header { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: #ffffff; border: 1px solid #e2e8f0; padding: 16px 20px; border-radius: 12px; }
+    .stat-card span { font-size: 12px; color: #64748b; font-weight: 600; }
+    .stat-card h3 { font-size: 24px; font-weight: 800; color: #002855; margin-top: 4px; }
+
+    /* BOTÓN FLOTANTE MAPA */
+    .floating-map-btn { position: fixed; bottom: 25px; right: 25px; background: linear-gradient(135deg, #002855 0%, #0284c7 100%); color: #ffffff; padding: 12px 22px; border-radius: 50px; display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 13.5px; box-shadow: 0 10px 25px rgba(0, 40, 85, 0.35); z-index: 150; }
+    .radar-pulse { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; animation: pulse 1.8s infinite; }
+    @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
 
     /* MODALES */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background-color: rgba(15, 23, 42, 0.55);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 200;
-      padding: 20px;
-      backdrop-filter: blur(4px);
-    }
+    .modal-overlay { position: fixed; inset: 0; background-color: rgba(15, 23, 42, 0.55); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; backdrop-filter: blur(4px); }
+    .modal-overlay.open { display: flex; }
+    .modal-card { background: #ffffff; border-radius: 20px; width: 100%; max-width: 500px; padding: 26px; box-shadow: 0 20px 40px rgba(0,0,0,0.18); max-height: 92vh; overflow-y: auto; }
+    .modal-card.wide-publish-modal { max-width: 780px; padding: 28px 32px; }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .modal-header h3 { font-size: 19px; font-weight: 800; color: #0f172a; }
+    .btn-close-modal { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 15px; color: #64748b; cursor: pointer; }
 
-    .modal-overlay.open {
-      display: flex;
-    }
+    .publish-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-full-row { grid-column: 1 / -1; }
+    .modal-form .form-group { margin-bottom: 14px; }
+    .modal-form label { display: block; font-size: 12px; font-weight: 600; color: #334155; margin-bottom: 5px; }
+    .modal-form input, .modal-form select, .modal-form textarea { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 9px; font-size: 13px; outline: none; }
+    .photo-upload-box { border: 2px dashed #93c5fd; background: #f8fafc; border-radius: 12px; height: 145px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer; position: relative; overflow: hidden; }
+    .photo-upload-box input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .upload-icon-circle { width: 44px; height: 44px; background: #e0f2fe; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #0284c7; }
+    .upload-preview-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+    .smart-pricing-card { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 10px 12px; margin-top: 6px; display: none; }
+    .quick-price-chips { display: flex; gap: 6px; }
+    .price-choice-btn { flex: 1; background: #ffffff; border: 1px solid #86efac; padding: 6px 8px; border-radius: 7px; font-size: 11px; font-weight: 700; color: #166534; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
+    .btn-submit-modal { width: 100%; background-color: #002855; color: #ffffff; padding: 13px; border-radius: 9px; border: none; font-size: 14px; font-weight: 700; margin-top: 10px; cursor: pointer; transition: all 0.15s; }
+    .btn-submit-modal:hover { opacity: 0.92; }
 
-    .modal-card {
-      background: #ffffff;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 500px;
-      padding: 26px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.18);
-      max-height: 92vh;
-      overflow-y: auto;
-    }
-
-    .modal-card.wide-publish-modal {
-      max-width: 780px;
-      padding: 28px 32px;
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
-    }
-
-    .modal-header h3 {
-      font-size: 19px;
-      font-weight: 800;
-      color: #0f172a;
-    }
-
-    .btn-close-modal {
-      background: #f1f5f9;
-      border: none;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      font-size: 15px;
-      color: #64748b;
-      cursor: pointer;
-    }
-
-    .publish-form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-
-    .form-full-row {
-      grid-column: 1 / -1;
-    }
-
-    .modal-form .form-group {
-      margin-bottom: 14px;
-    }
-
-    .modal-form label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: #334155;
-      margin-bottom: 5px;
-    }
-
-    .modal-form input, .modal-form select, .modal-form textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 9px;
-      font-size: 13px;
-      outline: none;
-    }
-
-    .photo-upload-box {
-      border: 2px dashed #93c5fd;
-      background: #f8fafc;
-      border-radius: 12px;
-      height: 145px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .photo-upload-box input[type="file"] {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    .upload-icon-circle {
-      width: 44px;
-      height: 44px;
-      background: #e0f2fe;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #0284c7;
-    }
-
-    .upload-preview-img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
-    }
-
-    .smart-pricing-card {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: 10px;
-      padding: 10px 12px;
-      margin-top: 6px;
-      display: none;
-    }
-
-    .smart-pricing-title {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #15803d;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin-bottom: 6px;
-    }
-
-    .quick-price-chips {
-      display: flex;
-      gap: 6px;
-    }
-
-    .price-choice-btn {
-      flex: 1;
-      background: #ffffff;
-      border: 1px solid #86efac;
-      padding: 6px 8px;
-      border-radius: 7px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #166534;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .btn-submit-modal {
-      width: 100%;
-      background-color: #002855;
-      color: #ffffff;
-      padding: 13px;
-      border-radius: 9px;
-      border: none;
-      font-size: 14px;
-      font-weight: 700;
-      margin-top: 14px;
-      cursor: pointer;
-    }
-
-    .profile-card-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid #e2e8f0;
-      margin-bottom: 18px;
-    }
-
-    .profile-field-item {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 12px;
-    }
-
-    .profile-field-item label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #64748b;
-      text-transform: uppercase;
-      margin-bottom: 3px;
-    }
-
-    .detail-img-box {
-      width: 100%;
-      height: 230px;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-
-    .detail-img-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .detail-meta-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      background: #f8fafc;
-      padding: 12px 14px;
-      border-radius: 10px;
-      margin-bottom: 16px;
-    }
+    .detail-img-box { width: 100%; height: 230px; border-radius: 12px; overflow: hidden; margin-bottom: 16px; }
+    .detail-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .detail-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #f8fafc; padding: 12px 14px; border-radius: 10px; margin-bottom: 16px; }
   </style>
 </head>
 <body>
 
-  <!-- ENCABEZADO SUPERIOR DE 2 NIVELES -->
+  <!-- ENCABEZADO SUPERIOR -->
   <header class="top-header-wrapper">
-    <!-- NIVEL 1: LOGO + CAMPUS + BUSCADOR + +VENDER + CAMPANITA + PERFIL DIEGO Y. -->
     <div class="navbar-top">
       <div class="nav-left-group">
         <a href="#" class="nav-left" onclick="setAppMode('buyer')">
@@ -1404,7 +219,7 @@
           <span class="brand-logo">Uni<span>Loop</span></span>
         </a>
 
-        <div class="nav-campus-pill" title="Cambia tu universidad verificada">
+        <div class="nav-campus-pill">
           <span class="campus-online-dot"></span>
           <select id="navCampusSelect" onchange="changeUserCampus(this.value)">
             <option value="ESPOL" selected>ESPOL Prosperina</option>
@@ -1425,7 +240,6 @@
         </div>
       </div>
 
-      <!-- BUSCADOR SUPERIOR -->
       <div class="top-search-box">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"></circle>
@@ -1435,7 +249,6 @@
         <span class="kbd-shortcut">⌘K</span>
       </div>
 
-      <!-- DERECHA: + VENDER, CAMPANITA REAL-TIME, PERFIL DIEGO Y. -->
       <div class="nav-right">
         <button class="btn-vender-nav" id="openModalBtn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -1446,9 +259,8 @@
           Vender
         </button>
 
-        <!-- CAMPANITA NOTIFICACIONES EN TIEMPO REAL -->
         <div class="notif-container">
-          <button class="icon-btn" id="notifBellBtn" title="Notificaciones en tiempo real" onclick="toggleNotifDropdown(event)">
+          <button class="icon-btn" id="notifBellBtn" onclick="toggleNotifDropdown(event)">
             <span class="notif-badge-count" id="notifCountBadge">3</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -1461,23 +273,17 @@
               <span>Notificaciones en vivo</span>
               <span style="font-size: 11px; color:#0284c7; cursor:pointer;" onclick="markAllNotifsRead()">Marcar leídas</span>
             </div>
-            <div class="dropdown-list" id="notifListContainer">
-              <!-- Se llenan dinámicamente en tiempo real -->
-            </div>
+            <div class="dropdown-list" id="notifListContainer"></div>
           </div>
         </div>
 
-        <!-- PERFIL DIEGO Y. + SALDO + VERIFICADO + ESTUDIANTE + FOTO -->
         <div class="user-container">
-          <div class="user-profile-card" id="userProfileBtn" onclick="toggleUserDropdown(event)" title="Opciones de cuenta y saldo">
+          <div class="user-profile-card" id="userProfileBtn" onclick="toggleUserDropdown(event)">
             <div class="user-meta-info">
               <div class="user-top-line">
                 <span class="user-display-name">Diego Y.</span>
                 <span class="verified-uni-pill" id="userVerifiedBadge">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                  <span id="verifiedUniText">ESPOL</span>
+                  ✓ <span id="verifiedUniText">ESPOL</span>
                 </span>
               </div>
               <div class="user-bottom-line">
@@ -1493,43 +299,21 @@
             </div>
           </div>
 
-          <!-- MENÚ DESPLEGABLE DE PERFIL -->
           <div class="dropdown-popover" id="userDropdown" style="width: 245px;">
-            <div class="user-menu-item" onclick="openProfileModal('profile')">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              <span>Configuración de mi perfil</span>
-            </div>
-            <div class="user-menu-item" onclick="openProfileModal('settings')">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-              </svg>
-              <span>Ajustes generales y Saldo</span>
-            </div>
-            <div class="user-menu-item danger" onclick="window.location.href='index.html'">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                <polyline points="16 17 21 12 16 7"></polyline>
-                <line x1="21" y1="12" x2="9" y2="12"></line>
-              </svg>
-              <span>Cerrar sesión</span>
-            </div>
+            <div class="user-menu-item" onclick="openProfileModal('profile')"><span>👤 Configuración de mi perfil</span></div>
+            <div class="user-menu-item" onclick="openProfileModal('settings')"><span>⚙️ Ajustes generales y Saldo</span></div>
+            <div class="user-menu-item danger" onclick="window.location.href='index.html'"><span>🚪 Cerrar sesión</span></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- NIVEL 2: PESTAÑAS EXPLORAR, PUBLICACIONES, COMPRAS, CHATS, PUNTOS DE ENTREGA -->
     <nav class="sub-navbar">
       <button class="sub-nav-tab active" id="tabExplore" onclick="setAppMode('buyer')">Explorar Artículos</button>
       <button class="sub-nav-tab" id="tabMyPosts" onclick="setAppMode('seller')">Mis Publicaciones</button>
       <button class="sub-nav-tab" id="tabMyPurchases" onclick="setAppMode('sold')">Mis Compras</button>
       <button class="sub-nav-tab" id="tabChats" onclick="setAppMode('chats')">
-        Mensajes / Chats
-        <span class="chat-badge-pill" id="chatUnreadPill">3</span>
+        Mensajes / Chats <span class="chat-badge-pill" id="chatUnreadPill">3</span>
       </button>
       <a href="mapa.html" class="sub-nav-tab">Puntos de Entrega</a>
     </nav>
@@ -1538,15 +322,9 @@
   <!-- CONTENIDO PRINCIPAL -->
   <main class="main-content">
 
-    <!-- HERO BANNER AZUL / CELESTE CON UNIVERSIDADES EN CÍRCULOS -->
+    <!-- HERO BANNER -->
     <section class="hero-campus-banner" id="heroCampusBanner">
-      <div class="hero-top-badge">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-        </svg>
-        Mercado Seguro Universitario · Guayaquil y Samborondón
-      </div>
-
+      <div class="hero-top-badge">🛡️ Mercado Seguro Universitario · Guayaquil y Samborondón</div>
       <h1 class="hero-title">Compra y vende entre estudiantes universitarios verificados</h1>
       <p class="hero-subtitle">Ahorra hasta un 70% en libros de cálculo, tecnología, batas de laboratorio, calculadoras científicas y materiales técnicos entregados mano a mano en tu propio campus.</p>
 
@@ -1574,15 +352,14 @@
 
         <div class="hero-live-counter">
           <span class="live-green-dot"></span>
-          <span id="heroTotalCount">8 artículos listados hoy</span>
+          <span id="heroTotalCount">50 artículos listados hoy</span>
         </div>
       </div>
 
-      <!-- BOTONES CIRCULARES DE UNIVERSIDADES -->
       <div class="campus-pills-grid" id="campusPillsGrid"></div>
     </section>
 
-    <!-- BARRA DE BÚSQUEDA + FILTRO CATEGORÍA + ESTADO + SLIDER PRECIO -->
+    <!-- FILTROS AVANZADOS -->
     <section class="advanced-search-panel" id="buyerFiltersArea">
       <div class="adv-search-input-box">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1611,31 +388,22 @@
         <option value="Vendido">✕ Vendido</option>
       </select>
 
-      <div class="price-slider-box" title="Desliza para ajustar tu presupuesto máximo">
-        <span class="price-slider-label">Hasta: <strong id="priceSliderVal">$100</strong></span>
-        <input type="range" id="priceRangeSlider" min="5" max="100" step="5" value="100" oninput="updatePriceSlider(this.value)">
+      <div class="price-slider-box">
+        <span class="price-slider-label">Hasta: <strong id="priceSliderVal">$350+</strong></span>
+        <input type="range" id="priceRangeSlider" min="5" max="350" step="5" value="350" oninput="updatePriceSlider(this.value)">
       </div>
     </section>
 
-    <!-- SECCIÓN MODO VENDEDOR (ESTADÍSTICAS) -->
+    <!-- STATS VENDEDOR -->
     <div id="sellerStatsArea" style="display: none;">
       <div class="seller-dashboard-header">
-        <div class="stat-card">
-          <span>Publicaciones activas</span>
-          <h3 id="statActive">1</h3>
-        </div>
-        <div class="stat-card">
-          <span>Interesados / Clics</span>
-          <h3>14</h3>
-        </div>
-        <div class="stat-card">
-          <span>Saldo disponible UniLoop</span>
-          <h3 id="statWallet">$48.50</h3>
-        </div>
+        <div class="stat-card"><span>Publicaciones activas</span><h3 id="statActive">1</h3></div>
+        <div class="stat-card"><span>Interesados / Clics</span><h3>28</h3></div>
+        <div class="stat-card"><span>Saldo disponible UniLoop</span><h3 id="statWallet">$48.50</h3></div>
       </div>
     </div>
 
-    <!-- SECCIÓN MODO CHATS / MENSAJES -->
+    <!-- CHATS -->
     <div id="chatsViewArea" style="display: none;">
       <div class="section-subtitle">
         <div class="section-subtitle-left">
@@ -1647,43 +415,36 @@
       <div class="chats-container-box">
         <div class="chat-sidebar-list">
           <div class="chat-thread-item active">
-            <div style="font-weight:700; font-size:13.5px; color:#002855;">Carlos B. · UG</div>
-            <div style="font-size:12px; color:#475569; margin-top:2px;">¿El multímetro incluye las puntas?</div>
+            <div style="font-weight:700; font-size:13.5px; color:#002855;">Carlos Proaño · ESPOL</div>
+            <div style="font-size:12px; color:#475569; margin-top:2px;">¿Aceptas canje por libro de Termodinámica?</div>
             <div style="font-size:10.5px; color:#0284c7; margin-top:4px; font-weight:600;">Hace 5 min</div>
           </div>
           <div class="chat-thread-item">
-            <div style="font-weight:700; font-size:13.5px; color:#002855;">Ana M. · ESPOL</div>
+            <div style="font-weight:700; font-size:13.5px; color:#002855;">Ana Morales · UG</div>
             <div style="font-size:12px; color:#475569; margin-top:2px;">Nos vemos en la biblioteca central a las 2pm</div>
             <div style="font-size:10.5px; color:#94a3b8; margin-top:4px;">Hace 1 hora</div>
-          </div>
-          <div class="chat-thread-item">
-            <div style="font-weight:700; font-size:13.5px; color:#002855;">Paula V. · UEES</div>
-            <div style="font-size:12px; color:#475569; margin-top:2px;">Gracias por la calculadora, todo 10/10</div>
-            <div style="font-size:10.5px; color:#94a3b8; margin-top:4px;">Ayer</div>
           </div>
         </div>
 
         <div class="chat-window-area">
           <div class="chat-messages-feed" id="chatMessagesFeed">
             <div class="chat-bubble incoming">Hola Diego, vi tu publicación en UniLoop. ¿Sigue disponible para entregar hoy en el campus?</div>
-            <div class="chat-bubble outgoing">¡Hola Carlos! Sí, sigue disponible. Podemos vernos frente a la biblioteca o en FIEC.</div>
-            <div class="chat-bubble incoming">¿El precio es negociable o aceptas transferencia / saldo UniLoop?</div>
+            <div class="chat-bubble outgoing">¡Hola! Sí, sigue disponible. Podemos vernos frente a la Biblioteca Central.</div>
           </div>
-
           <div class="chat-input-bar">
-            <input type="text" id="quickChatInput" placeholder="Escribe un mensaje para coordinar entrega..." onkeypress="if(event.key==='Enter') sendQuickChat()">
+            <input type="text" id="quickChatInput" placeholder="Escribe un mensaje..." onkeypress="if(event.key==='Enter') sendQuickChat()">
             <button class="btn-vender-nav" style="border-radius:10px;" onclick="sendQuickChat()">Enviar</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- CATÁLOGO DE PRODUCTOS -->
+    <!-- CATÁLOGO -->
     <div id="catalogSectionWrapper">
       <div class="section-subtitle">
         <div class="section-subtitle-left">
           <h2 id="sectionTitle">Todos los materiales en Guayaquil</h2>
-          <span id="sectionCounter">Publicaciones verificadas</span>
+          <span id="sectionCounter">50 publicaciones verificadas</span>
         </div>
 
         <select class="sort-dropdown" onchange="sortProducts(this.value)">
@@ -1697,8 +458,8 @@
     </div>
   </main>
 
-  <!-- BOTÓN FLOTANTE MAPA (INTACTO) -->
-  <a href="mapa.html" class="floating-map-btn" title="Ver en el mapa de campus">
+  <!-- BOTÓN FLOTANTE MAPA -->
+  <a href="mapa.html" class="floating-map-btn">
     <div class="radar-pulse"></div>
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
@@ -1708,11 +469,14 @@
     <span>Mapa de entregas</span>
   </a>
 
-  <!-- MODAL 1: DETALLE DEL MATERIAL -->
+  <!-- MODAL 1: VISTA PREVIA RÁPIDA -> BOTÓN A detalle.html -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal-card">
       <div class="modal-header">
-        <h3 id="modalDetailTitle">Detalle del Material</h3>
+        <div>
+          <span style="font-size:10.5px; font-weight:800; color:#0284c7; text-transform:uppercase; letter-spacing:0.6px;">Vista Previa Rápida</span>
+          <h3 id="modalDetailTitle">Detalle del Material</h3>
+        </div>
         <button class="btn-close-modal" onclick="closeDetailModal()">✕</button>
       </div>
 
@@ -1722,7 +486,7 @@
 
       <div class="detail-meta-grid">
         <div class="detail-meta-item">
-          <label>Precio</label>
+          <label>Precio UniLoop</label>
           <span id="modalDetailPrice" style="color: #002855; font-size: 16px;">$0</span>
         </div>
         <div class="detail-meta-item">
@@ -1744,11 +508,11 @@
         <p id="modalDetailDesc">Material verificado por un estudiante para entregas en campus.</p>
       </div>
 
-      <div id="modalDetailAction"></div>
+      <div id="modalDetailAction" style="display:flex; flex-direction:column; gap:8px;"></div>
     </div>
   </div>
 
-  <!-- MODAL 2: PUBLICAR MATERIAL (TASADOR INTELIGENTE) -->
+  <!-- MODAL 2: PUBLICAR MATERIAL -->
   <div class="modal-overlay" id="publishModal">
     <div class="modal-card wide-publish-modal">
       <div class="modal-header">
@@ -1760,9 +524,8 @@
           <div>
             <div class="form-group">
               <label>Nombre del material, libro o equipo</label>
-              <input type="text" id="itemName" placeholder="Ej. Multímetro digital, Bata laboratorio, Casio fx-991..." required>
+              <input type="text" id="itemName" placeholder="Ej. Multímetro digital, Bata laboratorio..." required>
             </div>
-
             <div class="form-group">
               <label>Categoría</label>
               <select id="itemCategory" required>
@@ -1774,7 +537,6 @@
                 <option value="Herramientas">Herramientas y Kits</option>
               </select>
             </div>
-
             <div class="form-group">
               <label>Universidad en Guayaquil</label>
               <select id="itemUni" required>
@@ -1791,59 +553,45 @@
                 <option value="UMET">Universidad Metropolitana (UMET)</option>
                 <option value="UPACIFICO">Universidad Del Pacífico</option>
                 <option value="UBE">Universidad Bolivariana del Ecuador (UBE)</option>
-                <option value="ITB">Instituto Superior Universitario Bolivariano (ITB)</option>
+                <option value="ITB">Instituto Bolivariano (ITB)</option>
               </select>
             </div>
-
             <div class="form-group">
               <label>Facultad y Carrera</label>
-              <input type="text" id="itemFaculty" placeholder="Ej. FIEC · Electricidad / Ciencias Médicas" required>
+              <input type="text" id="itemFaculty" placeholder="Ej. FIEC · Electricidad" required>
             </div>
-
             <div class="form-group">
-              <label>Número de WhatsApp (para contacto)</label>
+              <label>Número de WhatsApp</label>
               <input type="tel" id="itemPhone" placeholder="Ej. 593987654320" required>
             </div>
           </div>
 
           <div>
             <div class="form-group">
-              <label>Foto del producto (Sube tu archivo)</label>
-              <div class="photo-upload-box" id="photoDropArea">
+              <label>Foto del producto</label>
+              <div class="photo-upload-box">
                 <input type="file" id="filePhotoInput" accept="image/*" onchange="previewUploadedImage(event)">
                 <img id="uploadPreviewImage" class="upload-preview-img" alt="Vista previa">
-                <div class="upload-icon-circle" id="uploadPlaceholderIcon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                    <circle cx="12" cy="13" r="4"></circle>
-                  </svg>
-                </div>
+                <div class="upload-icon-circle" id="uploadPlaceholderIcon">📷</div>
                 <span id="uploadHintText" style="font-size:12px; font-weight:700; color:#0284c7;">Toca para subir foto</span>
-                <span id="uploadSubText" style="font-size:10px; color:#94a3b8;">PNG o JPG desde tu dispositivo</span>
               </div>
             </div>
-
             <div class="form-group">
               <label>Estado del producto</label>
               <select id="itemStatus" onchange="recalculateSmartPricing()" required>
-                <option value="Nuevo / Caja">Nuevo / En caja (Sin abrir)</option>
-                <option value="Como nuevo" selected>Como nuevo / Semi nuevo (1 semestre)</option>
-                <option value="Buen estado">Buen estado (Funcional con detalles)</option>
+                <option value="Nuevo / Caja">Nuevo / En caja</option>
+                <option value="Como nuevo" selected>Como nuevo / Semi nuevo</option>
+                <option value="Buen estado">Buen estado</option>
               </select>
             </div>
-
             <div class="form-group">
-              <label>Precio original de tienda ($ USD) <span style="color:#0284c7; font-weight:700;">(Para autocalcular)</span></label>
-              <input type="number" id="originalPriceInput" placeholder="¿Cuánto te costó nuevo? Ej. 25" min="1" step="0.5" oninput="recalculateSmartPricing()">
-              
+              <label>Precio original de tienda ($ USD)</label>
+              <input type="number" id="originalPriceInput" placeholder="Ej. 25" min="1" step="0.5" oninput="recalculateSmartPricing()">
               <div class="smart-pricing-card" id="smartPricingCard">
-                <div class="smart-pricing-title">
-                  <span>Precios justos sugeridos por UniLoop:</span>
-                </div>
+                <div style="font-size:11px; font-weight:700; color:#15803d; margin-bottom:5px;">Precios sugeridos UniLoop:</div>
                 <div class="quick-price-chips" id="priceChipsContainer"></div>
               </div>
             </div>
-
             <div class="form-group">
               <label>Tu precio de venta final ($ USD)</label>
               <input type="number" id="itemPrice" placeholder="Ej. 15" min="1" step="0.5" required>
@@ -1852,63 +600,42 @@
 
           <div class="form-full-row">
             <div class="form-group">
-              <label>Descripción detallada del material</label>
-              <textarea id="itemDesc" placeholder="Describe qué incluye, estado de funcionamiento y puntos de entrega..." required></textarea>
+              <label>Descripción detallada</label>
+              <textarea id="itemDesc" placeholder="Detalles, accesorios incluidos y punto de entrega..." required></textarea>
             </div>
-
-            <div class="form-group" style="margin-bottom: 0;">
-              <label>Hashtags de búsqueda (separados por espacio)</label>
-              <input type="text" id="itemHashtags" placeholder="#electricidad #laboratorio #ingenieria">
+            <div class="form-group" style="margin-bottom:0;">
+              <label>Hashtags</label>
+              <input type="text" id="itemHashtags" placeholder="#electricidad #laboratorio">
             </div>
           </div>
         </div>
-
         <button type="submit" class="btn-submit-modal">Publicar material en UniLoop</button>
       </form>
     </div>
   </div>
 
-  <!-- MODAL 3: PERFIL, AJUSTES Y RECARGA DE SALDO -->
+  <!-- MODAL 3: PERFIL -->
   <div class="modal-overlay" id="profileModal">
     <div class="modal-card">
       <div class="modal-header">
         <h3 id="profileModalTitle">Configuración de mi perfil</h3>
         <button class="btn-close-modal" onclick="closeProfileModal()">✕</button>
       </div>
-      
-      <div class="profile-card-header">
-        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80" alt="Diego Y." style="width:62px; height:62px; border-radius:50%; object-fit:cover;">
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80" alt="Diego Y." style="width:60px; height:60px; border-radius:50%; object-fit:cover;">
         <div>
-          <h4 style="font-size: 16px; color:#002855; font-weight:800;">Diego Yulán <span id="modalVerifiedTag" style="font-size:11px; background:#dcfce7; color:#15803d; padding:2px 7px; border-radius:999px;">✓ ESPOL</span></h4>
-          <span style="font-size: 12px; color:#64748b;">Rol: Estudiante verificado</span>
+          <h4 style="font-size:16px; color:#002855;">Diego Yulán <span id="modalVerifiedTag" style="font-size:11px; background:#dcfce7; color:#15803d; padding:2px 7px; border-radius:999px;">✓ ESPOL</span></h4>
+          <span style="font-size:12px; color:#64748b;">Estudiante verificado</span>
         </div>
       </div>
-
-      <div class="profile-field-item">
-        <label>Nombre mostrado</label>
-        <span style="font-weight:700; font-size:13.5px;">Diego Y.</span>
-      </div>
-
-      <div class="profile-field-item">
-        <label>Correo universitario verificado</label>
-        <span id="modalUserEmail" style="font-weight:600; font-size:13.5px;">dyulan@espol.edu.ec</span>
-      </div>
-
-      <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:12px 14px; border-radius:12px; margin:14px 0;">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <span style="font-size:11px; font-weight:700; color:#15803d; text-transform:uppercase;">Saldo Billetera UniLoop</span>
-            <div style="font-size:20px; font-weight:800; color:#065f46;" id="modalWalletBalance">$48.50</div>
-          </div>
-          <button type="button" onclick="rechargeWallet(10)" style="background:#059669; color:#fff; border:none; padding:8px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">
-            + Recargar $10
-          </button>
+      <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:12px 14px; border-radius:12px; margin:14px 0; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span style="font-size:11px; font-weight:700; color:#15803d;">SALDO BILLETERA UNILOOP</span>
+          <div style="font-size:20px; font-weight:800; color:#065f46;" id="modalWalletBalance">$48.50</div>
         </div>
+        <button type="button" onclick="rechargeWallet(10)" style="background:#059669; color:#fff; border:none; padding:8px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">+ Recargar $10</button>
       </div>
-
-      <button class="btn-submit-modal" style="background:#002855;" onclick="alert('Ajustes guardados correctamente.'); closeProfileModal();">
-        Guardar cambios
-      </button>
+      <button class="btn-submit-modal" onclick="closeProfileModal()">Listo</button>
     </div>
   </div>
 
@@ -1917,13 +644,93 @@
     let currentUni = "Todas";   
     let userVerifiedUni = "ESPOL";
     let userWalletBalance = 48.50;
-    let maxPriceFilter = 100;
+    let maxPriceFilter = 350;
     let uploadedImageUrl = null;
+
+    // BANCO DE IMÁGENES REALES COHERENTES POR PRODUCTO
+    const IMG = {
+      multimetro: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&auto=format&fit=crop&q=80",
+      cautin: "https://images.unsplash.com/photo-1597733336794-12d05021d510?w=600&auto=format&fit=crop&q=80",
+      arduino: "https://images.unsplash.com/photo-1553406830-ef2513450d76?w=600&auto=format&fit=crop&q=80",
+      calculadora: "https://images.unsplash.com/photo-1574607383476-f517f260d30b?w=600&auto=format&fit=crop&q=80",
+      libros: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
+      derecho: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&auto=format&fit=crop&q=80",
+      medicina: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=600&auto=format&fit=crop&q=80",
+      bata: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop&q=80",
+      arquitectura: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&auto=format&fit=crop&q=80",
+      arte: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&auto=format&fit=crop&q=80",
+      ipad: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80",
+      camara: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&auto=format&fit=crop&q=80",
+      herramientas: "https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=600&auto=format&fit=crop&q=80",
+      laptop: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80",
+      microscopio: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&auto=format&fit=crop&q=80"
+    };
+
+    // 50 PUBLICACIONES REALES CON IMÁGENES COHERENTES
+    const defaultMaterials = [
+      { id: 101, title: "Calculadora Gráfica Texas Instruments TI-Nspire CX II CAS", price: 125, originalPrice: 210, status: "Como nuevo", uni: "ESPOL", date: "15 Nov 2026", desc: "Incluye funda rígida original, cable USB y software CAS oficial para cálculo simbólico y ecuaciones diferenciales. Sin rayones.", faculty: "FIMCP · Ingeniería Mecánica", category: "Calculadoras", tags: ["#calculadoras", "#calculo", "#espol"], seller: "Carlos Proaño", sellerSem: "7mo Sem.", sellerRating: "4.9", sellerSales: 19, phone: "593987654321", isMyPost: false, exchangeOffer: "Libro Termodinámica de Çengel (9na ed.) o Mecánica Vectorial de Beer Johnston", exchangeDiscount: 50, image: IMG.calculadora },
+      { id: 102, title: "Multímetro Digital Uni-T UT61E True RMS", price: 24, originalPrice: 45, status: "Buen estado", uni: "ESPOL", date: "15 Nov 2026", desc: "Multímetro de alta precisión con puntas de prueba originales y batería nueva. Ideal para laboratorios de circuitos.", faculty: "FIEC · Electricidad", category: "Calculadoras", tags: ["#electricidad", "#laboratorio"], seller: "Ana Morales", sellerSem: "6to Sem.", sellerRating: "4.8", sellerSales: 12, phone: "593987654322", isMyPost: false, exchangeOffer: "Protoboard grande + fuente DC regulable", exchangeDiscount: 10, image: IMG.multimetro },
+      { id: 103, title: "Termodinámica 9na Edición - Yunus Çengel", price: 28, originalPrice: 65, status: "Como nuevo", uni: "ESPOL", date: "14 Nov 2026", desc: "Forrado con plástico protector, sin páginas dobladas ni resaltador. Entrega en Biblioteca Central o FIMCP.", faculty: "FIMCP · Ingeniería Mecánica", category: "Textos y Libros", tags: ["#libros", "#termodinamica"], seller: "Mateo Vera", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 8, phone: "593987654323", isMyPost: false, exchangeOffer: "Libro Transferencia de Calor o Mecánica de Fluidos", exchangeDiscount: 15, image: IMG.libros },
+      { id: 104, title: "iPad 9na Gen (64GB) + Apple Pencil 1ra Gen", price: 240, originalPrice: 380, status: "Como nuevo", uni: "UCSG", date: "15 Nov 2026", desc: "Perfecto para tomar apuntes en Goodnotes en Medicina o Derecho. Incluye mica tipo papel y estuche magnético.", faculty: "Medicina · Ciencias Médicas", category: "Tecnología", tags: ["#ipad", "#apuntes", "#tecnologia"], seller: "Valeria Mendoza", sellerSem: "4to Sem.", sellerRating: "4.9", sellerSales: 15, phone: "593987654324", isMyPost: false, exchangeOffer: "Estetoscopio Littmann Cardiology IV", exchangeDiscount: 110, image: IMG.ipad },
+      { id: 105, title: "Estetoscopio Littmann Classic III Negro + Estuche", price: 75, originalPrice: 130, status: "Como nuevo", uni: "UEES", date: "14 Nov 2026", desc: "Usado solo 2 meses en prácticas de semiología. Viene con olivas de repuesto y estuche rígido protector.", faculty: "Medicina · Cirugía", category: "Batas y Salud", tags: ["#medicina", "#littmann", "#salud"], seller: "Sofía Zambrano", sellerSem: "8vo Sem.", sellerRating: "5.0", sellerSales: 22, phone: "593987654325", isMyPost: false, exchangeOffer: "Tensiómetro Welch Allyn o libro Anatomía de Moore", exchangeDiscount: 35, image: IMG.medicina },
+      { id: 106, title: "Cámara Sony Alpha A6000 + Lente Kit 16-50mm", price: 310, originalPrice: 520, status: "Buen estado", uni: "UCG", date: "13 Nov 2026", desc: "Incluye batería extra, cargador original y bolso de transporte. Ideal para producción audiovisual y fotografía.", faculty: "Comunicación · Producción", category: "Tecnología", tags: ["#fotografia", "#camara", "#sony"], seller: "Sebastián Ortiz", sellerSem: "6to Sem.", sellerRating: "4.8", sellerSales: 9, phone: "593987654326", isMyPost: false, exchangeOffer: "Estabilizador DJI Ronin SC o micrófono Rode", exchangeDiscount: 90, image: IMG.camara },
+      { id: 107, title: "Kit Arduino Mega 2560 + 37 Sensores + Protoboard", price: 28, originalPrice: 50, status: "Nuevo / Caja", uni: "UPS", date: "15 Nov 2026", desc: "Caja organizadora completa con cables jumper macho-hembra, pantalla LCD, servomotores y módulo WiFi.", faculty: "Ingeniería · Mecatrónica", category: "Tecnología", tags: ["#arduino", "#electronica", "#robotica"], seller: "Jorge Torres", sellerSem: "5to Sem.", sellerRating: "4.7", sellerSales: 11, phone: "593987654327", isMyPost: false, exchangeOffer: "Raspberry Pi 4 o fuente de poder", exchangeDiscount: 15, image: IMG.arduino },
+      { id: 108, title: "Código Orgánico Integral Penal (COIP) + Constitución", price: 15, originalPrice: 30, status: "Buen estado", uni: "UG", date: "12 Nov 2026", desc: "Edición actualizada con índice rápido. Entrega en Facultad de Jurisprudencia Ciudadela Universitaria.", faculty: "Jurisprudencia · Derecho", category: "Textos y Libros", tags: ["#derecho", "#coip", "#libros"], seller: "María José Ruiz", sellerSem: "7mo Sem.", sellerRating: "4.9", sellerSales: 14, phone: "593987654328", isMyPost: false, exchangeOffer: "Código Civil o Código Orgánico General de Procesos", exchangeDiscount: 8, image: IMG.derecho },
+      { id: 109, title: "Tablero de Dibujo Técnico A2 + Regla Paralela", price: 35, originalPrice: 68, status: "Como nuevo", uni: "UCSG", date: "14 Nov 2026", desc: "Tablero portátil con inclinación ajustable, escuadras biseladas y tubo portaplanos incluido.", faculty: "Arquitectura y Diseño", category: "Arquitectura", tags: ["#arquitectura", "#dibujo", "#planos"], seller: "Paula Villacís", sellerSem: "3er Sem.", sellerRating: "4.9", sellerSales: 7, phone: "593987654329", isMyPost: false, exchangeOffer: "Set de marcadores Copic o escalímetro metálico", exchangeDiscount: 15, image: IMG.arquitectura },
+      { id: 110, title: "Bata de Laboratorio Antifluido Talla M + Gafas", price: 14, originalPrice: 26, status: "Como nuevo", uni: "ESPOL", date: "15 Nov 2026", desc: "Bata blanca manga larga con puños elásticos, sin manchas químicas. Incluye gafas de seguridad transparentes.", faculty: "FCNM · Ingeniería Química", category: "Batas y Salud", tags: ["#quimica", "#bata", "#laboratorio"], seller: "Diego Y.", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 6, phone: "593987654320", isMyPost: true, exchangeOffer: "Libro Química General de Chang", exchangeDiscount: 7, image: IMG.bata },
+      { id: 111, title: "Estación de Soldadura Cautín 60W Regulable", price: 16, originalPrice: 32, status: "Buen estado", uni: "ESPOL", date: "14 Nov 2026", desc: "Incluye soporte metálico, esponja limpiadora y rollo de estaño 60/40.", faculty: "FIEC · Electrónica", category: "Herramientas", tags: ["#soldadura", "#circuitos"], seller: "Andrés Gómez", sellerSem: "6to Sem.", sellerRating: "4.8", sellerSales: 10, phone: "593987654330", isMyPost: false, exchangeOffer: "Pinza amperimétrica", exchangeDiscount: 8, image: IMG.cautin },
+      { id: 112, title: "Cálculo de una Variable - James Stewart 8va Ed.", price: 22, originalPrice: 55, status: "Buen estado", uni: "ESPOL", date: "13 Nov 2026", desc: "Libro físico original en español, ideal para Cálculo Diferencial e Integral.", faculty: "FCNM · Matemática", category: "Textos y Libros", tags: ["#calculo", "#stewart", "#libros"], seller: "Kevin Paredes", sellerSem: "4to Sem.", sellerRating: "4.9", sellerSales: 5, phone: "593987654331", isMyPost: false, exchangeOffer: "Álgebra Lineal de Grossman", exchangeDiscount: 12, image: IMG.libros },
+      { id: 113, title: "Calculadora Científica Casio fx-991LA CW", price: 19, originalPrice: 34, status: "Nuevo / Caja", uni: "UG", date: "15 Nov 2026", desc: "Caja sellada con garantía, pantalla de alta resolución para matrices y estadística.", faculty: "Ingeniería Industrial", category: "Calculadoras", tags: ["#casio", "#estadistica"], seller: "Luis Cedeño", sellerSem: "3er Sem.", sellerRating: "4.7", sellerSales: 9, phone: "593987654332", isMyPost: false, exchangeOffer: "Libro Estadística de Devore", exchangeDiscount: 10, image: IMG.calculadora },
+      { id: 114, title: "Tensiómetro Aneroide + Fonendoscopio Riester", price: 32, originalPrice: 60, status: "Como nuevo", uni: "UG", date: "12 Nov 2026", desc: "Calibrado con brazalete adulto y estuche con cierre. Entrega en Ciencias Médicas.", faculty: "Medicina · Enfermería", category: "Batas y Salud", tags: ["#enfermeria", "#tensiometro"], seller: "Camila Suárez", sellerSem: "6to Sem.", sellerRating: "5.0", sellerSales: 16, phone: "593987654333", isMyPost: false, exchangeOffer: "Oxímetro de pulso profesional", exchangeDiscount: 12, image: IMG.medicina },
+      { id: 115, title: "Set de Escuadras Profesionales + Escalímetro Aluminio", price: 12, originalPrice: 24, status: "Buen estado", uni: "UG", date: "11 Nov 2026", desc: "Sin bordes astillados, escalímetro triangular con 6 escalas métricas.", faculty: "Arquitectura y Urbanismo", category: "Arquitectura", tags: ["#escalimetro", "#arquitectura"], seller: "Fernando León", sellerSem: "5to Sem.", sellerRating: "4.8", sellerSales: 4, phone: "593987654334", isMyPost: false, exchangeOffer: "Estilógrafos recargables", exchangeDiscount: 6, image: IMG.arquitectura },
+      { id: 116, title: "MacBook Air M1 256GB (Ideal Programación)", price: 340, originalPrice: 650, status: "Buen estado", uni: "UEES", date: "15 Nov 2026", desc: "Batería al 91%, cargador original MagSafe. Corre Python, RStudio y Docker sin problemas.", faculty: "Ingeniería en Sistemas", category: "Tecnología", tags: ["#macbook", "#programacion"], seller: "Nicolás Vélez", sellerSem: "8vo Sem.", sellerRating: "5.0", sellerSales: 13, phone: "593987654335", isMyPost: false, exchangeOffer: "iPad Pro + diferencia", exchangeDiscount: 150, image: IMG.laptop },
+      { id: 117, title: "Principios de Economía - Gregory Mankiw", price: 20, originalPrice: 48, status: "Como nuevo", uni: "ECOTEC", date: "14 Nov 2026", desc: "Usado en Microeconomía y Macroeconomía. Entrega en campus Samborondón o Juan Tanca Marengo.", faculty: "Ciencias Económicas", category: "Textos y Libros", tags: ["#economia", "#mankiw"], seller: "Daniela Viteri", sellerSem: "4to Sem.", sellerRating: "4.9", sellerSales: 11, phone: "593987654336", isMyPost: false, exchangeOffer: "Libro Contabilidad Financiera", exchangeDiscount: 10, image: IMG.libros },
+      { id: 118, title: "Kit de Herramientas de Precisión 64 en 1", price: 15, originalPrice: 28, status: "Nuevo / Caja", uni: "UPS", date: "13 Nov 2026", desc: "Destornilladores magnéticos para laptops, celulares y placas electrónicas.", faculty: "Computación · Redes", category: "Herramientas", tags: ["#herramientas", "#mantenimiento"], seller: "Bryan Mendoza", sellerSem: "5to Sem.", sellerRating: "4.8", sellerSales: 18, phone: "593987654337", isMyPost: false, exchangeOffer: "Crimpadora RJ45", exchangeDiscount: 8, image: IMG.herramientas },
+      { id: 119, title: "Set Óleos Profesionales + Pinceles Pelo Marta", price: 26, originalPrice: 52, status: "Como nuevo", uni: "UARTES", date: "15 Nov 2026", desc: "18 tubos casi llenos y estuche de bambú con pinceles planos y redondos.", faculty: "Artes Visuales", category: "Arquitectura", tags: ["#arte", "#pintura", "#uartes"], seller: "Lucía Andrade", sellerSem: "6to Sem.", sellerRating: "5.0", sellerSales: 9, phone: "593987654338", isMyPost: false, exchangeOffer: "Bastidores de lienzo 50x70", exchangeDiscount: 12, image: IMG.arte },
+      { id: 120, title: "Libro Anatomía con Orientación Clínica - Moore", price: 42, originalPrice: 95, status: "Como nuevo", uni: "UCSG", date: "12 Nov 2026", desc: "8va edición tapa dura, láminas a todo color impecables.", faculty: "Medicina", category: "Textos y Libros", tags: ["#anatomia", "#moore", "#medicina"], seller: "Gabriel Franco", sellerSem: "5to Sem.", sellerRating: "4.9", sellerSales: 20, phone: "593987654339", isMyPost: false, exchangeOffer: "Atlas de Netter", exchangeDiscount: 20, image: IMG.libros },
+      { id: 121, title: "Osciloscopio Portátil Digital DSO138 Armado", price: 22, originalPrice: 40, status: "Buen estado", uni: "ESPOL", date: "11 Nov 2026", desc: "Con carcasa acrílica transparente y sonda BNC incluida.", faculty: "FIEC · Telecomunicaciones", category: "Calculadoras", tags: ["#osciloscopio", "#electronica"], seller: "Esteban Silva", sellerSem: "7mo Sem.", sellerRating: "4.8", sellerSales: 14, phone: "593987654340", isMyPost: false, exchangeOffer: "Módulo ESP32 + sensores", exchangeDiscount: 10, image: IMG.multimetro },
+      { id: 122, title: "Scrub Quirúrgico Azul Marino Antifluido Talla S", price: 18, originalPrice: 35, status: "Como nuevo", uni: "UBE", date: "14 Nov 2026", desc: "Tela cómoda y fresca con 5 bolsillos funcionales. Entrega en campus Durán o centro.", faculty: "Enfermería y Salud", category: "Batas y Salud", tags: ["#scrub", "#enfermeria"], seller: "Josselyn Mora", sellerSem: "4to Sem.", sellerRating: "4.9", sellerSales: 7, phone: "593987654341", isMyPost: false, exchangeOffer: "Bata blanca manga corta", exchangeDiscount: 8, image: IMG.bata },
+      { id: 123, title: "Finanzas Corporativas - Ross Westerfield 11va Ed.", price: 25, originalPrice: 60, status: "Buen estado", uni: "UIDE", date: "13 Nov 2026", desc: "Excelente estado, ideal para Administración de Empresas y Finanzas.", faculty: "Administración de Empresas", category: "Textos y Libros", tags: ["#finanzas", "#administracion"], seller: "Roberto Cárdenas", sellerSem: "6to Sem.", sellerRating: "4.7", sellerSales: 5, phone: "593987654342", isMyPost: false, exchangeOffer: "Libro Marketing de Kotler", exchangeDiscount: 12, image: IMG.libros },
+      { id: 124, title: "Tableta Gráfica Wacom Intuos Small Bluetooth", price: 48, originalPrice: 90, status: "Como nuevo", uni: "UCG", date: "15 Nov 2026", desc: "Con lápiz sin batería y 3 puntas de repuesto dentro del lápiz.", faculty: "Diseño Gráfico", category: "Tecnología", tags: ["#wacom", "#diseño"], seller: "Mariana Salazar", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 12, phone: "593987654343", isMyPost: false, exchangeOffer: "Teclado mecánico compacto", exchangeDiscount: 20, image: IMG.ipad },
+      { id: 125, title: "Contabilidad General - Pedro Zapata Sánchez", price: 16, originalPrice: 35, status: "Buen estado", uni: "ULVR", date: "10 Nov 2026", desc: "Incluye plan de cuentas actualizado bajo NIIF.", faculty: "Contabilidad y Auditoría", category: "Textos y Libros", tags: ["#contabilidad", "#niif"], seller: "Paola Zambrano", sellerSem: "3er Sem.", sellerRating: "4.8", sellerSales: 8, phone: "593987654344", isMyPost: false, exchangeOffer: "Calculadora financiera HP", exchangeDiscount: 8, image: IMG.libros },
+      { id: 126, title: "Fuente de Poder Protoboard 3.3V/5V + 830 Puntos", price: 9, originalPrice: 18, status: "Nuevo / Caja", uni: "UPS", date: "14 Nov 2026", desc: "Ideal para prácticas de electrónica digital y microcontroladores.", faculty: "Electrónica y Automatización", category: "Tecnología", tags: ["#protoboard", "#circuitos"], seller: "Cristian Loja", sellerSem: "4to Sem.", sellerRating: "4.9", sellerSales: 15, phone: "593987654345", isMyPost: false, exchangeOffer: "Cables dupont variados", exchangeDiscount: 4, image: IMG.arduino },
+      { id: 127, title: "Lente Canon EF 50mm f/1.8 STM (Retrato)", price: 85, originalPrice: 145, status: "Como nuevo", uni: "UARTES", date: "12 Nov 2026", desc: "Sin hongos ni polvo, enfoque silencioso para video y fotografía.", faculty: "Cine y Artes Audiovisuales", category: "Tecnología", tags: ["#canon", "#lente", "#cine"], seller: "Emilio Pincay", sellerSem: "7mo Sem.", sellerRating: "5.0", sellerSales: 11, phone: "593987654346", isMyPost: false, exchangeOffer: "Trípode Manfrotto", exchangeDiscount: 35, image: IMG.camara },
+      { id: 128, title: "Kit de Disección Quirúrgica Acero Inoxidable 12 pzas", price: 17, originalPrice: 32, status: "Como nuevo", uni: "ITB", date: "13 Nov 2026", desc: "Estuche con cierre, mango de bisturí #3 y #4, pinzas y tijeras.", faculty: "Técnico en Enfermería", category: "Batas y Salud", tags: ["#diseccion", "#enfermeria"], seller: "Karla Méndez", sellerSem: "4to Sem.", sellerRating: "4.8", sellerSales: 9, phone: "593987654347", isMyPost: false, exchangeOffer: "Oxímetro digital", exchangeDiscount: 8, image: IMG.medicina },
+      { id: 129, title: "Física Universitaria - Sears Zemansky Vol. 1 y 2", price: 34, originalPrice: 80, status: "Buen estado", uni: "ESPOL", date: "15 Nov 2026", desc: "Ambos tomos en buen estado, excelente para Física 1 y Física 2.", faculty: "FCNM · Física", category: "Textos y Libros", tags: ["#fisica", "#sears"], seller: "Diego Y.", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 6, phone: "593987654320", isMyPost: false, exchangeOffer: "Calculadora científica", exchangeDiscount: 15, image: IMG.libros },
+      { id: 130, title: "Maletín de Herramientas Eléctricas + Pelacables", price: 21, originalPrice: 42, status: "Buen estado", uni: "UMET", date: "11 Nov 2026", desc: "Alicate de corte, pinza de punta, pelacables automático y cinta aislante.", faculty: "Ingeniería Industrial", category: "Herramientas", tags: ["#electricidad", "#herramientas"], seller: "Héctor Baquerizo", sellerSem: "6to Sem.", sellerRating: "4.7", sellerSales: 6, phone: "593987654348", isMyPost: false, exchangeOffer: "Multímetro básico", exchangeDiscount: 10, image: IMG.herramientas },
+      { id: 131, title: "Comercio Internacional y Logística - Ballou", price: 23, originalPrice: 50, status: "Como nuevo", uni: "UPACIFICO", date: "14 Nov 2026", desc: "Administración de la cadena de suministro, sin rayones.", faculty: "Negocios Internacionales", category: "Textos y Libros", tags: ["#logistica", "#negocios"], seller: "Doménica Salgado", sellerSem: "7mo Sem.", sellerRating: "4.9", sellerSales: 10, phone: "593987654349", isMyPost: false, exchangeOffer: "Libro Finanzas Internacionales", exchangeDiscount: 10, image: IMG.libros },
+      { id: 132, title: "Microscopio Óptico Binocular de Prácticas", price: 95, originalPrice: 180, status: "Buen estado", uni: "UG", date: "10 Nov 2026", desc: "Objetivos 4x, 10x, 40x y 100x con luz LED regulable.", faculty: "Ciencias Naturales · Biología", category: "Batas y Salud", tags: ["#microscopio", "#biologia"], seller: "Ricardo Tello", sellerSem: "8vo Sem.", sellerRating: "5.0", sellerSales: 7, phone: "593987654350", isMyPost: false, exchangeOffer: "Tablet Android para apuntes", exchangeDiscount: 40, image: IMG.microscopio },
+      { id: 133, title: "Raspberry Pi 4 Model B (4GB RAM) + Case Ventilador", price: 58, originalPrice: 95, status: "Como nuevo", uni: "ESPOL", date: "15 Nov 2026", desc: "Incluye microSD 32GB con Raspberry Pi OS y fuente USB-C oficial.", faculty: "FIEC · Computación", category: "Tecnología", tags: ["#raspberrypi", "#linux", "#iot"], seller: "Javier Alcívar", sellerSem: "6to Sem.", sellerRating: "4.9", sellerSales: 17, phone: "593987654351", isMyPost: false, exchangeOffer: "Monitor secundario portátil", exchangeDiscount: 25, image: IMG.arduino },
+      { id: 134, title: "Compás de Precisión Staedtler Mars Comfort", price: 14, originalPrice: 27, status: "Como nuevo", uni: "UCSG", date: "13 Nov 2026", desc: "Con adaptador universal y caja de minas de repuesto.", faculty: "Arquitectura", category: "Arquitectura", tags: ["#staedtler", "#dibujo"], seller: "Andrea Cobo", sellerSem: "2do Sem.", sellerRating: "4.8", sellerSales: 5, phone: "593987654352", isMyPost: false, exchangeOffer: "Portaminas 0.3 y 0.5", exchangeDiscount: 6, image: IMG.arquitectura },
+      { id: 135, title: "Derecho Constitucional Ecuatoriano - Ramiro Ávila", price: 13, originalPrice: 28, status: "Buen estado", uni: "UEES", date: "12 Nov 2026", desc: "Análisis garantista, subrayado suave con lápiz.", faculty: "Derecho y Gobernanza", category: "Textos y Libros", tags: ["#constitucional", "#derecho"], seller: "Martín Roca", sellerSem: "5to Sem.", sellerRating: "4.9", sellerSales: 13, phone: "593987654353", isMyPost: false, exchangeOffer: "Código Orgánico Administrativo", exchangeDiscount: 6, image: IMG.derecho },
+      { id: 136, title: "Pinza Amperimétrica Digital Fluke 302+", price: 65, originalPrice: 120, status: "Como nuevo", uni: "ESPOL", date: "14 Nov 2026", desc: "Original Fluke, medición AC/DC con estuche de lona.", faculty: "FIEC · Potencia", category: "Calculadoras", tags: ["#fluke", "#electricidad"], seller: "Óscar Delgado", sellerSem: "8vo Sem.", sellerRating: "5.0", sellerSales: 21, phone: "593987654354", isMyPost: false, exchangeOffer: "Multímetro Fluke 115", exchangeDiscount: 30, image: IMG.multimetro },
+      { id: 137, title: "Bata Médica Bordada Sin Logo (Talla L)", price: 15, originalPrice: 28, status: "Nuevo / Caja", uni: "ECOTEC", date: "15 Nov 2026", desc: "Nueva en empaque, tela gabardina gruesa que no transparenta.", faculty: "Ciencias de la Salud", category: "Batas y Salud", tags: ["#bata", "#medicina"], seller: "Belén Villamar", sellerSem: "3er Sem.", sellerRating: "4.8", sellerSales: 6, phone: "593987654355", isMyPost: false, exchangeOffer: "Libro Fisiología de Guyton", exchangeDiscount: 8, image: IMG.bata },
+      { id: 138, title: "Cautín Tipo Lápiz 40W + Extractor de Soldadura", price: 11, originalPrice: 20, status: "Buen estado", uni: "UPS", date: "11 Nov 2026", desc: "Punta cerámica de calentamiento rápido + bomba desoldadora.", faculty: "Electrónica", category: "Herramientas", tags: ["#cautin", "#electronica"], seller: "Galo Moncada", sellerSem: "4to Sem.", sellerRating: "4.7", sellerSales: 9, phone: "593987654356", isMyPost: false, exchangeOffer: "Protoboard 830 puntos", exchangeDiscount: 5, image: IMG.cautin },
+      { id: 139, title: "Química Orgánica - John McMurry 9na Edición", price: 29, originalPrice: 70, status: "Buen estado", uni: "UG", date: "13 Nov 2026", desc: "Tapa blanda, incluye tabla de grupos funcionales plastificada.", faculty: "Ciencias Químicas · Bioquímica", category: "Textos y Libros", tags: ["#quimica", "#mcmurry"], seller: "Tatiana Reyes", sellerSem: "5to Sem.", sellerRating: "4.9", sellerSales: 14, phone: "593987654357", isMyPost: false, exchangeOffer: "Bata de laboratorio + gafas", exchangeDiscount: 12, image: IMG.libros },
+      { id: 140, title: "Set 36 Marcadores Doble Punta Touch para Bocetos", price: 14, originalPrice: 26, status: "Como nuevo", uni: "UCG", date: "14 Nov 2026", desc: "Todos pintan perfecto, incluye maletín negro con cierre.", faculty: "Diseño Industrial", category: "Arquitectura", tags: ["#marcadores", "#bocetos"], seller: "Sofía Intriago", sellerSem: "3er Sem.", sellerRating: "5.0", sellerSales: 8, phone: "593987654358", isMyPost: false, exchangeOffer: "Bitácora papel acuarela A4", exchangeDiscount: 6, image: IMG.arte },
+      { id: 141, title: "Calculadora Financiera HP 10bII+ Original", price: 24, originalPrice: 45, status: "Como nuevo", uni: "ESPOL", date: "15 Nov 2026", desc: "Ideal para Ingeniería Económica, VAN, TIR y amortizaciones.", faculty: "FCSH · Administración de Empresas", category: "Calculadoras", tags: ["#finanzas", "#hp", "#economia"], seller: "Diego Y.", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 6, phone: "593987654320", isMyPost: true, exchangeOffer: "Libro Dirección de Marketing", exchangeDiscount: 10, image: IMG.calculadora },
+      { id: 142, title: "Kit Sensores Biomédicos (Pulso, ECG, EMG) Arduino", price: 30, originalPrice: 55, status: "Como nuevo", uni: "ESPOL", date: "12 Nov 2026", desc: "Incluye electrodos desechables y cables de conexión.", faculty: "FIEC · Telemática", category: "Tecnología", tags: ["#biomedica", "#sensores"], seller: "Piero Castro", sellerSem: "7mo Sem.", sellerRating: "4.9", sellerSales: 11, phone: "593987654359", isMyPost: false, exchangeOffer: "ESP32 Cam + pantalla OLED", exchangeDiscount: 15, image: IMG.arduino },
+      { id: 143, title: "Tratado de Fisiología Médica - Guyton y Hall 14va Ed.", price: 48, originalPrice: 110, status: "Como nuevo", uni: "UEES", date: "14 Nov 2026", desc: "Edición más reciente, sin marcas de resaltador.", faculty: "Medicina", category: "Textos y Libros", tags: ["#guyton", "#fisiologia"], seller: "Camila Ponce", sellerSem: "6to Sem.", sellerRating: "5.0", sellerSales: 19, phone: "593987654360", isMyPost: false, exchangeOffer: "Libro Farmacología de Katzung", exchangeDiscount: 22, image: IMG.libros },
+      { id: 144, title: "Dremel Mototool Rotativo + 40 Accesorios Maquetas", price: 32, originalPrice: 62, status: "Buen estado", uni: "UCSG", date: "11 Nov 2026", desc: "Excelente para cortar madera balsa, acrílico y PVC en maquetas.", faculty: "Arquitectura", category: "Herramientas", tags: ["#maquetas", "#dremel"], seller: "José Luis Mera", sellerSem: "6to Sem.", sellerRating: "4.8", sellerSales: 13, phone: "593987654361", isMyPost: false, exchangeOffer: "Plancha de corte A2", exchangeDiscount: 15, image: IMG.herramientas },
+      { id: 145, title: "Laptop Lenovo ThinkPad T480 Core i5 16GB RAM", price: 260, originalPrice: 480, status: "Buen estado", uni: "ULVR", date: "15 Nov 2026", desc: "SSD 512GB, teclado retroiluminado, ideal para AutoCAD, Excel avanzado y Power BI.", faculty: "Ingeniería Civil", category: "Tecnología", tags: ["#laptop", "#thinkpad", "#autocad"], seller: "Mauricio Solís", sellerSem: "7mo Sem.", sellerRating: "4.9", sellerSales: 10, phone: "593987654362", isMyPost: false, exchangeOffer: "Tablet Samsung Tab S6 Lite + diferencia", exchangeDiscount: 100, image: IMG.laptop },
+      { id: 146, title: "Oxímetro de Pulso + Termómetro Infrarrojo Médico", price: 16, originalPrice: 30, status: "Nuevo / Caja", uni: "UBE", date: "13 Nov 2026", desc: "Nuevos con pilas incluidas, pantalla OLED.", faculty: "Enfermería", category: "Batas y Salud", tags: ["#oximetro", "#salud"], seller: "Diana Chóez", sellerSem: "5to Sem.", sellerRating: "4.8", sellerSales: 12, phone: "593987654363", isMyPost: false, exchangeOffer: "Estetoscopio básico", exchangeDiscount: 8, image: IMG.medicina },
+      { id: 147, title: "Ecuaciones Diferenciales - Dennis Zill 9na Ed.", price: 21, originalPrice: 52, status: "Buen estado", uni: "ESPOL", date: "10 Nov 2026", desc: "Con problemas con valores en la frontera, pasta firme.", faculty: "FCNM · Matemática", category: "Textos y Libros", tags: ["#ecuaciones", "#zill"], seller: "Luisana Bravo", sellerSem: "4to Sem.", sellerRating: "4.9", sellerSales: 7, phone: "593987654364", isMyPost: false, exchangeOffer: "Libro Probabilidad y Estadística", exchangeDiscount: 10, image: IMG.libros },
+      { id: 148, title: "Maleta de Maquillaje y Caracterización Teatral", price: 38, originalPrice: 75, status: "Como nuevo", uni: "UARTES", date: "14 Nov 2026", desc: "Paletas hipoalergénicas, brochas y látex líquido sin abrir.", faculty: "Artes Escénicas", category: "Arquitectura", tags: ["#teatro", "#caracterizacion"], seller: "Valentina Páez", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 9, phone: "593987654365", isMyPost: false, exchangeOffer: "Micrófono condensador USB", exchangeDiscount: 18, image: IMG.arte },
+      { id: 149, title: "Cautín Portátil USB 5V + Pasta Flux + Malla", price: 10, originalPrice: 19, status: "Nuevo / Caja", uni: "ITB", date: "15 Nov 2026", desc: "Calienta en 15 segundos, perfecto para reparaciones rápidas en laboratorio.", faculty: "Electrónica", category: "Herramientas", tags: ["#cautin", "#reparacion"], seller: "Jonathan Vera", sellerSem: "3er Sem.", sellerRating: "4.7", sellerSales: 6, phone: "593987654366", isMyPost: false, exchangeOffer: "Multímetro de bolsillo", exchangeDiscount: 5, image: IMG.cautin },
+      { id: 150, title: "Administración Estratégica - Fred David 15va Ed.", price: 22, originalPrice: 54, status: "Como nuevo", uni: "ECOTEC", date: "15 Nov 2026", desc: "Conceptos y casos prácticos, sin apuntes.", faculty: "Administración de Empresas", category: "Textos y Libros", tags: ["#estrategia", "#administracion"], seller: "Andrea Maldonado", sellerSem: "8vo Sem.", sellerRating: "5.0", sellerSales: 15, phone: "593987654367", isMyPost: false, exchangeOffer: "Libro Comportamiento Organizacional", exchangeDiscount: 10, image: IMG.libros }
+    ];
+
+    // GUARDAR EN LOCALSTORAGE PARA COMPARTIR CON detalle.html
+    let materials = JSON.parse(localStorage.getItem('uniloop_materials_v2')) || defaultMaterials;
+    function saveMaterialsToStorage() {
+      localStorage.setItem('uniloop_materials_v2', JSON.stringify(materials));
+    }
+    saveMaterialsToStorage();
 
     // NOTIFICACIONES EN TIEMPO REAL
     let notifications = [
-      { id: 1, text: "💬 <strong>Carlos B. (UG):</strong> ¿El multímetro incluye las puntas?", time: "Hace 5 min", unread: true },
-      { id: 2, text: "📦 <strong>Nueva publicación en ESPOL:</strong> Calculadora Casio fx-991 subida.", time: "Hace 40 min", unread: true },
+      { id: 1, text: "💬 <strong>Carlos Proaño (ESPOL):</strong> ¿Aceptas canje por libro de Termodinámica?", time: "Hace 5 min", unread: true },
+      { id: 2, text: "📦 <strong>Nueva publicación en ESPOL:</strong> Calculadora Texas Instruments TI-Nspire.", time: "Hace 40 min", unread: true },
       { id: 3, text: "💰 <strong>Saldo acreditado:</strong> +$15.00 por entrega verificada en campus.", time: "Ayer", unread: true }
     ];
 
@@ -1931,13 +738,8 @@
       const list = document.getElementById('notifListContainer');
       const badge = document.getElementById('notifCountBadge');
       const unreadCount = notifications.filter(n => n.unread).length;
-
-      if (unreadCount > 0) {
-        badge.style.display = 'flex';
-        badge.innerText = unreadCount;
-      } else {
-        badge.style.display = 'none';
-      }
+      badge.style.display = unreadCount > 0 ? 'flex' : 'none';
+      badge.innerText = unreadCount;
 
       list.innerHTML = notifications.map(n => `
         <div class="dropdown-item ${n.unread ? 'unread' : ''}" onclick="markSingleNotifRead(${n.id})">
@@ -1948,12 +750,7 @@
     }
 
     function pushLiveNotification(htmlText) {
-      notifications.unshift({
-        id: Date.now(),
-        text: htmlText,
-        time: "Justo ahora",
-        unread: true
-      });
+      notifications.unshift({ id: Date.now(), text: htmlText, time: "Justo ahora", unread: true });
       renderNotifications();
     }
 
@@ -1968,26 +765,22 @@
       renderNotifications();
     }
 
-    // CAMBIAR UNIVERSIDAD VERIFICADA DEL USUARIO EN NAVBAR
     function changeUserCampus(uniCode) {
       userVerifiedUni = uniCode;
       document.getElementById('verifiedUniText').innerText = uniCode;
       document.getElementById('modalVerifiedTag').innerText = `✓ ${uniCode}`;
-      document.getElementById('modalUserEmail').innerText = `dyulan@${uniCode.toLowerCase()}.edu.ec`;
-      pushLiveNotification(`🎓 <strong>Campus actualizado:</strong> Ahora estás verificado en <strong>${uniCode}</strong>.`);
+      pushLiveNotification(`🎓 <strong>Campus actualizado:</strong> Verificado en <strong>${uniCode}</strong>.`);
     }
 
-    // RECARGAR SALDO
     function rechargeWallet(amount) {
       userWalletBalance += amount;
       const formatted = `$${userWalletBalance.toFixed(2)}`;
       document.getElementById('userBalanceText').innerText = formatted;
       document.getElementById('modalWalletBalance').innerText = formatted;
       if (document.getElementById('statWallet')) document.getElementById('statWallet').innerText = formatted;
-      pushLiveNotification(`💳 <strong>Recarga exitosa:</strong> Se sumaron $${amount.toFixed(2)} a tu saldo UniLoop.`);
+      pushLiveNotification(`💳 <strong>Recarga exitosa:</strong> +$${amount.toFixed(2)} a tu saldo.`);
     }
 
-    // ATAJO DE TECLADO CTRL+K / CMD+K PARA BUSCADOR SUPERIOR
     window.addEventListener('keydown', (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
@@ -2001,7 +794,6 @@
       applyFilters();
     }
 
-    // DROPDOWNS
     function toggleNotifDropdown(e) {
       e.stopPropagation();
       document.getElementById('userDropdown').classList.remove('open');
@@ -2020,16 +812,13 @@
       document.getElementById('profileModal').classList.add('open');
     }
 
-    function closeProfileModal() {
-      document.getElementById('profileModal').classList.remove('open');
-    }
+    function closeProfileModal() { document.getElementById('profileModal').classList.remove('open'); }
 
     window.addEventListener('click', (e) => {
       if (!e.target.closest('.notif-container')) document.getElementById('notifDropdown').classList.remove('open');
       if (!e.target.closest('.user-container')) document.getElementById('userDropdown').classList.remove('open');
     });
 
-    // CATÁLOGO DE UNIVERSIDADES
     const universitiesList = [
       { code: "ESPOL", name: "ESPOL", logo: "ESPOL.png" },
       { code: "UG", name: "UG", logo: "UG.png" },
@@ -2047,55 +836,36 @@
       { code: "ITB", name: "ITB", logo: "ITB.png" }
     ];
 
-    // SUBIDOR DE FOTO
     function previewUploadedImage(event) {
       const file = event.target.files[0];
       if (!file) return;
-
       const reader = new FileReader();
       reader.onload = function(e) {
         const img = new Image();
         img.onload = function() {
           const canvas = document.createElement('canvas');
           const MAX_WIDTH = 800;
-          let width = img.width;
-          let height = img.height;
-
-          if (width > MAX_WIDTH) {
-            height = Math.round((height * MAX_WIDTH) / width);
-            width = MAX_WIDTH;
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-
+          let width = img.width, height = img.height;
+          if (width > MAX_WIDTH) { height = Math.round((height * MAX_WIDTH) / width); width = MAX_WIDTH; }
+          canvas.width = width; canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
           uploadedImageUrl = canvas.toDataURL('image/jpeg', 0.75);
-
           const preview = document.getElementById('uploadPreviewImage');
-          preview.src = uploadedImageUrl;
-          preview.style.display = 'block';
+          preview.src = uploadedImageUrl; preview.style.display = 'block';
           document.getElementById('uploadPlaceholderIcon').style.display = 'none';
           document.getElementById('uploadHintText').style.display = 'none';
-          document.getElementById('uploadSubText').style.display = 'none';
         };
         img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
 
-    // TASADOR INTELIGENTE
     function recalculateSmartPricing() {
       const origPrice = parseFloat(document.getElementById('originalPriceInput').value);
       const status = document.getElementById('itemStatus').value;
       const card = document.getElementById('smartPricingCard');
       const container = document.getElementById('priceChipsContainer');
-
-      if (!origPrice || origPrice <= 0) {
-        card.style.display = 'none';
-        return;
-      }
+      if (!origPrice || origPrice <= 0) { card.style.display = 'none'; return; }
 
       let baseFactor = 0.65;
       if (status === "Nuevo / Caja") baseFactor = 0.82;
@@ -2107,158 +877,14 @@
       const highPrice = Math.max(1, Math.round(origPrice * (baseFactor + 0.10)));
 
       container.innerHTML = `
-        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${fastPrice})">
-          $${fastPrice}
-          <span style="font-size:9.5px;">Venta rápida</span>
-        </button>
-        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${fairPrice})" style="border-width: 2px;">
-          $${fairPrice}
-          <span style="font-size:9.5px;">Precio justo ⭐</span>
-        </button>
-        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${highPrice})">
-          $${highPrice}
-          <span style="font-size:9.5px;">Recuperar más</span>
-        </button>
+        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${fastPrice})">$${fastPrice}<span style="font-size:9.5px;">Rápida</span></button>
+        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${fairPrice})" style="border-width:2px;">$${fairPrice}<span style="font-size:9.5px;">Justo ⭐</span></button>
+        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${highPrice})">$${highPrice}<span style="font-size:9.5px;">Máximo</span></button>
       `;
-
       card.style.display = 'block';
     }
 
-    function setCalculatedPrice(val) {
-      document.getElementById('itemPrice').value = val;
-    }
-
-    // BASE DE DATOS INICIAL
-    let materials = [
-      {
-        id: 1,
-        title: "Multímetro digital Uni-T",
-        price: 18,
-        status: "Buen estado",
-        uni: "ESPOL",
-        date: "28 Oct 2026, 09:15 AM",
-        desc: "Multímetro digital con puntas originales. Entrega en laboratorios de FIEC.",
-        faculty: "FIEC · Electricidad",
-        category: "Calculadoras",
-        tags: ["#electricidad", "#instrumentos"],
-        seller: "Ana M.",
-        phone: "593987654321",
-        isMyPost: false,
-        image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=600&auto=format&fit=crop&q=80"
-      },
-      {
-        id: 2,
-        title: "Cautín con soporte 60W",
-        price: 8,
-        status: "Vendido", 
-        uni: "ESPOL",
-        date: "27 Oct 2026, 03:45 PM",
-        desc: "Cautín tipo lápiz con base y esponja. Entregado en talleres de FIMCP.",
-        faculty: "FIMCP · Mecatrónica",
-        category: "Herramientas",
-        tags: ["#electricidad", "#herramientas"],
-        seller: "Luis R.",
-        phone: "593987654322",
-        isMyPost: false,
-        image: "https://images.unsplash.com/photo-1597733336794-12d05021d510?w=600&auto=format&fit=crop&q=80"
-      },
-      {
-        id: 3,
-        title: "Estetoscopio Littmann Classic III + Bata",
-        price: 45,
-        status: "Como nuevo",
-        uni: "UG",
-        date: "28 Oct 2026, 11:30 AM",
-        desc: "En caja original, campana doble de acero inoxidable. Entrega en Facultad de Ciencias Médicas UG.",
-        faculty: "Medicina · Ciencias Médicas",
-        category: "Batas y Salud",
-        tags: ["#medicina", "#salud"],
-        seller: "Carlos B.",
-        phone: "593987654330",
-        isMyPost: false,
-        image: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=600&auto=format&fit=crop&q=80"
-      },
-      {
-        id: 4,
-        title: "Código Orgánico Integral Penal (COIP)",
-        price: 14,
-        status: "Buen estado",
-        uni: "UCSG",
-        date: "27 Oct 2026, 04:20 PM",
-        desc: "Edición actualizada con notas de jurisprudencia. Entrega en campus central UCSG.",
-        faculty: "Jurisprudencia · Derecho",
-        category: "Textos y Libros",
-        tags: ["#libros", "#derecho"],
-        seller: "María J.",
-        phone: "593987654331",
-        isMyPost: false,
-        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&auto=format&fit=crop&q=80"
-      },
-      {
-        id: 5,
-        title: "Set de dibujo técnico y rotuladores",
-        price: 15,
-        status: "Buen estado",
-        uni: "UEES",
-        date: "26 Oct 2026, 01:15 PM",
-        desc: "Marcadores de punta fina graduados y escuadras profesionales. Entrega en Samborondón.",
-        faculty: "Arquitectura y Diseño",
-        category: "Arquitectura",
-        tags: ["#diseño", "#arquitectura"],
-        seller: "Paula V.",
-        phone: "593987654332",
-        isMyPost: false,
-        image: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=600&auto=format&fit=crop&q=80"
-      },
-      {
-        id: 6,
-        title: "Kit Arduino Mega + Sensores",
-        price: 25,
-        status: "Nuevo / Caja",
-        uni: "UPS",
-        date: "28 Oct 2026, 08:45 AM",
-        desc: "Placa Arduino Mega sellada, cables jumper, display LCD y kit de 16 sensores.",
-        faculty: "Ingeniería · Electrónica",
-        category: "Tecnología",
-        tags: ["#tecnologia", "#electronica"],
-        seller: "Jorge T.",
-        phone: "593987654333",
-        isMyPost: false,
-        image: "https://images.unsplash.com/photo-1553406830-ef2513450d76?w=600&auto=format&fit=crop&q=80"
-      },
-      {
-        id: 7,
-        title: "Calculadora Casio fx-991LA Plus",
-        price: 18,
-        status: "Como nuevo",
-        uni: "ESPOL",
-        date: "28 Oct 2026, 01:00 PM",
-        desc: "Versión en español con tapa rígida. Estado 10/10.",
-        faculty: "FCNM · Matemática",
-        category: "Calculadoras",
-        tags: ["#calculadoras", "#matematicas"],
-        seller: "Diego Y.",
-        phone: "593987654320",
-        isMyPost: true,
-        image: "https://images.unsplash.com/photo-1594980596870-8aa52a78d8cd?w=600&auto=format&fit=crop&q=80"
-      },
-      {
-        id: 8,
-        title: "Protoboard + cables jumper",
-        price: 5,
-        status: "Buen estado",
-        uni: "ESPOL",
-        date: "29 Oct 2026, 08:10 AM",
-        desc: "Kit básico para circuitos digitales.",
-        faculty: "FIEC",
-        category: "Tecnología",
-        tags: ["#electricidad", "#proyectos"],
-        seller: "Andrés G.",
-        phone: "593987654399",
-        isMyPost: false,
-        image: "https://images.unsplash.com/photo-1553406830-ef2513450d76?w=600&auto=format&fit=crop&q=80"
-      }
-    ];
+    function setCalculatedPrice(val) { document.getElementById('itemPrice').value = val; }
 
     function renderCampusPills() {
       const container = document.getElementById('campusPillsGrid');
@@ -2294,34 +920,22 @@
       currentUni = uniCode;
       document.getElementById('uniQuickDropdown').value = uniCode;
       renderCampusPills();
-
-      if (uniCode === 'Todas') {
-        document.getElementById('sectionTitle').innerText = 'Todos los materiales en Guayaquil';
-      } else {
-        document.getElementById('sectionTitle').innerText = `Materiales disponibles en ${uniCode}`;
-      }
-
+      document.getElementById('sectionTitle').innerText = uniCode === 'Todas' ? 'Todos los materiales en Guayaquil' : `Materiales disponibles en ${uniCode}`;
       applyFilters();
     }
 
     function updatePriceSlider(val) {
       maxPriceFilter = parseInt(val);
-      document.getElementById('priceSliderVal').innerText = val == 100 ? '$100+' : `$${val}`;
+      document.getElementById('priceSliderVal').innerText = val == 350 ? '$350+' : `$${val}`;
       applyFilters();
     }
 
-    function clearSearch() {
-      syncSearch("");
-    }
+    function clearSearch() { syncSearch(""); }
 
     function sortProducts(criteria) {
-      if (criteria === 'priceLow') {
-        materials.sort((a, b) => a.price - b.price);
-      } else if (criteria === 'priceHigh') {
-        materials.sort((a, b) => b.price - a.price);
-      } else {
-        materials.sort((a, b) => b.id - a.id);
-      }
+      if (criteria === 'priceLow') materials.sort((a, b) => a.price - b.price);
+      else if (criteria === 'priceHigh') materials.sort((a, b) => b.price - a.price);
+      else materials.sort((a, b) => b.id - a.id);
       applyFilters();
     }
 
@@ -2329,7 +943,6 @@
       const input = document.getElementById('quickChatInput');
       const text = input.value.trim();
       if (!text) return;
-
       const feed = document.getElementById('chatMessagesFeed');
       const bubble = document.createElement('div');
       bubble.className = 'chat-bubble outgoing';
@@ -2337,21 +950,11 @@
       feed.appendChild(bubble);
       input.value = '';
       feed.scrollTop = feed.scrollHeight;
-
-      setTimeout(() => {
-        const reply = document.createElement('div');
-        reply.className = 'chat-bubble incoming';
-        reply.innerText = "¡Perfecto! Quedamos entonces en el punto seguro del campus. Avísame cuando estés cerca.";
-        feed.appendChild(reply);
-        feed.scrollTop = feed.scrollHeight;
-        pushLiveNotification("💬 <strong>Carlos B.:</strong> Respondió en el chat de coordinación.");
-      }, 900);
     }
 
     function setAppMode(mode) {
       currentMode = mode;
       document.querySelectorAll('.sub-nav-tab').forEach(t => t.classList.remove('active'));
-
       const heroBanner = document.getElementById('heroCampusBanner');
       const filters = document.getElementById('buyerFiltersArea');
       const sellerStats = document.getElementById('sellerStatsArea');
@@ -2374,7 +977,8 @@
         document.getElementById('tabMyPosts').classList.add('active');
         sellerStats.style.display = 'block';
         document.getElementById('sectionTitle').innerText = 'Mis Publicaciones activas';
-        updateSellerStats();
+        const myItems = materials.filter(m => m.isMyPost);
+        document.getElementById('statActive').innerText = myItems.filter(m => m.status !== 'Vendido').length;
       } else if (mode === 'sold') {
         document.getElementById('tabMyPurchases').classList.add('active');
         filters.style.display = 'flex';
@@ -2387,14 +991,7 @@
         document.getElementById('chatUnreadPill').style.display = 'none';
         return;
       }
-
       applyFilters();
-    }
-
-    function updateSellerStats() {
-      const myItems = materials.filter(m => m.isMyPost);
-      document.getElementById('statActive').innerText = myItems.filter(m => m.status !== 'Vendido').length;
-      document.getElementById('statWallet').innerText = `$${userWalletBalance.toFixed(2)}`;
     }
 
     function renderProducts(list) {
@@ -2402,13 +999,12 @@
       container.innerHTML = '';
 
       if (list.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 50px 0; font-size: 14px;">No se encontraron artículos con esos filtros.</p>`;
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 50px 0;">No se encontraron artículos con esos filtros.</p>`;
         return;
       }
 
       list.forEach(item => {
         const isSold = item.status === "Vendido";
-
         let statusBadge = `<span class="badge-status">Buen estado</span>`;
         if (item.status === "Como nuevo") statusBadge = `<span class="badge-status warning">Como nuevo</span>`;
         else if (item.status === "Nuevo / Caja") statusBadge = `<span class="badge-status new-box">Nuevo / Caja</span>`;
@@ -2427,22 +1023,13 @@
 
         card.innerHTML = `
           <div class="product-img-wrapper">
-            <img src="${item.image}" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600'">
-            ${isSold ? `
-              <div class="sold-overlay-badge">✕ VENDIDO</div>
-              <div class="sold-big-x">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </div>
-            ` : ''}
-            ${currentMode !== 'seller' ? `
-            <button class="btn-fav" onclick="toggleFav(this)" title="Guardar en favoritos">
+            <img src="${item.image}" alt="${item.title}" loading="lazy">
+            ${isSold ? `<div class="sold-overlay-badge">✕ VENDIDO</div>` : ''}
+            <button class="btn-fav" onclick="this.classList.toggle('active')" title="Guardar">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
               </svg>
-            </button>` : ''}
+            </button>
           </div>
           <div class="product-info">
             <h3 class="product-title">${item.title}</h3>
@@ -2451,19 +1038,13 @@
                 <span class="product-price">$${item.price}</span>
                 ${statusBadge}
               </div>
-              ${currentMode !== 'seller' ? `
-              <button class="btn-cart-action" title="Ver detalle / Contactar">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="9" cy="21" r="1"></circle>
-                  <circle cx="20" cy="21" r="1"></circle>
-                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              <button class="btn-cart-action" onclick="window.location.href='detalle.html?id=${item.id}'" title="Abrir Vista Detallada">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
                 </svg>
               </button>
-              ` : `
-              <button class="btn-cart-action" style="width:auto; padding:0 8px; font-size:11px;" onclick="markAsSold(${item.id})">
-                ${isSold ? 'Reactivar' : 'Marcar'}
-              </button>
-              `}
             </div>
             <div class="product-uni-tag">📍 ${item.uni} · ${item.category}</div>
             <div class="product-campus-spot"><span>${item.faculty}</span></div>
@@ -2474,6 +1055,7 @@
       });
     }
 
+    // MODAL VISTA PREVIA -> ABRE detalle.html?id=X
     function openDetailModal(item) {
       document.getElementById('modalDetailTitle').innerText = item.title;
       document.getElementById('modalDetailImg').src = item.image;
@@ -2485,38 +1067,24 @@
       const statusEl = document.getElementById('modalDetailStatus');
       const actionBox = document.getElementById('modalDetailAction');
 
-      if (item.status === 'Vendido') {
-        statusEl.innerHTML = `<span style="color: #dc2626; font-weight:700;">✕ Vendido</span>`;
-        actionBox.innerHTML = `<button style="width:100%; background:#f1f5f9; color:#94a3b8; border:none; padding:12px; border-radius:8px; font-weight:700;" disabled>✕ Este artículo ya fue entregado</button>`;
-      } else {
-        statusEl.innerHTML = `<span style="color: #15803d; font-weight:700;">${item.status}</span>`;
-        actionBox.innerHTML = `<button class="btn-submit-modal" style="background:#10b981;" onclick="contactSeller('${item.seller}', '${item.title}', '${item.phone}')">Contactar a ${item.seller} por WhatsApp</button>`;
-      }
+      statusEl.innerHTML = `<span style="color: #15803d; font-weight:700;">${item.status}</span>`;
+      actionBox.innerHTML = `
+        <button class="btn-submit-modal" style="background:#002855; display:flex; align-items:center; justify-content:center; gap:8px;" onclick="window.location.href='detalle.html?id=${item.id}'">
+          <span>🔍 Abrir Vista Detallada (Protocolo, Mapa y Canje)</span>
+        </button>
+        <button class="btn-submit-modal" style="background:#10b981; margin-top:4px;" onclick="contactSeller('${item.seller}', '${item.title}', '${item.phone}')">
+          💬 Contactar directo a ${item.seller} por WhatsApp
+        </button>
+      `;
 
       document.getElementById('detailModal').classList.add('open');
     }
 
-    function closeDetailModal() {
-      document.getElementById('detailModal').classList.remove('open');
-    }
-
-    function toggleFav(btn) {
-      btn.classList.toggle('active');
-    }
+    function closeDetailModal() { document.getElementById('detailModal').classList.remove('open'); }
 
     function contactSeller(seller, title, phone) {
       const msg = encodeURIComponent(`Hola ${seller}, vi tu material "${title}" publicado en UniLoop. ¿Sigue disponible?`);
       window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
-    }
-
-    function markAsSold(id) {
-      const item = materials.find(m => m.id === id);
-      if (item) {
-        item.status = item.status === 'Vendido' ? 'Buen estado' : 'Vendido';
-        updateSellerStats();
-        applyFilters();
-        pushLiveNotification(`✅ <strong>Estado actualizado:</strong> "${item.title}" marcado como <strong>${item.status}</strong>.`);
-      }
     }
 
     function applyFilters() {
@@ -2537,12 +1105,11 @@
                               (item.tags && item.tags.some(t => t.toLowerCase().includes(search)));
 
         if (currentMode === 'seller') return matchesSearch;
-
         const matchesUni = (currentUni === "Todas") || (item.uni === currentUni);
         const matchesCat = (catSelect === "Todos") || (item.category === catSelect);
         let matchesStatus = true;
         if (currentMode !== 'sold') matchesStatus = (statusSelect === "Todos") || (item.status === statusSelect);
-        const matchesPrice = (maxPriceFilter >= 100) ? true : (item.price <= maxPriceFilter);
+        const matchesPrice = (maxPriceFilter >= 350) ? true : (item.price <= maxPriceFilter);
 
         return matchesSearch && matchesUni && matchesCat && matchesStatus && matchesPrice;
       });
@@ -2551,7 +1118,6 @@
       renderProducts(filtered);
     }
 
-    // MODAL PUBLICAR
     const publishModal = document.getElementById('publishModal');
     document.getElementById('openModalBtn').addEventListener('click', () => publishModal.classList.add('open'));
     document.getElementById('closeModalBtn').addEventListener('click', () => publishModal.classList.remove('open'));
@@ -2564,9 +1130,9 @@
 
     document.getElementById('publishForm').addEventListener('submit', (e) => {
       e.preventDefault();
-
       const title = document.getElementById('itemName').value;
       const price = parseFloat(document.getElementById('itemPrice').value);
+      const origPrice = parseFloat(document.getElementById('originalPriceInput').value) || Math.round(price * 1.6);
       const category = document.getElementById('itemCategory').value;
       const uni = document.getElementById('itemUni').value;
       const faculty = document.getElementById('itemFaculty').value;
@@ -2581,38 +1147,24 @@
 
       const newItem = {
         id: Date.now(),
-        title: title,
-        price: price,
-        status: status,
-        uni: uni,
-        date: dateFormatted,
-        desc: desc || 'Material verificado para entrega en campus.',
-        faculty: faculty,
-        category: category,
-        tags: tagsArray,
-        seller: "Diego Y.",
-        phone: phone || "593987654320",
-        isMyPost: true,
-        image: uploadedImageUrl || "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600"
+        title, price, originalPrice: origPrice, status, uni, date: dateFormatted,
+        desc, faculty, category, tags: tagsArray,
+        seller: "Diego Y.", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 7,
+        phone: phone || "593987654320", isMyPost: true,
+        exchangeOffer: "Abierto a propuestas de libros o materiales de carrera",
+        exchangeDiscount: Math.round(price * 0.4),
+        image: uploadedImageUrl || IMG.libros
       };
 
       materials.unshift(newItem);
-
+      saveMaterialsToStorage();
       publishModal.classList.remove('open');
       document.getElementById('publishForm').reset();
-
       uploadedImageUrl = null;
-      document.getElementById('uploadPreviewImage').style.display = 'none';
-      document.getElementById('uploadPlaceholderIcon').style.display = 'flex';
-      document.getElementById('uploadHintText').style.display = 'inline';
-      document.getElementById('uploadSubText').style.display = 'inline';
-      document.getElementById('smartPricingCard').style.display = 'none';
-
-      pushLiveNotification(`🚀 <strong>¡Publicado!</strong> Tu artículo "<strong>${title}</strong>" ya está visible en ${uni}.`);
+      pushLiveNotification(`🚀 <strong>¡Publicado!</strong> "${title}" ya está en ${uni}.`);
       filterByUniversity(uni);
     });
 
-    // INICIALIZAR
     renderNotifications();
     renderCampusPills();
     applyFilters();
