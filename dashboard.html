@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; }
     body { background-color: #f8fafc; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
@@ -77,7 +78,7 @@
     .chat-badge-pill { background: #002855; color: #ffffff; font-size: 11px; font-weight: 800; padding: 1px 7px; border-radius: 999px; }
 
     /* MAIN CONTENT */
-    .main-content { max-width: 1320px; width: 100%; margin: 0 auto; padding: 24px 32px 70px; flex: 1; }
+    .main-content { max-width: 1320px; width: 100%; margin: 0 auto; padding: 24px 32px 40px; flex: 1; }
 
     /* HERO BANNER */
     .hero-campus-banner { background: linear-gradient(125deg, #002855 0%, #0369a1 55%, #0284c7 100%); border-radius: 22px; padding: 32px 36px; color: #ffffff; position: relative; overflow: hidden; margin-bottom: 24px; box-shadow: 0 14px 32px rgba(0, 40, 85, 0.16); }
@@ -127,8 +128,6 @@
     .product-card.card-sold .product-img-wrapper img { filter: grayscale(50%) opacity(0.85); }
 
     .sold-overlay-badge { position: absolute; top: 12px; left: 12px; background: rgba(220, 38, 38, 0.92); color: #ffffff; padding: 5px 11px; border-radius: 8px; font-size: 11.5px; font-weight: 800; z-index: 4; }
-    .sold-big-x { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(15, 23, 42, 0.25); z-index: 3; pointer-events: none; }
-    .sold-big-x svg { width: 72px; height: 72px; color: #ef4444; stroke-width: 2.5; }
     .btn-fav { position: absolute; top: 10px; right: 10px; background: rgba(255, 255, 255, 0.92); border: none; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748b; z-index: 5; }
     .btn-fav.active { color: #ef4444; }
     .btn-fav.active svg { fill: #ef4444; }
@@ -150,6 +149,276 @@
     .product-campus-spot { font-size: 11.5px; color: #64748b; margin-bottom: 8px; }
     .product-tags-footer { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 10px; border-top: 1px dashed #e2e8f0; }
     .product-tag-pill { font-size: 11px; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+
+    /* BARRA DE PAGINACIÓN (12 ARTÍCULOS POR PÁGINA) */
+    .pagination-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+      padding: 16px 20px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+    }
+    .pagination-info {
+      font-size: 13px;
+      color: #475569;
+      font-weight: 500;
+    }
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .page-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #0f172a;
+      padding: 7px 13px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .page-btn:hover:not(:disabled) {
+      background: #f0f9ff;
+      border-color: #0284c7;
+      color: #0284c7;
+    }
+    .page-btn.active {
+      background: #002855;
+      color: #ffffff;
+      border-color: #002855;
+    }
+    .page-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* BOTÓN RECTANGULAR LARGO "MÁS DETALLES SOBRE UNILOOP" */
+    .more-uniloop-btn-wrapper {
+      margin-top: 22px;
+      margin-bottom: 10px;
+    }
+    .btn-more-uniloop {
+      width: 100%;
+      background: linear-gradient(90deg, #f0f9ff 0%, #e0f2fe 50%, #f0f9ff 100%);
+      border: 1.5px solid #bae6fd;
+      color: #002855;
+      padding: 15px 24px;
+      border-radius: 14px;
+      font-size: 14.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+      transition: all 0.2s ease;
+    }
+    .btn-more-uniloop:hover {
+      background: #002855;
+      color: #ffffff;
+      border-color: #002855;
+      transform: translateY(-1px);
+    }
+    .chevron-arrow {
+      transition: transform 0.25s ease;
+    }
+    .btn-more-uniloop.expanded .chevron-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* PANEL DESPLEGABLE: PUNTOS DE ENTREGA CON MAPAS REALES + 3 PASOS + FOOTER 2026 */
+    .uniloop-info-drawer {
+      display: none;
+      margin-top: 26px;
+      animation: fadeSlideDown 0.3s ease;
+    }
+    .uniloop-info-drawer.open {
+      display: block;
+    }
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .safe-campus-section {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .safe-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #dcfce7;
+      color: #15803d;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .campus-maps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+    .campus-spot-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .spot-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .spot-uni-pill {
+      background: #002855;
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+    .spot-open-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: #059669;
+    }
+    .campus-spot-card h4 {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+    .campus-spot-card p {
+      font-size: 12px;
+      color: #475569;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+    .mini-campus-map {
+      width: 100%;
+      height: 135px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      z-index: 1;
+    }
+
+    /* 3 PASOS DE FUNCIONAMIENTO */
+    .steps-banner-box {
+      background: #f0f7ff;
+      border: 1px solid #dbeafe;
+      border-radius: 18px;
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 22px;
+      margin-bottom: 28px;
+    }
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .step-num-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #dbeafe;
+      color: #002855;
+      font-size: 13.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-item h5 {
+      font-size: 14px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    .step-item p {
+      font-size: 12px;
+      color: #475569;
+      line-height: 1.45;
+    }
+
+    /* FOOTER INSTITUCIONAL 2026 */
+    .site-footer {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .footer-top-strip {
+      background: #f0f7ff;
+      border-bottom: 1px solid #dbeafe;
+      padding: 12px 24px;
+      font-size: 12px;
+      color: #002855;
+      font-weight: 600;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-main-grid {
+      padding: 34px 28px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 28px;
+    }
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 12px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #475569;
+    }
+    .footer-col ul li a {
+      color: #475569;
+      text-decoration: none;
+    }
+    .footer-col ul li a:hover {
+      color: #0284c7;
+    }
+    .footer-bottom-bar {
+      padding: 16px 28px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12px;
+      color: #64748b;
+      background: #f8fafc;
+    }
 
     /* CHATS & VENDEDOR */
     .chats-container-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; display: grid; grid-template-columns: 320px 1fr; min-height: 440px; overflow: hidden; margin-bottom: 24px; }
@@ -439,12 +708,12 @@
       </div>
     </div>
 
-    <!-- CATÁLOGO -->
+    <!-- CATÁLOGO CON PAGINACIÓN DE 12 ARTÍCULOS -->
     <div id="catalogSectionWrapper">
       <div class="section-subtitle">
         <div class="section-subtitle-left">
           <h2 id="sectionTitle">Todos los materiales en Guayaquil</h2>
-          <span id="sectionCounter">50 publicaciones verificadas</span>
+          <span id="sectionCounter">Mostrando 12 artículos por página</span>
         </div>
 
         <select class="sort-dropdown" onchange="sortProducts(this.value)">
@@ -455,6 +724,179 @@
       </div>
 
       <div class="products-grid" id="productsGrid"></div>
+
+      <!-- PAGINACIÓN -->
+      <div class="pagination-bar" id="paginationBar">
+        <div class="pagination-info" id="paginationInfoText">Viendo 1–12 de 50 artículos disponibles en la red universitaria</div>
+        <div class="pagination-controls" id="paginationControls"></div>
+      </div>
+
+      <!-- BOTÓN RECTANGULAR LARGO "MÁS DETALLES SOBRE UNILOOP" -->
+      <div class="more-uniloop-btn-wrapper">
+        <button class="btn-more-uniloop" id="btnToggleMoreUniloop" onclick="toggleMoreUniloop()">
+          <span>Más detalles sobre UniLoop (Puntos Seguros, Garantía y Contacto)</span>
+          <svg class="chevron-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- SECCIÓN DESPLEGABLE: PUNTOS DE ENTREGA CON MAPAS REALES + 3 PASOS + FOOTER 2026 -->
+      <div class="uniloop-info-drawer" id="uniloopInfoDrawer">
+        
+        <!-- PUNTOS DE ENTREGA SEGUROS CON MAPAS REALES -->
+        <section class="safe-campus-section">
+          <span class="safe-pill-badge">🛡️ Red de Entrega Presencial Auditada</span>
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px;">
+            <div>
+              <h2 style="font-size:24px; font-weight:800; color:#0f172a; margin-bottom:6px;">Puntos de Entrega Seguros dentro de cada Campus</h2>
+              <p style="font-size:13.5px; color:#475569; max-width:740px; line-height:1.5;">
+                Evita citas dudosas en la calle o transferencias a desconocidos. Todas las transacciones de UniLoop se coordinan en zonas iluminadas, monitoreadas por garitas y seguridad universitaria.
+              </p>
+            </div>
+            <a href="mapa.html" style="background:#002855; color:#fff; padding:9px 16px; border-radius:10px; font-size:12.5px; font-weight:700; text-decoration:none;">
+              🗺️ Abrir Mapa Completo de Guayaquil →
+            </a>
+          </div>
+
+          <div class="campus-maps-grid">
+            <div class="campus-spot-card">
+              <div>
+                <div class="spot-card-top">
+                  <span class="spot-uni-pill">ESPOL Prosperina</span>
+                  <span class="spot-open-tag">● Abierto</span>
+                </div>
+                <h4>Biblioteca Central &amp; FIMCP</h4>
+                <p>Lobby principal con cámaras 24/7 y mesas de estudio. Ideal para verificar el encendido de calculadoras y laptops.</p>
+              </div>
+              <div id="miniMapEspol" class="mini-campus-map"></div>
+            </div>
+
+            <div class="campus-spot-card">
+              <div>
+                <div class="spot-card-top">
+                  <span class="spot-uni-pill">UCSG Católica</span>
+                  <span class="spot-open-tag">● Abierto</span>
+                </div>
+                <h4>Plaza Calderón / Salud</h4>
+                <p>Punto neurálgico frente al Malecón del Salado, junto a la cafetería universitaria con personal de vigilancia constante.</p>
+              </div>
+              <div id="miniMapUcsg" class="mini-campus-map"></div>
+            </div>
+
+            <div class="campus-spot-card">
+              <div>
+                <div class="spot-card-top">
+                  <span class="spot-uni-pill">UEES Samborondón</span>
+                  <span class="spot-open-tag">● Abierto</span>
+                </div>
+                <h4>Edificio E · Starbucks</h4>
+                <p>Terraza techada con wifi de alta velocidad y conexión eléctrica para probar gadgets de audio, tablets y equipos.</p>
+              </div>
+              <div id="miniMapUees" class="mini-campus-map"></div>
+            </div>
+
+            <div class="campus-spot-card">
+              <div>
+                <div class="spot-card-top">
+                  <span class="spot-uni-pill" style="background:#0284c7;">Casa Grande</span>
+                  <span class="spot-open-tag">● Abierto</span>
+                </div>
+                <h4>Patio Central / Ágora</h4>
+                <p>Espacio de integración abierto junto a bienestar estudiantil. Punto rápido de intercambio entre clases y talleres.</p>
+              </div>
+              <div id="miniMapUcg" class="mini-campus-map"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3 PASOS DE SEGURIDAD -->
+        <section class="steps-banner-box">
+          <div class="step-item">
+            <div class="step-num-circle">1</div>
+            <div>
+              <h5>Acuerda por el chat interno</h5>
+              <p>Confirma la fecha, hora y punto seguro dentro del campus sin exponer datos sensibles antes de tiempo.</p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-num-circle" style="background:#dcfce7; color:#15803d;">2</div>
+            <div>
+              <h5>Revisa el artículo en vivo</h5>
+              <p>Prueba el equipo, calculadora o revisa las páginas del libro en las mesas de estudio de la biblioteca o patio.</p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-num-circle" style="background:#e0f2fe; color:#0369a1;">3</div>
+            <div>
+              <h5>Paga vía Deuna! o Transferencia</h5>
+              <p>Sin manejo de efectivo forzoso. Transfiere al instante al verificar el producto y califica al compañero.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- FOOTER INSTITUCIONAL 2026 -->
+        <footer class="site-footer">
+          <div class="footer-top-strip">
+            <span>🛡️ <strong>Programa Campus Seguro Guayaquil</strong></span>
+            <span>• ESPOL Prosperina (Biblioteca Central / FIMCP)</span>
+            <span>• UCSG Malecón del Salado (Plaza Calderón)</span>
+            <span>• UEES Samborondón (Edificio E)</span>
+            <span>• Casa Grande (Patio Central)</span>
+          </div>
+
+          <div class="footer-main-grid">
+            <div class="footer-col">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+                <span style="font-size:20px;">🎓</span>
+                <strong style="font-size:20px; color:#002855;">UniLoop</strong>
+              </div>
+              <p style="font-size:12.5px; color:#475569; line-height:1.6; margin-bottom:12px;">
+                La red oficial de intercambio y comercio circular universitario para Guayaquil y Samborondón. Reutiliza libros, tecnología y equipo con verificación institucional.
+              </p>
+              <span style="display:inline-block; background:#e0f2fe; color:#0369a1; font-size:11px; font-weight:700; padding:4px 10px; border-radius:999px;">🎓 Comunidad Activa Guayaquil 2026</span>
+            </div>
+
+            <div class="footer-col">
+              <h4>Campuses Conectados</h4>
+              <ul>
+                <li><a href="#" onclick="filterByUniversity('ESPOL')">ESPOL - Campus Gustavo Galindo</a></li>
+                <li><a href="#" onclick="filterByUniversity('UG')">Universidad de Guayaquil (UG)</a></li>
+                <li><a href="#" onclick="filterByUniversity('UCSG')">Universidad Católica (UCSG)</a></li>
+                <li><a href="#" onclick="filterByUniversity('UEES')">Universidad Espíritu Santo (UEES)</a></li>
+                <li><a href="#" onclick="filterByUniversity('UCG')">Universidad Casa Grande &amp; ECOTEC</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4>Soporte Estudiantil</h4>
+              <ul>
+                <li><a href="mapa.html">Mapa de Puntos de Entrega Seguros</a></li>
+                <li><a href="#" onclick="alert('Soporte UniLoop Guayaquil: soporte@uniloop.ec')">Centro de Ayuda y Disputas</a></li>
+                <li><a href="#" onclick="alert('Validación automática con dominio institucional .edu.ec')">Validación de Correo Universitario</a></li>
+                <li><a href="#" onclick="alert('Canal de reportes estudiantiles activo 24/7.')">Reportar Usuario o Publicación</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4>Garantía y Legal 2026</h4>
+              <ul>
+                <li><a href="#" onclick="alert('Código de Convivencia Estudiantil UniLoop 2026')">Términos de Convivencia Estudiantil</a></li>
+                <li><a href="#" onclick="alert('Recomendamos transferencias directas al momento de revisar el artículo.')">Políticas de Transacción Sin Efectivo</a></li>
+                <li><a href="#" onclick="alert('Tus datos de matrícula están cifrados y protegidos.')">Privacidad y Protección de Matrícula</a></li>
+                <li><strong>Contacto:</strong> hola@uniloop.ec · Guayaquil</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="footer-bottom-bar">
+            <span>© 2026 UniLoop Ecuador. Diseñado por y para estudiantes universitarios de Guayaquil.</span>
+            <span>🔒 Entrega Presencial Auditada &nbsp;&nbsp; ✉️ Dominios .edu.ec Verificados</span>
+          </div>
+        </footer>
+      </div>
     </div>
   </main>
 
@@ -469,14 +911,11 @@
     <span>Mapa de entregas</span>
   </a>
 
-  <!-- MODAL 1: VISTA PREVIA RÁPIDA -> BOTÓN A detalle.html -->
+  <!-- MODAL 1: VISTA PREVIA RÁPIDA (SOLO BOTÓN "DETALLES COMPLETOS", SIN WHATSAPP) -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal-card">
       <div class="modal-header">
-        <div>
-          <span style="font-size:10.5px; font-weight:800; color:#0284c7; text-transform:uppercase; letter-spacing:0.6px;">Vista Previa Rápida</span>
-          <h3 id="modalDetailTitle">Detalle del Material</h3>
-        </div>
+        <h3 id="modalDetailTitle">Detalle del Material</h3>
         <button class="btn-close-modal" onclick="closeDetailModal()">✕</button>
       </div>
 
@@ -508,7 +947,7 @@
         <p id="modalDetailDesc">Material verificado por un estudiante para entregas en campus.</p>
       </div>
 
-      <div id="modalDetailAction" style="display:flex; flex-direction:column; gap:8px;"></div>
+      <div id="modalDetailAction"></div>
     </div>
   </div>
 
@@ -561,7 +1000,7 @@
               <input type="text" id="itemFaculty" placeholder="Ej. FIEC · Electricidad" required>
             </div>
             <div class="form-group">
-              <label>Número de WhatsApp</label>
+              <label>Número de contacto (Interno)</label>
               <input type="tel" id="itemPhone" placeholder="Ej. 593987654320" required>
             </div>
           </div>
@@ -639,6 +1078,7 @@
     </div>
   </div>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     let currentMode = 'buyer';
     let currentUni = "Todas";   
@@ -647,7 +1087,12 @@
     let maxPriceFilter = 350;
     let uploadedImageUrl = null;
 
-    // BANCO DE IMÁGENES REALES COHERENTES POR PRODUCTO
+    // VARIABLES DE PAGINACIÓN (12 ARTÍCULOS POR PÁGINA)
+    let currentPage = 1;
+    const ITEMS_PER_PAGE = 12;
+    let campusMapsInitialized = false;
+
+    // BANCO DE IMÁGENES REALES COHERENTES
     const IMG = {
       multimetro: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&auto=format&fit=crop&q=80",
       cautin: "https://images.unsplash.com/photo-1597733336794-12d05021d510?w=600&auto=format&fit=crop&q=80",
@@ -666,7 +1111,7 @@
       microscopio: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&auto=format&fit=crop&q=80"
     };
 
-    // 50 PUBLICACIONES REALES CON IMÁGENES COHERENTES
+    // 50 PUBLICACIONES REALES
     const defaultMaterials = [
       { id: 101, title: "Calculadora Gráfica Texas Instruments TI-Nspire CX II CAS", price: 125, originalPrice: 210, status: "Como nuevo", uni: "ESPOL", date: "15 Nov 2026", desc: "Incluye funda rígida original, cable USB y software CAS oficial para cálculo simbólico y ecuaciones diferenciales. Sin rayones.", faculty: "FIMCP · Ingeniería Mecánica", category: "Calculadoras", tags: ["#calculadoras", "#calculo", "#espol"], seller: "Carlos Proaño", sellerSem: "7mo Sem.", sellerRating: "4.9", sellerSales: 19, phone: "593987654321", isMyPost: false, exchangeOffer: "Libro Termodinámica de Çengel (9na ed.) o Mecánica Vectorial de Beer Johnston", exchangeDiscount: 50, image: IMG.calculadora },
       { id: 102, title: "Multímetro Digital Uni-T UT61E True RMS", price: 24, originalPrice: 45, status: "Buen estado", uni: "ESPOL", date: "15 Nov 2026", desc: "Multímetro de alta precisión con puntas de prueba originales y batería nueva. Ideal para laboratorios de circuitos.", faculty: "FIEC · Electricidad", category: "Calculadoras", tags: ["#electricidad", "#laboratorio"], seller: "Ana Morales", sellerSem: "6to Sem.", sellerRating: "4.8", sellerSales: 12, phone: "593987654322", isMyPost: false, exchangeOffer: "Protoboard grande + fuente DC regulable", exchangeDiscount: 10, image: IMG.multimetro },
@@ -726,6 +1171,37 @@
       localStorage.setItem('uniloop_materials_v2', JSON.stringify(materials));
     }
     saveMaterialsToStorage();
+
+    // DESPLEGABLE "MÁS DETALLES SOBRE UNILOOP" + INICIALIZACIÓN DE MAPAS REALES
+    function toggleMoreUniloop() {
+      const drawer = document.getElementById('uniloopInfoDrawer');
+      const btn = document.getElementById('btnToggleMoreUniloop');
+      const isOpen = drawer.classList.toggle('open');
+      btn.classList.toggle('expanded', isOpen);
+
+      if (isOpen) {
+        if (!campusMapsInitialized) {
+          initCampusMiniMaps();
+          campusMapsInitialized = true;
+        }
+        drawer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function initCampusMiniMaps() {
+      const spots = [
+        { id: 'miniMapEspol', lat: -2.1446, lng: -79.9675, label: 'ESPOL Prosperina · Biblioteca Central' },
+        { id: 'miniMapUcsg', lat: -2.1812, lng: -79.9035, label: 'UCSG · Plaza Calderón' },
+        { id: 'miniMapUees', lat: -2.1325, lng: -79.8660, label: 'UEES Samborondón · Edificio E' },
+        { id: 'miniMapUcg', lat: -2.1695, lng: -79.9142, label: 'Casa Grande · Patio Central' }
+      ];
+
+      spots.forEach(s => {
+        const m = L.map(s.id, { zoomControl: false, attributionControl: false }).setView([s.lat, s.lng], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(m);
+        L.marker([s.lat, s.lng]).addTo(m).bindPopup(`<strong>${s.label}</strong>`);
+      });
+    }
 
     // NOTIFICACIONES EN TIEMPO REAL
     let notifications = [
@@ -791,6 +1267,7 @@
     function syncSearch(val) {
       document.getElementById('topSearchInput').value = val;
       document.getElementById('mainSearchInput').value = val;
+      currentPage = 1;
       applyFilters();
     }
 
@@ -918,6 +1395,7 @@
 
     function filterByUniversity(uniCode) {
       currentUni = uniCode;
+      currentPage = 1;
       document.getElementById('uniQuickDropdown').value = uniCode;
       renderCampusPills();
       document.getElementById('sectionTitle').innerText = uniCode === 'Todas' ? 'Todos los materiales en Guayaquil' : `Materiales disponibles en ${uniCode}`;
@@ -926,6 +1404,7 @@
 
     function updatePriceSlider(val) {
       maxPriceFilter = parseInt(val);
+      currentPage = 1;
       document.getElementById('priceSliderVal').innerText = val == 350 ? '$350+' : `$${val}`;
       applyFilters();
     }
@@ -936,6 +1415,7 @@
       if (criteria === 'priceLow') materials.sort((a, b) => a.price - b.price);
       else if (criteria === 'priceHigh') materials.sort((a, b) => b.price - a.price);
       else materials.sort((a, b) => b.id - a.id);
+      currentPage = 1;
       applyFilters();
     }
 
@@ -954,6 +1434,7 @@
 
     function setAppMode(mode) {
       currentMode = mode;
+      currentPage = 1;
       document.querySelectorAll('.sub-nav-tab').forEach(t => t.classList.remove('active'));
       const heroBanner = document.getElementById('heroCampusBanner');
       const filters = document.getElementById('buyerFiltersArea');
@@ -994,16 +1475,38 @@
       applyFilters();
     }
 
-    function renderProducts(list) {
+    // RENDERIZADO CON PAGINACIÓN DE 12 ARTÍCULOS
+    function renderProducts(fullFilteredList) {
       const container = document.getElementById('productsGrid');
+      const paginationBar = document.getElementById('paginationBar');
       container.innerHTML = '';
 
-      if (list.length === 0) {
+      const totalItems = fullFilteredList.length;
+      if (totalItems === 0) {
         container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 50px 0;">No se encontraron artículos con esos filtros.</p>`;
+        paginationBar.style.display = 'none';
         return;
       }
 
-      list.forEach(item => {
+      paginationBar.style.display = 'flex';
+      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+      const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, totalItems);
+      const pageItems = fullFilteredList.slice(startIndex, endIndex);
+
+      document.getElementById('paginationInfoText').innerHTML = `Viendo <strong>${startIndex + 1}–${endIndex}</strong> de <strong>${totalItems}</strong> artículos disponibles en la red universitaria`;
+
+      // Controles de páginas
+      let controlsHtml = `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="goToPage(${currentPage - 1})">Anterior</button>`;
+      for (let p = 1; p <= totalPages; p++) {
+        controlsHtml += `<button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="goToPage(${p})">${p}</button>`;
+      }
+      controlsHtml += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="goToPage(${currentPage + 1})">Siguiente</button>`;
+      document.getElementById('paginationControls').innerHTML = controlsHtml;
+
+      pageItems.forEach(item => {
         const isSold = item.status === "Vendido";
         let statusBadge = `<span class="badge-status">Buen estado</span>`;
         if (item.status === "Como nuevo") statusBadge = `<span class="badge-status warning">Como nuevo</span>`;
@@ -1038,7 +1541,7 @@
                 <span class="product-price">$${item.price}</span>
                 ${statusBadge}
               </div>
-              <button class="btn-cart-action" onclick="window.location.href='detalle.html?id=${item.id}'" title="Abrir Vista Detallada">
+              <button class="btn-cart-action" onclick="window.location.href='detalle.html?id=${item.id}'" title="Detalles completos">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                   <polyline points="15 3 21 3 21 9"></polyline>
@@ -1055,7 +1558,13 @@
       });
     }
 
-    // MODAL VISTA PREVIA -> ABRE detalle.html?id=X
+    function goToPage(pageNum) {
+      currentPage = pageNum;
+      applyFilters();
+      document.getElementById('catalogSectionWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // MODAL VISTA PREVIA -> SOLO BOTÓN "DETALLES COMPLETOS" (SIN WHATSAPP)
     function openDetailModal(item) {
       document.getElementById('modalDetailTitle').innerText = item.title;
       document.getElementById('modalDetailImg').src = item.image;
@@ -1067,13 +1576,10 @@
       const statusEl = document.getElementById('modalDetailStatus');
       const actionBox = document.getElementById('modalDetailAction');
 
-      statusEl.innerHTML = `<span style="color: #15803d; font-weight:700;">${item.status}</span>`;
+      statusEl.innerHTML = `<span style="color: ${item.status === 'Vendido' ? '#dc2626' : '#15803d'}; font-weight:700;">${item.status}</span>`;
       actionBox.innerHTML = `
-        <button class="btn-submit-modal" style="background:#002855; display:flex; align-items:center; justify-content:center; gap:8px;" onclick="window.location.href='detalle.html?id=${item.id}'">
-          <span>🔍 Abrir Vista Detallada (Protocolo, Mapa y Canje)</span>
-        </button>
-        <button class="btn-submit-modal" style="background:#10b981; margin-top:4px;" onclick="contactSeller('${item.seller}', '${item.title}', '${item.phone}')">
-          💬 Contactar directo a ${item.seller} por WhatsApp
+        <button class="btn-submit-modal" style="background:#002855;" onclick="window.location.href='detalle.html?id=${item.id}'">
+          Detalles completos
         </button>
       `;
 
@@ -1081,11 +1587,6 @@
     }
 
     function closeDetailModal() { document.getElementById('detailModal').classList.remove('open'); }
-
-    function contactSeller(seller, title, phone) {
-      const msg = encodeURIComponent(`Hola ${seller}, vi tu material "${title}" publicado en UniLoop. ¿Sigue disponible?`);
-      window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
-    }
 
     function applyFilters() {
       const search = document.getElementById('mainSearchInput').value.toLowerCase().trim();
@@ -1114,7 +1615,7 @@
         return matchesSearch && matchesUni && matchesCat && matchesStatus && matchesPrice;
       });
 
-      document.getElementById('sectionCounter').innerText = `${filtered.length} publicaciones encontradas`;
+      document.getElementById('sectionCounter').innerText = `${filtered.length} publicaciones disponibles`;
       renderProducts(filtered);
     }
 
