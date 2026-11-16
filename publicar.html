@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniLoop - Marketplace Universitario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; }
+    body { background-color: #f8fafc; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* HEADER SUPERIOR */
+    .top-header-wrapper { background: #ffffff; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
+    .navbar-top { max-width: 1320px; margin: 0 auto; padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .nav-left-group { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+    .nav-left { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .brand-icon-box { width: 34px; height: 34px; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #0284c7; }
+    .brand-logo { font-size: 23px; font-weight: 800; color: #002855; letter-spacing: -0.5px; }
+    .brand-logo span { color: #0284c7; }
+
+    .nav-campus-pill { display: flex; align-items: center; gap: 7px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 600; color: #334155; }
+    .campus-online-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; flex-shrink: 0; }
+    .nav-campus-pill select { border: none; background: transparent; font-size: 12.5px; font-weight: 700; color: #0f172a; outline: none; cursor: pointer; }
+
+    .top-search-box { flex: 1; max-width: 440px; position: relative; display: flex; align-items: center; }
+    .top-search-box svg { position: absolute; left: 14px; width: 16px; height: 16px; color: #64748b; }
+    .top-search-box input { width: 100%; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 999px; padding: 9px 52px 9px 38px; font-size: 13px; color: #0f172a; outline: none; transition: all 0.2s; }
+    .top-search-box input:focus { background: #ffffff; border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
+    .kbd-shortcut { position: absolute; right: 12px; background: #e2e8f0; color: #475569; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 5px; pointer-events: none; }
+
+    .nav-right { display: flex; align-items: center; gap: 14px; position: relative; flex-shrink: 0; }
+    .btn-vender-nav { background-color: #002855; color: #ffffff; padding: 9px 18px; border-radius: 999px; border: none; font-size: 13.5px; font-weight: 700; display: flex; align-items: center; gap: 7px; cursor: pointer; text-decoration: none; box-shadow: 0 4px 12px rgba(0, 40, 85, 0.18); transition: all 0.2s; }
+    .btn-vender-nav:hover { background-color: #0284c7; transform: translateY(-1px); }
+
+    /* CAMPANITA TIEMPO REAL */
+    .notif-container { position: relative; }
+    .icon-btn { background: #f8fafc; border: 1px solid #e2e8f0; color: #475569; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; position: relative; transition: all 0.15s; }
+    .icon-btn:hover { background-color: #f0f9ff; color: #0284c7; border-color: #bae6fd; }
+    .notif-badge-count { position: absolute; top: -4px; right: -4px; background-color: #ef4444; color: #ffffff; font-size: 10px; font-weight: 800; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 999px; display: flex; align-items: center; justify-content: center; border: 2px solid #ffffff; }
+
+    .dropdown-popover { position: absolute; top: 50px; right: 0; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; box-shadow: 0 15px 35px rgba(0, 40, 85, 0.15); width: 330px; display: none; flex-direction: column; z-index: 120; overflow: hidden; }
+    .dropdown-popover.open { display: flex; }
+    .dropdown-header { padding: 12px 16px; border-bottom: 1px solid #f1f5f9; font-size: 13px; font-weight: 700; color: #002855; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; }
+    .dropdown-list { display: flex; flex-direction: column; max-height: 290px; overflow-y: auto; }
+    .dropdown-item { padding: 11px 15px; border-bottom: 1px solid #f1f5f9; cursor: pointer; font-size: 12px; color: #334155; }
+    .dropdown-item.unread { background-color: #f0f9ff; }
+    .dropdown-item:hover { background-color: #e0f2fe; }
+    .dropdown-item .notif-time { font-size: 10.5px; color: #64748b; margin-top: 3px; font-weight: 600; }
+
+    /* PERFIL USUARIO */
+    .user-container { position: relative; }
+    .user-profile-card { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 4px 8px; border-radius: 12px; transition: background-color 0.15s; user-select: none; }
+    .user-profile-card:hover { background-color: #f1f5f9; }
+    .user-meta-info { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+    .user-top-line { display: flex; align-items: center; gap: 6px; }
+    .user-display-name { font-size: 13.5px; font-weight: 800; color: #0f172a; }
+    .verified-uni-pill { display: inline-flex; align-items: center; gap: 3px; background: #dcfce7; color: #15803d; border: 1px solid #86efac; font-size: 10.5px; font-weight: 800; padding: 1.5px 7px; border-radius: 999px; }
+    .user-bottom-line { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: #64748b; font-weight: 600; }
+    .user-balance-amount { color: #059669; font-weight: 800; }
+    .user-role-tag { color: #002855; font-weight: 700; }
+    .user-avatar-wrapper { position: relative; width: 38px; height: 38px; flex-shrink: 0; }
+    .user-avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid #cbd5e1; }
+    .avatar-status-dot { position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; background: #10b981; border: 2px solid #ffffff; border-radius: 50%; }
+    .user-menu-item { display: flex; align-items: center; gap: 10px; padding: 11px 16px; font-size: 13px; font-weight: 600; color: #334155; text-decoration: none; cursor: pointer; }
+    .user-menu-item:hover { background-color: #f0f7ff; color: #002855; }
+    .user-menu-item.danger { color: #dc2626; border-top: 1px solid #f1f5f9; }
+    .user-menu-item.danger:hover { background-color: #fef2f2; }
+
+    /* SUB NAVBAR */
+    .sub-navbar { max-width: 1320px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; gap: 28px; overflow-x: auto; }
+    .sub-nav-tab { background: none; border: none; padding: 12px 2px; font-size: 13.5px; font-weight: 600; color: #64748b; cursor: pointer; position: relative; display: flex; align-items: center; gap: 7px; white-space: nowrap; text-decoration: none; }
+    .sub-nav-tab:hover { color: #002855; }
+    .sub-nav-tab.active { color: #002855; font-weight: 700; }
+    .sub-nav-tab.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2.5px; background-color: #002855; border-radius: 2px 2px 0 0; }
+    .chat-badge-pill { background: #002855; color: #ffffff; font-size: 11px; font-weight: 800; padding: 1px 7px; border-radius: 999px; }
+
+    /* MAIN CONTENT */
+    .main-content { max-width: 1320px; width: 100%; margin: 0 auto; padding: 24px 32px 40px; flex: 1; }
+
+    /* HERO BANNER */
+    .hero-campus-banner { background: linear-gradient(125deg, #002855 0%, #0369a1 55%, #0284c7 100%); border-radius: 22px; padding: 32px 36px; color: #ffffff; position: relative; overflow: hidden; margin-bottom: 24px; box-shadow: 0 14px 32px rgba(0, 40, 85, 0.16); }
+    .hero-top-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.22); padding: 5px 12px; border-radius: 999px; font-size: 11.5px; font-weight: 600; color: #e0f2fe; margin-bottom: 14px; }
+    .hero-title { font-size: 32px; font-weight: 800; line-height: 1.15; letter-spacing: -0.6px; max-width: 680px; margin-bottom: 10px; }
+    .hero-subtitle { font-size: 14px; color: #bae6fd; max-width: 650px; line-height: 1.5; margin-bottom: 24px; }
+    .hero-filter-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.15); }
+    .hero-filter-label { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.7px; color: #e0f2fe; display: flex; align-items: center; gap: 10px; }
+    .hero-uni-select-quick { background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.35); color: #ffffff; padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; outline: none; cursor: pointer; }
+    .hero-uni-select-quick option { background: #002855; color: #ffffff; }
+    .hero-live-counter { font-size: 12px; font-weight: 600; color: #bae6fd; display: flex; align-items: center; gap: 6px; }
+    .live-green-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; box-shadow: 0 0 8px #4ade80; }
+
+    .campus-pills-grid { display: flex; flex-wrap: wrap; gap: 9px; position: relative; z-index: 2; }
+    .campus-pill-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.22); color: #ffffff; padding: 6px 14px 6px 7px; border-radius: 999px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.18s ease; }
+    .campus-pill-btn:hover { background: rgba(255, 255, 255, 0.26); transform: translateY(-1px); }
+    .campus-pill-btn.active { background: #ffffff; color: #002855; border-color: #ffffff; font-weight: 700; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+    .campus-circle-logo { width: 24px; height: 24px; border-radius: 50%; background: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 2px; }
+    .campus-circle-logo img { width: 100%; height: 100%; object-fit: contain; }
+    .campus-count-badge { background: rgba(0, 40, 85, 0.28); color: #e0f2fe; font-size: 10.5px; font-weight: 700; padding: 1px 7px; border-radius: 999px; }
+    .campus-pill-btn.active .campus-count-badge { background: #e0f2fe; color: #0284c7; }
+
+    /* FILTROS AVANZADOS */
+    .advanced-search-panel { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px 20px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03); display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .adv-search-input-box { flex: 1.4; min-width: 240px; position: relative; display: flex; align-items: center; }
+    .adv-search-input-box svg { position: absolute; left: 14px; width: 17px; height: 17px; color: #64748b; }
+    .adv-search-input-box input { width: 100%; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px 34px 10px 40px; font-size: 13.5px; color: #0f172a; outline: none; }
+    .clear-search-btn { position: absolute; right: 10px; background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 14px; }
+    .adv-filter-select { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px 14px; font-size: 13px; font-weight: 600; color: #334155; outline: none; cursor: pointer; min-width: 165px; }
+    .price-slider-box { display: flex; align-items: center; gap: 10px; background: #f0f9ff; border: 1px solid #bae6fd; padding: 7px 14px; border-radius: 10px; min-width: 230px; }
+    .price-slider-label { font-size: 12px; font-weight: 700; color: #0369a1; white-space: nowrap; }
+    .price-slider-box input[type="range"] { flex: 1; accent-color: #0284c7; cursor: pointer; height: 5px; }
+
+    /* RESULTADOS Y GRID */
+    .section-subtitle { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+    .section-subtitle-left { display: flex; align-items: baseline; gap: 10px; }
+    .section-subtitle h2 { font-size: 19px; font-weight: 800; color: #0f172a; }
+    .section-subtitle span { font-size: 12.5px; color: #64748b; }
+    .sort-dropdown { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 9px; padding: 7px 12px; font-size: 12.5px; font-weight: 600; color: #475569; outline: none; cursor: pointer; }
+
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: 22px; }
+    .product-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; position: relative; }
+    .product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0, 40, 85, 0.08); }
+    .product-img-wrapper { position: relative; width: 100%; height: 185px; background-color: #e2e8f0; overflow: hidden; }
+    .product-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .product-card:hover .product-img-wrapper img { transform: scale(1.04); }
+    .product-card.card-sold .product-img-wrapper img { filter: grayscale(50%) opacity(0.85); }
+
+    .sold-overlay-badge { position: absolute; top: 12px; left: 12px; background: rgba(220, 38, 38, 0.92); color: #ffffff; padding: 5px 11px; border-radius: 8px; font-size: 11.5px; font-weight: 800; z-index: 4; }
+    .btn-fav { position: absolute; top: 10px; right: 10px; background: rgba(255, 255, 255, 0.92); border: none; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748b; z-index: 5; }
+    .btn-fav.active { color: #ef4444; }
+    .btn-fav.active svg { fill: #ef4444; }
+
+    .product-info { padding: 15px 16px; display: flex; flex-direction: column; flex: 1; }
+    .product-title { font-size: 14.5px; font-weight: 700; color: #0f172a; margin-bottom: 6px; line-height: 1.3; }
+    .product-price-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .price-and-status { display: flex; align-items: center; gap: 8px; }
+    .product-price { font-size: 17px; font-weight: 800; color: #002855; }
+    .btn-cart-action { background: #f0f7ff; border: 1px solid #dbeafe; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #0284c7; transition: all 0.15s; }
+    .btn-cart-action:hover { background: #0284c7; color: #ffffff; }
+
+    .badge-status { font-size: 11px; font-weight: 600; padding: 2.5px 8.5px; border-radius: 999px; background-color: #dcfce7; color: #15803d; }
+    .badge-status.warning { background-color: #fef3c7; color: #b45309; }
+    .badge-status.new-box { background-color: #e0f2fe; color: #0369a1; }
+    .badge-status.sold { background-color: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; font-weight: 700; }
+
+    .product-uni-tag { font-size: 11px; font-weight: 700; color: #0284c7; background: #f0f9ff; border: 1px solid #e0f2fe; padding: 2px 8px; border-radius: 5px; display: inline-block; margin-bottom: 6px; width: fit-content; }
+    .product-campus-spot { font-size: 11.5px; color: #64748b; margin-bottom: 8px; }
+    .product-tags-footer { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 10px; border-top: 1px dashed #e2e8f0; }
+    .product-tag-pill { font-size: 11px; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+
+    /* BARRA DE PAGINACIÓN (12 ARTÍCULOS POR PÁGINA) */
+    .pagination-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-top: 28px; padding: 16px 20px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; }
+    .pagination-info { font-size: 13px; color: #475569; font-weight: 500; }
+    .pagination-controls { display: flex; align-items: center; gap: 6px; }
+    .page-btn { background: #ffffff; border: 1px solid #cbd5e1; color: #0f172a; padding: 7px 13px; border-radius: 9px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+    .page-btn:hover:not(:disabled) { background: #f0f9ff; border-color: #0284c7; color: #0284c7; }
+    .page-btn.active { background: #002855; color: #ffffff; border-color: #002855; }
+    .page-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* BOTÓN RECTANGULAR LARGO "MÁS DETALLES SOBRE UNILOOP" */
+    .more-uniloop-btn-wrapper { margin-top: 22px; margin-bottom: 10px; }
+    .btn-more-uniloop { width: 100%; background: linear-gradient(90deg, #f0f9ff 0%, #e0f2fe 50%, #f0f9ff 100%); border: 1.5px solid #bae6fd; color: #002855; padding: 15px 24px; border-radius: 14px; font-size: 14.5px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08); transition: all 0.2s ease; }
+    .btn-more-uniloop:hover { background: #002855; color: #ffffff; border-color: #002855; transform: translateY(-1px); }
+    .chevron-arrow { transition: transform 0.25s ease; }
+    .btn-more-uniloop.expanded .chevron-arrow { transform: rotate(180deg); }
+
+    /* PANEL DESPLEGABLE */
+    .uniloop-info-drawer { display: none; margin-top: 26px; animation: fadeSlideDown 0.3s ease; }
+    .uniloop-info-drawer.open { display: block; }
+    @keyframes fadeSlideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .safe-campus-section { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 28px; margin-bottom: 24px; }
+    .safe-pill-badge { display: inline-flex; align-items: center; gap: 6px; background: #dcfce7; color: #15803d; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 999px; margin-bottom: 10px; }
+    .campus-maps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 20px; }
+    .campus-spot-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+    .spot-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .spot-uni-pill { background: #002855; color: #ffffff; font-size: 10.5px; font-weight: 800; padding: 3px 9px; border-radius: 999px; }
+    .spot-open-tag { font-size: 11px; font-weight: 700; color: #059669; }
+    .campus-spot-card h4 { font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 6px; }
+    .campus-spot-card p { font-size: 12px; color: #475569; line-height: 1.45; margin-bottom: 12px; }
+    .mini-campus-map { width: 100%; height: 145px; border-radius: 10px; border: 1px solid #cbd5e1; z-index: 1; }
+
+    /* PIN ESTILO GOOGLE MAPS */
+    .gmaps-custom-pin { width: 28px; height: 28px; background: #0284c7; border: 3px solid #ffffff; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); box-shadow: 0 4px 10px rgba(0, 40, 85, 0.45); display: flex; align-items: center; justify-content: center; }
+    .gmaps-custom-pin::after { content: ''; width: 8px; height: 8px; background: #ffffff; border-radius: 50%; }
+
+    .steps-banner-box { background: #f0f7ff; border: 1px solid #dbeafe; border-radius: 18px; padding: 24px 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 22px; margin-bottom: 28px; }
+    .step-item { display: flex; align-items: flex-start; gap: 12px; }
+    .step-num-circle { width: 32px; height: 32px; border-radius: 50%; background: #dbeafe; color: #002855; font-size: 13.5px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-item h5 { font-size: 14px; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
+    .step-item p { font-size: 12px; color: #475569; line-height: 1.45; }
+
+    .site-footer { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; }
+    .footer-top-strip { background: #f0f7ff; border-bottom: 1px solid #dbeafe; padding: 12px 24px; font-size: 12px; color: #002855; font-weight: 600; display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
+    .footer-main-grid { padding: 34px 28px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 28px; }
+    .footer-col h4 { font-size: 14px; font-weight: 800; color: #0f172a; margin-bottom: 12px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 12.5px; color: #475569; }
+    .footer-col ul li a { color: #475569; text-decoration: none; }
+    .footer-col ul li a:hover { color: #0284c7; }
+    .footer-bottom-bar { padding: 16px 28px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 12px; color: #64748b; background: #f8fafc; }
+
+    /* CHATS & VENDEDOR */
+    .chats-container-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; display: grid; grid-template-columns: 320px 1fr; min-height: 440px; overflow: hidden; margin-bottom: 24px; }
+    .chat-sidebar-list { border-right: 1px solid #e2e8f0; background: #f8fafc; }
+    .chat-thread-item { padding: 14px 16px; border-bottom: 1px solid #e2e8f0; cursor: pointer; }
+    .chat-thread-item.active { background: #e0f2fe; }
+    .chat-window-area { display: flex; flex-direction: column; justify-content: space-between; padding: 20px; }
+    .chat-messages-feed { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; max-height: 300px; }
+    .chat-bubble { padding: 10px 14px; border-radius: 12px; font-size: 13px; max-width: 75%; }
+    .chat-bubble.incoming { background: #f1f5f9; color: #0f172a; align-self: flex-start; }
+    .chat-bubble.outgoing { background: #002855; color: #ffffff; align-self: flex-end; }
+    .chat-input-bar { display: flex; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #e2e8f0; }
+    .chat-input-bar input { flex: 1; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 10px; outline: none; }
+
+    .seller-dashboard-header { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: #ffffff; border: 1px solid #e2e8f0; padding: 16px 20px; border-radius: 12px; }
+    .stat-card span { font-size: 12px; color: #64748b; font-weight: 600; }
+    .stat-card h3 { font-size: 24px; font-weight: 800; color: #002855; margin-top: 4px; }
+
+    /* BOTÓN FLOTANTE MAPA */
+    .floating-map-btn { position: fixed; bottom: 25px; right: 25px; background: linear-gradient(135deg, #002855 0%, #0284c7 100%); color: #ffffff; padding: 12px 22px; border-radius: 50px; display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 13.5px; box-shadow: 0 10px 25px rgba(0, 40, 85, 0.35); z-index: 150; }
+    .radar-pulse { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; animation: pulse 1.8s infinite; }
+    @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
+
+    /* MODALES COMPACTOS (VISTA PREVIA Y PERFIL) */
+    .modal-overlay { position: fixed; inset: 0; background-color: rgba(15, 23, 42, 0.55); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; backdrop-filter: blur(4px); }
+    .modal-overlay.open { display: flex; }
+    .modal-card { background: #ffffff; border-radius: 20px; width: 100%; max-width: 480px; padding: 26px; box-shadow: 0 20px 40px rgba(0,0,0,0.18); max-height: 92vh; overflow-y: auto; }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .modal-header h3 { font-size: 19px; font-weight: 800; color: #0f172a; }
+    .btn-close-modal { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 15px; color: #64748b; cursor: pointer; }
+    .btn-submit-modal { width: 100%; background-color: #002855; color: #ffffff; padding: 13px; border-radius: 10px; border: none; font-size: 14px; font-weight: 700; margin-top: 10px; cursor: pointer; transition: all 0.15s; }
+    .btn-submit-modal:hover { background-color: #0284c7; }
+    .detail-img-box { width: 100%; height: 230px; border-radius: 12px; overflow: hidden; margin-bottom: 16px; }
+    .detail-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .detail-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #f8fafc; padding: 12px 14px; border-radius: 10px; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO SUPERIOR -->
+  <header class="top-header-wrapper">
+    <div class="navbar-top">
+      <div class="nav-left-group">
+        <a href="#" class="nav-left" onclick="setAppMode('buyer')">
+          <div class="brand-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+          </div>
+          <span class="brand-logo">Uni<span>Loop</span></span>
+        </a>
+
+        <div class="nav-campus-pill">
+          <span class="campus-online-dot"></span>
+          <select id="navCampusSelect" onchange="changeUserCampus(this.value)">
+            <option value="ESPOL" selected>ESPOL Prosperina</option>
+            <option value="UG">UG Ciudadela</option>
+            <option value="UCSG">Católica UCSG</option>
+            <option value="UPS">Salesiana UPS</option>
+            <option value="ECOTEC">ECOTEC Samborondón</option>
+            <option value="UEES">UEES Samborondón</option>
+            <option value="UARTES">UArtes Centro</option>
+            <option value="UCG">Casa Grande</option>
+            <option value="ULVR">Laica ULVR</option>
+            <option value="UIDE">UIDE Guayaquil</option>
+            <option value="UMET">UMET</option>
+            <option value="UPACIFICO">Del Pacífico</option>
+            <option value="UBE">UBE Durán</option>
+            <option value="ITB">ITB Atarazana</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="top-search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="topSearchInput" placeholder="Buscar libros de cálculo, batas de lab, calculadoras..." oninput="syncSearch(this.value)">
+        <span class="kbd-shortcut">⌘K</span>
+      </div>
+
+      <div class="nav-right">
+        <!-- BOTÓN VENDER ENLAZADO DIRECTO A publicar.html -->
+        <a href="publicar.html" class="btn-vender-nav">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+          </svg>
+          Vender
+        </a>
+
+        <div class="notif-container">
+          <button class="icon-btn" id="notifBellBtn" onclick="toggleNotifDropdown(event)">
+            <span class="notif-badge-count" id="notifCountBadge">3</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </button>
+
+          <div class="dropdown-popover" id="notifDropdown">
+            <div class="dropdown-header">
+              <span>Notificaciones en vivo</span>
+              <span style="font-size: 11px; color:#0284c7; cursor:pointer;" onclick="markAllNotifsRead()">Marcar leídas</span>
+            </div>
+            <div class="dropdown-list" id="notifListContainer"></div>
+          </div>
+        </div>
+
+        <div class="user-container">
+          <div class="user-profile-card" id="userProfileBtn" onclick="toggleUserDropdown(event)">
+            <div class="user-meta-info">
+              <div class="user-top-line">
+                <span class="user-display-name">Diego Y.</span>
+                <span class="verified-uni-pill" id="userVerifiedBadge">
+                  ✓ <span id="verifiedUniText">ESPOL</span>
+                </span>
+              </div>
+              <div class="user-bottom-line">
+                <span>Saldo: <span class="user-balance-amount" id="userBalanceText">$48.50</span></span>
+                <span>·</span>
+                <span class="user-role-tag">Estudiante</span>
+              </div>
+            </div>
+
+            <div class="user-avatar-wrapper">
+              <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80" alt="Diego Y." class="user-avatar-img">
+              <span class="avatar-status-dot"></span>
+            </div>
+          </div>
+
+          <div class="dropdown-popover" id="userDropdown" style="width: 245px;">
+            <div class="user-menu-item" onclick="openProfileModal('profile')"><span>👤 Configuración de mi perfil</span></div>
+            <div class="user-menu-item" onclick="openProfileModal('settings')"><span>⚙️ Ajustes generales y Saldo</span></div>
+            <div class="user-menu-item danger" onclick="window.location.href='index.html'"><span>🚪 Cerrar sesión</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sub-navbar">
+      <button class="sub-nav-tab active" id="tabExplore" onclick="setAppMode('buyer')">Explorar Artículos</button>
+      <button class="sub-nav-tab" id="tabMyPosts" onclick="setAppMode('seller')">Mis Publicaciones</button>
+      <button class="sub-nav-tab" id="tabMyPurchases" onclick="setAppMode('sold')">Mis Compras</button>
+      <button class="sub-nav-tab" id="tabChats" onclick="setAppMode('chats')">
+        Mensajes / Chats <span class="chat-badge-pill" id="chatUnreadPill">3</span>
+      </button>
+      <a href="mapa.html" class="sub-nav-tab">Puntos de Entrega</a>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+
+    <!-- HERO BANNER -->
+    <section class="hero-campus-banner" id="heroCampusBanner">
+      <div class="hero-top-badge">🛡️ Mercado Seguro Universitario · Guayaquil y Samborondón</div>
+      <h1 class="hero-title">Compra y vende entre estudiantes universitarios verificados</h1>
+      <p class="hero-subtitle">Ahorra hasta un 70% en libros de cálculo, tecnología, batas de laboratorio, calculadoras científicas y materiales técnicos entregados mano a mano en tu propio campus.</p>
+
+      <div class="hero-filter-header">
+        <div class="hero-filter-label">
+          <span>FILTRAR POR CAMPUS UNIVERSITARIO</span>
+          <select class="hero-uni-select-quick" id="uniQuickDropdown" onchange="filterByUniversity(this.value)">
+            <option value="Todas">Elige tu universidad (Todas)</option>
+            <option value="ESPOL">ESPOL</option>
+            <option value="UG">Universidad de Guayaquil (UG)</option>
+            <option value="UCSG">U. Católica (UCSG)</option>
+            <option value="UPS">Salesiana (UPS)</option>
+            <option value="ECOTEC">ECOTEC</option>
+            <option value="UEES">UEES</option>
+            <option value="UARTES">UArtes</option>
+            <option value="UCG">Casa Grande</option>
+            <option value="ULVR">Laica Vicente Rocafuerte (ULVR)</option>
+            <option value="UIDE">UIDE Guayaquil</option>
+            <option value="UMET">UMET</option>
+            <option value="UPACIFICO">Del Pacífico</option>
+            <option value="UBE">UBE</option>
+            <option value="ITB">ITB</option>
+          </select>
+        </div>
+
+        <div class="hero-live-counter">
+          <span class="live-green-dot"></span>
+          <span id="heroTotalCount">50 artículos listados hoy</span>
+        </div>
+      </div>
+
+      <div class="campus-pills-grid" id="campusPillsGrid"></div>
+    </section>
+
+    <!-- FILTROS AVANZADOS -->
+    <section class="advanced-search-panel" id="buyerFiltersArea">
+      <div class="adv-search-input-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="mainSearchInput" placeholder="Buscar libros, tecnología, calculadoras, batas, multímetro..." oninput="syncSearch(this.value)">
+        <button class="clear-search-btn" onclick="clearSearch()" title="Limpiar">✕</button>
+      </div>
+
+      <select class="adv-filter-select" id="categorySelect" onchange="applyFilters()">
+        <option value="Todos">Categoría: Todas</option>
+        <option value="Textos y Libros">📖 Textos y Libros</option>
+        <option value="Tecnología">💻 Tecnología y Componentes</option>
+        <option value="Calculadoras">🧮 Calculadoras e Instrumentos</option>
+        <option value="Batas y Salud">🩺 Batas y Salud</option>
+        <option value="Arquitectura">📐 Arquitectura y Diseño</option>
+        <option value="Herramientas">🛠 Herramientas y Kits</option>
+      </select>
+
+      <select class="adv-filter-select" id="statusSelect" onchange="applyFilters()">
+        <option value="Todos">Estado: Todos</option>
+        <option value="Nuevo / Caja">✨ Nuevo / En caja</option>
+        <option value="Como nuevo">🌟 Como nuevo / Semi nuevo</option>
+        <option value="Buen estado">✅ Buen estado</option>
+        <option value="Vendido">✕ Vendido</option>
+      </select>
+
+      <div class="price-slider-box">
+        <span class="price-slider-label">Hasta: <strong id="priceSliderVal">$350+</strong></span>
+        <input type="range" id="priceRangeSlider" min="5" max="350" step="5" value="350" oninput="updatePriceSlider(this.value)">
+      </div>
+    </section>
+
+    <!-- STATS VENDEDOR -->
+    <div id="sellerStatsArea" style="display: none;">
+      <div class="seller-dashboard-header">
+        <div class="stat-card"><span>Publicaciones activas</span><h3 id="statActive">1</h3></div>
+        <div class="stat-card"><span>Interesados / Clics</span><h3>28</h3></div>
+        <div class="stat-card"><span>Saldo disponible UniLoop</span><h3 id="statWallet">$48.50</h3></div>
+      </div>
+    </div>
+
+    <!-- CHATS -->
+    <div id="chatsViewArea" style="display: none;">
+      <div class="section-subtitle">
+        <div class="section-subtitle-left">
+          <h2>Mensajes y Coordinación en Campus</h2>
+          <span>Chats directos entre estudiantes verificados</span>
+        </div>
+      </div>
+
+      <div class="chats-container-box">
+        <div class="chat-sidebar-list">
+          <div class="chat-thread-item active">
+            <div style="font-weight:700; font-size:13.5px; color:#002855;">Carlos Proaño · ESPOL</div>
+            <div style="font-size:12px; color:#475569; margin-top:2px;">¿Aceptas canje por libro de Termodinámica?</div>
+            <div style="font-size:10.5px; color:#0284c7; margin-top:4px; font-weight:600;">Hace 5 min</div>
+          </div>
+          <div class="chat-thread-item">
+            <div style="font-weight:700; font-size:13.5px; color:#002855;">Ana Morales · UG</div>
+            <div style="font-size:12px; color:#475569; margin-top:2px;">Nos vemos en la biblioteca central a las 2pm</div>
+            <div style="font-size:10.5px; color:#94a3b8; margin-top:4px;">Hace 1 hora</div>
+          </div>
+        </div>
+
+        <div class="chat-window-area">
+          <div class="chat-messages-feed" id="chatMessagesFeed">
+            <div class="chat-bubble incoming">Hola Diego, vi tu publicación en UniLoop. ¿Sigue disponible para entregar hoy en el campus?</div>
+            <div class="chat-bubble outgoing">¡Hola! Sí, sigue disponible. Podemos vernos frente a la Biblioteca Central.</div>
+          </div>
+          <div class="chat-input-bar">
+            <input type="text" id="quickChatInput" placeholder="Escribe un mensaje..." onkeypress="if(event.key==='Enter') sendQuickChat()">
+            <button class="btn-vender-nav" style="border-radius:10px;" onclick="sendQuickChat()">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CATÁLOGO CON PAGINACIÓN DE 12 ARTÍCULOS -->
+    <div id="catalogSectionWrapper">
+      <div class="section-subtitle">
+        <div class="section-subtitle-left">
+          <h2 id="sectionTitle">Todos los materiales en Guayaquil</h2>
+          <span id="sectionCounter">Mostrando 12 artículos por página</span>
+        </div>
+
+        <select class="sort-dropdown" onchange="sortProducts(this.value)">
+          <option value="recent">↑↓ Más recientes</option>
+          <option value="priceLow">Precio: menor a mayor</option>
+          <option value="priceHigh">Precio: mayor a menor</option>
+        </select>
+      </div>
+
+      <div class="products-grid" id="productsGrid"></div>
+
+      <!-- PAGINACIÓN -->
+      <div class="pagination-bar" id="paginationBar">
+        <div class="pagination-info" id="paginationInfoText">Viendo 1–12 de 50 artículos disponibles en la red universitaria</div>
+        <div class="pagination-controls" id="paginationControls"></div>
+      </div>
+
+      <!-- BOTÓN RECTANGULAR LARGO "MÁS DETALLES SOBRE UNILOOP" -->
+      <div class="more-uniloop-btn-wrapper">
+        <button class="btn-more-uniloop" id="btnToggleMoreUniloop" onclick="toggleMoreUniloop()">
+          <span>Más detalles sobre UniLoop (Puntos Seguros, Garantía y Contacto)</span>
+          <svg class="chevron-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- SECCIÓN DESPLEGABLE -->
+      <div class="uniloop-info-drawer" id="uniloopInfoDrawer">
+        <section class="safe-campus-section">
+          <span class="safe-pill-badge">🛡️ Red de Entrega Presencial Auditada</span>
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px;">
+            <div>
+              <h2 style="font-size:24px; font-weight:800; color:#0f172a; margin-bottom:6px;">Puntos de Entrega Seguros dentro de cada Campus</h2>
+              <p style="font-size:13.5px; color:#475569; max-width:740px; line-height:1.5;">
+                Evita citas dudosas en la calle o transferencias a desconocidos. Todas las transacciones de UniLoop se coordinan en zonas iluminadas, monitoreadas por garitas y seguridad universitaria.
+              </p>
+            </div>
+            <a href="mapa.html" style="background:#002855; color:#fff; padding:9px 16px; border-radius:10px; font-size:12.5px; font-weight:700; text-decoration:none;">
+              🗺️ Abrir Mapa Completo de Guayaquil →
+            </a>
+          </div>
+
+          <div class="campus-maps-grid">
+            <div class="campus-spot-card">
+              <div>
+                <div class="spot-card-top">
+                  <span class="spot-uni-pill">ESPOL Prosperina</span>
+                  <span class="spot-open-tag">● Abierto</span>
+                </div>
+                <h4>Biblioteca Central &amp; FIMCP</h4>
+                <p>Lobby principal con cámaras 24/7 y mesas de estudio. Ideal para verificar el encendido de calculadoras y laptops.</p>
+              </div>
+              <div id="miniMapEspol" class="mini-campus-map"></div>
+            </div>
+
+            <div class="campus-spot-card">
+              <div>
+                <div class="spot-card-top">
+                  <span class="spot-uni-pill">UCSG Católica</span>
+                  <span class="spot-open-tag">● Abierto</span>
+                </div>
+                <h4>Plaza Calderón / Salud</h4>
+                <p>Punto neurálgico frente al Malecón del Salado, junto a la cafetería universitaria con personal de vigilancia constante.</p>
+              </div>
+              <div id="miniMapUcsg" class="mini-campus-map"></div>
+            </div>
+
+            <div class="campus-spot-card">
+              <div>
+                <div class="spot-card-top">
+                  <span class="spot-uni-pill">UEES Samborondón</span>
+                  <span class="spot-open-tag">● Abierto</span>
+                </div>
+                <h4>Edificio E · Starbucks</h4>
+                <p>Terraza techada con wifi de alta velocidad y conexión eléctrica para probar gadgets de audio, tablets y equipos.</p>
+              </div>
+              <div id="miniMapUees" class="mini-campus-map"></div>
+            </div>
+
+            <div class="campus-spot-card">
+              <div>
+                <div class="spot-card-top">
+                  <span class="spot-uni-pill" style="background:#0284c7;">Casa Grande</span>
+                  <span class="spot-open-tag">● Abierto</span>
+                </div>
+                <h4>Patio Central / Ágora</h4>
+                <p>Espacio de integración abierto junto a bienestar estudiantil. Punto rápido de intercambio entre clases y talleres.</p>
+              </div>
+              <div id="miniMapUcg" class="mini-campus-map"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="steps-banner-box">
+          <div class="step-item">
+            <div class="step-num-circle">1</div>
+            <div>
+              <h5>Acuerda por el chat interno</h5>
+              <p>Confirma la fecha, hora y punto seguro dentro del campus sin exponer datos sensibles antes de tiempo.</p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-num-circle" style="background:#dcfce7; color:#15803d;">2</div>
+            <div>
+              <h5>Revisa el artículo en vivo</h5>
+              <p>Prueba el equipo, calculadora o revisa las páginas del libro en las mesas de estudio de la biblioteca o patio.</p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-num-circle" style="background:#e0f2fe; color:#0369a1;">3</div>
+            <div>
+              <h5>Paga vía Deuna! o Transferencia</h5>
+              <p>Sin manejo de efectivo forzoso. Transfiere al instante al verificar el producto y califica al compañero.</p>
+            </div>
+          </div>
+        </section>
+
+        <footer class="site-footer">
+          <div class="footer-top-strip">
+            <span>🛡️ <strong>Programa Campus Seguro Guayaquil</strong></span>
+            <span>• ESPOL Prosperina (Biblioteca Central / FIMCP)</span>
+            <span>• UCSG Malecón del Salado (Plaza Calderón)</span>
+            <span>• UEES Samborondón (Edificio E)</span>
+            <span>• Casa Grande (Patio Central)</span>
+          </div>
+
+          <div class="footer-main-grid">
+            <div class="footer-col">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+                <span style="font-size:20px;">🎓</span>
+                <strong style="font-size:20px; color:#002855;">UniLoop</strong>
+              </div>
+              <p style="font-size:12.5px; color:#475569; line-height:1.6; margin-bottom:12px;">
+                La red oficial de intercambio y comercio circular universitario para Guayaquil y Samborondón. Reutiliza libros, tecnología y equipo con verificación institucional.
+              </p>
+              <span style="display:inline-block; background:#e0f2fe; color:#0369a1; font-size:11px; font-weight:700; padding:4px 10px; border-radius:999px;">🎓 Comunidad Activa Guayaquil 2026</span>
+            </div>
+
+            <div class="footer-col">
+              <h4>Campuses Conectados</h4>
+              <ul>
+                <li><a href="#" onclick="filterByUniversity('ESPOL')">ESPOL - Campus Gustavo Galindo</a></li>
+                <li><a href="#" onclick="filterByUniversity('UG')">Universidad de Guayaquil (UG)</a></li>
+                <li><a href="#" onclick="filterByUniversity('UCSG')">Universidad Católica (UCSG)</a></li>
+                <li><a href="#" onclick="filterByUniversity('UEES')">Universidad Espíritu Santo (UEES)</a></li>
+                <li><a href="#" onclick="filterByUniversity('UCG')">Universidad Casa Grande &amp; ECOTEC</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4>Soporte Estudiantil</h4>
+              <ul>
+                <li><a href="mapa.html">Mapa de Puntos de Entrega Seguros</a></li>
+                <li><a href="#" onclick="alert('Soporte UniLoop Guayaquil: soporte@uniloop.ec')">Centro de Ayuda y Disputas</a></li>
+                <li><a href="#" onclick="alert('Validación automática con dominio institucional .edu.ec')">Validación de Correo Universitario</a></li>
+                <li><a href="#" onclick="alert('Canal de reportes estudiantiles activo 24/7.')">Reportar Usuario o Publicación</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4>Garantía y Legal 2026</h4>
+              <ul>
+                <li><a href="#" onclick="alert('Código de Convivencia Estudiantil UniLoop 2026')">Términos de Convivencia Estudiantil</a></li>
+                <li><a href="#" onclick="alert('Recomendamos transferencias directas al momento de revisar el artículo.')">Políticas de Transacción Sin Efectivo</a></li>
+                <li><a href="#" onclick="alert('Tus datos de matrícula están cifrados y protegidos.')">Privacidad y Protección de Matrícula</a></li>
+                <li><strong>Contacto:</strong> hola@uniloop.ec · Guayaquil</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="footer-bottom-bar">
+            <span>© 2026 UniLoop Ecuador. Diseñado por y para estudiantes universitarios de Guayaquil.</span>
+            <span>🔒 Entrega Presencial Auditada &nbsp;&nbsp; ✉️ Dominios .edu.ec Verificados</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </main>
+
+  <!-- BOTÓN FLOTANTE MAPA -->
+  <a href="mapa.html" class="floating-map-btn">
+    <div class="radar-pulse"></div>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+      <line x1="8" y1="2" x2="8" y2="18"></line>
+      <line x1="16" y1="6" x2="16" y2="22"></line>
+    </svg>
+    <span>Mapa de entregas</span>
+  </a>
+
+  <!-- MODAL 1: VISTA PREVIA RÁPIDA (SOLO BOTÓN "DETALLES COMPLETOS") -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalDetailTitle">Detalle del Material</h3>
+        <button class="btn-close-modal" onclick="closeDetailModal()">✕</button>
+      </div>
+
+      <div class="detail-img-box">
+        <img id="modalDetailImg" src="" alt="Material">
+      </div>
+
+      <div class="detail-meta-grid">
+        <div class="detail-meta-item">
+          <label>Precio UniLoop</label>
+          <span id="modalDetailPrice" style="color: #002855; font-size: 16px;">$0</span>
+        </div>
+        <div class="detail-meta-item">
+          <label>Estado</label>
+          <span id="modalDetailStatus">Buen estado</span>
+        </div>
+        <div class="detail-meta-item">
+          <label>Universidad</label>
+          <span id="modalDetailUni">ESPOL</span>
+        </div>
+        <div class="detail-meta-item">
+          <label>Publicado el</label>
+          <span id="modalDetailDate">Hoy</span>
+        </div>
+      </div>
+
+      <div style="font-size:13px; color:#475569; margin-bottom:18px;">
+        <label style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; display: block; margin-bottom: 4px;">Carrera / Facultad y detalles</label>
+        <p id="modalDetailDesc">Material verificado por un estudiante para entregas en campus.</p>
+      </div>
+
+      <div id="modalDetailAction"></div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: PERFIL Y SALDO -->
+  <div class="modal-overlay" id="profileModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="profileModalTitle">Configuración de mi perfil</h3>
+        <button class="btn-close-modal" onclick="closeProfileModal()">✕</button>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80" alt="Diego Y." style="width:60px; height:60px; border-radius:50%; object-fit:cover;">
+        <div>
+          <h4 style="font-size:16px; color:#002855;">Diego Yulán <span id="modalVerifiedTag" style="font-size:11px; background:#dcfce7; color:#15803d; padding:2px 7px; border-radius:999px;">✓ ESPOL</span></h4>
+          <span style="font-size:12px; color:#64748b;">Estudiante verificado</span>
+        </div>
+      </div>
+      <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:12px 14px; border-radius:12px; margin:14px 0; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span style="font-size:11px; font-weight:700; color:#15803d;">SALDO BILLETERA UNILOOP</span>
+          <div style="font-size:20px; font-weight:800; color:#065f46;" id="modalWalletBalance">$48.50</div>
+        </div>
+        <button type="button" onclick="rechargeWallet(10)" style="background:#059669; color:#fff; border:none; padding:8px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">+ Recargar $10</button>
+      </div>
+      <button class="btn-submit-modal" onclick="closeProfileModal()">Listo</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    let currentMode = 'buyer';
+    let currentUni = "Todas";   
+    let userVerifiedUni = "ESPOL";
+    let userWalletBalance = 48.50;
+    let maxPriceFilter = 350;
+    let currentPage = 1;
+    const ITEMS_PER_PAGE = 12;
+    let campusMapsInitialized = false;
+
+    const IMG = {
+      multimetro: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&auto=format&fit=crop&q=80",
+      cautin: "https://images.unsplash.com/photo-1597733336794-12d05021d510?w=600&auto=format&fit=crop&q=80",
+      arduino: "https://images.unsplash.com/photo-1553406830-ef2513450d76?w=600&auto=format&fit=crop&q=80",
+      calculadora: "https://images.unsplash.com/photo-1574607383476-f517f260d30b?w=600&auto=format&fit=crop&q=80",
+      libros: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
+      derecho: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&auto=format&fit=crop&q=80",
+      medicina: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=600&auto=format&fit=crop&q=80",
+      bata: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop&q=80",
+      arquitectura: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&auto=format&fit=crop&q=80",
+      arte: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&auto=format&fit=crop&q=80",
+      ipad: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80",
+      camara: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&auto=format&fit=crop&q=80",
+      herramientas: "https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=600&auto=format&fit=crop&q=80",
+      laptop: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80",
+      microscopio: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&auto=format&fit=crop&q=80"
+    };
+
+    const defaultMaterials = [
+      { id: 101, title: "Calculadora Gráfica Texas Instruments TI-Nspire CX II CAS", price: 125, originalPrice: 210, status: "Como nuevo", uni: "ESPOL", date: "15 Nov 2026", desc: "Incluye funda rígida original, cable USB y software CAS oficial para cálculo simbólico y ecuaciones diferenciales. Sin rayones.", faculty: "FIMCP · Ingeniería Mecánica", category: "Calculadoras", tags: ["#calculadoras", "#calculo", "#espol"], seller: "Carlos Proaño", sellerSem: "7mo Sem.", sellerRating: "4.9", sellerSales: 19, phone: "593987654321", isMyPost: false, exchangeOffer: "Libro Termodinámica de Çengel (9na ed.) o Mecánica Vectorial de Beer Johnston", exchangeDiscount: 50, image: IMG.calculadora },
+      { id: 102, title: "Multímetro Digital Uni-T UT61E True RMS", price: 24, originalPrice: 45, status: "Buen estado", uni: "ESPOL", date: "15 Nov 2026", desc: "Multímetro de alta precisión con puntas de prueba originales y batería nueva. Ideal para laboratorios de circuitos.", faculty: "FIEC · Electricidad", category: "Calculadoras", tags: ["#electricidad", "#laboratorio"], seller: "Ana Morales", sellerSem: "6to Sem.", sellerRating: "4.8", sellerSales: 12, phone: "593987654322", isMyPost: false, exchangeOffer: "Protoboard grande + fuente DC regulable", exchangeDiscount: 10, image: IMG.multimetro },
+      { id: 103, title: "Termodinámica 9na Edición - Yunus Çengel", price: 28, originalPrice: 65, status: "Como nuevo", uni: "ESPOL", date: "14 Nov 2026", desc: "Forrado con plástico protector, sin páginas dobladas ni resaltador. Entrega en Biblioteca Central o FIMCP.", faculty: "FIMCP · Ingeniería Mecánica", category: "Textos y Libros", tags: ["#libros", "#termodinamica"], seller: "Mateo Vera", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 8, phone: "593987654323", isMyPost: false, exchangeOffer: "Libro Transferencia de Calor o Mecánica de Fluidos", exchangeDiscount: 15, image: IMG.libros },
+      { id: 104, title: "iPad 9na Gen (64GB) + Apple Pencil 1ra Gen", price: 240, originalPrice: 380, status: "Como nuevo", uni: "UCSG", date: "15 Nov 2026", desc: "Perfecto para tomar apuntes en Goodnotes en Medicina o Derecho. Incluye mica tipo papel y estuche magnético.", faculty: "Medicina · Ciencias Médicas", category: "Tecnología", tags: ["#ipad", "#apuntes", "#tecnologia"], seller: "Valeria Mendoza", sellerSem: "4to Sem.", sellerRating: "4.9", sellerSales: 15, phone: "593987654324", isMyPost: false, exchangeOffer: "Estetoscopio Littmann Cardiology IV", exchangeDiscount: 110, image: IMG.ipad },
+      { id: 105, title: "Estetoscopio Littmann Classic III Negro + Estuche", price: 75, originalPrice: 130, status: "Como nuevo", uni: "UEES", date: "14 Nov 2026", desc: "Usado solo 2 meses en prácticas de semiología. Viene con olivas de repuesto y estuche rígido protector.", faculty: "Medicina · Cirugía", category: "Batas y Salud", tags: ["#medicina", "#littmann", "#salud"], seller: "Sofía Zambrano", sellerSem: "8vo Sem.", sellerRating: "5.0", sellerSales: 22, phone: "593987654325", isMyPost: false, exchangeOffer: "Tensiómetro Welch Allyn o libro Anatomía de Moore", exchangeDiscount: 35, image: IMG.medicina },
+      { id: 106, title: "Cámara Sony Alpha A6000 + Lente Kit 16-50mm", price: 310, originalPrice: 520, status: "Buen estado", uni: "UCG", date: "13 Nov 2026", desc: "Incluye batería extra, cargador original y bolso de transporte. Ideal para producción audiovisual y fotografía.", faculty: "Comunicación · Producción", category: "Tecnología", tags: ["#fotografia", "#camara", "#sony"], seller: "Sebastián Ortiz", sellerSem: "6to Sem.", sellerRating: "4.8", sellerSales: 9, phone: "593987654326", isMyPost: false, exchangeOffer: "Estabilizador DJI Ronin SC o micrófono Rode", exchangeDiscount: 90, image: IMG.camara },
+      { id: 107, title: "Kit Arduino Mega 2560 + 37 Sensores + Protoboard", price: 28, originalPrice: 50, status: "Nuevo / Caja", uni: "UPS", date: "15 Nov 2026", desc: "Caja organizadora completa con cables jumper macho-hembra, pantalla LCD, servomotores y módulo WiFi.", faculty: "Ingeniería · Mecatrónica", category: "Tecnología", tags: ["#arduino", "#electronica", "#robotica"], seller: "Jorge Torres", sellerSem: "5to Sem.", sellerRating: "4.7", sellerSales: 11, phone: "593987654327", isMyPost: false, exchangeOffer: "Raspberry Pi 4 o fuente de poder", exchangeDiscount: 15, image: IMG.arduino },
+      { id: 108, title: "Código Orgánico Integral Penal (COIP) + Constitución", price: 15, originalPrice: 30, status: "Buen estado", uni: "UG", date: "12 Nov 2026", desc: "Edición actualizada con índice rápido. Entrega en Facultad de Jurisprudencia Ciudadela Universitaria.", faculty: "Jurisprudencia · Derecho", category: "Textos y Libros", tags: ["#derecho", "#coip", "#libros"], seller: "María José Ruiz", sellerSem: "7mo Sem.", sellerRating: "4.9", sellerSales: 14, phone: "593987654328", isMyPost: false, exchangeOffer: "Código Civil o Código Orgánico General de Procesos", exchangeDiscount: 8, image: IMG.derecho },
+      { id: 109, title: "Tablero de Dibujo Técnico A2 + Regla Paralela", price: 35, originalPrice: 68, status: "Como nuevo", uni: "UCSG", date: "14 Nov 2026", desc: "Tablero portátil con inclinación ajustable, escuadras biseladas y tubo portaplanos incluido.", faculty: "Arquitectura y Diseño", category: "Arquitectura", tags: ["#arquitectura", "#dibujo", "#planos"], seller: "Paula Villacís", sellerSem: "3er Sem.", sellerRating: "4.9", sellerSales: 7, phone: "593987654329", isMyPost: false, exchangeOffer: "Set de marcadores Copic o escalímetro metálico", exchangeDiscount: 15, image: IMG.arquitectura },
+      { id: 110, title: "Bata de Laboratorio Antifluido Talla M + Gafas", price: 14, originalPrice: 26, status: "Como nuevo", uni: "ESPOL", date: "15 Nov 2026", desc: "Bata blanca manga larga con puños elásticos, sin manchas químicas. Incluye gafas de seguridad transparentes.", faculty: "FCNM · Ingeniería Química", category: "Batas y Salud", tags: ["#quimica", "#bata", "#laboratorio"], seller: "Diego Y.", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 6, phone: "593987654320", isMyPost: true, exchangeOffer: "Libro Química General de Chang", exchangeDiscount: 7, image: IMG.bata },
+      { id: 111, title: "Estación de Soldadura Cautín 60W Regulable", price: 16, originalPrice: 32, status: "Buen estado", uni: "ESPOL", date: "14 Nov 2026", desc: "Incluye soporte metálico, esponja limpiadora y rollo de estaño 60/40.", faculty: "FIEC · Electrónica", category: "Herramientas", tags: ["#soldadura", "#circuitos"], seller: "Andrés Gómez", sellerSem: "6to Sem.", sellerRating: "4.8", sellerSales: 10, phone: "593987654330", isMyPost: false, exchangeOffer: "Pinza amperimétrica", exchangeDiscount: 8, image: IMG.cautin },
+      { id: 112, title: "Cálculo de una Variable - James Stewart 8va Ed.", price: 22, originalPrice: 55, status: "Buen estado", uni: "ESPOL", date: "13 Nov 2026", desc: "Libro físico original en español, ideal para Cálculo Diferencial e Integral.", faculty: "FCNM · Matemática", category: "Textos y Libros", tags: ["#calculo", "#stewart", "#libros"], seller: "Kevin Paredes", sellerSem: "4to Sem.", sellerRating: "4.9", sellerSales: 5, phone: "593987654331", isMyPost: false, exchangeOffer: "Álgebra Lineal de Grossman", exchangeDiscount: 12, image: IMG.libros },
+      { id: 113, title: "Calculadora Científica Casio fx-991LA CW", price: 19, originalPrice: 34, status: "Nuevo / Caja", uni: "UG", date: "15 Nov 2026", desc: "Caja sellada con garantía, pantalla de alta resolución para matrices y estadística.", faculty: "Ingeniería Industrial", category: "Calculadoras", tags: ["#casio", "#estadistica"], seller: "Luis Cedeño", sellerSem: "3er Sem.", sellerRating: "4.7", sellerSales: 9, phone: "593987654332", isMyPost: false, exchangeOffer: "Libro Estadística de Devore", exchangeDiscount: 10, image: IMG.calculadora },
+      { id: 114, title: "Tensiómetro Aneroide + Fonendoscopio Riester", price: 32, originalPrice: 60, status: "Como nuevo", uni: "UG", date: "12 Nov 2026", desc: "Calibrado con brazalete adulto y estuche con cierre. Entrega en Ciencias Médicas.", faculty: "Medicina · Enfermería", category: "Batas y Salud", tags: ["#enfermeria", "#tensiometro"], seller: "Camila Suárez", sellerSem: "6to Sem.", sellerRating: "5.0", sellerSales: 16, phone: "593987654333", isMyPost: false, exchangeOffer: "Oxímetro de pulso profesional", exchangeDiscount: 12, image: IMG.medicina },
+      { id: 115, title: "Set de Escuadras Profesionales + Escalímetro Aluminio", price: 12, originalPrice: 24, status: "Buen estado", uni: "UG", date: "11 Nov 2026", desc: "Sin bordes astillados, escalímetro triangular con 6 escalas métricas.", faculty: "Arquitectura y Urbanismo", category: "Arquitectura", tags: ["#escalimetro", "#arquitectura"], seller: "Fernando León", sellerSem: "5to Sem.", sellerRating: "4.8", sellerSales: 4, phone: "593987654334", isMyPost: false, exchangeOffer: "Estilógrafos recargables", exchangeDiscount: 6, image: IMG.arquitectura },
+      { id: 116, title: "MacBook Air M1 256GB (Ideal Programación)", price: 340, originalPrice: 650, status: "Buen estado", uni: "UEES", date: "15 Nov 2026", desc: "Batería al 91%, cargador original MagSafe. Corre Python, RStudio y Docker sin problemas.", faculty: "Ingeniería en Sistemas", category: "Tecnología", tags: ["#macbook", "#programacion"], seller: "Nicolás Vélez", sellerSem: "8vo Sem.", sellerRating: "5.0", sellerSales: 13, phone: "593987654335", isMyPost: false, exchangeOffer: "iPad Pro + diferencia", exchangeDiscount: 150, image: IMG.laptop },
+      { id: 117, title: "Principios de Economía - Gregory Mankiw", price: 20, originalPrice: 48, status: "Como nuevo", uni: "ECOTEC", date: "14 Nov 2026", desc: "Usado en Microeconomía y Macroeconomía. Entrega en campus Samborondón o Juan Tanca Marengo.", faculty: "Ciencias Económicas", category: "Textos y Libros", tags: ["#economia", "#mankiw"], seller: "Daniela Viteri", sellerSem: "4to Sem.", sellerRating: "4.9", sellerSales: 11, phone: "593987654336", isMyPost: false, exchangeOffer: "Libro Contabilidad Financiera", exchangeDiscount: 10, image: IMG.libros },
+      { id: 118, title: "Kit de Herramientas de Precisión 64 en 1", price: 15, originalPrice: 28, status: "Nuevo / Caja", uni: "UPS", date: "13 Nov 2026", desc: "Destornilladores magnéticos para laptops, celulares y placas electrónicas.", faculty: "Computación · Redes", category: "Herramientas", tags: ["#herramientas", "#mantenimiento"], seller: "Bryan Mendoza", sellerSem: "5to Sem.", sellerRating: "4.8", sellerSales: 18, phone: "593987654337", isMyPost: false, exchangeOffer: "Crimpadora RJ45", exchangeDiscount: 8, image: IMG.herramientas },
+      { id: 119, title: "Set Óleos Profesionales + Pinceles Pelo Marta", price: 26, originalPrice: 52, status: "Como nuevo", uni: "UARTES", date: "15 Nov 2026", desc: "18 tubos casi llenos y estuche de bambú con pinceles planos y redondos.", faculty: "Artes Visuales", category: "Arquitectura", tags: ["#arte", "#pintura", "#uartes"], seller: "Lucía Andrade", sellerSem: "6to Sem.", sellerRating: "5.0", sellerSales: 9, phone: "593987654338", isMyPost: false, exchangeOffer: "Bastidores de lienzo 50x70", exchangeDiscount: 12, image: IMG.arte },
+      { id: 120, title: "Libro Anatomía con Orientación Clínica - Moore", price: 42, originalPrice: 95, status: "Como nuevo", uni: "UCSG", date: "12 Nov 2026", desc: "8va edición tapa dura, láminas a todo color impecables.", faculty: "Medicina", category: "Textos y Libros", tags: ["#anatomia", "#moore", "#medicina"], seller: "Gabriel Franco", sellerSem: "5to Sem.", sellerRating: "4.9", sellerSales: 20, phone: "593987654339", isMyPost: false, exchangeOffer: "Atlas de Netter", exchangeDiscount: 20, image: IMG.libros },
+      { id: 121, title: "Osciloscopio Portátil Digital DSO138 Armado", price: 22, originalPrice: 40, status: "Buen estado", uni: "ESPOL", date: "11 Nov 2026", desc: "Con carcasa acrílica transparente y sonda BNC incluida.", faculty: "FIEC · Telecomunicaciones", category: "Calculadoras", tags: ["#osciloscopio", "#electronica"], seller: "Esteban Silva", sellerSem: "7mo Sem.", sellerRating: "4.8", sellerSales: 14, phone: "593987654340", isMyPost: false, exchangeOffer: "Módulo ESP32 + sensores", exchangeDiscount: 10, image: IMG.multimetro },
+      { id: 122, title: "Scrub Quirúrgico Azul Marino Antifluido Talla S", price: 18, originalPrice: 35, status: "Como nuevo", uni: "UBE", date: "14 Nov 2026", desc: "Tela cómoda y fresca con 5 bolsillos funcionales. Entrega en campus Durán o centro.", faculty: "Enfermería y Salud", category: "Batas y Salud", tags: ["#scrub", "#enfermeria"], seller: "Josselyn Mora", sellerSem: "4to Sem.", sellerRating: "4.9", sellerSales: 7, phone: "593987654341", isMyPost: false, exchangeOffer: "Bata blanca manga corta", exchangeDiscount: 8, image: IMG.bata },
+      { id: 123, title: "Finanzas Corporativas - Ross Westerfield 11va Ed.", price: 25, originalPrice: 60, status: "Buen estado", uni: "UIDE", date: "13 Nov 2026", desc: "Excelente estado, ideal para Administración de Empresas y Finanzas.", faculty: "Administración de Empresas", category: "Textos y Libros", tags: ["#finanzas", "#administracion"], seller: "Roberto Cárdenas", sellerSem: "6to Sem.", sellerRating: "4.7", sellerSales: 5, phone: "593987654342", isMyPost: false, exchangeOffer: "Libro Marketing de Kotler", exchangeDiscount: 12, image: IMG.libros },
+      { id: 124, title: "Tableta Gráfica Wacom Intuos Small Bluetooth", price: 48, originalPrice: 90, status: "Como nuevo", uni: "UCG", date: "15 Nov 2026", desc: "Con lápiz sin batería y 3 puntas de repuesto dentro del lápiz.", faculty: "Diseño Gráfico", category: "Tecnología", tags: ["#wacom", "#diseño"], seller: "Mariana Salazar", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 12, phone: "593987654343", isMyPost: false, exchangeOffer: "Teclado mecánico compacto", exchangeDiscount: 20, image: IMG.ipad },
+      { id: 125, title: "Contabilidad General - Pedro Zapata Sánchez", price: 16, originalPrice: 35, status: "Buen estado", uni: "ULVR", date: "10 Nov 2026", desc: "Incluye plan de cuentas actualizado bajo NIIF.", faculty: "Contabilidad y Auditoría", category: "Textos y Libros", tags: ["#contabilidad", "#niif"], seller: "Paola Zambrano", sellerSem: "3er Sem.", sellerRating: "4.8", sellerSales: 8, phone: "593987654344", isMyPost: false, exchangeOffer: "Calculadora financiera HP", exchangeDiscount: 8, image: IMG.libros },
+      { id: 126, title: "Fuente de Poder Protoboard 3.3V/5V + 830 Puntos", price: 9, originalPrice: 18, status: "Nuevo / Caja", uni: "UPS", date: "14 Nov 2026", desc: "Ideal para prácticas de electrónica digital y microcontroladores.", faculty: "Electrónica y Automatización", category: "Tecnología", tags: ["#protoboard", "#circuitos"], seller: "Cristian Loja", sellerSem: "4to Sem.", sellerRating: "4.9", sellerSales: 15, phone: "593987654345", isMyPost: false, exchangeOffer: "Cables dupont variados", exchangeDiscount: 4, image: IMG.arduino },
+      { id: 127, title: "Lente Canon EF 50mm f/1.8 STM (Retrato)", price: 85, originalPrice: 145, status: "Como nuevo", uni: "UARTES", date: "12 Nov 2026", desc: "Sin hongos ni polvo, enfoque silencioso para video y fotografía.", faculty: "Cine y Artes Audiovisuales", category: "Tecnología", tags: ["#canon", "#lente", "#cine"], seller: "Emilio Pincay", sellerSem: "7mo Sem.", sellerRating: "5.0", sellerSales: 11, phone: "593987654346", isMyPost: false, exchangeOffer: "Trípode Manfrotto", exchangeDiscount: 35, image: IMG.camara },
+      { id: 128, title: "Kit de Disección Quirúrgica Acero Inoxidable 12 pzas", price: 17, originalPrice: 32, status: "Como nuevo", uni: "ITB", date: "13 Nov 2026", desc: "Estuche con cierre, mango de bisturí #3 y #4, pinzas y tijeras.", faculty: "Técnico en Enfermería", category: "Batas y Salud", tags: ["#diseccion", "#enfermeria"], seller: "Karla Méndez", sellerSem: "4to Sem.", sellerRating: "4.8", sellerSales: 9, phone: "593987654347", isMyPost: false, exchangeOffer: "Oxímetro digital", exchangeDiscount: 8, image: IMG.medicina },
+      { id: 129, title: "Física Universitaria - Sears Zemansky Vol. 1 y 2", price: 34, originalPrice: 80, status: "Buen estado", uni: "ESPOL", date: "15 Nov 2026", desc: "Ambos tomos en buen estado, excelente para Física 1 y Física 2.", faculty: "FCNM · Física", category: "Textos y Libros", tags: ["#fisica", "#sears"], seller: "Diego Y.", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 6, phone: "593987654320", isMyPost: false, exchangeOffer: "Calculadora científica", exchangeDiscount: 15, image: IMG.libros },
+      { id: 130, title: "Maletín de Herramientas Eléctricas + Pelacables", price: 21, originalPrice: 42, status: "Buen estado", uni: "UMET", date: "11 Nov 2026", desc: "Alicate de corte, pinza de punta, pelacables automático y cinta aislante.", faculty: "Ingeniería Industrial", category: "Herramientas", tags: ["#electricidad", "#herramientas"], seller: "Héctor Baquerizo", sellerSem: "6to Sem.", sellerRating: "4.7", sellerSales: 6, phone: "593987654348", isMyPost: false, exchangeOffer: "Multímetro básico", exchangeDiscount: 10, image: IMG.herramientas },
+      { id: 131, title: "Comercio Internacional y Logística - Ballou", price: 23, originalPrice: 50, status: "Como nuevo", uni: "UPACIFICO", date: "14 Nov 2026", desc: "Administración de la cadena de suministro, sin rayones.", faculty: "Negocios Internacionales", category: "Textos y Libros", tags: ["#logistica", "#negocios"], seller: "Doménica Salgado", sellerSem: "7mo Sem.", sellerRating: "4.9", sellerSales: 10, phone: "593987654349", isMyPost: false, exchangeOffer: "Libro Finanzas Internacionales", exchangeDiscount: 10, image: IMG.libros },
+      { id: 132, title: "Microscopio Óptico Binocular de Prácticas", price: 95, originalPrice: 180, status: "Buen estado", uni: "UG", date: "10 Nov 2026", desc: "Objetivos 4x, 10x, 40x y 100x con luz LED regulable.", faculty: "Ciencias Naturales · Biología", category: "Batas y Salud", tags: ["#microscopio", "#biologia"], seller: "Ricardo Tello", sellerSem: "8vo Sem.", sellerRating: "5.0", sellerSales: 7, phone: "593987654350", isMyPost: false, exchangeOffer: "Tablet Android para apuntes", exchangeDiscount: 40, image: IMG.microscopio },
+      { id: 133, title: "Raspberry Pi 4 Model B (4GB RAM) + Case Ventilador", price: 58, originalPrice: 95, status: "Como nuevo", uni: "ESPOL", date: "15 Nov 2026", desc: "Incluye microSD 32GB con Raspberry Pi OS y fuente USB-C oficial.", faculty: "FIEC · Computación", category: "Tecnología", tags: ["#raspberrypi", "#linux", "#iot"], seller: "Javier Alcívar", sellerSem: "6to Sem.", sellerRating: "4.9", sellerSales: 17, phone: "593987654351", isMyPost: false, exchangeOffer: "Monitor secundario portátil", exchangeDiscount: 25, image: IMG.arduino },
+      { id: 134, title: "Compás de Precisión Staedtler Mars Comfort", price: 14, originalPrice: 27, status: "Como nuevo", uni: "UCSG", date: "13 Nov 2026", desc: "Con adaptador universal y caja de minas de repuesto.", faculty: "Arquitectura", category: "Arquitectura", tags: ["#staedtler", "#dibujo"], seller: "Andrea Cobo", sellerSem: "2do Sem.", sellerRating: "4.8", sellerSales: 5, phone: "593987654352", isMyPost: false, exchangeOffer: "Portaminas 0.3 y 0.5", exchangeDiscount: 6, image: IMG.arquitectura },
+      { id: 135, title: "Derecho Constitucional Ecuatoriano - Ramiro Ávila", price: 13, originalPrice: 28, status: "Buen estado", uni: "UEES", date: "12 Nov 2026", desc: "Análisis garantista, subrayado suave con lápiz.", faculty: "Derecho y Gobernanza", category: "Textos y Libros", tags: ["#constitucional", "#derecho"], seller: "Martín Roca", sellerSem: "5to Sem.", sellerRating: "4.9", sellerSales: 13, phone: "593987654353", isMyPost: false, exchangeOffer: "Código Orgánico Administrativo", exchangeDiscount: 6, image: IMG.derecho },
+      { id: 136, title: "Pinza Amperimétrica Digital Fluke 302+", price: 65, originalPrice: 120, status: "Como nuevo", uni: "ESPOL", date: "14 Nov 2026", desc: "Original Fluke, medición AC/DC con estuche de lona.", faculty: "FIEC · Potencia", category: "Calculadoras", tags: ["#fluke", "#electricidad"], seller: "Óscar Delgado", sellerSem: "8vo Sem.", sellerRating: "5.0", sellerSales: 21, phone: "593987654354", isMyPost: false, exchangeOffer: "Multímetro Fluke 115", exchangeDiscount: 30, image: IMG.multimetro },
+      { id: 137, title: "Bata Médica Bordada Sin Logo (Talla L)", price: 15, originalPrice: 28, status: "Nuevo / Caja", uni: "ECOTEC", date: "15 Nov 2026", desc: "Nueva en empaque, tela gabardina gruesa que no transparenta.", faculty: "Ciencias de la Salud", category: "Batas y Salud", tags: ["#bata", "#medicina"], seller: "Belén Villamar", sellerSem: "3er Sem.", sellerRating: "4.8", sellerSales: 6, phone: "593987654355", isMyPost: false, exchangeOffer: "Libro Fisiología de Guyton", exchangeDiscount: 8, image: IMG.bata },
+      { id: 138, title: "Cautín Tipo Lápiz 40W + Extractor de Soldadura", price: 11, originalPrice: 20, status: "Buen estado", uni: "UPS", date: "11 Nov 2026", desc: "Punta cerámica de calentamiento rápido + bomba desoldadora.", faculty: "Electrónica", category: "Herramientas", tags: ["#cautin", "#electronica"], seller: "Galo Moncada", sellerSem: "4to Sem.", sellerRating: "4.7", sellerSales: 9, phone: "593987654356", isMyPost: false, exchangeOffer: "Protoboard 830 puntos", exchangeDiscount: 5, image: IMG.cautin },
+      { id: 139, title: "Química Orgánica - John McMurry 9na Edición", price: 29, originalPrice: 70, status: "Buen estado", uni: "UG", date: "13 Nov 2026", desc: "Tapa blanda, incluye tabla de grupos funcionales plastificada.", faculty: "Ciencias Químicas · Bioquímica", category: "Textos y Libros", tags: ["#quimica", "#mcmurry"], seller: "Tatiana Reyes", sellerSem: "5to Sem.", sellerRating: "4.9", sellerSales: 14, phone: "593987654357", isMyPost: false, exchangeOffer: "Bata de laboratorio + gafas", exchangeDiscount: 12, image: IMG.libros },
+      { id: 140, title: "Set 36 Marcadores Doble Punta Touch para Bocetos", price: 14, originalPrice: 26, status: "Como nuevo", uni: "UCG", date: "14 Nov 2026", desc: "Todos pintan perfecto, incluye maletín negro con cierre.", faculty: "Diseño Industrial", category: "Arquitectura", tags: ["#marcadores", "#bocetos"], seller: "Sofía Intriago", sellerSem: "3er Sem.", sellerRating: "5.0", sellerSales: 8, phone: "593987654358", isMyPost: false, exchangeOffer: "Bitácora papel acuarela A4", exchangeDiscount: 6, image: IMG.arte },
+      { id: 141, title: "Calculadora Financiera HP 10bII+ Original", price: 24, originalPrice: 45, status: "Como nuevo", uni: "ESPOL", date: "15 Nov 2026", desc: "Ideal para Ingeniería Económica, VAN, TIR y amortizaciones.", faculty: "FCSH · Administración de Empresas", category: "Calculadoras", tags: ["#finanzas", "#hp", "#economia"], seller: "Diego Y.", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 6, phone: "593987654320", isMyPost: true, exchangeOffer: "Libro Dirección de Marketing", exchangeDiscount: 10, image: IMG.calculadora },
+      { id: 142, title: "Kit Sensores Biomédicos (Pulso, ECG, EMG) Arduino", price: 30, originalPrice: 55, status: "Como nuevo", uni: "ESPOL", date: "12 Nov 2026", desc: "Incluye electrodos desechables y cables de conexión.", faculty: "FIEC · Telemática", category: "Tecnología", tags: ["#biomedica", "#sensores"], seller: "Piero Castro", sellerSem: "7mo Sem.", sellerRating: "4.9", sellerSales: 11, phone: "593987654359", isMyPost: false, exchangeOffer: "ESP32 Cam + pantalla OLED", exchangeDiscount: 15, image: IMG.arduino },
+      { id: 143, title: "Tratado de Fisiología Médica - Guyton y Hall 14va Ed.", price: 48, originalPrice: 110, status: "Como nuevo", uni: "UEES", date: "14 Nov 2026", desc: "Edición más reciente, sin marcas de resaltador.", faculty: "Medicina", category: "Textos y Libros", tags: ["#guyton", "#fisiologia"], seller: "Camila Ponce", sellerSem: "6to Sem.", sellerRating: "5.0", sellerSales: 19, phone: "593987654360", isMyPost: false, exchangeOffer: "Libro Farmacología de Katzung", exchangeDiscount: 22, image: IMG.libros },
+      { id: 144, title: "Dremel Mototool Rotativo + 40 Accesorios Maquetas", price: 32, originalPrice: 62, status: "Buen estado", uni: "UCSG", date: "11 Nov 2026", desc: "Excelente para cortar madera balsa, acrílico y PVC en maquetas.", faculty: "Arquitectura", category: "Herramientas", tags: ["#maquetas", "#dremel"], seller: "José Luis Mera", sellerSem: "6to Sem.", sellerRating: "4.8", sellerSales: 13, phone: "593987654361", isMyPost: false, exchangeOffer: "Plancha de corte A2", exchangeDiscount: 15, image: IMG.herramientas },
+      { id: 145, title: "Laptop Lenovo ThinkPad T480 Core i5 16GB RAM", price: 260, originalPrice: 480, status: "Buen estado", uni: "ULVR", date: "15 Nov 2026", desc: "SSD 512GB, teclado retroiluminado, ideal para AutoCAD, Excel avanzado y Power BI.", faculty: "Ingeniería Civil", category: "Tecnología", tags: ["#laptop", "#thinkpad", "#autocad"], seller: "Mauricio Solís", sellerSem: "7mo Sem.", sellerRating: "4.9", sellerSales: 10, phone: "593987654362", isMyPost: false, exchangeOffer: "Tablet Samsung Tab S6 Lite + diferencia", exchangeDiscount: 100, image: IMG.laptop },
+      { id: 146, title: "Oxímetro de Pulso + Termómetro Infrarrojo Médico", price: 16, originalPrice: 30, status: "Nuevo / Caja", uni: "UBE", date: "13 Nov 2026", desc: "Nuevos con pilas incluidas, pantalla OLED.", faculty: "Enfermería", category: "Batas y Salud", tags: ["#oximetro", "#salud"], seller: "Diana Chóez", sellerSem: "5to Sem.", sellerRating: "4.8", sellerSales: 12, phone: "593987654363", isMyPost: false, exchangeOffer: "Estetoscopio básico", exchangeDiscount: 8, image: IMG.medicina },
+      { id: 147, title: "Ecuaciones Diferenciales - Dennis Zill 9na Ed.", price: 21, originalPrice: 52, status: "Buen estado", uni: "ESPOL", date: "10 Nov 2026", desc: "Con problemas con valores en la frontera, pasta firme.", faculty: "FCNM · Matemática", category: "Textos y Libros", tags: ["#ecuaciones", "#zill"], seller: "Luisana Bravo", sellerSem: "4to Sem.", sellerRating: "4.9", sellerSales: 7, phone: "593987654364", isMyPost: false, exchangeOffer: "Libro Probabilidad y Estadística", exchangeDiscount: 10, image: IMG.libros },
+      { id: 148, title: "Maleta de Maquillaje y Caracterización Teatral", price: 38, originalPrice: 75, status: "Como nuevo", uni: "UARTES", date: "14 Nov 2026", desc: "Paletas hipoalergénicas, brochas y látex líquido sin abrir.", faculty: "Artes Escénicas", category: "Arquitectura", tags: ["#teatro", "#caracterizacion"], seller: "Valentina Páez", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 9, phone: "593987654365", isMyPost: false, exchangeOffer: "Micrófono condensador USB", exchangeDiscount: 18, image: IMG.arte },
+      { id: 149, title: "Cautín Portátil USB 5V + Pasta Flux + Malla", price: 10, originalPrice: 19, status: "Nuevo / Caja", uni: "ITB", date: "15 Nov 2026", desc: "Calienta en 15 segundos, perfecto para reparaciones rápidas en laboratorio.", faculty: "Electrónica", category: "Herramientas", tags: ["#cautin", "#reparacion"], seller: "Jonathan Vera", sellerSem: "3er Sem.", sellerRating: "4.7", sellerSales: 6, phone: "593987654366", isMyPost: false, exchangeOffer: "Multímetro de bolsillo", exchangeDiscount: 5, image: IMG.cautin },
+      { id: 150, title: "Administración Estratégica - Fred David 15va Ed.", price: 22, originalPrice: 54, status: "Como nuevo", uni: "ECOTEC", date: "15 Nov 2026", desc: "Conceptos y casos prácticos, sin apuntes.", faculty: "Administración de Empresas", category: "Textos y Libros", tags: ["#estrategia", "#administracion"], seller: "Andrea Maldonado", sellerSem: "8vo Sem.", sellerRating: "5.0", sellerSales: 15, phone: "593987654367", isMyPost: false, exchangeOffer: "Libro Comportamiento Organizacional", exchangeDiscount: 10, image: IMG.libros }
+    ];
+
+    let materials = JSON.parse(localStorage.getItem('uniloop_materials_v2')) || defaultMaterials;
+    localStorage.setItem('uniloop_materials_v2', JSON.stringify(materials));
+
+    // DESPLEGABLE "MÁS DETALLES SOBRE UNILOOP" + ESTILO GOOGLE MAPS
+    function toggleMoreUniloop() {
+      const drawer = document.getElementById('uniloopInfoDrawer');
+      const btn = document.getElementById('btnToggleMoreUniloop');
+      const isOpen = drawer.classList.toggle('open');
+      btn.classList.toggle('expanded', isOpen);
+
+      if (isOpen) {
+        if (!campusMapsInitialized) {
+          initCampusMiniMaps();
+          campusMapsInitialized = true;
+        }
+        drawer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function initCampusMiniMaps() {
+      const spots = [
+        { id: 'miniMapEspol', lat: -2.1446, lng: -79.9675, label: 'ESPOL Prosperina · Biblioteca Central' },
+        { id: 'miniMapUcsg', lat: -2.1812, lng: -79.9035, label: 'UCSG · Plaza Calderón' },
+        { id: 'miniMapUees', lat: -2.1325, lng: -79.8660, label: 'UEES Samborondón · Edificio E' },
+        { id: 'miniMapUcg', lat: -2.1695, lng: -79.9142, label: 'Casa Grande · Patio Central' }
+      ];
+
+      const gmapsPinIcon = L.divIcon({
+        className: 'custom-gmaps-marker',
+        html: '<div class="gmaps-custom-pin"></div>',
+        iconSize: [28, 28],
+        iconAnchor: [14, 28],
+        popupAnchor: [0, -28]
+      });
+
+      spots.forEach(s => {
+        const m = L.map(s.id, { zoomControl: false, attributionControl: false }).setView([s.lat, s.lng], 16);
+        L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', { maxZoom: 20 }).addTo(m);
+        L.marker([s.lat, s.lng], { icon: gmapsPinIcon }).addTo(m).bindPopup(`<strong>${s.label}</strong>`);
+      });
+    }
+
+    // NOTIFICACIONES EN TIEMPO REAL
+    let notifications = [
+      { id: 1, text: "💬 <strong>Carlos Proaño (ESPOL):</strong> ¿Aceptas canje por libro de Termodinámica?", time: "Hace 5 min", unread: true },
+      { id: 2, text: "📦 <strong>Nueva publicación en ESPOL:</strong> Calculadora Texas Instruments TI-Nspire.", time: "Hace 40 min", unread: true },
+      { id: 3, text: "💰 <strong>Saldo acreditado:</strong> +$15.00 por entrega verificada en campus.", time: "Ayer", unread: true }
+    ];
+
+    function renderNotifications() {
+      const list = document.getElementById('notifListContainer');
+      const badge = document.getElementById('notifCountBadge');
+      const unreadCount = notifications.filter(n => n.unread).length;
+      badge.style.display = unreadCount > 0 ? 'flex' : 'none';
+      badge.innerText = unreadCount;
+
+      list.innerHTML = notifications.map(n => `
+        <div class="dropdown-item ${n.unread ? 'unread' : ''}" onclick="markSingleNotifRead(${n.id})">
+          <div>${n.text}</div>
+          <div class="notif-time">${n.time} ${n.unread ? '· Nuevo' : ''}</div>
+        </div>
+      `).join('');
+    }
+
+    function pushLiveNotification(htmlText) {
+      notifications.unshift({ id: Date.now(), text: htmlText, time: "Justo ahora", unread: true });
+      renderNotifications();
+    }
+
+    function markSingleNotifRead(id) {
+      const item = notifications.find(n => n.id === id);
+      if (item) item.unread = false;
+      renderNotifications();
+    }
+
+    function markAllNotifsRead() {
+      notifications.forEach(n => n.unread = false);
+      renderNotifications();
+    }
+
+    function changeUserCampus(uniCode) {
+      userVerifiedUni = uniCode;
+      document.getElementById('verifiedUniText').innerText = uniCode;
+      document.getElementById('modalVerifiedTag').innerText = `✓ ${uniCode}`;
+      pushLiveNotification(`🎓 <strong>Campus actualizado:</strong> Verificado en <strong>${uniCode}</strong>.`);
+    }
+
+    function rechargeWallet(amount) {
+      userWalletBalance += amount;
+      const formatted = `$${userWalletBalance.toFixed(2)}`;
+      document.getElementById('userBalanceText').innerText = formatted;
+      document.getElementById('modalWalletBalance').innerText = formatted;
+      if (document.getElementById('statWallet')) document.getElementById('statWallet').innerText = formatted;
+      pushLiveNotification(`💳 <strong>Recarga exitosa:</strong> +$${amount.toFixed(2)} a tu saldo.`);
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        document.getElementById('topSearchInput').focus();
+      }
+    });
+
+    function syncSearch(val) {
+      document.getElementById('topSearchInput').value = val;
+      document.getElementById('mainSearchInput').value = val;
+      currentPage = 1;
+      applyFilters();
+    }
+
+    function toggleNotifDropdown(e) {
+      e.stopPropagation();
+      document.getElementById('userDropdown').classList.remove('open');
+      document.getElementById('notifDropdown').classList.toggle('open');
+    }
+
+    function toggleUserDropdown(e) {
+      e.stopPropagation();
+      document.getElementById('notifDropdown').classList.remove('open');
+      document.getElementById('userDropdown').classList.toggle('open');
+    }
+
+    function openProfileModal(tab) {
+      document.getElementById('userDropdown').classList.remove('open');
+      document.getElementById('profileModalTitle').innerText = tab === 'settings' ? 'Ajustes generales y Saldo' : 'Configuración de mi perfil';
+      document.getElementById('profileModal').classList.add('open');
+    }
+
+    function closeProfileModal() { document.getElementById('profileModal').classList.remove('open'); }
+
+    window.addEventListener('click', (e) => {
+      if (!e.target.closest('.notif-container')) document.getElementById('notifDropdown').classList.remove('open');
+      if (!e.target.closest('.user-container')) document.getElementById('userDropdown').classList.remove('open');
+      if (e.target === document.getElementById('detailModal')) closeDetailModal();
+      if (e.target === document.getElementById('profileModal')) closeProfileModal();
+    });
+
+    const universitiesList = [
+      { code: "ESPOL", name: "ESPOL", logo: "ESPOL.png" },
+      { code: "UG", name: "UG", logo: "UG.png" },
+      { code: "UCSG", name: "U. Católica", logo: "CATOLICA.png" },
+      { code: "UPS", name: "Salesiana", logo: "SALESIANA.png" },
+      { code: "ECOTEC", name: "ECOTEC", logo: "ECOTEC.png" },
+      { code: "UEES", name: "UEES", logo: "ESPIRITU SANTO.png" },
+      { code: "UARTES", name: "UArtes", logo: "UARTES.png" },
+      { code: "UCG", name: "Casa Grande", logo: "CASA GRANDE.png" },
+      { code: "ULVR", name: "ULVR", logo: "LAICA.png" },
+      { code: "UIDE", name: "UIDE", logo: "UIDE.png" },
+      { code: "UMET", name: "UMET", logo: "UMET.png" },
+      { code: "UPACIFICO", name: "Del Pacífico", logo: "PACIFICO.png" },
+      { code: "UBE", name: "UBE", logo: "UBE.png" },
+      { code: "ITB", name: "ITB", logo: "ITB.png" }
+    ];
+
+    function renderCampusPills() {
+      const container = document.getElementById('campusPillsGrid');
+      const totalItems = materials.length;
+      document.getElementById('heroTotalCount').innerText = `${totalItems} artículos listados hoy`;
+
+      let html = `
+        <button class="campus-pill-btn ${currentUni === 'Todas' ? 'active' : ''}" onclick="filterByUniversity('Todas')">
+          <span class="campus-circle-logo" style="font-size:13px;">🏛️</span>
+          <span>Todas las Universidades</span>
+          <span class="campus-count-badge">${totalItems}</span>
+        </button>
+      `;
+
+      universitiesList.forEach(u => {
+        const count = materials.filter(m => m.uni === u.code).length;
+        const isActive = currentUni === u.code ? 'active' : '';
+        html += `
+          <button class="campus-pill-btn ${isActive}" onclick="filterByUniversity('${u.code}')">
+            <span class="campus-circle-logo">
+              <img src="${u.logo}" alt="${u.name}" onerror="this.style.display='none'; this.parentElement.innerText='🎓';">
+            </span>
+            <span>${u.name}</span>
+            <span class="campus-count-badge">${count}</span>
+          </button>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function filterByUniversity(uniCode) {
+      currentUni = uniCode;
+      currentPage = 1;
+      document.getElementById('uniQuickDropdown').value = uniCode;
+      renderCampusPills();
+      document.getElementById('sectionTitle').innerText = uniCode === 'Todas' ? 'Todos los materiales en Guayaquil' : `Materiales disponibles en ${uniCode}`;
+      applyFilters();
+    }
+
+    function updatePriceSlider(val) {
+      maxPriceFilter = parseInt(val);
+      currentPage = 1;
+      document.getElementById('priceSliderVal').innerText = val == 350 ? '$350+' : `$${val}`;
+      applyFilters();
+    }
+
+    function clearSearch() { syncSearch(""); }
+
+    function sortProducts(criteria) {
+      if (criteria === 'priceLow') materials.sort((a, b) => a.price - b.price);
+      else if (criteria === 'priceHigh') materials.sort((a, b) => b.price - a.price);
+      else materials.sort((a, b) => b.id - a.id);
+      currentPage = 1;
+      applyFilters();
+    }
+
+    function sendQuickChat() {
+      const input = document.getElementById('quickChatInput');
+      const text = input.value.trim();
+      if (!text) return;
+      const feed = document.getElementById('chatMessagesFeed');
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble outgoing';
+      bubble.innerText = text;
+      feed.appendChild(bubble);
+      input.value = '';
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    function setAppMode(mode) {
+      currentMode = mode;
+      currentPage = 1;
+      document.querySelectorAll('.sub-nav-tab').forEach(t => t.classList.remove('active'));
+      const heroBanner = document.getElementById('heroCampusBanner');
+      const filters = document.getElementById('buyerFiltersArea');
+      const sellerStats = document.getElementById('sellerStatsArea');
+      const chatsView = document.getElementById('chatsViewArea');
+      const catalogWrapper = document.getElementById('catalogSectionWrapper');
+
+      heroBanner.style.display = 'none';
+      filters.style.display = 'none';
+      sellerStats.style.display = 'none';
+      chatsView.style.display = 'none';
+      catalogWrapper.style.display = 'block';
+
+      if (mode === 'buyer') {
+        document.getElementById('tabExplore').classList.add('active');
+        heroBanner.style.display = 'block';
+        filters.style.display = 'flex';
+        document.getElementById('sectionTitle').innerText = currentUni === 'Todas' ? 'Todos los materiales en Guayaquil' : `Materiales disponibles en ${currentUni}`;
+        document.getElementById('statusSelect').value = "Todos";
+      } else if (mode === 'seller') {
+        document.getElementById('tabMyPosts').classList.add('active');
+        sellerStats.style.display = 'block';
+        document.getElementById('sectionTitle').innerText = 'Mis Publicaciones activas';
+        const myItems = materials.filter(m => m.isMyPost);
+        document.getElementById('statActive').innerText = myItems.filter(m => m.status !== 'Vendido').length;
+      } else if (mode === 'sold') {
+        document.getElementById('tabMyPurchases').classList.add('active');
+        filters.style.display = 'flex';
+        document.getElementById('sectionTitle').innerText = 'Historial de Compras y Entregas';
+        document.getElementById('statusSelect').value = "Vendido";
+      } else if (mode === 'chats') {
+        document.getElementById('tabChats').classList.add('active');
+        chatsView.style.display = 'block';
+        catalogWrapper.style.display = 'none';
+        document.getElementById('chatUnreadPill').style.display = 'none';
+        return;
+      }
+      applyFilters();
+    }
+
+    function renderProducts(fullFilteredList) {
+      const container = document.getElementById('productsGrid');
+      const paginationBar = document.getElementById('paginationBar');
+      container.innerHTML = '';
+
+      const totalItems = fullFilteredList.length;
+      if (totalItems === 0) {
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 50px 0;">No se encontraron artículos con esos filtros.</p>`;
+        paginationBar.style.display = 'none';
+        return;
+      }
+
+      paginationBar.style.display = 'flex';
+      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+      const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, totalItems);
+      const pageItems = fullFilteredList.slice(startIndex, endIndex);
+
+      document.getElementById('paginationInfoText').innerHTML = `Viendo <strong>${startIndex + 1}–${endIndex}</strong> de <strong>${totalItems}</strong> artículos disponibles en la red universitaria`;
+
+      let controlsHtml = `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="goToPage(${currentPage - 1})">Anterior</button>`;
+      for (let p = 1; p <= totalPages; p++) {
+        controlsHtml += `<button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="goToPage(${p})">${p}</button>`;
+      }
+      controlsHtml += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="goToPage(${currentPage + 1})">Siguiente</button>`;
+      document.getElementById('paginationControls').innerHTML = controlsHtml;
+
+      pageItems.forEach(item => {
+        const isSold = item.status === "Vendido";
+        let statusBadge = `<span class="badge-status">Buen estado</span>`;
+        if (item.status === "Como nuevo") statusBadge = `<span class="badge-status warning">Como nuevo</span>`;
+        else if (item.status === "Nuevo / Caja") statusBadge = `<span class="badge-status new-box">Nuevo / Caja</span>`;
+        else if (isSold) statusBadge = `<span class="badge-status sold">✕ Vendido</span>`;
+
+        const tagsHtml = item.tags ? item.tags.map(t => `<span class="product-tag-pill">${t}</span>`).join('') : '';
+
+        const card = document.createElement('article');
+        card.className = `product-card ${isSold ? 'card-sold' : ''}`;
+
+        card.onclick = (e) => {
+          if (!e.target.closest('.btn-fav') && !e.target.closest('.btn-cart-action')) {
+            openDetailModal(item);
+          }
+        };
+
+        card.innerHTML = `
+          <div class="product-img-wrapper">
+            <img src="${item.image}" alt="${item.title}" loading="lazy">
+            ${isSold ? `<div class="sold-overlay-badge">✕ VENDIDO</div>` : ''}
+            <button class="btn-fav" onclick="this.classList.toggle('active')" title="Guardar">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">${item.title}</h3>
+            <div class="product-price-row">
+              <div class="price-and-status">
+                <span class="product-price">$${item.price}</span>
+                ${statusBadge}
+              </div>
+              <button class="btn-cart-action" onclick="window.location.href='detalle.html?id=${item.id}'" title="Detalles completos">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </button>
+            </div>
+            <div class="product-uni-tag">📍 ${item.uni} · ${item.category}</div>
+            <div class="product-campus-spot"><span>${item.faculty}</span></div>
+            <div class="product-tags-footer">${tagsHtml}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function goToPage(pageNum) {
+      currentPage = pageNum;
+      applyFilters();
+      document.getElementById('catalogSectionWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function openDetailModal(item) {
+      document.getElementById('modalDetailTitle').innerText = item.title;
+      document.getElementById('modalDetailImg').src = item.image;
+      document.getElementById('modalDetailPrice').innerText = `$${item.price}`;
+      document.getElementById('modalDetailUni').innerText = item.uni;
+      document.getElementById('modalDetailDate').innerText = item.date;
+      document.getElementById('modalDetailDesc').innerText = `${item.faculty} · ${item.desc}`;
+
+      const statusEl = document.getElementById('modalDetailStatus');
+      const actionBox = document.getElementById('modalDetailAction');
+
+      statusEl.innerHTML = `<span style="color: ${item.status === 'Vendido' ? '#dc2626' : '#15803d'}; font-weight:700;">${item.status}</span>`;
+      actionBox.innerHTML = `
+        <button class="btn-submit-modal" onclick="window.location.href='detalle.html?id=${item.id}'">
+          Detalles completos
+        </button>
+      `;
+
+      document.getElementById('detailModal').classList.add('open');
+    }
+
+    function closeDetailModal() { document.getElementById('detailModal').classList.remove('open'); }
+
+    function applyFilters() {
+      const search = document.getElementById('mainSearchInput').value.toLowerCase().trim();
+      const catSelect = document.getElementById('categorySelect').value;
+      const statusSelect = document.getElementById('statusSelect').value;
+
+      let pool = materials;
+      if (currentMode === 'seller') pool = materials.filter(m => m.isMyPost);
+      else if (currentMode === 'sold') pool = materials.filter(m => m.status === 'Vendido');
+
+      const filtered = pool.filter(item => {
+        const matchesSearch = search === "" || 
+                              item.title.toLowerCase().includes(search) || 
+                              item.faculty.toLowerCase().includes(search) || 
+                              item.uni.toLowerCase().includes(search) ||
+                              item.category.toLowerCase().includes(search) ||
+                              (item.tags && item.tags.some(t => t.toLowerCase().includes(search)));
+
+        if (currentMode === 'seller') return matchesSearch;
+        const matchesUni = (currentUni === "Todas") || (item.uni === currentUni);
+        const matchesCat = (catSelect === "Todos") || (item.category === catSelect);
+        let matchesStatus = true;
+        if (currentMode !== 'sold') matchesStatus = (statusSelect === "Todos") || (item.status === statusSelect);
+        const matchesPrice = (maxPriceFilter >= 350) ? true : (item.price <= maxPriceFilter);
+
+        return matchesSearch && matchesUni && matchesCat && matchesStatus && matchesPrice;
+      });
+
+      document.getElementById('sectionCounter').innerText = `${filtered.length} publicaciones disponibles`;
+      renderProducts(filtered);
+    }
+
+    // DETECTAR SI REGRESA DE PUBLICAR EN publicar.html
+    const urlParams = new URLSearchParams(window.location.search);
+    const publishedTitle = urlParams.get('published');
+    const newUniParam = urlParams.get('newUni');
+    if (publishedTitle) {
+      pushLiveNotification(`🚀 <strong>¡Publicado!</strong> "${publishedTitle}" ya está visible en ${newUniParam || 'UniLoop'}.`);
+      if (newUniParam) currentUni = newUniParam;
+    }
+
+    renderNotifications();
+    renderCampusPills();
+    if (newUniParam) filterByUniversity(newUniParam);
+    else applyFilters();
+  </script>
+</body>
+</html>
