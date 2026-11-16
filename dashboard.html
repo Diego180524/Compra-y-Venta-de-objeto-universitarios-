@@ -234,7 +234,7 @@
       transform: rotate(180deg);
     }
 
-    /* PANEL DESPLEGABLE: PUNTOS DE ENTREGA CON MAPAS REALES + 3 PASOS + FOOTER 2026 */
+    /* PANEL DESPLEGABLE: PUNTOS DE ENTREGA CON ESTILO GOOGLE MAPS + 3 PASOS + FOOTER 2026 */
     .uniloop-info-drawer {
       display: none;
       margin-top: 26px;
@@ -315,10 +315,31 @@
     }
     .mini-campus-map {
       width: 100%;
-      height: 135px;
+      height: 145px;
       border-radius: 10px;
       border: 1px solid #cbd5e1;
       z-index: 1;
+    }
+
+    /* PIN ESTILO GOOGLE MAPS */
+    .gmaps-custom-pin {
+      width: 28px;
+      height: 28px;
+      background: #0284c7;
+      border: 3px solid #ffffff;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      box-shadow: 0 4px 10px rgba(0, 40, 85, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gmaps-custom-pin::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #ffffff;
+      border-radius: 50%;
     }
 
     /* 3 PASOS DE FUNCIONAMIENTO */
@@ -741,10 +762,10 @@
         </button>
       </div>
 
-      <!-- SECCIÓN DESPLEGABLE: PUNTOS DE ENTREGA CON MAPAS REALES + 3 PASOS + FOOTER 2026 -->
+      <!-- SECCIÓN DESPLEGABLE: PUNTOS DE ENTREGA CON ESTILO GOOGLE MAPS + 3 PASOS + FOOTER 2026 -->
       <div class="uniloop-info-drawer" id="uniloopInfoDrawer">
         
-        <!-- PUNTOS DE ENTREGA SEGUROS CON MAPAS REALES -->
+        <!-- PUNTOS DE ENTREGA SEGUROS CON MAPAS ESTILO GOOGLE MAPS -->
         <section class="safe-campus-section">
           <span class="safe-pill-badge">🛡️ Red de Entrega Presencial Auditada</span>
           <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px;">
@@ -1172,7 +1193,7 @@
     }
     saveMaterialsToStorage();
 
-    // DESPLEGABLE "MÁS DETALLES SOBRE UNILOOP" + INICIALIZACIÓN DE MAPAS REALES
+    // DESPLEGABLE "MÁS DETALLES SOBRE UNILOOP" + MAPAS ESTILO GOOGLE MAPS
     function toggleMoreUniloop() {
       const drawer = document.getElementById('uniloopInfoDrawer');
       const btn = document.getElementById('btnToggleMoreUniloop');
@@ -1196,10 +1217,20 @@
         { id: 'miniMapUcg', lat: -2.1695, lng: -79.9142, label: 'Casa Grande · Patio Central' }
       ];
 
+      const gmapsPinIcon = L.divIcon({
+        className: 'custom-gmaps-marker',
+        html: '<div class="gmaps-custom-pin"></div>',
+        iconSize: [28, 28],
+        iconAnchor: [14, 28],
+        popupAnchor: [0, -28]
+      });
+
       spots.forEach(s => {
-        const m = L.map(s.id, { zoomControl: false, attributionControl: false }).setView([s.lat, s.lng], 15);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(m);
-        L.marker([s.lat, s.lng]).addTo(m).bindPopup(`<strong>${s.label}</strong>`);
+        const m = L.map(s.id, { zoomControl: false, attributionControl: false }).setView([s.lat, s.lng], 16);
+        L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+          maxZoom: 20
+        }).addTo(m);
+        L.marker([s.lat, s.lng], { icon: gmapsPinIcon }).addTo(m).bindPopup(`<strong>${s.label}</strong>`);
       });
     }
 
