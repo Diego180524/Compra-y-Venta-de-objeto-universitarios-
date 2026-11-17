@@ -12,7 +12,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; }
     body { background-color: #f8fafc; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
 
-    /* NAVBAR LIMPIO CON BOTÓN DE REGRESAR */
+    /* NAVBAR LIMPIO */
     .top-header { background: #ffffff; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
     .navbar-inner { max-width: 1280px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .nav-left { display: flex; align-items: center; gap: 16px; }
@@ -48,17 +48,18 @@
       padding: 18px 28px; margin-bottom: 26px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
     }
     .steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 14px; }
-    .step-tab { display: flex; align-items: center; gap: 12px; cursor: pointer; opacity: 0.55; transition: opacity 0.2s; }
-    .step-tab.active { opacity: 1; }
+    .step-tab { display: flex; align-items: center; gap: 12px; cursor: pointer; opacity: 0.5; transition: all 0.2s; }
+    .step-tab.active, .step-tab.completed { opacity: 1; }
     .step-circle {
       width: 34px; height: 34px; border-radius: 50%; background: #e2e8f0; color: #475569;
       font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .step-tab.active .step-circle { background: #002855; color: #ffffff; }
+    .step-tab.completed .step-circle { background: #10b981; color: #ffffff; }
     .step-meta small { display: block; font-size: 10.5px; font-weight: 800; color: #0284c7; text-transform: uppercase; }
     .step-meta strong { font-size: 14.5px; color: #0f172a; }
     .progress-track { width: 100%; height: 5px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
-    .progress-fill { height: 100%; background: #002855; width: 33.33%; transition: width 0.3s ease; }
+    .progress-fill { height: 100%; background: #002855; width: 33.33%; transition: width 0.35s ease; }
 
     /* LAYOUT 2 COLUMNAS: FORMULARIO (IZQ) + VISTA PREVIA EN VIVO (DER) */
     .wizard-layout { display: grid; grid-template-columns: 1fr 360px; gap: 26px; align-items: start; }
@@ -99,37 +100,32 @@
     .uni-text-info strong { display: block; font-size: 13px; color: #0f172a; }
     .uni-text-info span { display: block; font-size: 11px; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* FORMULARIO DATOS BÁSICOS + BUSCADOR GLOBAL DE GUAYAQUIL EN MAPA */
+    /* CAMPOS DE FORMULARIO */
     .form-2-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     @media (max-width: 640px) { .form-2-cols { grid-template-columns: 1fr; } }
 
     .field-box { margin-bottom: 16px; position: relative; }
     .field-box label { display: block; font-size: 12.5px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
-    .field-box input, .field-box select {
+    .field-box input, .field-box select, .field-box textarea {
       width: 100%; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 10px;
       padding: 10px 14px; font-size: 13px; color: #0f172a; outline: none; transition: all 0.15s;
     }
-    .field-box input:focus, .field-box select:focus { background: #ffffff; border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12); }
+    .field-box input:focus, .field-box select:focus, .field-box textarea:focus {
+      background: #ffffff; border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+    }
 
     .search-input-wrap { position: relative; display: flex; align-items: center; }
     .search-input-wrap input { padding-right: 34px; }
-    .search-spinner {
-      position: absolute; right: 10px; font-size: 12px; color: #0284c7; display: none;
-      animation: spin 1s linear infinite;
-    }
+    .search-spinner { position: absolute; right: 10px; font-size: 12px; color: #0284c7; display: none; animation: spin 1s linear infinite; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    /* AUTOCOMPLETADO ESTILO GOOGLE MAPS DESDE LA PRIMERA LETRA */
     .map-suggestions-list {
       position: absolute; top: 100%; left: 0; right: 0; background: #ffffff;
       border: 1px solid #cbd5e1; border-radius: 12px; box-shadow: 0 14px 32px rgba(0, 40, 85, 0.22);
       max-height: 260px; overflow-y: auto; z-index: 90; display: none; margin-top: 4px;
     }
     .map-suggestions-list.open { display: block; }
-    .map-sug-section {
-      padding: 6px 12px; background: #f0f9ff; font-size: 10px; font-weight: 800;
-      color: #0369a1; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #bae6fd;
-    }
+    .map-sug-section { padding: 6px 12px; background: #f0f9ff; font-size: 10px; font-weight: 800; color: #0369a1; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #bae6fd; }
     .map-sug-item { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; cursor: pointer; font-size: 12.5px; display: flex; align-items: flex-start; gap: 9px; }
     .map-sug-item:hover { background: #e0f2fe; }
     .map-sug-item strong { display: block; color: #0f172a; font-size: 12.5px; }
@@ -147,10 +143,62 @@
     .hours-manual-row { display: flex; align-items: center; gap: 8px; }
     .hours-manual-row input[type="time"] { flex: 1; padding: 8px 10px; font-size: 12.5px; font-weight: 700; }
 
-    .step-actions-bar { display: flex; justify-content: flex-end; margin-top: 20px; padding-top: 16px; border-top: 1px solid #f1f5f9; }
+    /* PASO 2: SUBIDA DE FOTO + 3 TARJETAS DE ESTADO + ESTADO REAL */
+    .photo-dropzone-large {
+      border: 2px dashed #60a5fa; background: #f8fafc; border-radius: 16px; height: 220px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+      cursor: pointer; position: relative; overflow: hidden; transition: all 0.2s; margin-bottom: 14px;
+    }
+    .photo-dropzone-large:hover { background: #f0f9ff; border-color: #0284c7; }
+    .photo-dropzone-large input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; z-index: 4; }
+    .drop-icon-circle { width: 52px; height: 52px; border-radius: 50%; background: #e0f2fe; color: #0284c7; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+    .step2-preview-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; z-index: 2; }
+    .change-photo-badge {
+      position: absolute; bottom: 12px; right: 12px; background: rgba(0, 40, 85, 0.88); color: #ffffff;
+      font-size: 11.5px; font-weight: 700; padding: 6px 12px; border-radius: 999px; z-index: 3; display: none;
+    }
+
+    /* BANNER PREPARADO PARA FUTURA IA DE VISIÓN */
+    .ai-ready-banner {
+      background: linear-gradient(90deg, #f0f9ff 0%, #e0f2fe 100%);
+      border: 1px solid #bae6fd; border-radius: 12px; padding: 11px 14px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      margin-bottom: 20px; font-size: 12px; color: #0369a1;
+    }
+    .ai-ready-pill { background: #002855; color: #ffffff; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+
+    /* 3 OPCIONES DE ESTADO VISUALES */
+    .condition-3-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+    @media (max-width: 640px) { .condition-3-grid { grid-template-columns: 1fr; } }
+
+    .condition-card {
+      border: 1.5px solid #e2e8f0; background: #f8fafc; border-radius: 14px; padding: 14px;
+      cursor: pointer; transition: all 0.15s; display: flex; flex-direction: column; gap: 6px; position: relative;
+    }
+    .condition-card:hover { border-color: #0284c7; background: #f0f9ff; }
+    .condition-card.selected { border-color: #002855; background: #eff6ff; box-shadow: 0 4px 12px rgba(0, 40, 85, 0.08); }
+    .cond-top { display: flex; align-items: center; justify-content: space-between; }
+    .cond-icon { font-size: 20px; }
+    .cond-check { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #94a3b8; display: flex; align-items: center; justify-content: center; font-size: 11px; color: transparent; }
+    .condition-card.selected .cond-check { background: #002855; border-color: #002855; color: #ffffff; }
+    .condition-card strong { font-size: 13.5px; color: #0f172a; }
+    .condition-card p { font-size: 11.5px; color: #64748b; line-height: 1.4; }
+
+    /* CHIPS RÁPIDOS DE ESTADO REAL */
+    .quick-condition-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .cond-chip-btn {
+      background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; font-size: 11px; font-weight: 700;
+      padding: 4px 10px; border-radius: 999px; cursor: pointer; transition: all 0.15s;
+    }
+    .cond-chip-btn:hover { background: #e0f2fe; border-color: #0284c7; color: #002855; }
+
+    /* BOTONES NAVEGACIÓN ENTRE PASOS */
+    .step-actions-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; padding-top: 16px; border-top: 1px solid #f1f5f9; gap: 12px; }
+    .btn-prev-step { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 12px 20px; border-radius: 11px; font-size: 13.5px; font-weight: 700; cursor: pointer; }
+    .btn-prev-step:hover { background: #e2e8f0; color: #0f172a; }
     .btn-next-step {
       background: #002855; color: #ffffff; border: none; padding: 12px 24px; border-radius: 11px;
-      font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin-left: auto;
     }
     .btn-next-step:hover { background: #0284c7; }
 
@@ -163,14 +211,17 @@
     .feed-badge { background: #f1f5f9; color: #475569; font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
 
     .mock-product-card { border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; background: #ffffff; margin-top: 14px; }
-    .mock-img-box { position: relative; height: 175px; background: #e2e8f0; }
+    .mock-img-box { position: relative; height: 180px; background: #e2e8f0; }
     .mock-img-box img { width: 100%; height: 100%; object-fit: cover; }
-    .mock-status-pill { position: absolute; top: 10px; left: 10px; background: #dcfce7; color: #15803d; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 999px; }
+    .mock-status-pill { position: absolute; top: 10px; left: 10px; background: #fef3c7; color: #b45309; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 999px; }
+    .mock-status-pill.new-box { background: #e0f2fe; color: #0369a1; }
+    .mock-status-pill.good { background: #dcfce7; color: #15803d; }
     .mock-body { padding: 14px; }
     .mock-title { font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 6px; }
     .mock-price { font-size: 18px; font-weight: 800; color: #002855; margin-bottom: 8px; }
     .mock-uni-tag { display: inline-block; background: #f0f9ff; color: #0284c7; border: 1px solid #bae6fd; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 5px; margin-bottom: 6px; }
     .mock-detail-line { font-size: 11.5px; color: #475569; margin-top: 4px; display: flex; align-items: center; gap: 5px; }
+    .mock-real-desc { margin-top: 8px; padding-top: 8px; border-top: 1px dashed #e2e8f0; font-size: 11.5px; color: #334155; line-height: 1.4; }
   </style>
 </head>
 <body>
@@ -211,25 +262,25 @@
     <!-- BARRA DE PROGRESO 3 PASOS -->
     <div class="stepper-card">
       <div class="steps-row">
-        <div class="step-tab active" id="tabStep1">
+        <div class="step-tab active" id="tabStep1" onclick="goToWizardStep(1)">
           <div class="step-circle">1</div>
           <div class="step-meta">
             <small>PASO 1</small>
             <strong>Universidad y Datos</strong>
           </div>
         </div>
-        <div class="step-tab" id="tabStep2">
+        <div class="step-tab" id="tabStep2" onclick="goToWizardStep(2)">
           <div class="step-circle">2</div>
           <div class="step-meta">
             <small>PASO 2</small>
-            <strong>Estado y Precio</strong>
+            <strong>Foto y Estado</strong>
           </div>
         </div>
-        <div class="step-tab" id="tabStep3">
+        <div class="step-tab" id="tabStep3" onclick="goToWizardStep(3)">
           <div class="step-circle">3</div>
           <div class="step-meta">
             <small>PASO 3</small>
-            <strong>Fotos y Entrega</strong>
+            <strong>Precio y Canje</strong>
           </div>
         </div>
       </div>
@@ -239,79 +290,168 @@
     </div>
 
     <div class="wizard-layout">
-      <!-- COLUMNA IZQUIERDA: PASO 1 -->
-      <div class="step-card" id="step1Container">
-        <div class="step-card-header">
-          <div class="step-title-group">
-            <div class="step-icon-badge">🎓</div>
-            <div>
-              <h2>1. Universidad, Datos y Punto de Entrega</h2>
-              <p>Escribe cualquier letra para buscar entre todos los puntos y calles de Guayaquil</p>
+      <!-- COLUMNA IZQUIERDA -->
+      <div>
+        <!-- ==================== PASO 1: UNIVERSIDAD Y DATOS ==================== -->
+        <div class="step-card" id="step1Container">
+          <div class="step-card-header">
+            <div class="step-title-group">
+              <div class="step-icon-badge">🎓</div>
+              <div>
+                <h2>1. Universidad, Datos y Punto de Entrega</h2>
+                <p>Define tu campus de origen y busca cualquier punto de encuentro en Guayaquil</p>
+              </div>
             </div>
-          </div>
-          <span class="req-pill">Obligatorio</span>
-        </div>
-
-        <div class="form-2-cols">
-          <div class="field-box">
-            <label>Nombre del material, libro o equipo</label>
-            <input type="text" id="inpTitle" placeholder="Ej. Calculadora Texas TI-Nspire, Bata Lab..." oninput="updateLivePreview()">
+            <span class="req-pill">Obligatorio</span>
           </div>
 
-          <div class="field-box">
-            <label>Categoría y Facultad / Carrera</label>
-            <input type="text" id="inpFaculty" placeholder="Ej. FIEC · Ingeniería Eléctrica" oninput="updateLivePreview()">
-          </div>
-        </div>
-
-        <div class="field-box">
-          <label>Selecciona tu Universidad (14 campus conectados en Guayaquil):</label>
-          <div class="uni-search-bar">
-            <span>🔍</span>
-            <input type="text" id="uniFilterInput" placeholder="Filtrar universidad (ej. ESPOL, UG, Católica, Salesiana, Ecotec...)" oninput="renderUniSelector(this.value)">
-          </div>
-          <div class="uni-cards-grid" id="uniSelectorGrid"></div>
-        </div>
-
-        <!-- BUSCADOR SIN LÍMITES DESDE LA PRIMERA LETRA EN TODO GUAYAQUIL -->
-        <div class="form-2-cols">
-          <div class="field-box">
-            <label>Punto de entrega en Guayaquil / Samborondón / Durán</label>
-            <div class="search-input-wrap">
-              <input type="text" id="inpDeliverySpot" placeholder="Escribe una letra o lugar: R, Riocentro, Rotonda, Mall..." oninput="onSearchPlaceInput(this.value)" onfocus="onSearchPlaceInput(this.value)" autocomplete="off">
-              <span class="search-spinner" id="mapSearchSpinner">⏳</span>
+          <div class="form-2-cols">
+            <div class="field-box">
+              <label>Nombre del material, libro o equipo</label>
+              <input type="text" id="inpTitle" placeholder="Ej. Calculadora Texas TI-Nspire, Bata Lab..." oninput="updateLivePreview()">
             </div>
-            <div class="map-suggestions-list" id="mapSuggestionsBox"></div>
-            <div id="step1MiniMap"></div>
-            <span style="font-size:11px; color:#64748b; display:block; margin-top:5px;">Escribe desde 1 letra para ver coincidencias en todo Guayaquil o toca directo en el mapa.</span>
+
+            <div class="field-box">
+              <label>Categoría y Facultad / Carrera</label>
+              <input type="text" id="inpFaculty" placeholder="Ej. FIEC · Ingeniería Eléctrica" oninput="updateLivePreview()">
+            </div>
           </div>
 
           <div class="field-box">
-            <label>Horario habitual disponible (Lunes a Viernes)</label>
-            <div class="days-pills-row" id="daysPillsRow">
-              <button type="button" class="day-toggle-btn active" data-day="Lun" onclick="toggleDay(this)">Lun</button>
-              <button type="button" class="day-toggle-btn active" data-day="Mar" onclick="toggleDay(this)">Mar</button>
-              <button type="button" class="day-toggle-btn active" data-day="Mié" onclick="toggleDay(this)">Mié</button>
-              <button type="button" class="day-toggle-btn active" data-day="Jue" onclick="toggleDay(this)">Jue</button>
-              <button type="button" class="day-toggle-btn" data-day="Vie" onclick="toggleDay(this)">Vie</button>
+            <label>Selecciona tu Universidad (14 campus conectados en Guayaquil):</label>
+            <div class="uni-search-bar">
+              <span>🔍</span>
+              <input type="text" id="uniFilterInput" placeholder="Filtrar universidad (ej. ESPOL, UG, Católica, Salesiana, Ecotec...)" oninput="renderUniSelector(this.value)">
+            </div>
+            <div class="uni-cards-grid" id="uniSelectorGrid"></div>
+          </div>
+
+          <div class="form-2-cols">
+            <div class="field-box">
+              <label>Punto de entrega en Guayaquil / Samborondón / Durán</label>
+              <div class="search-input-wrap">
+                <input type="text" id="inpDeliverySpot" placeholder="Escribe una letra o lugar: R, Riocentro, Rotonda, Mall..." oninput="onSearchPlaceInput(this.value)" onfocus="onSearchPlaceInput(this.value)" autocomplete="off">
+                <span class="search-spinner" id="mapSearchSpinner">⏳</span>
+              </div>
+              <div class="map-suggestions-list" id="mapSuggestionsBox"></div>
+              <div id="step1MiniMap"></div>
+              <span style="font-size:11px; color:#64748b; display:block; margin-top:5px;">Escribe desde 1 letra para ver coincidencias en todo Guayaquil o toca directo en el mapa.</span>
             </div>
 
-            <div class="hours-manual-row">
-              <input type="time" id="inpTimeStart" value="10:00" onchange="updateScheduleText()">
-              <span style="font-weight:700; color:#64748b;">a</span>
-              <input type="time" id="inpTimeEnd" value="15:30" onchange="updateScheduleText()">
-            </div>
+            <div class="field-box">
+              <label>Horario habitual disponible (Lunes a Viernes)</label>
+              <div class="days-pills-row" id="daysPillsRow">
+                <button type="button" class="day-toggle-btn active" data-day="Lun" onclick="toggleDay(this)">Lun</button>
+                <button type="button" class="day-toggle-btn active" data-day="Mar" onclick="toggleDay(this)">Mar</button>
+                <button type="button" class="day-toggle-btn active" data-day="Mié" onclick="toggleDay(this)">Mié</button>
+                <button type="button" class="day-toggle-btn active" data-day="Jue" onclick="toggleDay(this)">Jue</button>
+                <button type="button" class="day-toggle-btn" data-day="Vie" onclick="toggleDay(this)">Vie</button>
+              </div>
 
-            <div style="margin-top:10px; background:#f0f9ff; border:1px solid #bae6fd; padding:9px 12px; border-radius:9px; font-size:12px; color:#0369a1; font-weight:700;">
-              🕒 Horario armado: <span id="compiledScheduleDisplay">Lun a Jue (10:00 - 15:30)</span>
+              <div class="hours-manual-row">
+                <input type="time" id="inpTimeStart" value="10:00" onchange="updateScheduleText()">
+                <span style="font-weight:700; color:#64748b;">a</span>
+                <input type="time" id="inpTimeEnd" value="15:30" onchange="updateScheduleText()">
+              </div>
+
+              <div style="margin-top:10px; background:#f0f9ff; border:1px solid #bae6fd; padding:9px 12px; border-radius:9px; font-size:12px; color:#0369a1; font-weight:700;">
+                🕒 Horario armado: <span id="compiledScheduleDisplay">Lun a Jue (10:00 - 15:30)</span>
+              </div>
             </div>
+          </div>
+
+          <div class="step-actions-bar">
+            <button type="button" class="btn-next-step" onclick="goToWizardStep(2)">
+              Continuar al Paso 2: Foto y Estado →
+            </button>
           </div>
         </div>
 
-        <div class="step-actions-bar">
-          <button type="button" class="btn-next-step" onclick="alert('¡Paso 1 guardado! Listo para construir el Paso 2: Estado y Precio.')">
-            Continuar al Paso 2: Estado y Precio →
-          </button>
+        <!-- ==================== PASO 2: FOTO Y ESTADO REAL ==================== -->
+        <div class="step-card" id="step2Container" style="display: none;">
+          <div class="step-card-header">
+            <div class="step-title-group">
+              <div class="step-icon-badge">📸</div>
+              <div>
+                <h2>2. Foto y Estado Real del Producto</h2>
+                <p>Sube una foto clara y selecciona con transparencia la condición física de tu artículo</p>
+              </div>
+            </div>
+            <span class="req-pill">Paso 2 de 3</span>
+          </div>
+
+          <!-- SUBIDOR DE FOTO -->
+          <div class="field-box">
+            <label>Fotografía real del artículo</label>
+            <div class="photo-dropzone-large">
+              <input type="file" id="filePhotoInput" accept="image/*" onchange="handleStep2PhotoUpload(event)">
+              <img id="step2PreviewImg" class="step2-preview-img" alt="Vista previa del producto">
+              <span class="change-photo-badge" id="changePhotoBadge">📷 Cambiar foto</span>
+              <div class="drop-icon-circle" id="dropIconCircle">📷</div>
+              <strong id="dropTitleText" style="font-size:14px; color:#002855;">Toca o arrastra la foto de tu material aquí</strong>
+              <span id="dropSubText" style="font-size:12px; color:#64748b;">Formatos JPG, PNG o WEBP · Buena iluminación ayuda a vender más rápido</span>
+            </div>
+
+            <!-- MÓDULO LISTO PARA FUTURA IA DE VISIÓN -->
+            <div class="ai-ready-banner">
+              <div>
+                <strong>✨ Verificación Visual Inteligente:</strong> Esta fotografía servirá para validar automáticamente el estado físico real de tu producto frente a los compradores.
+              </div>
+              <span class="ai-ready-pill">Escáner IA · Próximamente</span>
+            </div>
+          </div>
+
+          <!-- 3 OPCIONES DE ESTADO -->
+          <div class="field-box">
+            <label>Selecciona el estado real del producto (3 niveles):</label>
+            <div class="condition-3-grid">
+              <div class="condition-card" data-status="Nuevo / Caja" onclick="selectProductCondition(this, 'Nuevo / Caja')">
+                <div class="cond-top">
+                  <span class="cond-icon">✨</span>
+                  <span class="cond-check">✓</span>
+                </div>
+                <strong>Nuevo / En caja</strong>
+                <p>Sin abrir o sin uso previo. Conserva su empaque, sellos y accesorios de fábrica.</p>
+              </div>
+
+              <div class="condition-card selected" data-status="Como nuevo" onclick="selectProductCondition(this, 'Como nuevo')">
+                <div class="cond-top">
+                  <span class="cond-icon">🌟</span>
+                  <span class="cond-check">✓</span>
+                </div>
+                <strong>Como nuevo</strong>
+                <p>Usado 1 semestre o pocas veces. Sin rayones, páginas limpias y funcionamiento 10/10.</p>
+              </div>
+
+              <div class="condition-card" data-status="Buen estado" onclick="selectProductCondition(this, 'Buen estado')">
+                <div class="cond-top">
+                  <span class="cond-icon">✅</span>
+                  <span class="cond-check">✓</span>
+                </div>
+                <strong>Buen estado</strong>
+                <p>100% operativo, pero presenta marcas normales de uso, apuntes leves o desgaste estético.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- DETALLE DEL ESTADO REAL INGRESADO POR EL USUARIO -->
+          <div class="field-box" style="margin-bottom: 0;">
+            <label>Describe el estado real y qué incluye (Transparencia para el comprador)</label>
+            <div class="quick-condition-chips">
+              <button type="button" class="cond-chip-btn" onclick="appendConditionChip('Sin rayones en pantalla ni carcasa.')">+ Sin rayones</button>
+              <button type="button" class="cond-chip-btn" onclick="appendConditionChip('Incluye cable USB y estuche original.')">+ Con accesorios</button>
+              <button type="button" class="cond-chip-btn" onclick="appendConditionChip('Páginas completas y sin subrayar.')">+ Páginas limpias</button>
+              <button type="button" class="cond-chip-btn" onclick="appendConditionChip('Batería al 100%, probado en laboratorio.')">+ Probado 100%</button>
+            </div>
+            <textarea id="inpRealConditionDesc" rows="3" placeholder="Ej. La calculadora funciona perfecto, tiene su tapa rígida original y cable de carga. Solo tiene un leve roce en la esquina trasera..." oninput="updateLivePreview()"></textarea>
+          </div>
+
+          <div class="step-actions-bar">
+            <button type="button" class="btn-prev-step" onclick="goToWizardStep(1)">← Anterior: Universidad y Datos</button>
+            <button type="button" class="btn-next-step" onclick="alert('¡Paso 2 completado! Listo para armar el Paso 3: Precio, Tasador Inteligente y Canje.')">
+              Continuar al Paso 3: Precio y Canje →
+            </button>
+          </div>
         </div>
       </div>
 
@@ -326,16 +466,17 @@
 
           <div class="mock-product-card">
             <div class="mock-img-box">
-              <img src="https://images.unsplash.com/photo-1574607383476-f517f260d30b?w=600&auto=format&fit=crop&q=80" alt="Vista previa">
-              <span class="mock-status-pill">Como nuevo</span>
+              <img id="liveCardPreviewImg" src="https://images.unsplash.com/photo-1574607383476-f517f260d30b?w=600&auto=format&fit=crop&q=80" alt="Vista previa">
+              <span class="mock-status-pill" id="liveCardStatusBadge">Como nuevo</span>
             </div>
             <div class="mock-body">
               <div class="mock-title" id="prevTitle">Nombre de tu artículo universitario</div>
-              <div class="mock-price">$-- <span style="font-size:11px; color:#64748b; font-weight:600;">USD (Se define en Paso 2)</span></div>
+              <div class="mock-price">$-- <span style="font-size:11px; color:#64748b; font-weight:600;">USD (Se define en Paso 3)</span></div>
               <div class="mock-uni-tag" id="prevUni">📍 ESPOL</div>
               <div class="mock-detail-line" id="prevFaculty">🎓 Facultad y Carrera</div>
               <div class="mock-detail-line" id="prevSpot">📌 Biblioteca Central / Cafetería FIMCP</div>
               <div class="mock-detail-line" id="prevSchedule">🕒 Lun a Jue (10:00 - 15:30)</div>
+              <div class="mock-real-desc" id="prevConditionDesc">Estado real: Sin rayones ni fallas, listo para entrega en campus.</div>
             </div>
           </div>
         </div>
@@ -346,8 +487,93 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     let selectedUniCode = "ESPOL";
+    let selectedCondition = "Como nuevo";
+    let uploadedImageUrl = null;
     let searchDebounceTimer = null;
 
+    // NAVEGACIÓN ENTRE PASOS DEL WIZARD
+    function goToWizardStep(stepNum) {
+      if (stepNum === 3) {
+        alert("Listo para armar el Paso 3: Precio y Canje cuando me indiques.");
+        return;
+      }
+
+      document.getElementById('step1Container').style.display = stepNum === 1 ? 'block' : 'none';
+      document.getElementById('step2Container').style.display = stepNum === 2 ? 'block' : 'none';
+
+      const tab1 = document.getElementById('tabStep1');
+      const tab2 = document.getElementById('tabStep2');
+      const fill = document.getElementById('progressBarFill');
+
+      tab1.classList.remove('active', 'completed');
+      tab2.classList.remove('active', 'completed');
+
+      if (stepNum === 1) {
+        tab1.classList.add('active');
+        fill.style.width = '33.33%';
+        setTimeout(() => step1Map.invalidateSize(), 150);
+      } else if (stepNum === 2) {
+        tab1.classList.add('completed');
+        tab2.classList.add('active');
+        fill.style.width = '66.66%';
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // PASO 2: SUBIR FOTO Y ACTUALIZAR VISTA PREVIA
+    function handleStep2PhotoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 800;
+          let width = img.width, height = img.height;
+          if (width > MAX_WIDTH) { height = Math.round((height * MAX_WIDTH) / width); width = MAX_WIDTH; }
+          canvas.width = width; canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          uploadedImageUrl = canvas.toDataURL('image/jpeg', 0.78);
+
+          // Mostrar en dropzone del Paso 2
+          const step2Img = document.getElementById('step2PreviewImg');
+          step2Img.src = uploadedImageUrl;
+          step2Img.style.display = 'block';
+          document.getElementById('changePhotoBadge').style.display = 'inline-block';
+          document.getElementById('dropIconCircle').style.display = 'none';
+          document.getElementById('dropTitleText').style.display = 'none';
+          document.getElementById('dropSubText').style.display = 'none';
+
+          // Actualizar tarjeta de vista previa en vivo a la derecha
+          document.getElementById('liveCardPreviewImg').src = uploadedImageUrl;
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // PASO 2: SELECCIONAR UNA DE LAS 3 OPCIONES DE ESTADO
+    function selectProductCondition(cardEl, statusValue) {
+      selectedCondition = statusValue;
+      document.querySelectorAll('.condition-card').forEach(c => c.classList.remove('selected'));
+      cardEl.classList.add('selected');
+
+      const badge = document.getElementById('liveCardStatusBadge');
+      badge.innerText = statusValue;
+      badge.className = 'mock-status-pill';
+      if (statusValue === 'Nuevo / Caja') badge.classList.add('new-box');
+      else if (statusValue === 'Buen estado') badge.classList.add('good');
+    }
+
+    function appendConditionChip(phrase) {
+      const area = document.getElementById('inpRealConditionDesc');
+      area.value = area.value.trim() ? `${area.value.trim()} ${phrase}` : phrase;
+      updateLivePreview();
+    }
+
+    // DATOS DE UNIVERSIDADES Y MAPA (PASO 1)
     const allUniversities = [
       { code: "ESPOL", name: "ESPOL", campus: "Campus Gustavo Galindo (Prosperina)", logo: "ESPOL.png", lat: -2.1446, lng: -79.9675 },
       { code: "UG", name: "Universidad de Guayaquil", campus: "Ciudadela Universitaria Salvador Allende", logo: "UG.png", lat: -2.1815, lng: -79.8975 },
@@ -365,9 +591,7 @@
       { code: "ITB", name: "ITB Bolivariano", campus: "Cdla. La Atarazana", logo: "ITB.png", lat: -2.1720, lng: -79.8850 }
     ];
 
-    // AMPLIA BASE INSTANTÁNEA DE TODO GUAYAQUIL, SAMBORONDÓN Y DURÁN (RESPUESTA EN 0ms DESDE LA 1RA LETRA)
     const guayaquilDirectory = [
-      // Campuses y Facultades
       { name: "Biblioteca Central ESPOL", detail: "Campus Prosperina · Guayaquil", lat: -2.1446, lng: -79.9675 },
       { name: "Rectorado & Administración ESPOL", detail: "Campus Gustavo Galindo · Prosperina", lat: -2.1475, lng: -79.9645 },
       { name: "Cafetería FIMCP / Talleres ESPOL", detail: "Facultad de Mecánica · ESPOL", lat: -2.1458, lng: -79.9652 },
@@ -376,51 +600,26 @@
       { name: "Plaza Calderón · UCSG", detail: "Universidad Católica · Av. Arosemena", lat: -2.1812, lng: -79.9035 },
       { name: "Edificio E · Starbucks UEES", detail: "Universidad Espíritu Santo · Samborondón", lat: -2.1325, lng: -79.8660 },
       { name: "Patio Central Campus Centenario UPS", detail: "Universidad Politécnica Salesiana · Sur", lat: -2.2085, lng: -79.8890 },
-      { name: "Campus Robles UPS", detail: "Salesiana · Robles y Chambers", lat: -2.2045, lng: -79.8880 },
       { name: "Lobby Principal ECOTEC", detail: "Campus Samborondón / Juan Tanca Marengo", lat: -2.1150, lng: -79.8620 },
       { name: "Ágora Universidad Casa Grande", detail: "Ciudadela Miraflores · Guayaquil", lat: -2.1695, lng: -79.9142 },
-      { name: "Malecón UArtes · Centro", detail: "Universidad de las Artes · Malecón", lat: -2.1945, lng: -79.8812 },
-      { name: "Campus ULVR · Av. de las Américas", detail: "U. Laica Vicente Rocafuerte", lat: -2.1640, lng: -79.8950 },
-      { name: "Campus UIDE Guayaquil", detail: "Av. Juan Tanca Marengo", lat: -2.1480, lng: -79.9020 },
-      { name: "Campus UMET", detail: "Av. Carlos Luis Plaza Dañín", lat: -2.1620, lng: -79.8930 },
-      { name: "Campus Universidad Del Pacífico", detail: "Km 7.5 Vía a la Costa", lat: -2.1680, lng: -79.9480 },
-      { name: "Campus UBE Durán", detail: "Km 5.5 Vía Durán - Yaguachi", lat: -2.1850, lng: -79.8150 },
-      { name: "Campus ITB Atarazana", detail: "Cdla. La Atarazana · Guayaquil", lat: -2.1720, lng: -79.8850 },
-
-      // Puntos con R, S, M, P, A, C, U, L, V, T, E, etc. en todo Guayaquil
       { name: "Riocentro Norte", detail: "Av. Francisco de Orellana · Norte", lat: -2.1368, lng: -79.8952 },
       { name: "Riocentro Los Ceibos", detail: "Av. del Bombero · Los Ceibos", lat: -2.1728, lng: -79.9415 },
       { name: "Riocentro Entre Ríos", detail: "Km 1.5 Vía a Samborondón", lat: -2.1415, lng: -79.8668 },
       { name: "Riocentro Sur", detail: "Av. 25 de Julio · Sur Guayaquil", lat: -2.2385, lng: -79.8962 },
-      { name: "Riocentro El Dorado", detail: "Av. León Febres Cordero · La Aurora", lat: -2.0620, lng: -79.8840 },
       { name: "Rotonda La Alborada", detail: "Av. Rodolfo Baquerizo Nazur · Norte", lat: -2.1380, lng: -79.9025 },
       { name: "San Marino Shopping", detail: "Av. Francisco de Orellana · Norte", lat: -2.1678, lng: -79.8986 },
       { name: "Mall del Sol", detail: "Av. Joaquín Orrantia · Norte", lat: -2.1552, lng: -79.8920 },
       { name: "Mall del Sur", detail: "Av. 25 de Julio y Ernesto Albán · Sur", lat: -2.2288, lng: -79.8985 },
-      { name: "Mall del Norte", detail: "Av. Francisco de Orellana · Norte", lat: -2.1180, lng: -79.9040 },
       { name: "Plaza Rodolfo Baquerizo Moreno", detail: "Malecón del Salado · Guayaquil", lat: -2.1835, lng: -79.8942 },
-      { name: "Plaza Mayor Alborada", detail: "Av. Rodolfo Baquerizo · Alborada", lat: -2.1422, lng: -79.9038 },
-      { name: "Plaza Lagos Town Center", detail: "Km 6.5 Vía a Samborondón", lat: -2.1045, lng: -79.8665 },
-      { name: "Parque Centenario", detail: "Av. 9 de Octubre y Lorenzo de Garaycoa", lat: -2.1912, lng: -79.8875 },
-      { name: "Parque Samanes", detail: "Av. Francisco de Orellana · Norte", lat: -2.1065, lng: -79.9020 },
-      { name: "Parque Urdesa (Víctor Emilio Estrada)", detail: "Urdesa Central · Guayaquil", lat: -2.1672, lng: -79.9105 },
       { name: "Terminal Terrestre de Guayaquil", detail: "Av. Benjamín Rosales · Norte", lat: -2.1482, lng: -79.8815 },
       { name: "CityMall Guayaquil", detail: "Av. Benjamín Carrión · Alborada", lat: -2.1408, lng: -79.9082 },
-      { name: "Village Plaza Samborondón", detail: "Km 1.5 Vía a Samborondón", lat: -2.1402, lng: -79.8655 },
-      { name: "Malecón 2000 · La Rotonda", detail: "Av. Malecón Simón Bolívar · Centro", lat: -2.1925, lng: -79.8795 },
-      { name: "Estación Metrovía Universidad de Guayaquil", detail: "Av. Delta · Frente a UG", lat: -2.1825, lng: -79.8988 },
-      { name: "Policentro Guayaquil", detail: "Av. San Jorge · Cdla. Kennedy", lat: -2.1715, lng: -79.9005 },
-      { name: "Paseo Shopping Vía a Daule", detail: "Km 16.5 Vía a Daule · Norte", lat: -2.0785, lng: -79.9380 },
-      { name: "Las Terrazas Samborondón", detail: "Km 1.5 Vía a Samborondón", lat: -2.1385, lng: -79.8648 },
-      { name: "Alban Borja Centro Comercial", detail: "Av. Carlos Julio Arosemena · Norte", lat: -2.1775, lng: -79.9135 }
+      { name: "Village Plaza Samborondón", detail: "Km 1.5 Vía a Samborondón", lat: -2.1402, lng: -79.8655 }
     ];
 
-    // INICIALIZAR MAPA ESTILO GOOGLE MAPS
     const step1Map = L.map('step1MiniMap', { zoomControl: true, attributionControl: false }).setView([-2.1446, -79.9675], 16);
     L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', { maxZoom: 20 }).addTo(step1Map);
     let step1Marker = L.marker([-2.1446, -79.9675], { draggable: true }).addTo(step1Map).bindPopup("Biblioteca Central ESPOL").openPopup();
 
-    // CLIC DIRECTO EN CUALQUIER CALLE DEL MAPA
     step1Map.on('click', async function(e) {
       const { lat, lng } = e.latlng;
       step1Marker.setLatLng([lat, lng]);
@@ -474,36 +673,28 @@
       updateLivePreview();
     }
 
-    // BUSCADOR DESDE LA PRIMERA LETRA EN TODO GUAYAQUIL (INSTANTÁNEO + API EN VIVO)
     function onSearchPlaceInput(rawVal) {
       updateLivePreview();
       const q = rawVal.trim().toLowerCase();
-      const box = document.getElementById('mapSuggestionsBox');
       const spinner = document.getElementById('mapSearchSpinner');
-
       clearTimeout(searchDebounceTimer);
 
       if (q.length === 0) {
-        // Mostrar primeros 6 sugeridos al enfocar vacío
         renderSuggestionsDropdown(guayaquilDirectory.slice(0, 6), []);
         return;
       }
 
-      // 1. Filtrado instantáneo (0ms) desde la 1ra letra: prioriza los que EMPIEZAN con la letra, luego los que la contienen
       const startsWith = guayaquilDirectory.filter(s => s.name.toLowerCase().startsWith(q));
       const contains = guayaquilDirectory.filter(s => !s.name.toLowerCase().startsWith(q) && (s.name.toLowerCase().includes(q) || s.detail.toLowerCase().includes(q)));
       const localMatches = [...startsWith, ...contains];
-
       renderSuggestionsDropdown(localMatches, []);
 
-      // 2. Consulta adicional en tiempo real a todo el mapa de Guayaquil (calles, barrios, locales)
       spinner.style.display = 'inline';
       searchDebounceTimer = setTimeout(async () => {
         try {
           const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(rawVal.trim() + ' Guayaquil')}&bbox=-80.12,-2.32,-79.72,-1.98&limit=8`;
           const response = await fetch(url);
           const data = await response.json();
-
           const livePlaces = (data.features || []).map(f => {
             const p = f.properties;
             const coords = f.geometry.coordinates;
@@ -511,10 +702,8 @@
             const sub = [p.street, p.district, p.city || 'Guayaquil'].filter(Boolean).join(', ');
             return { name: title, detail: sub, lat: coords[1], lng: coords[0] };
           });
-
           renderSuggestionsDropdown(localMatches, livePlaces);
         } catch (err) {
-          // Mantiene los resultados locales si no hay red
         } finally {
           spinner.style.display = 'none';
         }
@@ -527,10 +716,9 @@
         box.classList.remove('open');
         return;
       }
-
       let html = '';
       if (localList.length > 0) {
-        html += `<div class="map-sug-section">Campuses y Puntos Conocidos en Guayaquil (${localList.length})</div>`;
+        html += `<div class="map-sug-section">Campuses y Puntos Conocidos (${localList.length})</div>`;
         html += localList.map(p => `
           <div class="map-sug-item" onclick="chooseMapSpot('${p.name.replace(/'/g, "\\'")}', ${p.lat}, ${p.lng})">
             <span>🏛️</span>
@@ -538,7 +726,6 @@
           </div>
         `).join('');
       }
-
       if (apiList.length > 0) {
         html += `<div class="map-sug-section">Calles y Sitios en el Mapa Completo</div>`;
         html += apiList.map(p => `
@@ -548,7 +735,6 @@
           </div>
         `).join('');
       }
-
       box.innerHTML = html;
       box.classList.add('open');
     }
@@ -567,7 +753,6 @@
       }
     });
 
-    // SELECTOR DE DÍAS L-V Y HORAS MANUALES
     function toggleDay(btn) {
       btn.classList.toggle('active');
       updateScheduleText();
@@ -592,11 +777,13 @@
       const title = document.getElementById('inpTitle').value.trim();
       const faculty = document.getElementById('inpFaculty').value.trim();
       const spot = document.getElementById('inpDeliverySpot').value.trim();
+      const condDesc = document.getElementById('inpRealConditionDesc').value.trim();
 
       document.getElementById('prevTitle').innerText = title || "Nombre de tu artículo universitario";
       document.getElementById('prevUni').innerText = `📍 ${selectedUniCode}`;
       document.getElementById('prevFaculty').innerText = `🎓 ${faculty || "Facultad y Carrera"}`;
-      document.getElementById('prevSpot').innerText = `📌 ${spot || "Punto seguro en campus"}`;
+      document.getElementById('prevSpot').innerText = `📌 ${spot || "Biblioteca Central / Cafetería FIMCP"}`;
+      document.getElementById('prevConditionDesc').innerText = condDesc ? `Estado real: ${condDesc}` : "Estado real: Sin rayones ni fallas, listo para entrega en campus.";
     }
 
     renderUniSelector();
