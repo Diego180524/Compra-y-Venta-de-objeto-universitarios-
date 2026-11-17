@@ -119,19 +119,19 @@
     }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    /* AUTOCOMPLETADO ESTILO GOOGLE MAPS */
+    /* AUTOCOMPLETADO ESTILO GOOGLE MAPS DESDE LA PRIMERA LETRA */
     .map-suggestions-list {
       position: absolute; top: 100%; left: 0; right: 0; background: #ffffff;
-      border: 1px solid #cbd5e1; border-radius: 12px; box-shadow: 0 14px 32px rgba(0, 40, 85, 0.18);
-      max-height: 240px; overflow-y: auto; z-index: 80; display: none; margin-top: 4px;
+      border: 1px solid #cbd5e1; border-radius: 12px; box-shadow: 0 14px 32px rgba(0, 40, 85, 0.22);
+      max-height: 260px; overflow-y: auto; z-index: 90; display: none; margin-top: 4px;
     }
     .map-suggestions-list.open { display: block; }
     .map-sug-section {
-      padding: 5px 12px; background: #f8fafc; font-size: 10px; font-weight: 800;
-      color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #f1f5f9;
+      padding: 6px 12px; background: #f0f9ff; font-size: 10px; font-weight: 800;
+      color: #0369a1; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #bae6fd;
     }
     .map-sug-item { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; cursor: pointer; font-size: 12.5px; display: flex; align-items: flex-start; gap: 9px; }
-    .map-sug-item:hover { background: #f0f9ff; }
+    .map-sug-item:hover { background: #e0f2fe; }
     .map-sug-item strong { display: block; color: #0f172a; font-size: 12.5px; }
     .map-sug-item span { font-size: 11px; color: #64748b; }
 
@@ -246,7 +246,7 @@
             <div class="step-icon-badge">🎓</div>
             <div>
               <h2>1. Universidad, Datos y Punto de Entrega</h2>
-              <p>Define tu campus de origen y busca cualquier punto de encuentro en Guayaquil</p>
+              <p>Escribe cualquier letra para buscar entre todos los puntos y calles de Guayaquil</p>
             </div>
           </div>
           <span class="req-pill">Obligatorio</span>
@@ -273,17 +273,17 @@
           <div class="uni-cards-grid" id="uniSelectorGrid"></div>
         </div>
 
-        <!-- BUSCADOR GLOBAL DE GUAYAQUIL CONECTADO AL MAPA -->
+        <!-- BUSCADOR SIN LÍMITES DESDE LA PRIMERA LETRA EN TODO GUAYAQUIL -->
         <div class="form-2-cols">
           <div class="field-box">
-            <label>Punto de entrega (Busca cualquier sitio de Guayaquil o campus)</label>
+            <label>Punto de entrega en Guayaquil / Samborondón / Durán</label>
             <div class="search-input-wrap">
-              <input type="text" id="inpDeliverySpot" placeholder="Ej: San Marino, Plaza Rodolfo Baquerizo, Biblioteca ESPOL..." oninput="onSearchPlaceInput(this.value)" onfocus="onSearchPlaceInput(this.value)" autocomplete="off">
+              <input type="text" id="inpDeliverySpot" placeholder="Escribe una letra o lugar: R, Riocentro, Rotonda, Mall..." oninput="onSearchPlaceInput(this.value)" onfocus="onSearchPlaceInput(this.value)" autocomplete="off">
               <span class="search-spinner" id="mapSearchSpinner">⏳</span>
             </div>
             <div class="map-suggestions-list" id="mapSuggestionsBox"></div>
             <div id="step1MiniMap"></div>
-            <span style="font-size:11px; color:#64748b; display:block; margin-top:5px;">Escribe cualquier plaza, centro comercial o facultad (o haz clic directo en el mapa).</span>
+            <span style="font-size:11px; color:#64748b; display:block; margin-top:5px;">Escribe desde 1 letra para ver coincidencias en todo Guayaquil o toca directo en el mapa.</span>
           </div>
 
           <div class="field-box">
@@ -365,16 +365,54 @@
       { code: "ITB", name: "ITB Bolivariano", campus: "Cdla. La Atarazana", logo: "ITB.png", lat: -2.1720, lng: -79.8850 }
     ];
 
-    // PUNTOS INTERNOS DE CAMPUS (SUGERENCIAS RÁPIDAS)
-    const campusSafeSpots = [
-      { name: "Biblioteca Central ESPOL", detail: "Punto Seguro · Campus Prosperina", lat: -2.1446, lng: -79.9675 },
-      { name: "Cafetería FIMCP / Talleres ESPOL", detail: "Punto Seguro · Ingeniería Mecánica", lat: -2.1458, lng: -79.9652 },
-      { name: "Sweet & Coffee FIEC · ESPOL", detail: "Punto Seguro · Ingeniería Eléctrica", lat: -2.1441, lng: -79.9688 },
-      { name: "Plaza Central Ciudadela UG", detail: "Punto Seguro · Universidad de Guayaquil", lat: -2.1815, lng: -79.8975 },
-      { name: "Plaza Calderón · UCSG", detail: "Punto Seguro · Universidad Católica", lat: -2.1812, lng: -79.9035 },
-      { name: "Edificio E · Starbucks UEES", detail: "Punto Seguro · Samborondón", lat: -2.1325, lng: -79.8660 },
+    // AMPLIA BASE INSTANTÁNEA DE TODO GUAYAQUIL, SAMBORONDÓN Y DURÁN (RESPUESTA EN 0ms DESDE LA 1RA LETRA)
+    const guayaquilDirectory = [
+      // Campuses y Facultades
+      { name: "Biblioteca Central ESPOL", detail: "Campus Prosperina · Guayaquil", lat: -2.1446, lng: -79.9675 },
+      { name: "Rectorado & Administración ESPOL", detail: "Campus Gustavo Galindo · Prosperina", lat: -2.1475, lng: -79.9645 },
+      { name: "Cafetería FIMCP / Talleres ESPOL", detail: "Facultad de Mecánica · ESPOL", lat: -2.1458, lng: -79.9652 },
+      { name: "Sweet & Coffee FIEC · ESPOL", detail: "Facultad de Electricidad · ESPOL", lat: -2.1441, lng: -79.9688 },
+      { name: "Plaza Central Ciudadela UG", detail: "Universidad de Guayaquil · Av. Delta", lat: -2.1815, lng: -79.8975 },
+      { name: "Plaza Calderón · UCSG", detail: "Universidad Católica · Av. Arosemena", lat: -2.1812, lng: -79.9035 },
+      { name: "Edificio E · Starbucks UEES", detail: "Universidad Espíritu Santo · Samborondón", lat: -2.1325, lng: -79.8660 },
+      { name: "Patio Central Campus Centenario UPS", detail: "Universidad Politécnica Salesiana · Sur", lat: -2.2085, lng: -79.8890 },
+      { name: "Campus Robles UPS", detail: "Salesiana · Robles y Chambers", lat: -2.2045, lng: -79.8880 },
+      { name: "Lobby Principal ECOTEC", detail: "Campus Samborondón / Juan Tanca Marengo", lat: -2.1150, lng: -79.8620 },
+      { name: "Ágora Universidad Casa Grande", detail: "Ciudadela Miraflores · Guayaquil", lat: -2.1695, lng: -79.9142 },
+      { name: "Malecón UArtes · Centro", detail: "Universidad de las Artes · Malecón", lat: -2.1945, lng: -79.8812 },
+      { name: "Campus ULVR · Av. de las Américas", detail: "U. Laica Vicente Rocafuerte", lat: -2.1640, lng: -79.8950 },
+      { name: "Campus UIDE Guayaquil", detail: "Av. Juan Tanca Marengo", lat: -2.1480, lng: -79.9020 },
+      { name: "Campus UMET", detail: "Av. Carlos Luis Plaza Dañín", lat: -2.1620, lng: -79.8930 },
+      { name: "Campus Universidad Del Pacífico", detail: "Km 7.5 Vía a la Costa", lat: -2.1680, lng: -79.9480 },
+      { name: "Campus UBE Durán", detail: "Km 5.5 Vía Durán - Yaguachi", lat: -2.1850, lng: -79.8150 },
+      { name: "Campus ITB Atarazana", detail: "Cdla. La Atarazana · Guayaquil", lat: -2.1720, lng: -79.8850 },
+
+      // Puntos con R, S, M, P, A, C, U, L, V, T, E, etc. en todo Guayaquil
+      { name: "Riocentro Norte", detail: "Av. Francisco de Orellana · Norte", lat: -2.1368, lng: -79.8952 },
+      { name: "Riocentro Los Ceibos", detail: "Av. del Bombero · Los Ceibos", lat: -2.1728, lng: -79.9415 },
+      { name: "Riocentro Entre Ríos", detail: "Km 1.5 Vía a Samborondón", lat: -2.1415, lng: -79.8668 },
+      { name: "Riocentro Sur", detail: "Av. 25 de Julio · Sur Guayaquil", lat: -2.2385, lng: -79.8962 },
+      { name: "Riocentro El Dorado", detail: "Av. León Febres Cordero · La Aurora", lat: -2.0620, lng: -79.8840 },
+      { name: "Rotonda La Alborada", detail: "Av. Rodolfo Baquerizo Nazur · Norte", lat: -2.1380, lng: -79.9025 },
+      { name: "San Marino Shopping", detail: "Av. Francisco de Orellana · Norte", lat: -2.1678, lng: -79.8986 },
+      { name: "Mall del Sol", detail: "Av. Joaquín Orrantia · Norte", lat: -2.1552, lng: -79.8920 },
+      { name: "Mall del Sur", detail: "Av. 25 de Julio y Ernesto Albán · Sur", lat: -2.2288, lng: -79.8985 },
+      { name: "Mall del Norte", detail: "Av. Francisco de Orellana · Norte", lat: -2.1180, lng: -79.9040 },
       { name: "Plaza Rodolfo Baquerizo Moreno", detail: "Malecón del Salado · Guayaquil", lat: -2.1835, lng: -79.8942 },
-      { name: "Centro Comercial San Marino Shopping", detail: "Av. Francisco de Orellana · Guayaquil", lat: -2.1678, lng: -79.8986 }
+      { name: "Plaza Mayor Alborada", detail: "Av. Rodolfo Baquerizo · Alborada", lat: -2.1422, lng: -79.9038 },
+      { name: "Plaza Lagos Town Center", detail: "Km 6.5 Vía a Samborondón", lat: -2.1045, lng: -79.8665 },
+      { name: "Parque Centenario", detail: "Av. 9 de Octubre y Lorenzo de Garaycoa", lat: -2.1912, lng: -79.8875 },
+      { name: "Parque Samanes", detail: "Av. Francisco de Orellana · Norte", lat: -2.1065, lng: -79.9020 },
+      { name: "Parque Urdesa (Víctor Emilio Estrada)", detail: "Urdesa Central · Guayaquil", lat: -2.1672, lng: -79.9105 },
+      { name: "Terminal Terrestre de Guayaquil", detail: "Av. Benjamín Rosales · Norte", lat: -2.1482, lng: -79.8815 },
+      { name: "CityMall Guayaquil", detail: "Av. Benjamín Carrión · Alborada", lat: -2.1408, lng: -79.9082 },
+      { name: "Village Plaza Samborondón", detail: "Km 1.5 Vía a Samborondón", lat: -2.1402, lng: -79.8655 },
+      { name: "Malecón 2000 · La Rotonda", detail: "Av. Malecón Simón Bolívar · Centro", lat: -2.1925, lng: -79.8795 },
+      { name: "Estación Metrovía Universidad de Guayaquil", detail: "Av. Delta · Frente a UG", lat: -2.1825, lng: -79.8988 },
+      { name: "Policentro Guayaquil", detail: "Av. San Jorge · Cdla. Kennedy", lat: -2.1715, lng: -79.9005 },
+      { name: "Paseo Shopping Vía a Daule", detail: "Km 16.5 Vía a Daule · Norte", lat: -2.0785, lng: -79.9380 },
+      { name: "Las Terrazas Samborondón", detail: "Km 1.5 Vía a Samborondón", lat: -2.1385, lng: -79.8648 },
+      { name: "Alban Borja Centro Comercial", detail: "Av. Carlos Julio Arosemena · Norte", lat: -2.1775, lng: -79.9135 }
     ];
 
     // INICIALIZAR MAPA ESTILO GOOGLE MAPS
@@ -382,7 +420,7 @@
     L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', { maxZoom: 20 }).addTo(step1Map);
     let step1Marker = L.marker([-2.1446, -79.9675], { draggable: true }).addTo(step1Map).bindPopup("Biblioteca Central ESPOL").openPopup();
 
-    // PERMITIR HACER CLIC EN CUALQUIER PARTE DEL MAPA PARA FIJAR PUNTO
+    // CLIC DIRECTO EN CUALQUIER CALLE DEL MAPA
     step1Map.on('click', async function(e) {
       const { lat, lng } = e.latlng;
       step1Marker.setLatLng([lat, lng]);
@@ -436,49 +474,51 @@
       updateLivePreview();
     }
 
-    // BUSCADOR EN TIEMPO REAL DE CUALQUIER LUGAR DE GUAYAQUIL (PHOTON GEOCODER + CAMPUS)
+    // BUSCADOR DESDE LA PRIMERA LETRA EN TODO GUAYAQUIL (INSTANTÁNEO + API EN VIVO)
     function onSearchPlaceInput(rawVal) {
       updateLivePreview();
-      const q = rawVal.trim();
+      const q = rawVal.trim().toLowerCase();
       const box = document.getElementById('mapSuggestionsBox');
       const spinner = document.getElementById('mapSearchSpinner');
 
       clearTimeout(searchDebounceTimer);
 
-      // Coincidencias locales rápidas
-      const localMatches = campusSafeSpots.filter(s =>
-        s.name.toLowerCase().includes(q.toLowerCase()) ||
-        s.detail.toLowerCase().includes(q.toLowerCase())
-      );
-
-      if (q.length < 2) {
-        renderSuggestionsDropdown(localMatches, []);
+      if (q.length === 0) {
+        // Mostrar primeros 6 sugeridos al enfocar vacío
+        renderSuggestionsDropdown(guayaquilDirectory.slice(0, 6), []);
         return;
       }
 
+      // 1. Filtrado instantáneo (0ms) desde la 1ra letra: prioriza los que EMPIEZAN con la letra, luego los que la contienen
+      const startsWith = guayaquilDirectory.filter(s => s.name.toLowerCase().startsWith(q));
+      const contains = guayaquilDirectory.filter(s => !s.name.toLowerCase().startsWith(q) && (s.name.toLowerCase().includes(q) || s.detail.toLowerCase().includes(q)));
+      const localMatches = [...startsWith, ...contains];
+
+      renderSuggestionsDropdown(localMatches, []);
+
+      // 2. Consulta adicional en tiempo real a todo el mapa de Guayaquil (calles, barrios, locales)
       spinner.style.display = 'inline';
       searchDebounceTimer = setTimeout(async () => {
         try {
-          // Búsqueda en vivo sesgada a Guayaquil (-2.18, -79.89)
-          const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(q + ' Guayaquil')}&lat=-2.18&lon=-79.89&limit=6`;
+          const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(rawVal.trim() + ' Guayaquil')}&bbox=-80.12,-2.32,-79.72,-1.98&limit=8`;
           const response = await fetch(url);
           const data = await response.json();
 
           const livePlaces = (data.features || []).map(f => {
             const p = f.properties;
-            const coords = f.geometry.coordinates; // [lng, lat]
-            const title = p.name || p.street || q;
+            const coords = f.geometry.coordinates;
+            const title = p.name || p.street || rawVal.trim();
             const sub = [p.street, p.district, p.city || 'Guayaquil'].filter(Boolean).join(', ');
             return { name: title, detail: sub, lat: coords[1], lng: coords[0] };
           });
 
           renderSuggestionsDropdown(localMatches, livePlaces);
         } catch (err) {
-          renderSuggestionsDropdown(localMatches, []);
+          // Mantiene los resultados locales si no hay red
         } finally {
           spinner.style.display = 'none';
         }
-      }, 320);
+      }, 220);
     }
 
     function renderSuggestionsDropdown(localList, apiList) {
@@ -490,7 +530,7 @@
 
       let html = '';
       if (localList.length > 0) {
-        html += `<div class="map-sug-section">Puntos Frecuentes &amp; Campus</div>`;
+        html += `<div class="map-sug-section">Campuses y Puntos Conocidos en Guayaquil (${localList.length})</div>`;
         html += localList.map(p => `
           <div class="map-sug-item" onclick="chooseMapSpot('${p.name.replace(/'/g, "\\'")}', ${p.lat}, ${p.lng})">
             <span>🏛️</span>
@@ -500,7 +540,7 @@
       }
 
       if (apiList.length > 0) {
-        html += `<div class="map-sug-section">Resultados en el Mapa de Guayaquil</div>`;
+        html += `<div class="map-sug-section">Calles y Sitios en el Mapa Completo</div>`;
         html += apiList.map(p => `
           <div class="map-sug-item" onclick="chooseMapSpot('${p.name.replace(/'/g, "\\'")}', ${p.lat}, ${p.lng})">
             <span>📍</span>
