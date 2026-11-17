@@ -189,7 +189,6 @@
     }
     .cond-chip-btn:hover { background: #e0f2fe; border-color: #0284c7; color: #002855; }
 
-    /* BLOQUE CONSEJOS PARA VENTA INMEDIATA EN CAMPUS */
     .sales-tips-box {
       background: #f0f7ff; border: 1px solid #dbeafe; border-radius: 14px;
       padding: 16px 20px; margin-top: 18px;
@@ -203,7 +202,7 @@
       display: flex; flex-direction: column; gap: 5px; line-height: 1.45;
     }
 
-    /* PASO 3: TASADOR INTELIGENTE + CANJE + BARRA DE PUBLICACIÓN FINAL */
+    /* PASO 3: TASADOR INTELIGENTE + ACORDEONES PLEGABLES (CANJE Y BANCOS DE GUAYAQUIL) */
     .smart-pricing-panel {
       background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 14px;
       padding: 16px; margin-bottom: 18px; display: none;
@@ -223,20 +222,32 @@
       font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 999px; margin-top: 6px;
     }
 
-    .swap-toggle-card {
-      background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 14px; padding: 16px; margin-bottom: 18px;
+    /* TARJETAS PLEGABLES (CANJE Y TRANSFERENCIA BANCARIA) */
+    .collapsible-feature-card {
+      background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 14px;
+      padding: 14px 18px; margin-bottom: 16px; transition: all 0.2s;
     }
-    .swap-header-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .collapsible-feature-card.active-border {
+      background: #f8fbff; border-color: #0284c7; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.06);
+    }
+    .collapsible-header-btn {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      cursor: pointer; user-select: none;
+    }
     .switch-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 800; font-size: 13.5px; color: #002855; }
     .switch-label input { width: 18px; height: 18px; accent-color: #002855; cursor: pointer; }
-    .swap-fields-body { margin-top: 14px; padding-top: 14px; border-top: 1px dashed #cbd5e1; }
-
-    .payment-pills-row { display: flex; flex-wrap: wrap; gap: 8px; }
-    .pay-pill {
-      padding: 7px 14px; border-radius: 999px; border: 1px solid #cbd5e1; background: #f8fafc;
-      font-size: 12px; font-weight: 700; color: #475569; cursor: pointer; transition: all 0.15s;
+    .collapsible-body {
+      display: none; margin-top: 14px; padding-top: 14px; border-top: 1px dashed #cbd5e1;
+      animation: fadeDown 0.22s ease;
     }
-    .pay-pill.active { background: #002855; color: #ffffff; border-color: #002855; }
+    .collapsible-body.open { display: block; }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .bank-helper-note {
+      background: #e0f2fe; border: 1px solid #bae6fd; color: #0369a1;
+      font-size: 11.5px; font-weight: 600; padding: 8px 12px; border-radius: 8px;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 7px;
+    }
 
     /* BARRA INFERIOR DE PUBLICACIÓN MODERADA + GUARDAR BORRADOR + PUBLICAR ARTÍCULO */
     .final-moderation-bar {
@@ -285,7 +296,7 @@
     .mock-status-pill { position: absolute; top: 10px; left: 10px; background: #fef3c7; color: #b45309; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 999px; }
     .mock-status-pill.new-box { background: #e0f2fe; color: #0369a1; }
     .mock-status-pill.good { background: #dcfce7; color: #15803d; }
-    .mock-swap-pill { position: absolute; top: 10px; right: 10px; background: #002855; color: #ffffff; font-size: 10.5px; font-weight: 800; padding: 3px 9px; border-radius: 999px; }
+    .mock-swap-pill { position: absolute; top: 10px; right: 10px; background: #002855; color: #ffffff; font-size: 10.5px; font-weight: 800; padding: 3px 9px; border-radius: 999px; display: none; }
     .mock-body { padding: 14px; }
     .mock-title { font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 6px; }
     .mock-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; }
@@ -296,7 +307,6 @@
     .mock-detail-line { font-size: 11.5px; color: #475569; margin-top: 4px; display: flex; align-items: center; gap: 5px; }
     .mock-real-desc { margin-top: 8px; padding-top: 8px; border-top: 1px dashed #e2e8f0; font-size: 11.5px; color: #334155; line-height: 1.4; }
 
-    /* PIE DE TARJETA CON USUARIO Y DOMINIO INSTITUCIONAL @...edu.ec */
     .mock-seller-footer {
       margin-top: 12px; padding-top: 10px; border-top: 1px solid #f1f5f9;
       display: flex; align-items: center; justify-content: space-between;
@@ -310,7 +320,6 @@
     .mock-seller-domain { font-size: 11px; font-weight: 700; color: #059669; }
     .mock-seller-rating { font-size: 11.5px; font-weight: 800; color: #0f172a; }
 
-    /* TARJETA GARANTÍA UNILOOP */
     .guarantee-side-card {
       background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px;
       padding: 20px 22px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.03);
@@ -382,7 +391,7 @@
           <div class="step-circle">3</div>
           <div class="step-meta">
             <small>PASO 3</small>
-            <strong>Precio y Canje</strong>
+            <strong>Precio y Cobro</strong>
           </div>
         </div>
       </div>
@@ -546,7 +555,6 @@
               <textarea id="inpRealConditionDesc" rows="3" placeholder="Ej. La calculadora funciona perfecto, tiene su tapa rígida original y cable de carga..." oninput="updateLivePreview()"></textarea>
             </div>
 
-            <!-- CONSEJOS PARA VENTA INMEDIATA EN CAMPUS -->
             <div class="sales-tips-box">
               <h4>🛡️ Consejos para venta inmediata en campus</h4>
               <ul>
@@ -559,24 +567,25 @@
             <div class="step-actions-bar">
               <button type="button" class="btn-prev-step" onclick="goToWizardStep(1)">← Anterior: Universidad y Datos</button>
               <button type="button" class="btn-next-step" onclick="goToWizardStep(3)">
-                Continuar al Paso 3: Precio y Canje →
+                Continuar al Paso 3: Precio y Cobro →
               </button>
             </div>
           </div>
 
-          <!-- ==================== PASO 3: PRECIO, TASADOR Y CANJE ==================== -->
+          <!-- ==================== PASO 3: PRECIO, TASADOR, CANJE PLEGABLE Y BANCOS DE GUAYAQUIL ==================== -->
           <div class="step-card" id="step3Container" style="display: none;">
             <div class="step-card-header">
               <div class="step-title-group">
                 <div class="step-icon-badge">💲</div>
                 <div>
-                  <h2>3. Precio, Tasador Inteligente y Canje</h2>
-                  <p>Calcula el precio justo según el estado elegido y configura opciones de intercambio</p>
+                  <h2>3. Precio, Tasador Inteligente y Datos de Cobro</h2>
+                  <p>Calcula el precio justo, elige si aceptas canje y configura tu cuenta bancaria para el encuentro</p>
                 </div>
               </div>
               <span class="req-pill">Paso 3 de 3</span>
             </div>
 
+            <!-- CATEGORÍA Y PRECIO ORIGINAL -->
             <div class="form-2-cols">
               <div class="field-box">
                 <label>Categoría del material (Para protocolo de retiro)</label>
@@ -596,6 +605,7 @@
               </div>
             </div>
 
+            <!-- TASADOR INTELIGENTE DE PORCENTAJES -->
             <div class="smart-pricing-panel" id="smartPricingCard">
               <div class="smart-pricing-header">
                 <span>⚡ Precios sugeridos UniLoop (Calculado para estado: <strong id="pricingConditionLabel">Como nuevo</strong>)</span>
@@ -604,6 +614,7 @@
               <div class="quick-price-chips" id="priceChipsContainer"></div>
             </div>
 
+            <!-- PRECIO FINAL + HASHTAGS -->
             <div class="form-2-cols">
               <div class="field-box">
                 <label>Tu precio de venta final ($ USD)</label>
@@ -612,21 +623,22 @@
               </div>
 
               <div class="field-box">
-                <label>Contacto interno / WhatsApp de coordinación</label>
-                <input type="tel" id="inpPhone" placeholder="Ej. 593987654320" required>
+                <label>Hashtags de búsqueda rápida</label>
+                <input type="text" id="inpHashtags" placeholder="#calculo #ingenieria #espol">
               </div>
             </div>
 
-            <div class="swap-toggle-card">
-              <div class="swap-header-row">
-                <label class="switch-label">
-                  <input type="checkbox" id="chkAllowSwap" checked onchange="toggleSwapFields()">
+            <!-- BOTÓN PLEGABLE 1: ACEPTAR INTERCAMBIO / CANJE (INICIA DESMARCADO Y CERRADO) -->
+            <div class="collapsible-feature-card" id="swapFeatureCard">
+              <div class="collapsible-header-btn" onclick="toggleCollapsibleCard('chkAllowSwap', 'swapFieldsBody', 'swapFeatureCard', true)">
+                <label class="switch-label" onclick="event.stopPropagation()">
+                  <input type="checkbox" id="chkAllowSwap" onchange="toggleCollapsibleCard('chkAllowSwap', 'swapFieldsBody', 'swapFeatureCard', false)">
                   <span>⇄ Acepto Intercambio Directo / Canje universitario</span>
                 </label>
-                <span style="font-size:11px; font-weight:700; color:#0284c7; background:#e0f2fe; padding:3px 9px; border-radius:999px;">Aumenta 2x los interesados</span>
+                <span style="font-size:11px; font-weight:700; color:#0284c7; background:#e0f2fe; padding:3px 9px; border-radius:999px;">Opcional · Desplegar</span>
               </div>
 
-              <div class="swap-fields-body" id="swapFieldsBody">
+              <div class="collapsible-body" id="swapFieldsBody">
                 <div class="form-2-cols" style="margin-bottom:0;">
                   <div class="field-box" style="margin-bottom:0;">
                     <label>¿Qué libro o material aceptas a cambio?</label>
@@ -640,23 +652,66 @@
               </div>
             </div>
 
-            <div class="form-2-cols">
-              <div class="field-box" style="margin-bottom:0;">
-                <label>Métodos de cobro preferidos en campus</label>
-                <div class="payment-pills-row">
-                  <span class="pay-pill active" onclick="this.classList.toggle('active')">📱 Deuna!</span>
-                  <span class="pay-pill active" onclick="this.classList.toggle('active')">🏦 Transferencia</span>
-                  <span class="pay-pill" onclick="this.classList.toggle('active')">💳 Saldo UniLoop</span>
-                </div>
+            <!-- BOTÓN PLEGABLE 2: MÉTODO DE COBRO - TRANSFERENCIAS BANCARIAS EN GUAYAQUIL -->
+            <div class="collapsible-feature-card active-border" id="bankFeatureCard" style="margin-bottom: 0;">
+              <div class="collapsible-header-btn" onclick="toggleCollapsibleCard('chkBankTransfer', 'bankFieldsBody', 'bankFeatureCard', true)">
+                <label class="switch-label" onclick="event.stopPropagation()">
+                  <input type="checkbox" id="chkBankTransfer" checked onchange="toggleCollapsibleCard('chkBankTransfer', 'bankFieldsBody', 'bankFeatureCard', false)">
+                  <span>🏦 Método de cobro: Transferencia Bancaria (Bancos en Guayaquil)</span>
+                </label>
+                <span style="font-size:11px; font-weight:700; color:#15803d; background:#dcfce7; padding:3px 9px; border-radius:999px;">Pago directo en encuentro</span>
               </div>
 
-              <div class="field-box" style="margin-bottom:0;">
-                <label>Hashtags de búsqueda rápida</label>
-                <input type="text" id="inpHashtags" placeholder="#calculo #ingenieria #espol">
+              <div class="collapsible-body open" id="bankFieldsBody">
+                <div class="bank-helper-note">
+                  <span>🔒</span>
+                  <span id="bankRequirementHint">Selecciona tu banco en Guayaquil para configurar los datos exactos que necesita el comprador al transferirte en persona.</span>
+                </div>
+
+                <div class="form-2-cols">
+                  <div class="field-box">
+                    <label>Banco receptor en Guayaquil / Ecuador</label>
+                    <select id="selBankGuayaquil" onchange="onBankSelectionChange()">
+                      <option value="Banco Pichincha">🏦 Banco Pichincha</option>
+                      <option value="Banco Guayaquil">🏦 Banco Guayaquil</option>
+                      <option value="Produbanco">🏦 Produbanco</option>
+                      <option value="Banco Bolivariano">🏦 Banco Bolivariano</option>
+                      <option value="Banco del Pacífico">🏦 Banco del Pacífico</option>
+                      <option value="Banco Internacional">🏦 Banco Internacional</option>
+                      <option value="Banco del Austro">🏦 Banco del Austro</option>
+                      <option value="Cooperativa JEP">🏦 Cooperativa JEP</option>
+                    </select>
+                  </div>
+
+                  <div class="field-box">
+                    <label>Tipo de cuenta</label>
+                    <select id="selAccountType" onchange="updateLivePreview()">
+                      <option value="Cuenta de Ahorros">Cuenta de Ahorros</option>
+                      <option value="Cuenta Corriente">Cuenta Corriente</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-2-cols">
+                  <div class="field-box">
+                    <label id="lblAccountNumber">Número de cuenta (10 dígitos · Pichincha)</label>
+                    <input type="text" id="inpAccountNumber" inputmode="numeric" maxlength="14" placeholder="Ej. 2204589123" oninput="this.value = this.value.replace(/[^0-9]/g, ''); updateLivePreview()">
+                  </div>
+
+                  <div class="field-box">
+                    <label>Cédula de identidad del titular (10 dígitos)</label>
+                    <input type="text" id="inpHolderCedula" inputmode="numeric" maxlength="10" placeholder="Ej. 0954128790" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                  </div>
+                </div>
+
+                <div class="field-box" style="margin-bottom: 0;">
+                  <label>Nombre completo del titular de la cuenta</label>
+                  <input type="text" id="inpHolderName" value="Diego Yulán Peralta" placeholder="Ej. Diego Yulán Peralta">
+                </div>
               </div>
             </div>
 
-            <div class="step-actions-bar" style="margin-bottom: 0; border-top: none; padding-top: 8px;">
+            <div class="step-actions-bar" style="margin-bottom: 0; border-top: none; padding-top: 16px;">
               <button type="button" class="btn-prev-step" onclick="goToWizardStep(2)">← Anterior: Foto y Estado</button>
             </div>
           </div>
@@ -705,6 +760,7 @@
               <div class="mock-detail-line" id="prevFaculty">🎓 Facultad y Carrera</div>
               <div class="mock-detail-line" id="prevSpot">📌 Biblioteca Central / Cafetería FIMCP</div>
               <div class="mock-detail-line" id="prevSchedule">🕒 Lun a Jue (10:00 - 15:30)</div>
+              <div class="mock-detail-line" id="prevBankLine" style="color:#0369a1; font-weight:700;">🏦 Transferencia: Banco Pichincha</div>
               <div class="mock-real-desc" id="prevConditionDesc">Estado real: Sin rayones ni fallas, listo para entrega en campus.</div>
 
               <!-- USUARIO VERIFICADO Y DOMINIO @...edu.ec DINÁMICO -->
@@ -872,10 +928,43 @@
       updateLivePreview();
     }
 
-    function toggleSwapFields() {
-      const isChecked = document.getElementById('chkAllowSwap').checked;
-      document.getElementById('swapFieldsBody').style.display = isChecked ? 'block' : 'none';
-      document.getElementById('liveCardSwapBadge').style.display = isChecked ? 'inline-block' : 'none';
+    // CONTROL DE ACORDEONES PLEGABLES (CANJE Y TRANSFERENCIA BANCARIA)
+    function toggleCollapsibleCard(checkboxId, bodyId, cardId, clickedHeader) {
+      const chk = document.getElementById(checkboxId);
+      if (clickedHeader) chk.checked = !chk.checked;
+
+      const body = document.getElementById(bodyId);
+      const card = document.getElementById(cardId);
+
+      body.classList.toggle('open', chk.checked);
+      card.classList.toggle('active-border', chk.checked);
+
+      if (checkboxId === 'chkAllowSwap') {
+        document.getElementById('liveCardSwapBadge').style.display = chk.checked ? 'inline-block' : 'none';
+      }
+      updateLivePreview();
+    }
+
+    // CONFIGURACIÓN DINÁMICA SEGÚN BANCO EN GUAYAQUIL / ECUADOR
+    const ecuadorBanksMeta = {
+      "Banco Pichincha": { digits: "10 dígitos", placeholder: "Ej. 2204589123", note: "Banco Pichincha usa cuentas de 10 dígitos. Para transferencias desde otro banco se solicita cédula del titular." },
+      "Banco Guayaquil": { digits: "8 a 10 dígitos", placeholder: "Ej. 00458912", note: "Banco Guayaquil maneja cuentas de 8 a 10 dígitos. Ideal para transferencias directas sin comisión entre estudiantes BG." },
+      "Produbanco": { digits: "11 a 12 dígitos", placeholder: "Ej. 12005489632", note: "Produbanco utiliza números de cuenta de 11 o 12 dígitos. Incluye cédula de 10 dígitos para transferencias interbancarias." },
+      "Banco Bolivariano": { digits: "10 dígitos", placeholder: "Ej. 0005124896", note: "Banco Bolivariano emplea 10 dígitos en cuentas de ahorro/corriente." },
+      "Banco del Pacífico": { digits: "10 dígitos", placeholder: "Ej. 1045896321", note: "Banco del Pacífico usa cuentas de 10 dígitos." },
+      "Banco Internacional": { digits: "10 dígitos", placeholder: "Ej. 8004512369", note: "Banco Internacional requiere número de cuenta de 10 dígitos y cédula de identidad." },
+      "Banco del Austro": { digits: "9 a 10 dígitos", placeholder: "Ej. 400125896", note: "Banco del Austro requiere tipo de cuenta, número y cédula del titular." },
+      "Cooperativa JEP": { digits: "12 dígitos", placeholder: "Ej. 406012345678", note: "Cooperativa JEP utiliza cuentas de 12 dígitos para transferencias interbancarias." }
+    };
+
+    function onBankSelectionChange() {
+      const bankName = document.getElementById('selBankGuayaquil').value;
+      const meta = ecuadorBanksMeta[bankName] || ecuadorBanksMeta["Banco Pichincha"];
+
+      document.getElementById('lblAccountNumber').innerText = `Número de cuenta (${meta.digits} · ${bankName})`;
+      document.getElementById('inpAccountNumber').placeholder = meta.placeholder;
+      document.getElementById('bankRequirementHint').innerText = meta.note;
+      updateLivePreview();
     }
 
     function saveDraftManual() {
@@ -1083,7 +1172,7 @@
       document.getElementById('prevSchedule').innerText = `🕒 ${fullSchedule}`;
     }
 
-    // ACTUALIZACIÓN COMPLETA DE LA VISTA PREVIA EN TIEMPO REAL (INCLUYENDO DOMINIO @...edu.ec)
+    // ACTUALIZACIÓN COMPLETA DE LA VISTA PREVIA EN TIEMPO REAL
     function updateLivePreview() {
       const title = document.getElementById('inpTitle').value.trim();
       const faculty = document.getElementById('inpFaculty').value.trim();
@@ -1101,7 +1190,17 @@
       document.getElementById('prevSpot').innerText = `📌 ${spot || "Biblioteca Central / Cafetería FIMCP"}`;
       document.getElementById('prevConditionDesc').innerText = condDesc ? `Estado real: ${condDesc}` : "Estado real: Sin rayones ni fallas, listo para entrega en campus.";
 
-      // Actualizar dominio institucional de estudiante verificado en la tarjeta derecha
+      // Actualizar banco seleccionado en vista previa
+      const bankEnabled = document.getElementById('chkBankTransfer').checked;
+      const selectedBank = document.getElementById('selBankGuayaquil').value;
+      const prevBankEl = document.getElementById('prevBankLine');
+      if (bankEnabled) {
+        prevBankEl.style.display = 'flex';
+        prevBankEl.innerText = `🏦 Transferencia: ${selectedBank}`;
+      } else {
+        prevBankEl.style.display = 'none';
+      }
+
       document.getElementById('prevSellerDomain').innerText = uniObj.domain;
       document.getElementById('guaranteeDomainLabel').innerText = `Verificación vía dominio ${uniObj.domain}`;
 
@@ -1149,17 +1248,22 @@
       const condDesc = document.getElementById('inpRealConditionDesc').value.trim() || "Artículo verificado en excelente estado.";
       const category = document.getElementById('inpCategory').value;
       const origPrice = parseFloat(document.getElementById('originalPriceInput').value) || Math.round(price * 1.5);
-      const phone = document.getElementById('inpPhone').value.trim() || "593987654320";
       const allowSwap = document.getElementById('chkAllowSwap').checked;
       const swapOffer = allowSwap ? (document.getElementById('inpSwapOffer').value.trim() || "Abierto a propuestas de libros o materiales") : "Solo venta directa";
       const swapDiscount = allowSwap ? (parseFloat(document.getElementById('inpSwapDiscount').value) || Math.round(price * 0.35)) : 0;
       const tagsStr = document.getElementById('inpHashtags').value.trim();
 
+      const bankEnabled = document.getElementById('chkBankTransfer').checked;
+      const bankName = document.getElementById('selBankGuayaquil').value;
+      const accType = document.getElementById('selAccountType').value;
+      const accNum = document.getElementById('inpAccountNumber').value.trim();
+      const bankNote = (bankEnabled && accNum) ? ` · Cobro vía transferencia ${bankName} (${accType}).` : '';
+
       const tagsArray = tagsStr ? tagsStr.split(' ').filter(t => t.startsWith('#')) : [`#${selectedUniCode.toLowerCase()}`, "#materiales"];
       const now = new Date();
       const dateFormatted = `${now.getDate()} ${now.toLocaleString('es-ES', { month: 'short' })} ${now.getFullYear()}`;
 
-      const fullDesc = `${condDesc} Punto de entrega preferido: ${spot} (${schedule}).`;
+      const fullDesc = `${condDesc} Punto de entrega preferido: ${spot} (${schedule}).${bankNote}`;
 
       const newItem = {
         id: Date.now(),
@@ -1177,7 +1281,7 @@
         sellerSem: "5to Sem.",
         sellerRating: "5.0",
         sellerSales: 7,
-        phone,
+        phone: "593987654320",
         isMyPost: true,
         exchangeOffer: swapOffer,
         exchangeDiscount: swapDiscount,
@@ -1193,6 +1297,7 @@
 
     renderUniSelector();
     updateScheduleText();
+    onBankSelectionChange();
     updateLivePreview();
   </script>
 </body>
