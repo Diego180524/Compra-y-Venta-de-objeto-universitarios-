@@ -7,84 +7,164 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; }
     body { background-color: #f8fafc; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
 
-    /* NAVBAR SUPERIOR */
+    /* HEADER LIMPIO CON BOTÓN DE REGRESAR */
     .top-header { background: #ffffff; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
-    .navbar-inner { max-width: 1120px; margin: 0 auto; padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-left { display: flex; align-items: center; gap: 14px; }
+    .navbar-inner { max-width: 1280px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .nav-left { display: flex; align-items: center; gap: 16px; }
     .brand-link { display: flex; align-items: center; gap: 8px; text-decoration: none; }
     .brand-icon { width: 34px; height: 34px; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
     .brand-logo { font-size: 22px; font-weight: 800; color: #002855; letter-spacing: -0.5px; }
     .brand-logo span { color: #0284c7; }
 
-    .btn-back { background: #f1f5f9; border: 1px solid #cbd5e1; color: #002855; padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 700; text-decoration: none; transition: all 0.15s; }
-    .btn-back:hover { background: #e0f2fe; border-color: #0284c7; }
+    .btn-back-home {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: #f1f5f9; border: 1px solid #cbd5e1; color: #002855;
+      padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 700;
+      text-decoration: none; transition: all 0.15s;
+    }
+    .btn-back-home:hover { background: #002855; color: #ffffff; border-color: #002855; }
 
     .user-pill { display: flex; align-items: center; gap: 10px; }
-    .user-pill img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid #cbd5e1; }
+    .user-pill img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #cbd5e1; }
 
     /* CONTENEDOR PRINCIPAL */
-    .publish-container { max-width: 960px; width: 100%; margin: 32px auto 60px; padding: 0 24px; }
-    .publish-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 22px; padding: 34px 38px; box-shadow: 0 12px 32px rgba(0, 40, 85, 0.05); }
+    .main-wrapper { max-width: 1280px; width: 100%; margin: 28px auto 60px; padding: 0 32px; }
 
-    .page-header { margin-bottom: 26px; padding-bottom: 18px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    .page-header h1 { font-size: 24px; font-weight: 800; color: #0f172a; }
-    .page-header p { font-size: 13.5px; color: #64748b; margin-top: 4px; }
-    .verified-tag { background: #dcfce7; color: #15803d; font-size: 11.5px; font-weight: 800; padding: 5px 12px; border-radius: 999px; }
+    .title-banner-row { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 22px; }
+    .title-banner-row h1 { font-size: 28px; font-weight: 800; color: #0f172a; letter-spacing: -0.5px; }
+    .title-banner-row p { font-size: 14px; color: #64748b; margin-top: 4px; }
+    .badges-right { display: flex; gap: 8px; }
+    .info-chip { background: #ffffff; border: 1px solid #e2e8f0; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; color: #334155; }
+    .info-chip.green { background: #dcfce7; border-color: #86efac; color: #15803d; }
 
-    /* FORMULARIO EN 2 COLUMNAS */
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .form-full { grid-column: 1 / -1; }
-    @media (max-width: 760px) { .form-grid { grid-template-columns: 1fr; } }
-
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-size: 12.5px; font-weight: 700; color: #334155; margin-bottom: 6px; }
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%; padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 10px;
-      font-size: 13.5px; color: #0f172a; outline: none; background: #f8fafc; transition: all 0.15s;
+    /* BARRA DE 3 PASOS (STEPPER) */
+    .stepper-card {
+      background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;
+      padding: 18px 28px; margin-bottom: 26px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
     }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      background: #ffffff; border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+    .steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 14px; }
+    .step-tab { display: flex; align-items: center; gap: 12px; cursor: pointer; opacity: 0.55; transition: opacity 0.2s; }
+    .step-tab.active { opacity: 1; }
+    .step-circle {
+      width: 34px; height: 34px; border-radius: 50%; background: #e2e8f0; color: #475569;
+      font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .form-group textarea { resize: vertical; min-height: 90px; }
+    .step-tab.active .step-circle { background: #002855; color: #ffffff; }
+    .step-meta small { display: block; font-size: 10.5px; font-weight: 800; color: #0284c7; text-transform: uppercase; }
+    .step-meta strong { font-size: 14.5px; color: #0f172a; }
+    .progress-track { width: 100%; height: 5px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; background: #002855; width: 33.33%; transition: width 0.3s ease; }
 
-    /* SUBIDOR DE FOTO */
-    .photo-upload-box {
-      border: 2px dashed #93c5fd; background: #f8fafc; border-radius: 14px; height: 175px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-      cursor: pointer; position: relative; overflow: hidden; transition: all 0.2s;
-    }
-    .photo-upload-box:hover { background: #f0f9ff; border-color: #0284c7; }
-    .photo-upload-box input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-    .upload-icon-circle { width: 48px; height: 48px; background: #e0f2fe; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-    .upload-preview-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+    /* LAYOUT 2 COLUMNAS: FORMULARIO (IZQ) + VISTA PREVIA EN VIVO (DER) */
+    .wizard-layout { display: grid; grid-template-columns: 1fr 360px; gap: 26px; align-items: start; }
+    @media (max-width: 960px) { .wizard-layout { grid-template-columns: 1fr; } }
 
-    /* TASADOR INTELIGENTE DE PORCENTAJES */
-    .smart-pricing-card {
-      background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px;
-      padding: 12px 14px; margin-top: 10px; display: none;
-    }
-    .smart-pricing-title { font-size: 12px; font-weight: 800; color: #15803d; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-    .quick-price-chips { display: flex; gap: 8px; }
-    .price-choice-btn {
-      flex: 1; background: #ffffff; border: 1.5px solid #86efac; padding: 8px 10px; border-radius: 9px;
-      font-size: 13px; font-weight: 800; color: #166534; cursor: pointer;
-      display: flex; flex-direction: column; align-items: center; gap: 2px; transition: all 0.15s;
-    }
-    .price-choice-btn:hover { background: #15803d; color: #ffffff; border-color: #15803d; }
+    .step-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 28px 30px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.03); }
+    .step-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 22px; }
+    .step-title-group { display: flex; align-items: center; gap: 12px; }
+    .step-icon-badge { width: 42px; height: 42px; border-radius: 12px; background: #e0f2fe; color: #0284c7; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .step-title-group h2 { font-size: 18px; font-weight: 800; color: #0f172a; }
+    .step-title-group p { font-size: 12.5px; color: #64748b; margin-top: 2px; }
+    .req-pill { background: #f1f5f9; color: #002855; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
 
-    /* BOTÓN PUBLICAR */
-    .actions-footer { display: flex; gap: 12px; margin-top: 22px; padding-top: 18px; border-top: 1px solid #f1f5f9; }
-    .btn-cancel { background: #f1f5f9; color: #475569; border: none; padding: 14px 22px; border-radius: 11px; font-size: 14px; font-weight: 700; text-decoration: none; text-align: center; }
-    .btn-submit { flex: 1; background: #002855; color: #ffffff; border: none; padding: 14px 24px; border-radius: 11px; font-size: 14.5px; font-weight: 800; cursor: pointer; transition: background 0.15s; }
-    .btn-submit:hover { background: #0284c7; }
+    /* SELECTOR DE LAS 14 UNIVERSIDADES (4 DESTACADAS + BUSCADOR INTELIGENTE) */
+    .uni-search-bar {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+      background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 11px; padding: 8px 14px;
+    }
+    .uni-search-bar input { flex: 1; border: none; background: transparent; font-size: 13px; outline: none; color: #0f172a; }
+    .uni-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; max-height: 250px; overflow-y: auto; padding-right: 4px; }
+    .uni-radio-card {
+      border: 1.5px solid #e2e8f0; background: #f8fafc; border-radius: 12px; padding: 10px 12px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .uni-radio-card:hover { border-color: #0284c7; background: #f0f9ff; }
+    .uni-radio-card.selected { border-color: #002855; background: #eff6ff; box-shadow: 0 2px 8px rgba(0, 40, 85, 0.08); }
+    .uni-card-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .uni-radio-dot {
+      width: 16px; height: 16px; border-radius: 50%; border: 2px solid #94a3b8; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .uni-radio-card.selected .uni-radio-dot { border-color: #002855; }
+    .uni-radio-card.selected .uni-radio-dot::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #002855; }
+    .uni-logo-sq { width: 34px; height: 34px; border-radius: 8px; background: #ffffff; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 3px; flex-shrink: 0; }
+    .uni-logo-sq img { width: 100%; height: 100%; object-fit: contain; }
+    .uni-text-info { overflow: hidden; }
+    .uni-text-info strong { display: block; font-size: 13px; color: #0f172a; }
+    .uni-text-info span { display: block; font-size: 11px; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* FORMULARIO DATOS BÁSICOS + BUSCADOR DE PUNTO DE ENTREGA + HORARIO L-V */
+    .form-2-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 640px) { .form-2-cols { grid-template-columns: 1fr; } }
+
+    .field-box { margin-bottom: 16px; position: relative; }
+    .field-box label { display: block; font-size: 12.5px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+    .field-box input, .field-box select {
+      width: 100%; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 10px;
+      padding: 10px 14px; font-size: 13px; color: #0f172a; outline: none; transition: all 0.15s;
+    }
+    .field-box input:focus, .field-box select:focus { background: #ffffff; border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12); }
+
+    /* AUTOCOMPLETADO INTELIGENTE DEL MAPA */
+    .map-suggestions-list {
+      position: absolute; top: 100%; left: 0; right: 0; background: #ffffff;
+      border: 1px solid #cbd5e1; border-radius: 11px; box-shadow: 0 12px 28px rgba(0, 40, 85, 0.15);
+      max-height: 210px; overflow-y: auto; z-index: 60; display: none; margin-top: 4px;
+    }
+    .map-suggestions-list.open { display: block; }
+    .map-sug-item { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; cursor: pointer; font-size: 12.5px; }
+    .map-sug-item:hover { background: #f0f9ff; }
+    .map-sug-item strong { display: block; color: #002855; }
+    .map-sug-item span { font-size: 11px; color: #64748b; }
+
+    #step1MiniMap { width: 100%; height: 130px; border-radius: 10px; border: 1px solid #cbd5e1; margin-top: 8px; z-index: 1; }
+
+    /* SELECTOR DE DÍAS L-V Y HORAS MANUALES */
+    .days-pills-row { display: flex; gap: 6px; margin-bottom: 8px; }
+    .day-toggle-btn {
+      flex: 1; padding: 7px 4px; border-radius: 8px; border: 1px solid #cbd5e1; background: #f8fafc;
+      font-size: 11.5px; font-weight: 700; color: #475569; cursor: pointer; text-align: center; transition: all 0.15s;
+    }
+    .day-toggle-btn.active { background: #002855; color: #ffffff; border-color: #002855; }
+    .hours-manual-row { display: flex; align-items: center; gap: 8px; }
+    .hours-manual-row input[type="time"] { flex: 1; padding: 8px 10px; font-size: 12.5px; font-weight: 700; }
+
+    .step-actions-bar { display: flex; justify-content: flex-end; margin-top: 20px; padding-top: 16px; border-top: 1px solid #f1f5f9; }
+    .btn-next-step {
+      background: #002855; color: #ffffff; border: none; padding: 12px 24px; border-radius: 11px;
+      font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-next-step:hover { background: #0284c7; }
+
+    /* COLUMNA DERECHA: VISTA PREVIA EN VIVO */
+    .live-preview-sticky { position: sticky; top: 90px; }
+    .preview-wrapper-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 20px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04); }
+    .preview-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .preview-header span { font-size: 11px; font-weight: 800; color: #002855; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
+    .preview-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; }
+    .feed-badge { background: #f1f5f9; color: #475569; font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
+
+    /* TARJETA SIMULADA DEL MARKETPLACE */
+    .mock-product-card { border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; background: #ffffff; margin-top: 14px; }
+    .mock-img-box { position: relative; height: 175px; background: #e2e8f0; }
+    .mock-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .mock-status-pill { position: absolute; top: 10px; left: 10px; background: #dcfce7; color: #15803d; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 999px; }
+    .mock-body { padding: 14px; }
+    .mock-title { font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 6px; }
+    .mock-price { font-size: 18px; font-weight: 800; color: #002855; margin-bottom: 8px; }
+    .mock-uni-tag { display: inline-block; background: #f0f9ff; color: #0284c7; border: 1px solid #bae6fd; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 5px; margin-bottom: 6px; }
+    .mock-detail-line { font-size: 11.5px; color: #475569; margin-top: 4px; display: flex; align-items: center; gap: 5px; }
   </style>
 </head>
 <body>
 
+  <!-- NAVBAR LIMPIO SIN BARRA SECUNDARIA -->
   <header class="top-header">
     <div class="navbar-inner">
       <div class="nav-left">
@@ -92,244 +172,328 @@
           <div class="brand-icon">🎓</div>
           <span class="brand-logo">Uni<span>Loop</span></span>
         </a>
-        <a href="dashboard.html" class="btn-back">← Volver al Dashboard</a>
+        <a href="dashboard.html" class="btn-back-home">← Regresar a la pantalla de inicio</a>
       </div>
 
       <div class="user-pill">
         <div style="text-align:right;">
-          <div style="font-size:13px; font-weight:800; color:#0f172a;">Diego Y. <span style="color:#15803d; font-size:11px;">✓ ESPOL</span></div>
-          <div style="font-size:11px; color:#64748b;">Estudiante verificado</div>
+          <div style="font-size:13.5px; font-weight:800; color:#0f172a;">Diego Y. <span style="background:#dcfce7; color:#15803d; font-size:10.5px; padding:2px 7px; border-radius:999px;">✓ ESPOL</span></div>
+          <div style="font-size:11.5px; color:#64748b;">Saldo: <strong style="color:#059669;">$48.50</strong> · Estudiante</div>
         </div>
         <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80" alt="Diego Y.">
       </div>
     </div>
   </header>
 
-  <main class="publish-container">
-    <div class="publish-card">
-      <div class="page-header">
-        <div>
-          <h1>Publicar nuevo material</h1>
-          <p>Completa los datos de tu equipo, libro o herramienta para conectarte con estudiantes de tu campus.</p>
+  <main class="main-wrapper">
+    <div class="title-banner-row">
+      <div>
+        <h1>Publicar artículo o material estudiantil</h1>
+        <p>Llega a miles de estudiantes de tu campus y universidades aliadas de Guayaquil</p>
+      </div>
+      <div class="badges-right">
+        <span class="info-chip">📄 Borradores (1)</span>
+        <span class="info-chip green">● Comisión 0% entre pares</span>
+      </div>
+    </div>
+
+    <!-- BARRA DE PROGRESO 3 PASOS -->
+    <div class="stepper-card">
+      <div class="steps-row">
+        <div class="step-tab active" id="tabStep1">
+          <div class="step-circle">1</div>
+          <div class="step-meta">
+            <small>PASO 1</small>
+            <strong>Universidad y Datos</strong>
+          </div>
         </div>
-        <span class="verified-tag">🛡️ Tasador Inteligente Activo</span>
+        <div class="step-tab" id="tabStep2">
+          <div class="step-circle">2</div>
+          <div class="step-meta">
+            <small>PASO 2</small>
+            <strong>Estado y Precio</strong>
+          </div>
+        </div>
+        <div class="step-tab" id="tabStep3">
+          <div class="step-circle">3</div>
+          <div class="step-meta">
+            <small>PASO 3</small>
+            <strong>Fotos y Entrega</strong>
+          </div>
+        </div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressBarFill"></div>
+      </div>
+    </div>
+
+    <!-- CONTENEDOR DIVIDIDO: FORMULARIO PASO 1 + VISTA PREVIA EN VIVO -->
+    <div class="wizard-layout">
+      
+      <!-- COLUMNA IZQUIERDA: PASO 1 -->
+      <div class="step-card" id="step1Container">
+        <div class="step-card-header">
+          <div class="step-title-group">
+            <div class="step-icon-badge">🎓</div>
+            <div>
+              <h2>1. Universidad, Datos y Punto de Entrega</h2>
+              <p>Define tu campus de origen y organiza entregas seguras cara a cara</p>
+            </div>
+          </div>
+          <span class="req-pill">Obligatorio</span>
+        </div>
+
+        <!-- DATOS DEL ARTÍCULO -->
+        <div class="form-2-cols">
+          <div class="field-box">
+            <label>Nombre del material, libro o equipo</label>
+            <input type="text" id="inpTitle" placeholder="Ej. Calculadora Texas TI-Nspire, Bata Lab..." oninput="updateLivePreview()">
+          </div>
+
+          <div class="field-box">
+            <label>Categoría y Facultad / Carrera</label>
+            <input type="text" id="inpFaculty" placeholder="Ej. FIEC · Ingeniería Eléctrica" oninput="updateLivePreview()">
+          </div>
+        </div>
+
+        <!-- SELECTOR DE LAS 14 UNIVERSIDADES CON BUSCADOR -->
+        <div class="field-box">
+          <label>Selecciona tu Universidad (14 campus conectados en Guayaquil):</label>
+          <div class="uni-search-bar">
+            <span>🔍</span>
+            <input type="text" id="uniFilterInput" placeholder="Filtrar universidad (ej. ESPOL, UG, Católica, Salesiana, Ecotec...)" oninput="renderUniSelector(this.value)">
+          </div>
+          <div class="uni-cards-grid" id="uniSelectorGrid"></div>
+        </div>
+
+        <!-- BUSCADOR INTELIGENTE DE PUNTO DE ENTREGA CONECTADO AL MAPA + HORARIO L-V -->
+        <div class="form-2-cols">
+          <div class="field-box">
+            <label>Punto de entrega preferido (Buscador conectado al mapa)</label>
+            <input type="text" id="inpDeliverySpot" placeholder="Escribe ej: Biblioteca, FIMCP, Plaza Calderón..." oninput="filterMapSpots(this.value)" onfocus="filterMapSpots(this.value)" autocomplete="off">
+            <div class="map-suggestions-list" id="mapSuggestionsBox"></div>
+            <div id="step1MiniMap"></div>
+            <span style="font-size:11px; color:#64748b; display:block; margin-top:5px;">Sugerencia: Lugares concurridos con seguridad universitaria.</span>
+          </div>
+
+          <div class="field-box">
+            <label>Horario habitual disponible (Lunes a Viernes)</label>
+            <div class="days-pills-row" id="daysPillsRow">
+              <button type="button" class="day-toggle-btn active" data-day="Lun" onclick="toggleDay(this)">Lun</button>
+              <button type="button" class="day-toggle-btn active" data-day="Mar" onclick="toggleDay(this)">Mar</button>
+              <button type="button" class="day-toggle-btn active" data-day="Mié" onclick="toggleDay(this)">Mié</button>
+              <button type="button" class="day-toggle-btn active" data-day="Jue" onclick="toggleDay(this)">Jue</button>
+              <button type="button" class="day-toggle-btn" data-day="Vie" onclick="toggleDay(this)">Vie</button>
+            </div>
+
+            <div class="hours-manual-row">
+              <input type="time" id="inpTimeStart" value="10:00" onchange="updateScheduleText()">
+              <span style="font-weight:700; color:#64748b;">a</span>
+              <input type="time" id="inpTimeEnd" value="15:30" onchange="updateScheduleText()">
+            </div>
+
+            <div style="margin-top:10px; background:#f0f9ff; border:1px solid #bae6fd; padding:9px 12px; border-radius:9px; font-size:12px; color:#0369a1; font-weight:700;">
+              🕒 Horario armado: <span id="compiledScheduleDisplay">Lun a Jue (10:00 - 15:30)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-actions-bar">
+          <button type="button" class="btn-next-step" onclick="alert('¡Paso 1 guardado! Listo para construir el Paso 2: Estado y Precio.')">
+            Continuar al Paso 2: Estado y Precio →
+          </button>
+        </div>
       </div>
 
-      <form id="publishForm">
-        <div class="form-grid">
-          <div>
-            <div class="form-group">
-              <label>Nombre del material, libro o equipo</label>
-              <input type="text" id="itemName" placeholder="Ej. Multímetro digital, Bata laboratorio, Casio fx-991..." required>
-            </div>
-
-            <div class="form-group">
-              <label>Categoría</label>
-              <select id="itemCategory" required>
-                <option value="Textos y Libros">📖 Textos y Libros</option>
-                <option value="Tecnología">💻 Tecnología y Componentes</option>
-                <option value="Calculadoras">🧮 Calculadoras e Instrumentos</option>
-                <option value="Batas y Salud">🩺 Batas y Salud</option>
-                <option value="Arquitectura">📐 Arquitectura y Diseño</option>
-                <option value="Herramientas">🛠 Herramientas y Kits</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>Universidad en Guayaquil</label>
-              <select id="itemUni" required>
-                <option value="ESPOL">ESPOL (La Prosperina)</option>
-                <option value="UG">Universidad de Guayaquil (UG)</option>
-                <option value="UCSG">Universidad Católica (UCSG)</option>
-                <option value="UPS">Universidad Politécnica Salesiana (UPS)</option>
-                <option value="ECOTEC">Universidad ECOTEC</option>
-                <option value="UEES">Universidad Espíritu Santo (UEES)</option>
-                <option value="UARTES">Universidad de las Artes (UArtes)</option>
-                <option value="UCG">Universidad Casa Grande</option>
-                <option value="ULVR">U. Laica Vicente Rocafuerte (ULVR)</option>
-                <option value="UIDE">UIDE Guayaquil</option>
-                <option value="UMET">Universidad Metropolitana (UMET)</option>
-                <option value="UPACIFICO">Universidad Del Pacífico</option>
-                <option value="UBE">Universidad Bolivariana del Ecuador (UBE)</option>
-                <option value="ITB">Instituto Bolivariano (ITB)</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>Facultad y Carrera</label>
-              <input type="text" id="itemFaculty" placeholder="Ej. FIEC · Electricidad / Ciencias Médicas" required>
-            </div>
-
-            <div class="form-group">
-              <label>Número de contacto (Interno)</label>
-              <input type="tel" id="itemPhone" placeholder="Ej. 593987654320" required>
-            </div>
+      <!-- COLUMNA DERECHA: VISTA PREVIA EN VIVO -->
+      <aside class="live-preview-sticky">
+        <div class="preview-wrapper-card">
+          <div class="preview-header">
+            <span><i class="preview-dot"></i> VISTA PREVIA EN VIVO</span>
+            <span class="feed-badge">Feed Móvil y Web</span>
           </div>
+          <p style="font-size:12px; color:#64748b;">Así es exactamente como verán tu publicación los compradores en el marketplace.</p>
 
-          <div>
-            <div class="form-group">
-              <label>Foto del producto</label>
-              <div class="photo-upload-box">
-                <input type="file" id="filePhotoInput" accept="image/*" onchange="previewUploadedImage(event)">
-                <img id="uploadPreviewImage" class="upload-preview-img" alt="Vista previa">
-                <div class="upload-icon-circle" id="uploadPlaceholderIcon">📷</div>
-                <span id="uploadHintText" style="font-size:12.5px; font-weight:700; color:#0284c7;">Toca para subir foto</span>
-                <span id="uploadSubText" style="font-size:11px; color:#94a3b8;">JPG o PNG desde tu dispositivo</span>
-              </div>
+          <div class="mock-product-card">
+            <div class="mock-img-box">
+              <img src="https://images.unsplash.com/photo-1574607383476-f517f260d30b?w=600&auto=format&fit=crop&q=80" alt="Vista previa">
+              <span class="mock-status-pill">Como nuevo</span>
             </div>
-
-            <div class="form-group">
-              <label>Estado del producto</label>
-              <select id="itemStatus" onchange="recalculateSmartPricing()" required>
-                <option value="Nuevo / Caja">✨ Nuevo / En caja (Sin abrir)</option>
-                <option value="Como nuevo" selected>🌟 Como nuevo / Semi nuevo</option>
-                <option value="Buen estado">✅ Buen estado</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>Precio original de tienda ($ USD)</label>
-              <input type="number" id="originalPriceInput" placeholder="Ej. 150" min="1" step="0.5" oninput="recalculateSmartPricing()">
-
-              <div class="smart-pricing-card" id="smartPricingCard">
-                <div class="smart-pricing-title">⚡ Precios sugeridos UniLoop:</div>
-                <div class="quick-price-chips" id="priceChipsContainer"></div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label>Tu precio de venta final ($ USD)</label>
-              <input type="number" id="itemPrice" placeholder="Ej. 108" min="1" step="0.5" required>
-            </div>
-          </div>
-
-          <div class="form-full">
-            <div class="form-group">
-              <label>Descripción detallada</label>
-              <textarea id="itemDesc" placeholder="Detalles, accesorios incluidos, posibilidad de canje y punto seguro de entrega en campus..." required></textarea>
-            </div>
-
-            <div class="form-group" style="margin-bottom: 0;">
-              <label>Hashtags (separados por espacio)</label>
-              <input type="text" id="itemHashtags" placeholder="#electricidad #laboratorio #calculo">
+            <div class="mock-body">
+              <div class="mock-title" id="prevTitle">Nombre de tu artículo universitario</div>
+              <div class="mock-price">$-- <span style="font-size:11px; color:#64748b; font-weight:600;">USD (Se define en Paso 2)</span></div>
+              <div class="mock-uni-tag" id="prevUni">📍 ESPOL</div>
+              <div class="mock-detail-line" id="prevFaculty">🎓 Facultad y Carrera</div>
+              <div class="mock-detail-line" id="prevSpot">📌 Biblioteca Central / Cafetería FIMCP</div>
+              <div class="mock-detail-line" id="prevSchedule">🕒 Lun a Jue (10:00 - 15:30)</div>
             </div>
           </div>
         </div>
+      </aside>
 
-        <div class="actions-footer">
-          <a href="dashboard.html" class="btn-cancel">Cancelar</a>
-          <button type="submit" class="btn-submit">Publicar material en UniLoop</button>
-        </div>
-      </form>
     </div>
   </main>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    let uploadedImageUrl = null;
+    let selectedUniCode = "ESPOL";
 
-    function previewUploadedImage(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-          const canvas = document.createElement('canvas');
-          const MAX_WIDTH = 800;
-          let width = img.width, height = img.height;
-          if (width > MAX_WIDTH) { height = Math.round((height * MAX_WIDTH) / width); width = MAX_WIDTH; }
-          canvas.width = width; canvas.height = height;
-          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-          uploadedImageUrl = canvas.toDataURL('image/jpeg', 0.75);
+    // CATÁLOGO COMPLETO DE LAS 14 UNIVERSIDADES
+    const allUniversities = [
+      { code: "ESPOL", name: "ESPOL", campus: "Campus Gustavo Galindo (Prosperina)", logo: "ESPOL.png", lat: -2.1446, lng: -79.9675 },
+      { code: "UG", name: "Universidad de Guayaquil", campus: "Ciudadela Universitaria Salvador Allende", logo: "UG.png", lat: -2.1815, lng: -79.8975 },
+      { code: "UCSG", name: "UCSG Católica", campus: "Av. Carlos Julio Arosemena", logo: "CATOLICA.png", lat: -2.1812, lng: -79.9035 },
+      { code: "UEES", name: "UEES Samborondón", campus: "Km 2.5 Vía a Samborondón", logo: "ESPIRITU SANTO.png", lat: -2.1325, lng: -79.8660 },
+      { code: "UPS", name: "Salesiana (UPS)", campus: "Campus Centenario / Robles", logo: "SALESIANA.png", lat: -2.2085, lng: -79.8890 },
+      { code: "ECOTEC", name: "Universidad ECOTEC", campus: "Campus Samborondón / Juan Tanca", logo: "ECOTEC.png", lat: -2.1150, lng: -79.8620 },
+      { code: "UCG", name: "Casa Grande", campus: "Ciudadela Miraflores", logo: "CASA GRANDE.png", lat: -2.1695, lng: -79.9142 },
+      { code: "UARTES", name: "UArtes", campus: "Malecón Simón Bolívar (Centro)", logo: "UARTES.png", lat: -2.1945, lng: -79.8812 },
+      { code: "ULVR", name: "Laica Vicente Rocafuerte", campus: "Av. de las Américas", logo: "LAICA.png", lat: -2.1640, lng: -79.8950 },
+      { code: "UIDE", name: "UIDE Guayaquil", campus: "Av. Juan Tanca Marengo", logo: "UIDE.png", lat: -2.1480, lng: -79.9020 },
+      { code: "UMET", name: "UMET", campus: "Av. Carlos Luis Plaza Dañín", logo: "UMET.png", lat: -2.1620, lng: -79.8930 },
+      { code: "UPACIFICO", name: "Del Pacífico", campus: "Km 7.5 Vía a la Costa", logo: "PACIFICO.png", lat: -2.1680, lng: -79.9480 },
+      { code: "UBE", name: "UBE Bolivariana", campus: "Km 5.5 Vía Durán - Yaguachi", logo: "UBE.png", lat: -2.1850, lng: -79.8150 },
+      { code: "ITB", name: "ITB Bolivariano", campus: "Cdla. La Atarazana", logo: "ITB.png", lat: -2.1720, lng: -79.8850 }
+    ];
 
-          const preview = document.getElementById('uploadPreviewImage');
-          preview.src = uploadedImageUrl;
-          preview.style.display = 'block';
-          document.getElementById('uploadPlaceholderIcon').style.display = 'none';
-          document.getElementById('uploadHintText').style.display = 'none';
-          document.getElementById('uploadSubText').style.display = 'none';
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
+    // PUNTOS DE ENTREGA SEGUROS CONECTADOS AL MAPA
+    const mapDeliveryPoints = [
+      { uni: "ESPOL", name: "Biblioteca Central ESPOL", detail: "Lobby principal y mesas de estudio", lat: -2.1446, lng: -79.9675 },
+      { uni: "ESPOL", name: "Cafetería FIMCP / Talleres", detail: "Pasillos de Ingeniería Mecánica", lat: -2.1458, lng: -79.9652 },
+      { uni: "ESPOL", name: "Laboratorios FIEC / Sweet & Coffee", detail: "Facultad de Ingeniería Eléctrica", lat: -2.1441, lng: -79.9688 },
+      { uni: "ESPOL", name: "FCSH / Edificio Administrativo", detail: "Planta baja con cámaras 24/7", lat: -2.1465, lng: -79.9668 },
+      { uni: "UG", name: "Plaza Central Ciudadela UG", detail: "Frente a Rectorado y Biblioteca", lat: -2.1815, lng: -79.8975 },
+      { uni: "UG", name: "Facultad de Ciencias Médicas UG", detail: "Entrada principal junto a garita", lat: -2.1830, lng: -79.8960 },
+      { uni: "UCSG", name: "Plaza Calderón UCSG", detail: "Punto central frente a cafetería", lat: -2.1812, lng: -79.9035 },
+      { uni: "UEES", name: "Edificio E · Starbucks UEES", detail: "Terraza techada con cámaras", lat: -2.1325, lng: -79.8660 },
+      { uni: "UPS", name: "Patio Central Campus Centenario", detail: "Junto a bienestar estudiantil", lat: -2.2085, lng: -79.8890 },
+      { uni: "ECOTEC", name: "Lobby Principal Samborondón", detail: "Recepción y cafetería central", lat: -2.1150, lng: -79.8620 },
+      { uni: "UCG", name: "Patio Central / Ágora Casa Grande", detail: "Área abierta de integración", lat: -2.1695, lng: -79.9142 }
+    ];
+
+    // INICIALIZAR MINI MAPA CON ESTILO GOOGLE MAPS
+    const step1Map = L.map('step1MiniMap', { zoomControl: false, attributionControl: false }).setView([-2.1446, -79.9675], 16);
+    L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', { maxZoom: 20 }).addTo(step1Map);
+    let step1Marker = L.marker([-2.1446, -79.9675]).addTo(step1Map).bindPopup("Biblioteca Central ESPOL").openPopup();
+
+    // RENDERIZAR SELECTOR DE LAS 14 UNIVERSIDADES
+    function renderUniSelector(filterText = "") {
+      const grid = document.getElementById('uniSelectorGrid');
+      const query = filterText.toLowerCase().trim();
+      const filtered = allUniversities.filter(u =>
+        u.code.toLowerCase().includes(query) ||
+        u.name.toLowerCase().includes(query) ||
+        u.campus.toLowerCase().includes(query)
+      );
+
+      grid.innerHTML = filtered.map(u => `
+        <div class="uni-radio-card ${selectedUniCode === u.code ? 'selected' : ''}" onclick="selectUniversity('${u.code}')">
+          <div class="uni-card-left">
+            <div class="uni-radio-dot"></div>
+            <div class="uni-logo-sq">
+              <img src="${u.logo}" alt="${u.name}" onerror="this.style.display='none'; this.parentElement.innerText='🎓';">
+            </div>
+            <div class="uni-text-info">
+              <strong>${u.name}</strong>
+              <span>${u.campus}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
     }
 
-    function recalculateSmartPricing() {
-      const origPrice = parseFloat(document.getElementById('originalPriceInput').value);
-      const status = document.getElementById('itemStatus').value;
-      const card = document.getElementById('smartPricingCard');
-      const container = document.getElementById('priceChipsContainer');
+    function selectUniversity(code) {
+      selectedUniCode = code;
+      renderUniSelector(document.getElementById('uniFilterInput').value);
+      const uniObj = allUniversities.find(u => u.code === code);
+      if (uniObj) {
+        step1Map.setView([uniObj.lat, uniObj.lng], 16);
+        step1Marker.setLatLng([uniObj.lat, uniObj.lng]).setPopupContent(`Campus ${uniObj.name}`).openPopup();
+      }
+      updateLivePreview();
+    }
 
-      if (!origPrice || origPrice <= 0) {
-        card.style.display = 'none';
+    // BUSCADOR INTELIGENTE DE PUNTOS CONECTADO AL MAPA
+    function filterMapSpots(queryText) {
+      const box = document.getElementById('mapSuggestionsBox');
+      const q = queryText.toLowerCase().trim();
+
+      const matches = mapDeliveryPoints.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.detail.toLowerCase().includes(q) ||
+        p.uni.toLowerCase().includes(q)
+      );
+
+      if (matches.length === 0) {
+        box.classList.remove('open');
+        updateLivePreview();
         return;
       }
 
-      let baseFactor = 0.65;
-      if (status === "Nuevo / Caja") baseFactor = 0.82;
-      if (status === "Como nuevo") baseFactor = 0.72;
-      if (status === "Buen estado") baseFactor = 0.50;
-
-      const fastPrice = Math.max(1, Math.round(origPrice * (baseFactor - 0.12)));
-      const fairPrice = Math.max(1, Math.round(origPrice * baseFactor));
-      const highPrice = Math.max(1, Math.round(origPrice * (baseFactor + 0.10)));
-
-      container.innerHTML = `
-        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${fastPrice})">
-          $${fastPrice}
-          <span style="font-size:10px; font-weight:600;">Rápida</span>
-        </button>
-        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${fairPrice})" style="border-width:2px;">
-          $${fairPrice}
-          <span style="font-size:10px; font-weight:600;">Justo ⭐</span>
-        </button>
-        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${highPrice})">
-          $${highPrice}
-          <span style="font-size:10px; font-weight:600;">Máximo</span>
-        </button>
-      `;
-      card.style.display = 'block';
+      box.innerHTML = matches.map(p => `
+        <div class="map-sug-item" onclick="chooseMapSpot('${p.name}', ${p.lat}, ${p.lng}, '${p.uni}')">
+          <strong>📍 ${p.name} (${p.uni})</strong>
+          <span>${p.detail}</span>
+        </div>
+      `).join('');
+      box.classList.add('open');
+      updateLivePreview();
     }
 
-    function setCalculatedPrice(val) {
-      document.getElementById('itemPrice').value = val;
+    function chooseMapSpot(name, lat, lng, uniCode) {
+      document.getElementById('inpDeliverySpot').value = name;
+      document.getElementById('mapSuggestionsBox').classList.remove('open');
+      step1Map.setView([lat, lng], 17);
+      step1Marker.setLatLng([lat, lng]).setPopupContent(`<strong>${name}</strong>`).openPopup();
+      if (uniCode && uniCode !== selectedUniCode) {
+        selectedUniCode = uniCode;
+        renderUniSelector();
+      }
+      updateLivePreview();
     }
 
-    document.getElementById('publishForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const title = document.getElementById('itemName').value;
-      const price = parseFloat(document.getElementById('itemPrice').value);
-      const origPrice = parseFloat(document.getElementById('originalPriceInput').value) || Math.round(price * 1.6);
-      const category = document.getElementById('itemCategory').value;
-      const uni = document.getElementById('itemUni').value;
-      const faculty = document.getElementById('itemFaculty').value;
-      const phone = document.getElementById('itemPhone').value;
-      const status = document.getElementById('itemStatus').value;
-      const desc = document.getElementById('itemDesc').value;
-      const tagsStr = document.getElementById('itemHashtags').value;
-
-      const tagsArray = tagsStr ? tagsStr.split(' ').filter(t => t.startsWith('#')) : ["#materiales"];
-      const now = new Date();
-      const dateFormatted = `${now.getDate()} ${now.toLocaleString('es-ES', { month: 'short' })} ${now.getFullYear()}`;
-
-      const newItem = {
-        id: Date.now(),
-        title, price, originalPrice: origPrice, status, uni, date: dateFormatted,
-        desc, faculty, category, tags: tagsArray,
-        seller: "Diego Y.", sellerSem: "5to Sem.", sellerRating: "5.0", sellerSales: 7,
-        phone: phone || "593987654320", isMyPost: true,
-        exchangeOffer: "Abierto a propuestas de libros o materiales de carrera",
-        exchangeDiscount: Math.round(price * 0.4),
-        image: uploadedImageUrl || "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80"
-      };
-
-      const existing = JSON.parse(localStorage.getItem('uniloop_materials_v2')) || [];
-      existing.unshift(newItem);
-      localStorage.setItem('uniloop_materials_v2', JSON.stringify(existing));
-
-      window.location.href = `dashboard.html?newUni=${encodeURIComponent(uni)}&published=${encodeURIComponent(title)}`;
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#inpDeliverySpot') && !e.target.closest('#mapSuggestionsBox')) {
+        document.getElementById('mapSuggestionsBox').classList.remove('open');
+      }
     });
+
+    // SELECTOR DE DÍAS (LUNES A VIERNES) Y HORAS MANUALES
+    function toggleDay(btn) {
+      btn.classList.toggle('active');
+      updateScheduleText();
+    }
+
+    function updateScheduleText() {
+      const activeDays = Array.from(document.querySelectorAll('.day-toggle-btn.active')).map(b => b.dataset.day);
+      const start = document.getElementById('inpTimeStart').value || "10:00";
+      const end = document.getElementById('inpTimeEnd').value || "15:30";
+
+      let daysStr = "Lunes a Viernes";
+      if (activeDays.length === 0) daysStr = "Horario a convenir";
+      else if (activeDays.length === 1) daysStr = activeDays[0];
+      else daysStr = `${activeDays[0]} a ${activeDays[activeDays.length - 1]}`;
+
+      const fullSchedule = `${daysStr} (${start} - ${end})`;
+      document.getElementById('compiledScheduleDisplay').innerText = fullSchedule;
+      document.getElementById('prevSchedule').innerText = `🕒 ${fullSchedule}`;
+    }
+
+    // ACTUALIZAR VISTA PREVIA EN TIEMPO REAL
+    function updateLivePreview() {
+      const title = document.getElementById('inpTitle').value.trim();
+      const faculty = document.getElementById('inpFaculty').value.trim();
+      const spot = document.getElementById('inpDeliverySpot').value.trim();
+
+      document.getElementById('prevTitle').innerText = title || "Nombre de tu artículo universitario";
+      document.getElementById('prevUni').innerText = `📍 ${selectedUniCode}`;
+      document.getElementById('prevFaculty').innerText = `🎓 ${faculty || "Facultad y Carrera"}`;
+      document.getElementById('prevSpot').innerText = `📌 ${spot || "Punto seguro en campus"}`;
+    }
+
+    // INICIALIZAR
+    renderUniSelector();
+    updateScheduleText();
   </script>
 </body>
 </html>
