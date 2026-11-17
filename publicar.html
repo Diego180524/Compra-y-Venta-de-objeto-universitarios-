@@ -39,8 +39,8 @@
     .title-banner-row h1 { font-size: 28px; font-weight: 800; color: #0f172a; letter-spacing: -0.5px; }
     .title-banner-row p { font-size: 14px; color: #64748b; margin-top: 4px; }
     .badges-right { display: flex; gap: 8px; }
-    .info-chip { background: #ffffff; border: 1px solid #e2e8f0; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; color: #334155; }
-    .info-chip.green { background: #dcfce7; border-color: #86efac; color: #15803d; }
+    .info-chip { background: #ffffff; border: 1px solid #e2e8f0; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; color: #334155; cursor: pointer; }
+    .info-chip.green { background: #dcfce7; border-color: #86efac; color: #15803d; cursor: default; }
 
     /* BARRA DE 3 PASOS (STEPPER) */
     .stepper-card {
@@ -61,8 +61,8 @@
     .progress-track { width: 100%; height: 5px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
     .progress-fill { height: 100%; background: #002855; width: 33.33%; transition: width 0.35s ease; }
 
-    /* LAYOUT 2 COLUMNAS: FORMULARIO (IZQ) + VISTA PREVIA EN VIVO (DER) */
-    .wizard-layout { display: grid; grid-template-columns: 1fr 360px; gap: 26px; align-items: start; }
+    /* LAYOUT 2 COLUMNAS: FORMULARIO (IZQ) + VISTA PREVIA Y GARANTÍA (DER) */
+    .wizard-layout { display: grid; grid-template-columns: 1fr 370px; gap: 26px; align-items: start; }
     @media (max-width: 960px) { .wizard-layout { grid-template-columns: 1fr; } }
 
     .step-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 28px 30px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.03); }
@@ -143,9 +143,9 @@
     .hours-manual-row { display: flex; align-items: center; gap: 8px; }
     .hours-manual-row input[type="time"] { flex: 1; padding: 8px 10px; font-size: 12.5px; font-weight: 700; }
 
-    /* PASO 2: SUBIDA DE FOTO + 3 TARJETAS DE ESTADO + ESTADO REAL */
+    /* PASO 2: SUBIDA DE FOTO + 3 TARJETAS DE ESTADO + CONSEJOS DE VENTA */
     .photo-dropzone-large {
-      border: 2px dashed #60a5fa; background: #f8fafc; border-radius: 16px; height: 220px;
+      border: 2px dashed #60a5fa; background: #f8fafc; border-radius: 16px; height: 215px;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
       cursor: pointer; position: relative; overflow: hidden; transition: all 0.2s; margin-bottom: 14px;
     }
@@ -158,7 +158,6 @@
       font-size: 11.5px; font-weight: 700; padding: 6px 12px; border-radius: 999px; z-index: 3; display: none;
     }
 
-    /* BANNER PREPARADO PARA FUTURA IA DE VISIÓN */
     .ai-ready-banner {
       background: linear-gradient(90deg, #f0f9ff 0%, #e0f2fe 100%);
       border: 1px solid #bae6fd; border-radius: 12px; padding: 11px 14px;
@@ -167,7 +166,6 @@
     }
     .ai-ready-pill { background: #002855; color: #ffffff; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
 
-    /* 3 OPCIONES DE ESTADO VISUALES */
     .condition-3-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
     @media (max-width: 640px) { .condition-3-grid { grid-template-columns: 1fr; } }
 
@@ -184,7 +182,6 @@
     .condition-card strong { font-size: 13.5px; color: #0f172a; }
     .condition-card p { font-size: 11.5px; color: #64748b; line-height: 1.4; }
 
-    /* CHIPS RÁPIDOS DE ESTADO REAL */
     .quick-condition-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
     .cond-chip-btn {
       background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; font-size: 11px; font-weight: 700;
@@ -192,9 +189,81 @@
     }
     .cond-chip-btn:hover { background: #e0f2fe; border-color: #0284c7; color: #002855; }
 
+    /* BLOQUE CONSEJOS PARA VENTA INMEDIATA EN CAMPUS */
+    .sales-tips-box {
+      background: #f0f7ff; border: 1px solid #dbeafe; border-radius: 14px;
+      padding: 16px 20px; margin-top: 18px;
+    }
+    .sales-tips-box h4 {
+      font-size: 13.5px; font-weight: 800; color: #002855;
+      display: flex; align-items: center; gap: 7px; margin-bottom: 8px;
+    }
+    .sales-tips-box ul {
+      padding-left: 20px; font-size: 12px; color: #475569;
+      display: flex; flex-direction: column; gap: 5px; line-height: 1.45;
+    }
+
+    /* PASO 3: TASADOR INTELIGENTE + CANJE + BARRA DE PUBLICACIÓN FINAL */
+    .smart-pricing-panel {
+      background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 14px;
+      padding: 16px; margin-bottom: 18px; display: none;
+    }
+    .smart-pricing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 12px; font-weight: 800; color: #15803d; }
+    .quick-price-chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .price-choice-btn {
+      background: #ffffff; border: 1.5px solid #86efac; padding: 10px 8px; border-radius: 10px;
+      font-size: 16px; font-weight: 800; color: #166534; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: 2px; transition: all 0.15s;
+    }
+    .price-choice-btn:hover { background: #15803d; color: #ffffff; border-color: #15803d; transform: translateY(-1px); }
+    .price-choice-btn small { font-size: 10.5px; font-weight: 700; }
+
+    .savings-summary-pill {
+      display: inline-flex; align-items: center; gap: 6px; background: #dcfce7; color: #15803d;
+      font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 999px; margin-top: 6px;
+    }
+
+    .swap-toggle-card {
+      background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 14px; padding: 16px; margin-bottom: 18px;
+    }
+    .swap-header-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .switch-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 800; font-size: 13.5px; color: #002855; }
+    .switch-label input { width: 18px; height: 18px; accent-color: #002855; cursor: pointer; }
+    .swap-fields-body { margin-top: 14px; padding-top: 14px; border-top: 1px dashed #cbd5e1; }
+
+    .payment-pills-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pay-pill {
+      padding: 7px 14px; border-radius: 999px; border: 1px solid #cbd5e1; background: #f8fafc;
+      font-size: 12px; font-weight: 700; color: #475569; cursor: pointer; transition: all 0.15s;
+    }
+    .pay-pill.active { background: #002855; color: #ffffff; border-color: #002855; }
+
+    /* BARRA INFERIOR DE PUBLICACIÓN MODERADA + GUARDAR BORRADOR + PUBLICAR ARTÍCULO */
+    .final-moderation-bar {
+      background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px;
+      padding: 18px 24px; margin-top: 18px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.03);
+    }
+    .moderation-note { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: #475569; max-width: 390px; }
+    .moderation-note span.icon { font-size: 18px; color: #059669; }
+    .final-btns-group { display: flex; align-items: center; gap: 10px; }
+    .btn-save-draft-pill {
+      background: #e0f2fe; color: #002855; border: none; padding: 11px 18px;
+      border-radius: 999px; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.15s;
+    }
+    .btn-save-draft-pill:hover { background: #bae6fd; }
+    .btn-publish-article-pill {
+      background: #002855; color: #ffffff; border: none; padding: 11px 22px;
+      border-radius: 999px; font-size: 13.5px; font-weight: 800; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 7px; box-shadow: 0 6px 16px rgba(0, 40, 85, 0.22);
+      transition: all 0.15s;
+    }
+    .btn-publish-article-pill:hover { background: #0284c7; transform: translateY(-1px); }
+
     /* BOTONES NAVEGACIÓN ENTRE PASOS */
     .step-actions-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; padding-top: 16px; border-top: 1px solid #f1f5f9; gap: 12px; }
-    .btn-prev-step { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 12px 20px; border-radius: 11px; font-size: 13.5px; font-weight: 700; cursor: pointer; }
+    .btn-prev-step { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 11px 18px; border-radius: 11px; font-size: 13px; font-weight: 700; cursor: pointer; }
     .btn-prev-step:hover { background: #e2e8f0; color: #0f172a; }
     .btn-next-step {
       background: #002855; color: #ffffff; border: none; padding: 12px 24px; border-radius: 11px;
@@ -202,8 +271,8 @@
     }
     .btn-next-step:hover { background: #0284c7; }
 
-    /* COLUMNA DERECHA: VISTA PREVIA EN VIVO */
-    .live-preview-sticky { position: sticky; top: 90px; }
+    /* COLUMNA DERECHA: VISTA PREVIA EN VIVO + GARANTÍA UNILOOP */
+    .live-preview-sticky { position: sticky; top: 90px; display: flex; flex-direction: column; gap: 18px; }
     .preview-wrapper-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 20px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04); }
     .preview-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
     .preview-header span { font-size: 11px; font-weight: 800; color: #002855; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
@@ -211,17 +280,50 @@
     .feed-badge { background: #f1f5f9; color: #475569; font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
 
     .mock-product-card { border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; background: #ffffff; margin-top: 14px; }
-    .mock-img-box { position: relative; height: 180px; background: #e2e8f0; }
+    .mock-img-box { position: relative; height: 175px; background: #e2e8f0; }
     .mock-img-box img { width: 100%; height: 100%; object-fit: cover; }
     .mock-status-pill { position: absolute; top: 10px; left: 10px; background: #fef3c7; color: #b45309; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 999px; }
     .mock-status-pill.new-box { background: #e0f2fe; color: #0369a1; }
     .mock-status-pill.good { background: #dcfce7; color: #15803d; }
+    .mock-swap-pill { position: absolute; top: 10px; right: 10px; background: #002855; color: #ffffff; font-size: 10.5px; font-weight: 800; padding: 3px 9px; border-radius: 999px; }
     .mock-body { padding: 14px; }
     .mock-title { font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 6px; }
-    .mock-price { font-size: 18px; font-weight: 800; color: #002855; margin-bottom: 8px; }
+    .mock-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+    .mock-price { font-size: 20px; font-weight: 800; color: #002855; }
+    .mock-old-price { font-size: 12.5px; color: #94a3b8; text-decoration: line-through; font-weight: 600; }
+    .mock-save-tag { background: #dcfce7; color: #15803d; font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 999px; }
     .mock-uni-tag { display: inline-block; background: #f0f9ff; color: #0284c7; border: 1px solid #bae6fd; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 5px; margin-bottom: 6px; }
     .mock-detail-line { font-size: 11.5px; color: #475569; margin-top: 4px; display: flex; align-items: center; gap: 5px; }
     .mock-real-desc { margin-top: 8px; padding-top: 8px; border-top: 1px dashed #e2e8f0; font-size: 11.5px; color: #334155; line-height: 1.4; }
+
+    /* PIE DE TARJETA CON USUARIO Y DOMINIO INSTITUCIONAL @...edu.ec */
+    .mock-seller-footer {
+      margin-top: 12px; padding-top: 10px; border-top: 1px solid #f1f5f9;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .mock-seller-left { display: flex; align-items: center; gap: 9px; }
+    .mock-initials-circle {
+      width: 30px; height: 30px; border-radius: 50%; background: #e0f2fe; color: #002855;
+      font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center;
+    }
+    .mock-seller-name { font-size: 12px; font-weight: 800; color: #0f172a; line-height: 1.2; }
+    .mock-seller-domain { font-size: 11px; font-weight: 700; color: #059669; }
+    .mock-seller-rating { font-size: 11.5px; font-weight: 800; color: #0f172a; }
+
+    /* TARJETA GARANTÍA UNILOOP */
+    .guarantee-side-card {
+      background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px;
+      padding: 20px 22px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.03);
+    }
+    .guarantee-side-card h4 {
+      font-size: 15.5px; font-weight: 800; color: #002855;
+      display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+    }
+    .guarantee-side-card p { font-size: 12px; color: #475569; line-height: 1.55; margin-bottom: 12px; }
+    .guarantee-domain-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11.5px; font-weight: 800; color: #059669;
+    }
   </style>
 </head>
 <body>
@@ -239,7 +341,7 @@
 
       <div class="user-pill">
         <div style="text-align:right;">
-          <div style="font-size:13.5px; font-weight:800; color:#0f172a;">Diego Y. <span style="background:#dcfce7; color:#15803d; font-size:10.5px; padding:2px 7px; border-radius:999px;">✓ ESPOL</span></div>
+          <div style="font-size:13.5px; font-weight:800; color:#0f172a;">Diego Y. <span id="navVerifiedPill" style="background:#dcfce7; color:#15803d; font-size:10.5px; padding:2px 7px; border-radius:999px;">✓ ESPOL</span></div>
           <div style="font-size:11.5px; color:#64748b;">Saldo: <strong style="color:#059669;">$48.50</strong> · Estudiante</div>
         </div>
         <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80" alt="Diego Y.">
@@ -254,7 +356,7 @@
         <p>Llega a miles de estudiantes de tu campus y universidades aliadas de Guayaquil</p>
       </div>
       <div class="badges-right">
-        <span class="info-chip">📄 Borradores (1)</span>
+        <span class="info-chip" onclick="saveDraftManual()">📄 Borradores (1)</span>
         <span class="info-chip green">● Comisión 0% entre pares</span>
       </div>
     </div>
@@ -292,170 +394,292 @@
     <div class="wizard-layout">
       <!-- COLUMNA IZQUIERDA -->
       <div>
-        <!-- ==================== PASO 1: UNIVERSIDAD Y DATOS ==================== -->
-        <div class="step-card" id="step1Container">
-          <div class="step-card-header">
-            <div class="step-title-group">
-              <div class="step-icon-badge">🎓</div>
-              <div>
-                <h2>1. Universidad, Datos y Punto de Entrega</h2>
-                <p>Define tu campus de origen y busca cualquier punto de encuentro en Guayaquil</p>
-              </div>
-            </div>
-            <span class="req-pill">Obligatorio</span>
-          </div>
+        <form id="fullPublishWizardForm">
 
-          <div class="form-2-cols">
-            <div class="field-box">
-              <label>Nombre del material, libro o equipo</label>
-              <input type="text" id="inpTitle" placeholder="Ej. Calculadora Texas TI-Nspire, Bata Lab..." oninput="updateLivePreview()">
-            </div>
-
-            <div class="field-box">
-              <label>Categoría y Facultad / Carrera</label>
-              <input type="text" id="inpFaculty" placeholder="Ej. FIEC · Ingeniería Eléctrica" oninput="updateLivePreview()">
-            </div>
-          </div>
-
-          <div class="field-box">
-            <label>Selecciona tu Universidad (14 campus conectados en Guayaquil):</label>
-            <div class="uni-search-bar">
-              <span>🔍</span>
-              <input type="text" id="uniFilterInput" placeholder="Filtrar universidad (ej. ESPOL, UG, Católica, Salesiana, Ecotec...)" oninput="renderUniSelector(this.value)">
-            </div>
-            <div class="uni-cards-grid" id="uniSelectorGrid"></div>
-          </div>
-
-          <div class="form-2-cols">
-            <div class="field-box">
-              <label>Punto de entrega en Guayaquil / Samborondón / Durán</label>
-              <div class="search-input-wrap">
-                <input type="text" id="inpDeliverySpot" placeholder="Escribe una letra o lugar: R, Riocentro, Rotonda, Mall..." oninput="onSearchPlaceInput(this.value)" onfocus="onSearchPlaceInput(this.value)" autocomplete="off">
-                <span class="search-spinner" id="mapSearchSpinner">⏳</span>
-              </div>
-              <div class="map-suggestions-list" id="mapSuggestionsBox"></div>
-              <div id="step1MiniMap"></div>
-              <span style="font-size:11px; color:#64748b; display:block; margin-top:5px;">Escribe desde 1 letra para ver coincidencias en todo Guayaquil o toca directo en el mapa.</span>
-            </div>
-
-            <div class="field-box">
-              <label>Horario habitual disponible (Lunes a Viernes)</label>
-              <div class="days-pills-row" id="daysPillsRow">
-                <button type="button" class="day-toggle-btn active" data-day="Lun" onclick="toggleDay(this)">Lun</button>
-                <button type="button" class="day-toggle-btn active" data-day="Mar" onclick="toggleDay(this)">Mar</button>
-                <button type="button" class="day-toggle-btn active" data-day="Mié" onclick="toggleDay(this)">Mié</button>
-                <button type="button" class="day-toggle-btn active" data-day="Jue" onclick="toggleDay(this)">Jue</button>
-                <button type="button" class="day-toggle-btn" data-day="Vie" onclick="toggleDay(this)">Vie</button>
-              </div>
-
-              <div class="hours-manual-row">
-                <input type="time" id="inpTimeStart" value="10:00" onchange="updateScheduleText()">
-                <span style="font-weight:700; color:#64748b;">a</span>
-                <input type="time" id="inpTimeEnd" value="15:30" onchange="updateScheduleText()">
-              </div>
-
-              <div style="margin-top:10px; background:#f0f9ff; border:1px solid #bae6fd; padding:9px 12px; border-radius:9px; font-size:12px; color:#0369a1; font-weight:700;">
-                🕒 Horario armado: <span id="compiledScheduleDisplay">Lun a Jue (10:00 - 15:30)</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="step-actions-bar">
-            <button type="button" class="btn-next-step" onclick="goToWizardStep(2)">
-              Continuar al Paso 2: Foto y Estado →
-            </button>
-          </div>
-        </div>
-
-        <!-- ==================== PASO 2: FOTO Y ESTADO REAL ==================== -->
-        <div class="step-card" id="step2Container" style="display: none;">
-          <div class="step-card-header">
-            <div class="step-title-group">
-              <div class="step-icon-badge">📸</div>
-              <div>
-                <h2>2. Foto y Estado Real del Producto</h2>
-                <p>Sube una foto clara y selecciona con transparencia la condición física de tu artículo</p>
-              </div>
-            </div>
-            <span class="req-pill">Paso 2 de 3</span>
-          </div>
-
-          <!-- SUBIDOR DE FOTO -->
-          <div class="field-box">
-            <label>Fotografía real del artículo</label>
-            <div class="photo-dropzone-large">
-              <input type="file" id="filePhotoInput" accept="image/*" onchange="handleStep2PhotoUpload(event)">
-              <img id="step2PreviewImg" class="step2-preview-img" alt="Vista previa del producto">
-              <span class="change-photo-badge" id="changePhotoBadge">📷 Cambiar foto</span>
-              <div class="drop-icon-circle" id="dropIconCircle">📷</div>
-              <strong id="dropTitleText" style="font-size:14px; color:#002855;">Toca o arrastra la foto de tu material aquí</strong>
-              <span id="dropSubText" style="font-size:12px; color:#64748b;">Formatos JPG, PNG o WEBP · Buena iluminación ayuda a vender más rápido</span>
-            </div>
-
-            <!-- MÓDULO LISTO PARA FUTURA IA DE VISIÓN -->
-            <div class="ai-ready-banner">
-              <div>
-                <strong>✨ Verificación Visual Inteligente:</strong> Esta fotografía servirá para validar automáticamente el estado físico real de tu producto frente a los compradores.
-              </div>
-              <span class="ai-ready-pill">Escáner IA · Próximamente</span>
-            </div>
-          </div>
-
-          <!-- 3 OPCIONES DE ESTADO -->
-          <div class="field-box">
-            <label>Selecciona el estado real del producto (3 niveles):</label>
-            <div class="condition-3-grid">
-              <div class="condition-card" data-status="Nuevo / Caja" onclick="selectProductCondition(this, 'Nuevo / Caja')">
-                <div class="cond-top">
-                  <span class="cond-icon">✨</span>
-                  <span class="cond-check">✓</span>
+          <!-- ==================== PASO 1: UNIVERSIDAD Y DATOS ==================== -->
+          <div class="step-card" id="step1Container">
+            <div class="step-card-header">
+              <div class="step-title-group">
+                <div class="step-icon-badge">🎓</div>
+                <div>
+                  <h2>1. Universidad, Datos y Punto de Entrega</h2>
+                  <p>Define tu campus de origen y busca cualquier punto de encuentro en Guayaquil</p>
                 </div>
-                <strong>Nuevo / En caja</strong>
-                <p>Sin abrir o sin uso previo. Conserva su empaque, sellos y accesorios de fábrica.</p>
+              </div>
+              <span class="req-pill">Paso 1 de 3</span>
+            </div>
+
+            <div class="form-2-cols">
+              <div class="field-box">
+                <label>Nombre del material, libro o equipo</label>
+                <input type="text" id="inpTitle" placeholder="Ej. Calculadora Texas TI-Nspire, Bata Lab..." oninput="updateLivePreview()" required>
               </div>
 
-              <div class="condition-card selected" data-status="Como nuevo" onclick="selectProductCondition(this, 'Como nuevo')">
-                <div class="cond-top">
-                  <span class="cond-icon">🌟</span>
-                  <span class="cond-check">✓</span>
+              <div class="field-box">
+                <label>Facultad y Carrera</label>
+                <input type="text" id="inpFaculty" placeholder="Ej. FIEC · Ingeniería Eléctrica" oninput="updateLivePreview()" required>
+              </div>
+            </div>
+
+            <div class="field-box">
+              <label>Selecciona tu Universidad (14 campus conectados en Guayaquil):</label>
+              <div class="uni-search-bar">
+                <span>🔍</span>
+                <input type="text" id="uniFilterInput" placeholder="Filtrar universidad (ej. ESPOL, UG, Católica, Salesiana, Ecotec...)" oninput="renderUniSelector(this.value)">
+              </div>
+              <div class="uni-cards-grid" id="uniSelectorGrid"></div>
+            </div>
+
+            <div class="form-2-cols">
+              <div class="field-box">
+                <label>Punto de entrega en Guayaquil / Samborondón / Durán</label>
+                <div class="search-input-wrap">
+                  <input type="text" id="inpDeliverySpot" placeholder="Escribe una letra o lugar: R, Riocentro, Rotonda, Mall..." oninput="onSearchPlaceInput(this.value)" onfocus="onSearchPlaceInput(this.value)" autocomplete="off">
+                  <span class="search-spinner" id="mapSearchSpinner">⏳</span>
                 </div>
-                <strong>Como nuevo</strong>
-                <p>Usado 1 semestre o pocas veces. Sin rayones, páginas limpias y funcionamiento 10/10.</p>
+                <div class="map-suggestions-list" id="mapSuggestionsBox"></div>
+                <div id="step1MiniMap"></div>
+                <span style="font-size:11px; color:#64748b; display:block; margin-top:5px;">Escribe desde 1 letra para ver coincidencias en todo Guayaquil o toca directo en el mapa.</span>
               </div>
 
-              <div class="condition-card" data-status="Buen estado" onclick="selectProductCondition(this, 'Buen estado')">
-                <div class="cond-top">
-                  <span class="cond-icon">✅</span>
-                  <span class="cond-check">✓</span>
+              <div class="field-box">
+                <label>Horario habitual disponible (Lunes a Viernes)</label>
+                <div class="days-pills-row" id="daysPillsRow">
+                  <button type="button" class="day-toggle-btn active" data-day="Lun" onclick="toggleDay(this)">Lun</button>
+                  <button type="button" class="day-toggle-btn active" data-day="Mar" onclick="toggleDay(this)">Mar</button>
+                  <button type="button" class="day-toggle-btn active" data-day="Mié" onclick="toggleDay(this)">Mié</button>
+                  <button type="button" class="day-toggle-btn active" data-day="Jue" onclick="toggleDay(this)">Jue</button>
+                  <button type="button" class="day-toggle-btn" data-day="Vie" onclick="toggleDay(this)">Vie</button>
                 </div>
-                <strong>Buen estado</strong>
-                <p>100% operativo, pero presenta marcas normales de uso, apuntes leves o desgaste estético.</p>
+
+                <div class="hours-manual-row">
+                  <input type="time" id="inpTimeStart" value="10:00" onchange="updateScheduleText()">
+                  <span style="font-weight:700; color:#64748b;">a</span>
+                  <input type="time" id="inpTimeEnd" value="15:30" onchange="updateScheduleText()">
+                </div>
+
+                <div style="margin-top:10px; background:#f0f9ff; border:1px solid #bae6fd; padding:9px 12px; border-radius:9px; font-size:12px; color:#0369a1; font-weight:700;">
+                  🕒 Horario armado: <span id="compiledScheduleDisplay">Lun a Jue (10:00 - 15:30)</span>
+                </div>
               </div>
+            </div>
+
+            <div class="step-actions-bar">
+              <button type="button" class="btn-next-step" onclick="goToWizardStep(2)">
+                Continuar al Paso 2: Foto y Estado →
+              </button>
             </div>
           </div>
 
-          <!-- DETALLE DEL ESTADO REAL INGRESADO POR EL USUARIO -->
-          <div class="field-box" style="margin-bottom: 0;">
-            <label>Describe el estado real y qué incluye (Transparencia para el comprador)</label>
-            <div class="quick-condition-chips">
-              <button type="button" class="cond-chip-btn" onclick="appendConditionChip('Sin rayones en pantalla ni carcasa.')">+ Sin rayones</button>
-              <button type="button" class="cond-chip-btn" onclick="appendConditionChip('Incluye cable USB y estuche original.')">+ Con accesorios</button>
-              <button type="button" class="cond-chip-btn" onclick="appendConditionChip('Páginas completas y sin subrayar.')">+ Páginas limpias</button>
-              <button type="button" class="cond-chip-btn" onclick="appendConditionChip('Batería al 100%, probado en laboratorio.')">+ Probado 100%</button>
+          <!-- ==================== PASO 2: FOTO Y ESTADO REAL ==================== -->
+          <div class="step-card" id="step2Container" style="display: none;">
+            <div class="step-card-header">
+              <div class="step-title-group">
+                <div class="step-icon-badge">📸</div>
+                <div>
+                  <h2>2. Foto y Estado Real del Producto</h2>
+                  <p>Sube una foto clara y selecciona con transparencia la condición física de tu artículo</p>
+                </div>
+              </div>
+              <span class="req-pill">Paso 2 de 3</span>
             </div>
-            <textarea id="inpRealConditionDesc" rows="3" placeholder="Ej. La calculadora funciona perfecto, tiene su tapa rígida original y cable de carga. Solo tiene un leve roce en la esquina trasera..." oninput="updateLivePreview()"></textarea>
+
+            <div class="field-box">
+              <label>Fotografía real del artículo</label>
+              <div class="photo-dropzone-large">
+                <input type="file" id="filePhotoInput" accept="image/*" onchange="handleStep2PhotoUpload(event)">
+                <img id="step2PreviewImg" class="step2-preview-img" alt="Vista previa del producto">
+                <span class="change-photo-badge" id="changePhotoBadge">📷 Cambiar foto</span>
+                <div class="drop-icon-circle" id="dropIconCircle">📷</div>
+                <strong id="dropTitleText" style="font-size:14px; color:#002855;">Toca o arrastra la foto de tu material aquí</strong>
+                <span id="dropSubText" style="font-size:12px; color:#64748b;">Formatos JPG, PNG o WEBP · Buena iluminación ayuda a vender más rápido</span>
+              </div>
+
+              <div class="ai-ready-banner">
+                <div>
+                  <strong>✨ Verificación Visual Inteligente:</strong> Esta fotografía servirá para validar automáticamente el estado físico real de tu producto frente a los compradores.
+                </div>
+                <span class="ai-ready-pill">Escáner IA · Próximamente</span>
+              </div>
+            </div>
+
+            <div class="field-box">
+              <label>Selecciona el estado real del producto (3 niveles):</label>
+              <div class="condition-3-grid">
+                <div class="condition-card" data-status="Nuevo / Caja" onclick="selectProductCondition(this, 'Nuevo / Caja')">
+                  <div class="cond-top">
+                    <span class="cond-icon">✨</span>
+                    <span class="cond-check">✓</span>
+                  </div>
+                  <strong>Nuevo / En caja</strong>
+                  <p>Sin abrir o sin uso previo. Conserva su empaque, sellos y accesorios de fábrica.</p>
+                </div>
+
+                <div class="condition-card selected" data-status="Como nuevo" onclick="selectProductCondition(this, 'Como nuevo')">
+                  <div class="cond-top">
+                    <span class="cond-icon">🌟</span>
+                    <span class="cond-check">✓</span>
+                  </div>
+                  <strong>Como nuevo</strong>
+                  <p>Usado 1 semestre o pocas veces. Sin rayones, páginas limpias y funcionamiento 10/10.</p>
+                </div>
+
+                <div class="condition-card" data-status="Buen estado" onclick="selectProductCondition(this, 'Buen estado')">
+                  <div class="cond-top">
+                    <span class="cond-icon">✅</span>
+                    <span class="cond-check">✓</span>
+                  </div>
+                  <strong>Buen estado</strong>
+                  <p>100% operativo, pero presenta marcas normales de uso, apuntes leves o desgaste estético.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field-box" style="margin-bottom: 0;">
+              <label>Describe el estado real y qué incluye (Transparencia para el comprador)</label>
+              <div class="quick-condition-chips">
+                <button type="button" class="cond-chip-btn" onclick="appendConditionChip('Sin rayones en pantalla ni carcasa.')">+ Sin rayones</button>
+                <button type="button" class="cond-chip-btn" onclick="appendConditionChip('Incluye cable USB y estuche original.')">+ Con accesorios</button>
+                <button type="button" class="cond-chip-btn" onclick="appendConditionChip('Páginas completas y sin subrayar.')">+ Páginas limpias</button>
+                <button type="button" class="cond-chip-btn" onclick="appendConditionChip('Batería al 100%, probado en laboratorio.')">+ Probado 100%</button>
+              </div>
+              <textarea id="inpRealConditionDesc" rows="3" placeholder="Ej. La calculadora funciona perfecto, tiene su tapa rígida original y cable de carga..." oninput="updateLivePreview()"></textarea>
+            </div>
+
+            <!-- CONSEJOS PARA VENTA INMEDIATA EN CAMPUS -->
+            <div class="sales-tips-box">
+              <h4>🛡️ Consejos para venta inmediata en campus</h4>
+              <ul>
+                <li>Si es tecnología, incluye una foto con la pantalla encendida y el porcentaje de batería.</li>
+                <li>Muestra cualquier detalle estético claramente para generar confianza instantánea.</li>
+                <li>Usa fotos tomadas por ti; evita fotos de catálogo de internet para verificar autenticidad.</li>
+              </ul>
+            </div>
+
+            <div class="step-actions-bar">
+              <button type="button" class="btn-prev-step" onclick="goToWizardStep(1)">← Anterior: Universidad y Datos</button>
+              <button type="button" class="btn-next-step" onclick="goToWizardStep(3)">
+                Continuar al Paso 3: Precio y Canje →
+              </button>
+            </div>
           </div>
 
-          <div class="step-actions-bar">
-            <button type="button" class="btn-prev-step" onclick="goToWizardStep(1)">← Anterior: Universidad y Datos</button>
-            <button type="button" class="btn-next-step" onclick="alert('¡Paso 2 completado! Listo para armar el Paso 3: Precio, Tasador Inteligente y Canje.')">
-              Continuar al Paso 3: Precio y Canje →
-            </button>
+          <!-- ==================== PASO 3: PRECIO, TASADOR Y CANJE ==================== -->
+          <div class="step-card" id="step3Container" style="display: none;">
+            <div class="step-card-header">
+              <div class="step-title-group">
+                <div class="step-icon-badge">💲</div>
+                <div>
+                  <h2>3. Precio, Tasador Inteligente y Canje</h2>
+                  <p>Calcula el precio justo según el estado elegido y configura opciones de intercambio</p>
+                </div>
+              </div>
+              <span class="req-pill">Paso 3 de 3</span>
+            </div>
+
+            <div class="form-2-cols">
+              <div class="field-box">
+                <label>Categoría del material (Para protocolo de retiro)</label>
+                <select id="inpCategory" onchange="updateLivePreview()">
+                  <option value="Textos y Libros">📖 Textos y Libros</option>
+                  <option value="Tecnología">💻 Tecnología y Componentes</option>
+                  <option value="Calculadoras" selected>🧮 Calculadoras e Instrumentos</option>
+                  <option value="Batas y Salud">🩺 Batas y Salud</option>
+                  <option value="Arquitectura">📐 Arquitectura y Diseño</option>
+                  <option value="Herramientas">🛠 Herramientas y Kits</option>
+                </select>
+              </div>
+
+              <div class="field-box">
+                <label>Precio original de tienda ($ USD)</label>
+                <input type="number" id="originalPriceInput" placeholder="Ej. 150" min="1" step="0.5" oninput="recalculateSmartPricing()">
+              </div>
+            </div>
+
+            <div class="smart-pricing-panel" id="smartPricingCard">
+              <div class="smart-pricing-header">
+                <span>⚡ Precios sugeridos UniLoop (Calculado para estado: <strong id="pricingConditionLabel">Como nuevo</strong>)</span>
+                <span>Toca uno para aplicar</span>
+              </div>
+              <div class="quick-price-chips" id="priceChipsContainer"></div>
+            </div>
+
+            <div class="form-2-cols">
+              <div class="field-box">
+                <label>Tu precio de venta final ($ USD)</label>
+                <input type="number" id="itemPrice" placeholder="Ej. 108" min="1" step="0.5" oninput="updateLivePreview()" required>
+                <div id="savingsPillBox"></div>
+              </div>
+
+              <div class="field-box">
+                <label>Contacto interno / WhatsApp de coordinación</label>
+                <input type="tel" id="inpPhone" placeholder="Ej. 593987654320" required>
+              </div>
+            </div>
+
+            <div class="swap-toggle-card">
+              <div class="swap-header-row">
+                <label class="switch-label">
+                  <input type="checkbox" id="chkAllowSwap" checked onchange="toggleSwapFields()">
+                  <span>⇄ Acepto Intercambio Directo / Canje universitario</span>
+                </label>
+                <span style="font-size:11px; font-weight:700; color:#0284c7; background:#e0f2fe; padding:3px 9px; border-radius:999px;">Aumenta 2x los interesados</span>
+              </div>
+
+              <div class="swap-fields-body" id="swapFieldsBody">
+                <div class="form-2-cols" style="margin-bottom:0;">
+                  <div class="field-box" style="margin-bottom:0;">
+                    <label>¿Qué libro o material aceptas a cambio?</label>
+                    <input type="text" id="inpSwapOffer" placeholder="Ej. Libro Termodinámica de Çengel o Arduino Mega" oninput="updateLivePreview()">
+                  </div>
+                  <div class="field-box" style="margin-bottom:0;">
+                    <label>Descuento máximo si entregan canje ($ USD)</label>
+                    <input type="number" id="inpSwapDiscount" placeholder="Ej. 40" min="1" step="1" oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-2-cols">
+              <div class="field-box" style="margin-bottom:0;">
+                <label>Métodos de cobro preferidos en campus</label>
+                <div class="payment-pills-row">
+                  <span class="pay-pill active" onclick="this.classList.toggle('active')">📱 Deuna!</span>
+                  <span class="pay-pill active" onclick="this.classList.toggle('active')">🏦 Transferencia</span>
+                  <span class="pay-pill" onclick="this.classList.toggle('active')">💳 Saldo UniLoop</span>
+                </div>
+              </div>
+
+              <div class="field-box" style="margin-bottom:0;">
+                <label>Hashtags de búsqueda rápida</label>
+                <input type="text" id="inpHashtags" placeholder="#calculo #ingenieria #espol">
+              </div>
+            </div>
+
+            <div class="step-actions-bar" style="margin-bottom: 0; border-top: none; padding-top: 8px;">
+              <button type="button" class="btn-prev-step" onclick="goToWizardStep(2)">← Anterior: Foto y Estado</button>
+            </div>
           </div>
-        </div>
+
+          <!-- BARRA INFERIOR DE PUBLICACIÓN MODERADA + GUARDAR BORRADOR + PUBLICAR ARTÍCULO -->
+          <div class="final-moderation-bar">
+            <div class="moderation-note">
+              <span class="icon">🧾</span>
+              <span>Publicación moderada automáticamente bajo las normas de convivencia universitaria.</span>
+            </div>
+
+            <div class="final-btns-group">
+              <button type="button" class="btn-save-draft-pill" onclick="saveDraftManual()">Guardar Borrador</button>
+              <button type="submit" class="btn-publish-article-pill">
+                <span>↑ Publicar Artículo</span>
+              </button>
+            </div>
+          </div>
+
+        </form>
       </div>
 
-      <!-- COLUMNA DERECHA: VISTA PREVIA EN VIVO -->
+      <!-- COLUMNA DERECHA: VISTA PREVIA EN VIVO + GARANTÍA UNILOOP -->
       <aside class="live-preview-sticky">
         <div class="preview-wrapper-card">
           <div class="preview-header">
@@ -468,16 +692,43 @@
             <div class="mock-img-box">
               <img id="liveCardPreviewImg" src="https://images.unsplash.com/photo-1574607383476-f517f260d30b?w=600&auto=format&fit=crop&q=80" alt="Vista previa">
               <span class="mock-status-pill" id="liveCardStatusBadge">Como nuevo</span>
+              <span class="mock-swap-pill" id="liveCardSwapBadge">⇄ Acepta Canje</span>
             </div>
             <div class="mock-body">
               <div class="mock-title" id="prevTitle">Nombre de tu artículo universitario</div>
-              <div class="mock-price">$-- <span style="font-size:11px; color:#64748b; font-weight:600;">USD (Se define en Paso 3)</span></div>
-              <div class="mock-uni-tag" id="prevUni">📍 ESPOL</div>
+              <div class="mock-price-row">
+                <span class="mock-price" id="prevPrice">$0</span>
+                <span class="mock-old-price" id="prevOldPrice" style="display:none;">$0</span>
+                <span class="mock-save-tag" id="prevSaveTag" style="display:none;">Ahorras 0%</span>
+              </div>
+              <div class="mock-uni-tag" id="prevUni">📍 ESPOL · Calculadoras</div>
               <div class="mock-detail-line" id="prevFaculty">🎓 Facultad y Carrera</div>
               <div class="mock-detail-line" id="prevSpot">📌 Biblioteca Central / Cafetería FIMCP</div>
               <div class="mock-detail-line" id="prevSchedule">🕒 Lun a Jue (10:00 - 15:30)</div>
               <div class="mock-real-desc" id="prevConditionDesc">Estado real: Sin rayones ni fallas, listo para entrega en campus.</div>
+
+              <!-- USUARIO VERIFICADO Y DOMINIO @...edu.ec DINÁMICO -->
+              <div class="mock-seller-footer">
+                <div class="mock-seller-left">
+                  <div class="mock-initials-circle">DY</div>
+                  <div>
+                    <div class="mock-seller-name">Diego Y.</div>
+                    <div class="mock-seller-domain" id="prevSellerDomain">@espol.edu.ec</div>
+                  </div>
+                </div>
+                <div class="mock-seller-rating"><span style="color:#059669;">★</span> 5.0</div>
+              </div>
             </div>
+          </div>
+        </div>
+
+        <!-- CUADRO DE GARANTÍA UNILOOP -->
+        <div class="guarantee-side-card">
+          <h4>🛡️ Garantía UniLoop</h4>
+          <p>Tu publicación contará con el sello de estudiante acreditado por correo institucional. Ningún desconocido externo puede acceder a contactarte.</p>
+          <div class="guarantee-domain-badge">
+            <span>✓</span>
+            <span id="guaranteeDomainLabel">Verificación vía dominio @espol.edu.ec</span>
           </div>
         </div>
       </aside>
@@ -491,37 +742,40 @@
     let uploadedImageUrl = null;
     let searchDebounceTimer = null;
 
-    // NAVEGACIÓN ENTRE PASOS DEL WIZARD
+    // NAVEGACIÓN ENTRE LOS 3 PASOS
     function goToWizardStep(stepNum) {
-      if (stepNum === 3) {
-        alert("Listo para armar el Paso 3: Precio y Canje cuando me indiques.");
-        return;
-      }
-
       document.getElementById('step1Container').style.display = stepNum === 1 ? 'block' : 'none';
       document.getElementById('step2Container').style.display = stepNum === 2 ? 'block' : 'none';
+      document.getElementById('step3Container').style.display = stepNum === 3 ? 'block' : 'none';
 
-      const tab1 = document.getElementById('tabStep1');
-      const tab2 = document.getElementById('tabStep2');
+      const tabs = [
+        document.getElementById('tabStep1'),
+        document.getElementById('tabStep2'),
+        document.getElementById('tabStep3')
+      ];
       const fill = document.getElementById('progressBarFill');
 
-      tab1.classList.remove('active', 'completed');
-      tab2.classList.remove('active', 'completed');
+      tabs.forEach((t, idx) => {
+        t.classList.remove('active', 'completed');
+        if (idx + 1 < stepNum) t.classList.add('completed');
+        if (idx + 1 === stepNum) t.classList.add('active');
+      });
 
       if (stepNum === 1) {
-        tab1.classList.add('active');
         fill.style.width = '33.33%';
         setTimeout(() => step1Map.invalidateSize(), 150);
       } else if (stepNum === 2) {
-        tab1.classList.add('completed');
-        tab2.classList.add('active');
         fill.style.width = '66.66%';
+      } else if (stepNum === 3) {
+        fill.style.width = '100%';
+        document.getElementById('pricingConditionLabel').innerText = selectedCondition;
+        recalculateSmartPricing();
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // PASO 2: SUBIR FOTO Y ACTUALIZAR VISTA PREVIA
+    // PASO 2: SUBIDA DE FOTO
     function handleStep2PhotoUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -537,7 +791,6 @@
           canvas.getContext('2d').drawImage(img, 0, 0, width, height);
           uploadedImageUrl = canvas.toDataURL('image/jpeg', 0.78);
 
-          // Mostrar en dropzone del Paso 2
           const step2Img = document.getElementById('step2PreviewImg');
           step2Img.src = uploadedImageUrl;
           step2Img.style.display = 'block';
@@ -546,7 +799,6 @@
           document.getElementById('dropTitleText').style.display = 'none';
           document.getElementById('dropSubText').style.display = 'none';
 
-          // Actualizar tarjeta de vista previa en vivo a la derecha
           document.getElementById('liveCardPreviewImg').src = uploadedImageUrl;
         };
         img.src = e.target.result;
@@ -554,7 +806,7 @@
       reader.readAsDataURL(file);
     }
 
-    // PASO 2: SELECCIONAR UNA DE LAS 3 OPCIONES DE ESTADO
+    // PASO 2: SELECCIONAR ESTADO
     function selectProductCondition(cardEl, statusValue) {
       selectedCondition = statusValue;
       document.querySelectorAll('.condition-card').forEach(c => c.classList.remove('selected'));
@@ -565,6 +817,9 @@
       badge.className = 'mock-status-pill';
       if (statusValue === 'Nuevo / Caja') badge.classList.add('new-box');
       else if (statusValue === 'Buen estado') badge.classList.add('good');
+
+      document.getElementById('pricingConditionLabel').innerText = statusValue;
+      recalculateSmartPricing();
     }
 
     function appendConditionChip(phrase) {
@@ -573,22 +828,76 @@
       updateLivePreview();
     }
 
-    // DATOS DE UNIVERSIDADES Y MAPA (PASO 1)
+    // PASO 3: TASADOR INTELIGENTE DE PORCENTAJES
+    function recalculateSmartPricing() {
+      const origPrice = parseFloat(document.getElementById('originalPriceInput').value);
+      const card = document.getElementById('smartPricingCard');
+      const container = document.getElementById('priceChipsContainer');
+
+      if (!origPrice || origPrice <= 0) {
+        card.style.display = 'none';
+        updateLivePreview();
+        return;
+      }
+
+      let baseFactor = 0.65;
+      if (selectedCondition === "Nuevo / Caja") baseFactor = 0.82;
+      if (selectedCondition === "Como nuevo") baseFactor = 0.72;
+      if (selectedCondition === "Buen estado") baseFactor = 0.50;
+
+      const fastPrice = Math.max(1, Math.round(origPrice * (baseFactor - 0.12)));
+      const fairPrice = Math.max(1, Math.round(origPrice * baseFactor));
+      const highPrice = Math.max(1, Math.round(origPrice * (baseFactor + 0.10)));
+
+      container.innerHTML = `
+        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${fastPrice})">
+          $${fastPrice}
+          <small>Venta rápida</small>
+        </button>
+        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${fairPrice})" style="border-width:2.5px; background:#f0fdf4;">
+          $${fairPrice}
+          <small>Precio justo ⭐</small>
+        </button>
+        <button type="button" class="price-choice-btn" onclick="setCalculatedPrice(${highPrice})">
+          $${highPrice}
+          <small>Recuperar más</small>
+        </button>
+      `;
+      card.style.display = 'block';
+      updateLivePreview();
+    }
+
+    function setCalculatedPrice(val) {
+      document.getElementById('itemPrice').value = val;
+      updateLivePreview();
+    }
+
+    function toggleSwapFields() {
+      const isChecked = document.getElementById('chkAllowSwap').checked;
+      document.getElementById('swapFieldsBody').style.display = isChecked ? 'block' : 'none';
+      document.getElementById('liveCardSwapBadge').style.display = isChecked ? 'inline-block' : 'none';
+    }
+
+    function saveDraftManual() {
+      alert("💾 Borrador guardado localmente en tu navegador.");
+    }
+
+    // 14 UNIVERSIDADES CON SUS DOMINIOS INSTITUCIONALES .edu.ec REALES
     const allUniversities = [
-      { code: "ESPOL", name: "ESPOL", campus: "Campus Gustavo Galindo (Prosperina)", logo: "ESPOL.png", lat: -2.1446, lng: -79.9675 },
-      { code: "UG", name: "Universidad de Guayaquil", campus: "Ciudadela Universitaria Salvador Allende", logo: "UG.png", lat: -2.1815, lng: -79.8975 },
-      { code: "UCSG", name: "UCSG Católica", campus: "Av. Carlos Julio Arosemena", logo: "CATOLICA.png", lat: -2.1812, lng: -79.9035 },
-      { code: "UEES", name: "UEES Samborondón", campus: "Km 2.5 Vía a Samborondón", logo: "ESPIRITU SANTO.png", lat: -2.1325, lng: -79.8660 },
-      { code: "UPS", name: "Salesiana (UPS)", campus: "Campus Centenario / Robles", logo: "SALESIANA.png", lat: -2.2085, lng: -79.8890 },
-      { code: "ECOTEC", name: "Universidad ECOTEC", campus: "Campus Samborondón / Juan Tanca", logo: "ECOTEC.png", lat: -2.1150, lng: -79.8620 },
-      { code: "UCG", name: "Casa Grande", campus: "Ciudadela Miraflores", logo: "CASA GRANDE.png", lat: -2.1695, lng: -79.9142 },
-      { code: "UARTES", name: "UArtes", campus: "Malecón Simón Bolívar (Centro)", logo: "UARTES.png", lat: -2.1945, lng: -79.8812 },
-      { code: "ULVR", name: "Laica Vicente Rocafuerte", campus: "Av. de las Américas", logo: "LAICA.png", lat: -2.1640, lng: -79.8950 },
-      { code: "UIDE", name: "UIDE Guayaquil", campus: "Av. Juan Tanca Marengo", logo: "UIDE.png", lat: -2.1480, lng: -79.9020 },
-      { code: "UMET", name: "UMET", campus: "Av. Carlos Luis Plaza Dañín", logo: "UMET.png", lat: -2.1620, lng: -79.8930 },
-      { code: "UPACIFICO", name: "Del Pacífico", campus: "Km 7.5 Vía a la Costa", logo: "PACIFICO.png", lat: -2.1680, lng: -79.9480 },
-      { code: "UBE", name: "UBE Bolivariana", campus: "Km 5.5 Vía Durán - Yaguachi", logo: "UBE.png", lat: -2.1850, lng: -79.8150 },
-      { code: "ITB", name: "ITB Bolivariano", campus: "Cdla. La Atarazana", logo: "ITB.png", lat: -2.1720, lng: -79.8850 }
+      { code: "ESPOL", name: "ESPOL", domain: "@espol.edu.ec", campus: "Campus Gustavo Galindo (Prosperina)", logo: "ESPOL.png", lat: -2.1446, lng: -79.9675 },
+      { code: "UG", name: "Universidad de Guayaquil", domain: "@ug.edu.ec", campus: "Ciudadela Universitaria Salvador Allende", logo: "UG.png", lat: -2.1815, lng: -79.8975 },
+      { code: "UCSG", name: "UCSG Católica", domain: "@cu.ucsg.edu.ec", campus: "Av. Carlos Julio Arosemena", logo: "CATOLICA.png", lat: -2.1812, lng: -79.9035 },
+      { code: "UEES", name: "UEES Samborondón", domain: "@uees.edu.ec", campus: "Km 2.5 Vía a Samborondón", logo: "ESPIRITU SANTO.png", lat: -2.1325, lng: -79.8660 },
+      { code: "UPS", name: "Salesiana (UPS)", domain: "@est.ups.edu.ec", campus: "Campus Centenario / Robles", logo: "SALESIANA.png", lat: -2.2085, lng: -79.8890 },
+      { code: "ECOTEC", name: "Universidad ECOTEC", domain: "@ecotec.edu.ec", campus: "Campus Samborondón / Juan Tanca", logo: "ECOTEC.png", lat: -2.1150, lng: -79.8620 },
+      { code: "UCG", name: "Casa Grande", domain: "@casagrande.edu.ec", campus: "Ciudadela Miraflores", logo: "CASA GRANDE.png", lat: -2.1695, lng: -79.9142 },
+      { code: "UARTES", name: "UArtes", domain: "@uartes.edu.ec", campus: "Malecón Simón Bolívar (Centro)", logo: "UARTES.png", lat: -2.1945, lng: -79.8812 },
+      { code: "ULVR", name: "Laica Vicente Rocafuerte", domain: "@ulvr.edu.ec", campus: "Av. de las Américas", logo: "LAICA.png", lat: -2.1640, lng: -79.8950 },
+      { code: "UIDE", name: "UIDE Guayaquil", domain: "@uide.edu.ec", campus: "Av. Juan Tanca Marengo", logo: "UIDE.png", lat: -2.1480, lng: -79.9020 },
+      { code: "UMET", name: "UMET", domain: "@umet.edu.ec", campus: "Av. Carlos Luis Plaza Dañín", logo: "UMET.png", lat: -2.1620, lng: -79.8930 },
+      { code: "UPACIFICO", name: "Del Pacífico", domain: "@upacifico.edu.ec", campus: "Km 7.5 Vía a la Costa", logo: "PACIFICO.png", lat: -2.1680, lng: -79.9480 },
+      { code: "UBE", name: "UBE Bolivariana", domain: "@ube.edu.ec", campus: "Km 5.5 Vía Durán - Yaguachi", logo: "UBE.png", lat: -2.1850, lng: -79.8150 },
+      { code: "ITB", name: "ITB Bolivariano", domain: "@itb.edu.ec", campus: "Cdla. La Atarazana", logo: "ITB.png", lat: -2.1720, lng: -79.8850 }
     ];
 
     const guayaquilDirectory = [
@@ -669,6 +978,7 @@
       if (uniObj) {
         step1Map.setView([uniObj.lat, uniObj.lng], 16);
         step1Marker.setLatLng([uniObj.lat, uniObj.lng]).setPopupContent(`Campus ${uniObj.name}`).openPopup();
+        document.getElementById('navVerifiedPill').innerText = `✓ ${uniObj.code}`;
       }
       updateLivePreview();
     }
@@ -773,21 +1083,117 @@
       document.getElementById('prevSchedule').innerText = `🕒 ${fullSchedule}`;
     }
 
+    // ACTUALIZACIÓN COMPLETA DE LA VISTA PREVIA EN TIEMPO REAL (INCLUYENDO DOMINIO @...edu.ec)
     function updateLivePreview() {
       const title = document.getElementById('inpTitle').value.trim();
       const faculty = document.getElementById('inpFaculty').value.trim();
       const spot = document.getElementById('inpDeliverySpot').value.trim();
       const condDesc = document.getElementById('inpRealConditionDesc').value.trim();
+      const category = document.getElementById('inpCategory').value;
+      const finalPrice = parseFloat(document.getElementById('itemPrice').value) || 0;
+      const origPrice = parseFloat(document.getElementById('originalPriceInput').value) || 0;
+
+      const uniObj = allUniversities.find(u => u.code === selectedUniCode) || allUniversities[0];
 
       document.getElementById('prevTitle').innerText = title || "Nombre de tu artículo universitario";
-      document.getElementById('prevUni').innerText = `📍 ${selectedUniCode}`;
+      document.getElementById('prevUni').innerText = `📍 ${selectedUniCode} · ${category}`;
       document.getElementById('prevFaculty').innerText = `🎓 ${faculty || "Facultad y Carrera"}`;
       document.getElementById('prevSpot').innerText = `📌 ${spot || "Biblioteca Central / Cafetería FIMCP"}`;
       document.getElementById('prevConditionDesc').innerText = condDesc ? `Estado real: ${condDesc}` : "Estado real: Sin rayones ni fallas, listo para entrega en campus.";
+
+      // Actualizar dominio institucional de estudiante verificado en la tarjeta derecha
+      document.getElementById('prevSellerDomain').innerText = uniObj.domain;
+      document.getElementById('guaranteeDomainLabel').innerText = `Verificación vía dominio ${uniObj.domain}`;
+
+      document.getElementById('prevPrice').innerText = finalPrice > 0 ? `$${finalPrice}` : "$0";
+
+      const oldEl = document.getElementById('prevOldPrice');
+      const saveEl = document.getElementById('prevSaveTag');
+      const pillBox = document.getElementById('savingsPillBox');
+
+      if (origPrice > finalPrice && finalPrice > 0) {
+        const pct = Math.round(((origPrice - finalPrice) / origPrice) * 100);
+        oldEl.innerText = `$${origPrice}`;
+        oldEl.style.display = 'inline';
+        saveEl.innerText = `Ahorras ${pct}%`;
+        saveEl.style.display = 'inline-block';
+        pillBox.innerHTML = `<span class="savings-summary-pill">🎉 El comprador ahorra $${(origPrice - finalPrice).toFixed(0)} (${pct}%) frente a tienda</span>`;
+      } else {
+        oldEl.style.display = 'none';
+        saveEl.style.display = 'none';
+        pillBox.innerHTML = '';
+      }
     }
+
+    // ENVÍO FINAL DE LOS 3 PASOS AL CATÁLOGO DE dashboard.html Y detalle.html
+    document.getElementById('fullPublishWizardForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const title = document.getElementById('inpTitle').value.trim();
+      const faculty = document.getElementById('inpFaculty').value.trim();
+      const price = parseFloat(document.getElementById('itemPrice').value);
+
+      if (!title || !faculty) {
+        alert("Por favor completa el nombre del material y tu facultad en el Paso 1.");
+        goToWizardStep(1);
+        return;
+      }
+      if (!price || price <= 0) {
+        alert("Por favor define el precio de venta final en el Paso 3 antes de publicar.");
+        goToWizardStep(3);
+        return;
+      }
+
+      const spot = document.getElementById('inpDeliverySpot').value.trim() || `Campus ${selectedUniCode}`;
+      const schedule = document.getElementById('compiledScheduleDisplay').innerText;
+      const condDesc = document.getElementById('inpRealConditionDesc').value.trim() || "Artículo verificado en excelente estado.";
+      const category = document.getElementById('inpCategory').value;
+      const origPrice = parseFloat(document.getElementById('originalPriceInput').value) || Math.round(price * 1.5);
+      const phone = document.getElementById('inpPhone').value.trim() || "593987654320";
+      const allowSwap = document.getElementById('chkAllowSwap').checked;
+      const swapOffer = allowSwap ? (document.getElementById('inpSwapOffer').value.trim() || "Abierto a propuestas de libros o materiales") : "Solo venta directa";
+      const swapDiscount = allowSwap ? (parseFloat(document.getElementById('inpSwapDiscount').value) || Math.round(price * 0.35)) : 0;
+      const tagsStr = document.getElementById('inpHashtags').value.trim();
+
+      const tagsArray = tagsStr ? tagsStr.split(' ').filter(t => t.startsWith('#')) : [`#${selectedUniCode.toLowerCase()}`, "#materiales"];
+      const now = new Date();
+      const dateFormatted = `${now.getDate()} ${now.toLocaleString('es-ES', { month: 'short' })} ${now.getFullYear()}`;
+
+      const fullDesc = `${condDesc} Punto de entrega preferido: ${spot} (${schedule}).`;
+
+      const newItem = {
+        id: Date.now(),
+        title,
+        price,
+        originalPrice: origPrice,
+        status: selectedCondition,
+        uni: selectedUniCode,
+        date: dateFormatted,
+        desc: fullDesc,
+        faculty,
+        category,
+        tags: tagsArray,
+        seller: "Diego Y.",
+        sellerSem: "5to Sem.",
+        sellerRating: "5.0",
+        sellerSales: 7,
+        phone,
+        isMyPost: true,
+        exchangeOffer: swapOffer,
+        exchangeDiscount: swapDiscount,
+        image: uploadedImageUrl || "https://images.unsplash.com/photo-1574607383476-f517f260d30b?w=600&auto=format&fit=crop&q=80"
+      };
+
+      const existing = JSON.parse(localStorage.getItem('uniloop_materials_v2')) || [];
+      existing.unshift(newItem);
+      localStorage.setItem('uniloop_materials_v2', JSON.stringify(existing));
+
+      window.location.href = `dashboard.html?newUni=${encodeURIComponent(selectedUniCode)}&published=${encodeURIComponent(title)}`;
+    });
 
     renderUniSelector();
     updateScheduleText();
+    updateLivePreview();
   </script>
 </body>
 </html>
