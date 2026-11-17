@@ -12,7 +12,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; }
     body { background-color: #f8fafc; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
 
-    /* HEADER LIMPIO CON BOTÓN DE REGRESAR */
+    /* NAVBAR LIMPIO CON BOTÓN DE REGRESAR */
     .top-header { background: #ffffff; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
     .navbar-inner { max-width: 1280px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .nav-left { display: flex; align-items: center; gap: 16px; }
@@ -72,13 +72,13 @@
     .step-title-group p { font-size: 12.5px; color: #64748b; margin-top: 2px; }
     .req-pill { background: #f1f5f9; color: #002855; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
 
-    /* SELECTOR DE LAS 14 UNIVERSIDADES (4 DESTACADAS + BUSCADOR INTELIGENTE) */
+    /* SELECTOR DE LAS 14 UNIVERSIDADES */
     .uni-search-bar {
       display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
       background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 11px; padding: 8px 14px;
     }
     .uni-search-bar input { flex: 1; border: none; background: transparent; font-size: 13px; outline: none; color: #0f172a; }
-    .uni-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; max-height: 250px; overflow-y: auto; padding-right: 4px; }
+    .uni-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; max-height: 235px; overflow-y: auto; padding-right: 4px; }
     .uni-radio-card {
       border: 1.5px solid #e2e8f0; background: #f8fafc; border-radius: 12px; padding: 10px 12px;
       display: flex; align-items: center; justify-content: space-between; gap: 10px;
@@ -99,7 +99,7 @@
     .uni-text-info strong { display: block; font-size: 13px; color: #0f172a; }
     .uni-text-info span { display: block; font-size: 11px; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* FORMULARIO DATOS BÁSICOS + BUSCADOR DE PUNTO DE ENTREGA + HORARIO L-V */
+    /* FORMULARIO DATOS BÁSICOS + BUSCADOR GLOBAL DE GUAYAQUIL EN MAPA */
     .form-2-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     @media (max-width: 640px) { .form-2-cols { grid-template-columns: 1fr; } }
 
@@ -111,19 +111,31 @@
     }
     .field-box input:focus, .field-box select:focus { background: #ffffff; border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12); }
 
-    /* AUTOCOMPLETADO INTELIGENTE DEL MAPA */
+    .search-input-wrap { position: relative; display: flex; align-items: center; }
+    .search-input-wrap input { padding-right: 34px; }
+    .search-spinner {
+      position: absolute; right: 10px; font-size: 12px; color: #0284c7; display: none;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    /* AUTOCOMPLETADO ESTILO GOOGLE MAPS */
     .map-suggestions-list {
       position: absolute; top: 100%; left: 0; right: 0; background: #ffffff;
-      border: 1px solid #cbd5e1; border-radius: 11px; box-shadow: 0 12px 28px rgba(0, 40, 85, 0.15);
-      max-height: 210px; overflow-y: auto; z-index: 60; display: none; margin-top: 4px;
+      border: 1px solid #cbd5e1; border-radius: 12px; box-shadow: 0 14px 32px rgba(0, 40, 85, 0.18);
+      max-height: 240px; overflow-y: auto; z-index: 80; display: none; margin-top: 4px;
     }
     .map-suggestions-list.open { display: block; }
-    .map-sug-item { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; cursor: pointer; font-size: 12.5px; }
+    .map-sug-section {
+      padding: 5px 12px; background: #f8fafc; font-size: 10px; font-weight: 800;
+      color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #f1f5f9;
+    }
+    .map-sug-item { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; cursor: pointer; font-size: 12.5px; display: flex; align-items: flex-start; gap: 9px; }
     .map-sug-item:hover { background: #f0f9ff; }
-    .map-sug-item strong { display: block; color: #002855; }
+    .map-sug-item strong { display: block; color: #0f172a; font-size: 12.5px; }
     .map-sug-item span { font-size: 11px; color: #64748b; }
 
-    #step1MiniMap { width: 100%; height: 130px; border-radius: 10px; border: 1px solid #cbd5e1; margin-top: 8px; z-index: 1; }
+    #step1MiniMap { width: 100%; height: 155px; border-radius: 12px; border: 1px solid #cbd5e1; margin-top: 8px; z-index: 1; }
 
     /* SELECTOR DE DÍAS L-V Y HORAS MANUALES */
     .days-pills-row { display: flex; gap: 6px; margin-bottom: 8px; }
@@ -150,7 +162,6 @@
     .preview-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; }
     .feed-badge { background: #f1f5f9; color: #475569; font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
 
-    /* TARJETA SIMULADA DEL MARKETPLACE */
     .mock-product-card { border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; background: #ffffff; margin-top: 14px; }
     .mock-img-box { position: relative; height: 175px; background: #e2e8f0; }
     .mock-img-box img { width: 100%; height: 100%; object-fit: cover; }
@@ -164,7 +175,7 @@
 </head>
 <body>
 
-  <!-- NAVBAR LIMPIO SIN BARRA SECUNDARIA -->
+  <!-- NAVBAR LIMPIO -->
   <header class="top-header">
     <div class="navbar-inner">
       <div class="nav-left">
@@ -227,9 +238,7 @@
       </div>
     </div>
 
-    <!-- CONTENEDOR DIVIDIDO: FORMULARIO PASO 1 + VISTA PREVIA EN VIVO -->
     <div class="wizard-layout">
-      
       <!-- COLUMNA IZQUIERDA: PASO 1 -->
       <div class="step-card" id="step1Container">
         <div class="step-card-header">
@@ -237,13 +246,12 @@
             <div class="step-icon-badge">🎓</div>
             <div>
               <h2>1. Universidad, Datos y Punto de Entrega</h2>
-              <p>Define tu campus de origen y organiza entregas seguras cara a cara</p>
+              <p>Define tu campus de origen y busca cualquier punto de encuentro en Guayaquil</p>
             </div>
           </div>
           <span class="req-pill">Obligatorio</span>
         </div>
 
-        <!-- DATOS DEL ARTÍCULO -->
         <div class="form-2-cols">
           <div class="field-box">
             <label>Nombre del material, libro o equipo</label>
@@ -256,7 +264,6 @@
           </div>
         </div>
 
-        <!-- SELECTOR DE LAS 14 UNIVERSIDADES CON BUSCADOR -->
         <div class="field-box">
           <label>Selecciona tu Universidad (14 campus conectados en Guayaquil):</label>
           <div class="uni-search-bar">
@@ -266,14 +273,17 @@
           <div class="uni-cards-grid" id="uniSelectorGrid"></div>
         </div>
 
-        <!-- BUSCADOR INTELIGENTE DE PUNTO DE ENTREGA CONECTADO AL MAPA + HORARIO L-V -->
+        <!-- BUSCADOR GLOBAL DE GUAYAQUIL CONECTADO AL MAPA -->
         <div class="form-2-cols">
           <div class="field-box">
-            <label>Punto de entrega preferido (Buscador conectado al mapa)</label>
-            <input type="text" id="inpDeliverySpot" placeholder="Escribe ej: Biblioteca, FIMCP, Plaza Calderón..." oninput="filterMapSpots(this.value)" onfocus="filterMapSpots(this.value)" autocomplete="off">
+            <label>Punto de entrega (Busca cualquier sitio de Guayaquil o campus)</label>
+            <div class="search-input-wrap">
+              <input type="text" id="inpDeliverySpot" placeholder="Ej: San Marino, Plaza Rodolfo Baquerizo, Biblioteca ESPOL..." oninput="onSearchPlaceInput(this.value)" onfocus="onSearchPlaceInput(this.value)" autocomplete="off">
+              <span class="search-spinner" id="mapSearchSpinner">⏳</span>
+            </div>
             <div class="map-suggestions-list" id="mapSuggestionsBox"></div>
             <div id="step1MiniMap"></div>
-            <span style="font-size:11px; color:#64748b; display:block; margin-top:5px;">Sugerencia: Lugares concurridos con seguridad universitaria.</span>
+            <span style="font-size:11px; color:#64748b; display:block; margin-top:5px;">Escribe cualquier plaza, centro comercial o facultad (o haz clic directo en el mapa).</span>
           </div>
 
           <div class="field-box">
@@ -330,15 +340,14 @@
           </div>
         </div>
       </aside>
-
     </div>
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     let selectedUniCode = "ESPOL";
+    let searchDebounceTimer = null;
 
-    // CATÁLOGO COMPLETO DE LAS 14 UNIVERSIDADES
     const allUniversities = [
       { code: "ESPOL", name: "ESPOL", campus: "Campus Gustavo Galindo (Prosperina)", logo: "ESPOL.png", lat: -2.1446, lng: -79.9675 },
       { code: "UG", name: "Universidad de Guayaquil", campus: "Ciudadela Universitaria Salvador Allende", logo: "UG.png", lat: -2.1815, lng: -79.8975 },
@@ -356,27 +365,41 @@
       { code: "ITB", name: "ITB Bolivariano", campus: "Cdla. La Atarazana", logo: "ITB.png", lat: -2.1720, lng: -79.8850 }
     ];
 
-    // PUNTOS DE ENTREGA SEGUROS CONECTADOS AL MAPA
-    const mapDeliveryPoints = [
-      { uni: "ESPOL", name: "Biblioteca Central ESPOL", detail: "Lobby principal y mesas de estudio", lat: -2.1446, lng: -79.9675 },
-      { uni: "ESPOL", name: "Cafetería FIMCP / Talleres", detail: "Pasillos de Ingeniería Mecánica", lat: -2.1458, lng: -79.9652 },
-      { uni: "ESPOL", name: "Laboratorios FIEC / Sweet & Coffee", detail: "Facultad de Ingeniería Eléctrica", lat: -2.1441, lng: -79.9688 },
-      { uni: "ESPOL", name: "FCSH / Edificio Administrativo", detail: "Planta baja con cámaras 24/7", lat: -2.1465, lng: -79.9668 },
-      { uni: "UG", name: "Plaza Central Ciudadela UG", detail: "Frente a Rectorado y Biblioteca", lat: -2.1815, lng: -79.8975 },
-      { uni: "UG", name: "Facultad de Ciencias Médicas UG", detail: "Entrada principal junto a garita", lat: -2.1830, lng: -79.8960 },
-      { uni: "UCSG", name: "Plaza Calderón UCSG", detail: "Punto central frente a cafetería", lat: -2.1812, lng: -79.9035 },
-      { uni: "UEES", name: "Edificio E · Starbucks UEES", detail: "Terraza techada con cámaras", lat: -2.1325, lng: -79.8660 },
-      { uni: "UPS", name: "Patio Central Campus Centenario", detail: "Junto a bienestar estudiantil", lat: -2.2085, lng: -79.8890 },
-      { uni: "ECOTEC", name: "Lobby Principal Samborondón", detail: "Recepción y cafetería central", lat: -2.1150, lng: -79.8620 },
-      { uni: "UCG", name: "Patio Central / Ágora Casa Grande", detail: "Área abierta de integración", lat: -2.1695, lng: -79.9142 }
+    // PUNTOS INTERNOS DE CAMPUS (SUGERENCIAS RÁPIDAS)
+    const campusSafeSpots = [
+      { name: "Biblioteca Central ESPOL", detail: "Punto Seguro · Campus Prosperina", lat: -2.1446, lng: -79.9675 },
+      { name: "Cafetería FIMCP / Talleres ESPOL", detail: "Punto Seguro · Ingeniería Mecánica", lat: -2.1458, lng: -79.9652 },
+      { name: "Sweet & Coffee FIEC · ESPOL", detail: "Punto Seguro · Ingeniería Eléctrica", lat: -2.1441, lng: -79.9688 },
+      { name: "Plaza Central Ciudadela UG", detail: "Punto Seguro · Universidad de Guayaquil", lat: -2.1815, lng: -79.8975 },
+      { name: "Plaza Calderón · UCSG", detail: "Punto Seguro · Universidad Católica", lat: -2.1812, lng: -79.9035 },
+      { name: "Edificio E · Starbucks UEES", detail: "Punto Seguro · Samborondón", lat: -2.1325, lng: -79.8660 },
+      { name: "Plaza Rodolfo Baquerizo Moreno", detail: "Malecón del Salado · Guayaquil", lat: -2.1835, lng: -79.8942 },
+      { name: "Centro Comercial San Marino Shopping", detail: "Av. Francisco de Orellana · Guayaquil", lat: -2.1678, lng: -79.8986 }
     ];
 
-    // INICIALIZAR MINI MAPA CON ESTILO GOOGLE MAPS
-    const step1Map = L.map('step1MiniMap', { zoomControl: false, attributionControl: false }).setView([-2.1446, -79.9675], 16);
+    // INICIALIZAR MAPA ESTILO GOOGLE MAPS
+    const step1Map = L.map('step1MiniMap', { zoomControl: true, attributionControl: false }).setView([-2.1446, -79.9675], 16);
     L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', { maxZoom: 20 }).addTo(step1Map);
-    let step1Marker = L.marker([-2.1446, -79.9675]).addTo(step1Map).bindPopup("Biblioteca Central ESPOL").openPopup();
+    let step1Marker = L.marker([-2.1446, -79.9675], { draggable: true }).addTo(step1Map).bindPopup("Biblioteca Central ESPOL").openPopup();
 
-    // RENDERIZAR SELECTOR DE LAS 14 UNIVERSIDADES
+    // PERMITIR HACER CLIC EN CUALQUIER PARTE DEL MAPA PARA FIJAR PUNTO
+    step1Map.on('click', async function(e) {
+      const { lat, lng } = e.latlng;
+      step1Marker.setLatLng([lat, lng]);
+      try {
+        const res = await fetch(`https://photon.komoot.io/reverse?lon=${lng}&lat=${lat}`);
+        const data = await res.json();
+        const props = data.features && data.features[0] ? data.features[0].properties : {};
+        const placeName = props.name || props.street || `Ubicación marcada (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
+        document.getElementById('inpDeliverySpot').value = placeName;
+        step1Marker.setPopupContent(`<strong>📍 ${placeName}</strong>`).openPopup();
+        updateLivePreview();
+      } catch (err) {
+        document.getElementById('inpDeliverySpot').value = `Punto en mapa (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
+        updateLivePreview();
+      }
+    });
+
     function renderUniSelector(filterText = "") {
       const grid = document.getElementById('uniSelectorGrid');
       const query = filterText.toLowerCase().trim();
@@ -413,42 +436,88 @@
       updateLivePreview();
     }
 
-    // BUSCADOR INTELIGENTE DE PUNTOS CONECTADO AL MAPA
-    function filterMapSpots(queryText) {
+    // BUSCADOR EN TIEMPO REAL DE CUALQUIER LUGAR DE GUAYAQUIL (PHOTON GEOCODER + CAMPUS)
+    function onSearchPlaceInput(rawVal) {
+      updateLivePreview();
+      const q = rawVal.trim();
       const box = document.getElementById('mapSuggestionsBox');
-      const q = queryText.toLowerCase().trim();
+      const spinner = document.getElementById('mapSearchSpinner');
 
-      const matches = mapDeliveryPoints.filter(p =>
-        p.name.toLowerCase().includes(q) ||
-        p.detail.toLowerCase().includes(q) ||
-        p.uni.toLowerCase().includes(q)
+      clearTimeout(searchDebounceTimer);
+
+      // Coincidencias locales rápidas
+      const localMatches = campusSafeSpots.filter(s =>
+        s.name.toLowerCase().includes(q.toLowerCase()) ||
+        s.detail.toLowerCase().includes(q.toLowerCase())
       );
 
-      if (matches.length === 0) {
-        box.classList.remove('open');
-        updateLivePreview();
+      if (q.length < 2) {
+        renderSuggestionsDropdown(localMatches, []);
         return;
       }
 
-      box.innerHTML = matches.map(p => `
-        <div class="map-sug-item" onclick="chooseMapSpot('${p.name}', ${p.lat}, ${p.lng}, '${p.uni}')">
-          <strong>📍 ${p.name} (${p.uni})</strong>
-          <span>${p.detail}</span>
-        </div>
-      `).join('');
-      box.classList.add('open');
-      updateLivePreview();
+      spinner.style.display = 'inline';
+      searchDebounceTimer = setTimeout(async () => {
+        try {
+          // Búsqueda en vivo sesgada a Guayaquil (-2.18, -79.89)
+          const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(q + ' Guayaquil')}&lat=-2.18&lon=-79.89&limit=6`;
+          const response = await fetch(url);
+          const data = await response.json();
+
+          const livePlaces = (data.features || []).map(f => {
+            const p = f.properties;
+            const coords = f.geometry.coordinates; // [lng, lat]
+            const title = p.name || p.street || q;
+            const sub = [p.street, p.district, p.city || 'Guayaquil'].filter(Boolean).join(', ');
+            return { name: title, detail: sub, lat: coords[1], lng: coords[0] };
+          });
+
+          renderSuggestionsDropdown(localMatches, livePlaces);
+        } catch (err) {
+          renderSuggestionsDropdown(localMatches, []);
+        } finally {
+          spinner.style.display = 'none';
+        }
+      }, 320);
     }
 
-    function chooseMapSpot(name, lat, lng, uniCode) {
+    function renderSuggestionsDropdown(localList, apiList) {
+      const box = document.getElementById('mapSuggestionsBox');
+      if (localList.length === 0 && apiList.length === 0) {
+        box.classList.remove('open');
+        return;
+      }
+
+      let html = '';
+      if (localList.length > 0) {
+        html += `<div class="map-sug-section">Puntos Frecuentes &amp; Campus</div>`;
+        html += localList.map(p => `
+          <div class="map-sug-item" onclick="chooseMapSpot('${p.name.replace(/'/g, "\\'")}', ${p.lat}, ${p.lng})">
+            <span>🏛️</span>
+            <div><strong>${p.name}</strong><span>${p.detail}</span></div>
+          </div>
+        `).join('');
+      }
+
+      if (apiList.length > 0) {
+        html += `<div class="map-sug-section">Resultados en el Mapa de Guayaquil</div>`;
+        html += apiList.map(p => `
+          <div class="map-sug-item" onclick="chooseMapSpot('${p.name.replace(/'/g, "\\'")}', ${p.lat}, ${p.lng})">
+            <span>📍</span>
+            <div><strong>${p.name}</strong><span>${p.detail}</span></div>
+          </div>
+        `).join('');
+      }
+
+      box.innerHTML = html;
+      box.classList.add('open');
+    }
+
+    function chooseMapSpot(name, lat, lng) {
       document.getElementById('inpDeliverySpot').value = name;
       document.getElementById('mapSuggestionsBox').classList.remove('open');
       step1Map.setView([lat, lng], 17);
-      step1Marker.setLatLng([lat, lng]).setPopupContent(`<strong>${name}</strong>`).openPopup();
-      if (uniCode && uniCode !== selectedUniCode) {
-        selectedUniCode = uniCode;
-        renderUniSelector();
-      }
+      step1Marker.setLatLng([lat, lng]).setPopupContent(`<strong>📍 ${name}</strong>`).openPopup();
       updateLivePreview();
     }
 
@@ -458,7 +527,7 @@
       }
     });
 
-    // SELECTOR DE DÍAS (LUNES A VIERNES) Y HORAS MANUALES
+    // SELECTOR DE DÍAS L-V Y HORAS MANUALES
     function toggleDay(btn) {
       btn.classList.toggle('active');
       updateScheduleText();
@@ -479,7 +548,6 @@
       document.getElementById('prevSchedule').innerText = `🕒 ${fullSchedule}`;
     }
 
-    // ACTUALIZAR VISTA PREVIA EN TIEMPO REAL
     function updateLivePreview() {
       const title = document.getElementById('inpTitle').value.trim();
       const faculty = document.getElementById('inpFaculty').value.trim();
@@ -491,7 +559,6 @@
       document.getElementById('prevSpot').innerText = `📌 ${spot || "Punto seguro en campus"}`;
     }
 
-    // INICIALIZAR
     renderUniSelector();
     updateScheduleText();
   </script>
